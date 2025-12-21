@@ -42,11 +42,13 @@ class Phong extends Model
 
     public function getTongSoThietBiAttribute()
     {
-        return $this->thietBis()->sum('so_luong');
+        // Đếm số thiết bị (mỗi record = 1 máy)
+        return $this->thietBis()->count();
     }
 
     public function getTongGiaTriThietBiAttribute()
     {
+        // Tổng giá trị = tổng gia_tri của tất cả thiết bị
         return $this->thietBis()->sum('gia_tri');
     }
 }

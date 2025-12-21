@@ -29,8 +29,9 @@ class UpdateCoSoRequest extends FormRequest
             'ma_co_so' => 'required|string|unique:co_sos,ma_co_so,' . $coSoId,
             'ten_co_so' => 'required|string|max:255',
             'dia_chi' => 'required|string',
-            'tong_dien_tich' => 'required|numeric|min:0',
-            'dien_tich_san_xay_dung' => 'required|numeric|min:0',
+            'dien_tich_dat' => 'required|numeric|min:0',
+            'vi_tri_khuon_vien' => 'required|numeric|min:0',
+            // dien_tich_quy_doi được tính tự động ở backend
             'mo_ta' => 'nullable|string',
             'trang_thai' => 'required|in:active,inactive',
         ];
@@ -47,8 +48,8 @@ class UpdateCoSoRequest extends FormRequest
             'ma_co_so' => 'Mã cơ sở',
             'ten_co_so' => 'Tên cơ sở',
             'dia_chi' => 'Địa chỉ',
-            'tong_dien_tich' => 'Tổng diện tích',
-            'dien_tich_san_xay_dung' => 'Diện tích sàn xây dựng',
+            'dien_tich_dat' => 'Diện tích đất',
+            'vi_tri_khuon_vien' => 'Vị trí khuôn viên',
             'mo_ta' => 'Mô tả',
             'trang_thai' => 'Trạng thái',
         ];
@@ -63,8 +64,8 @@ class UpdateCoSoRequest extends FormRequest
     {
         return [
             'ma_co_so.unique' => 'Mã cơ sở đã tồn tại trong hệ thống.',
-            'tong_dien_tich.min' => 'Tổng diện tích phải lớn hơn hoặc bằng 0.',
-            'dien_tich_san_xay_dung.min' => 'Diện tích sàn xây dựng phải lớn hơn hoặc bằng 0.',
+            'dien_tich_dat.min' => 'Diện tích đất phải lớn hơn hoặc bằng 0.',
+            'vi_tri_khuon_vien.min' => 'Vị trí khuôn viên phải lớn hơn hoặc bằng 0.',
         ];
     }
 }

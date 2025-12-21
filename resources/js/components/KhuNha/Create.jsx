@@ -1,13 +1,14 @@
 import React from 'react';
 import MainLayout from '../Layout/MainLayout';
-import { Form, Input, InputNumber, Button, Card, Space, Select, message } from 'antd';
-import { SaveOutlined, RollbackOutlined } from '@ant-design/icons';
+import { Form, Input, InputNumber, Button, Card, Space, Select, message, Row, Col, Alert, Statistic } from 'antd';
+import { SaveOutlined, RollbackOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import { router, Link } from '@inertiajs/react';
 
 const { TextArea } = Input;
 
 const Create = ({ coSos }) => {
     const [form] = Form.useForm();
+    const [dienTichSanDaoTao, setDienTichSanDaoTao] = React.useState(0);
 
     const handleSubmit = (values) => {
         router.post('/khu-nha', values, {
@@ -20,9 +21,29 @@ const Create = ({ coSos }) => {
         });
     };
 
+    const handleDienTichChange = () => {
+        const tongDienTichSan = form.getFieldValue('tong_dien_tich_san') || 0;
+        const heSoSuDung = form.getFieldValue('he_so_su_dung_dao_tao') || 0.7;
+        const dienTichSanDaoTaoMoi = tongDienTichSan * heSoSuDung;
+        setDienTichSanDaoTao(dienTichSanDaoTaoMoi);
+    };
+
+    const formatNumber = (value) => {
+        return new Intl.NumberFormat('vi-VN').format(value);
+    };
+
     return (
         <MainLayout>
             <Card title="Thêm khu nhà mới">
+                <Alert
+                    message="Công thức tính diện tích sàn đào tạo"
+                    description="DT sàn đào tạo = Tổng DT sàn xây dựng × Hệ số sử dụng cho đào tạo. Hệ số mặc định là 0.7 (70%)."
+                    type="info"
+                    icon={<InfoCircleOutlined />}
+                    showIcon
+                    style={{ marginBottom: 24 }}
+                    closable
+                />
                 <Form
                     form={form}
                     layout="vertical"
@@ -30,6 +51,7 @@ const Create = ({ coSos }) => {
                     initialValues={{
                         trang_thai: 'active',
                         so_tang: 1,
+                        he_so_su_dung_dao_tao: 0.7,
                     }}
                 >
                     <Form.Item
@@ -95,39 +117,63 @@ const Create = ({ coSos }) => {
                         />
                     </Form.Item>
 
-                    <Form.Item
-                        label="Diện tích sân xây dựng (m²)"
-                        name="dien_tich_san_xay_dung"
-                        rules={[
-                            { required: true, message: 'Vui lòng nhập diện tích sân xây dựng!' },
-                        ]}
-                    >
-                        <InputNumber
-                            style={{ width: '100%' }}
-                            size="large"
-                            min={0}
-                            placeholder="Nhập diện tích sân xây dựng"
-                            formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                            parser={value => value.replace(/\$\s?|(,*)/g, '')}
-                        />
-                    </Form.Item>
+                    <Row gutter={16}>
+                        <Col xs={24} md={8}>
+                            <Form.Item
+                                label="Tổng diện tích sàn XD (m²)"
+                                name="tong_dien_tich_san"
+                                rules={[
+                                    { required: true, message: 'Vui lòng nhập tổng diện tích sàn!' },
+                                ]}
+                                tooltip="Tổng diện tích sàn xây dựng của khu nhà"
+                            >
+                                <InputNumber
+                                    style={{ width: '100%' }}
+                                    size="large"
+                                    min={0}
+                                    placeholder="Nhập tổng DT sàn"
+                                    formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                    parser={value => value.replace(/\$\s?|(,*)/g, '')}
+                                    onChange={handleDienTichChange}
+                                />
+                            </Form.Item>
+                        </Col>
 
-                    <Form.Item
-                        label="Diện tích sử dụng (m²)"
-                        name="dien_tich_su_dung"
-                        rules={[
-                            { required: true, message: 'Vui lòng nhập diện tích sử dụng!' },
-                        ]}
-                    >
-                        <InputNumber
-                            style={{ width: '100%' }}
-                            size="large"
-                            min={0}
-                            placeholder="Nhập diện tích sử dụng"
-                            formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                            parser={value => value.replace(/\$\s?|(,*)/g, '')}
-                        />
-                    </Form.Item>
+                        <Col xs={24} md={8}>
+                            <Form.Item
+                                label="Hệ số sử dụng cho đào tạo"
+                                name="he_so_su_dung_dao_tao"
+                                rules={[
+                                    { required: true, message: 'Vui lòng nhập hệ số!' },
+                                ]}
+                                tooltip="Hệ số phần diện tích sử dụng cho đào tạo (mặc định 0.7 = 70%)"
+                            >
+                                <InputNumber
+                                    style={{ width: '100%' }}
+                                    size="large"
+                                    min={0}
+                                    max={1}
+                                    step={0.05}
+                                    placeholder="Mặc định: 0.7"
+                                    onChange={handleDienTichChange}
+                                />
+                            </Form.Item>
+                        </Col>
+
+                        <Col xs={24} md={8}>
+                            <Form.Item label="DT sàn sử dụng cho đào tạo (m²)">
+                                <Card size="small" style={{ background: '#f6ffed', border: '1px solid #b7eb8f' }}>
+                                    <Statistic
+                                        value={dienTichSanDaoTao}
+                                        precision={2}
+                                        suffix="m²"
+                                        valueStyle={{ color: '#3f8600', fontSize: '20px' }}
+                                    />
+                                    <small style={{ color: '#666' }}>= Tổng DT sàn × Hệ số</small>
+                                </Card>
+                            </Form.Item>
+                        </Col>
+                    </Row>
 
                     <Form.Item
                         label="Năm xây dựng"

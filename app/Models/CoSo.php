@@ -15,17 +15,17 @@ class CoSo extends Model
         'ma_co_so',
         'ten_co_so',
         'dia_chi',
-        'tong_dien_tich',
-        'dien_tich_san_xay_dung',
-        'dien_tich_con_lai',
+        'dien_tich_dat',        // Diện tích đất (m²) - nhập tay
+        'vi_tri_khuon_vien',    // Vị trí khuôn viên (hệ số) - mặc định 2.5 theo BGD
+        'dien_tich_quy_doi',    // Diện tích quy đổi = dien_tich_dat * vi_tri_khuon_vien
         'mo_ta',
         'trang_thai',
     ];
 
     protected $casts = [
-        'tong_dien_tich' => 'decimal:2',
-        'dien_tich_san_xay_dung' => 'decimal:2',
-        'dien_tich_con_lai' => 'decimal:2',
+        'dien_tich_dat' => 'decimal:2',
+        'vi_tri_khuon_vien' => 'decimal:1',
+        'dien_tich_quy_doi' => 'decimal:2',
     ];
 
     public function khuNhas()

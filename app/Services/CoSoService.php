@@ -58,9 +58,10 @@ class CoSoService
      */
     public function create(array $data): CoSo
     {
-        $data['dien_tich_con_lai'] = $this->calculateRemainingArea(
-            $data['tong_dien_tich'],
-            $data['dien_tich_san_xay_dung']
+        // Tự động tính diện tích quy đổi = diện tích đất * vị trí khuôn viên
+        $data['dien_tich_quy_doi'] = $this->calculateDienTichQuyDoi(
+            $data['dien_tich_dat'],
+            $data['vi_tri_khuon_vien']
         );
         return $this->coSoRepository->create($data);
     }
@@ -71,9 +72,10 @@ class CoSoService
     public function update(int $id, array $data): CoSo
     {
         $this->getById($id);
-        $data['dien_tich_con_lai'] = $this->calculateRemainingArea(
-            $data['tong_dien_tich'],
-            $data['dien_tich_san_xay_dung']
+        // Tự động tính diện tích quy đổi = diện tích đất * vị trí khuôn viên
+        $data['dien_tich_quy_doi'] = $this->calculateDienTichQuyDoi(
+            $data['dien_tich_dat'],
+            $data['vi_tri_khuon_vien']
         );
         return $this->coSoRepository->update($id, $data);
     }
@@ -88,11 +90,16 @@ class CoSoService
     }
 
     /**
-     * {@inheritDoc}
+     * Tính diện tích quy đổi theo công thức BGD
+     * Diện tích quy đổi = Diện tích đất × Vị trí khuôn viên
+     * 
+     * @param float $dienTichDat Diện tích đất (m²)
+     * @param float $viTriKhuonVien Hệ số vị trí khuôn viên (mặc định 2.5 theo BGD)
+     * @return float Diện tích quy đổi
      */
-    public function calculateRemainingArea(float $tongDienTich, float $dienTichSanXayDung): float
+    public function calculateDienTichQuyDoi(float $dienTichDat, float $viTriKhuonVien): float
     {
-        return $tongDienTich - $dienTichSanXayDung;
+        return $dienTichDat * $viTriKhuonVien;
     }
 }
 

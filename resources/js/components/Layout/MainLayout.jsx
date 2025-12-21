@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Link, usePage } from '@inertiajs/react';
-import { Layout, Menu, theme, Badge, Avatar, Dropdown, Space, message } from 'antd';
+import React, { useState, useEffect, useMemo } from 'react';
+import { Link, usePage, router } from '@inertiajs/react';
+import { Layout, Menu, theme, Badge, Avatar, Dropdown, Space, message, Modal } from 'antd';
 import {
     DashboardOutlined,
     BankOutlined,
@@ -13,9 +13,27 @@ import {
     UserOutlined,
     LogoutOutlined,
     SettingOutlined,
+    ExclamationCircleOutlined,
+    TeamOutlined,
+    KeyOutlined,
 } from '@ant-design/icons';
 
 const { Header, Sider, Content } = Layout;
+const { confirm } = Modal;
+
+// Map icon string to component
+const iconMap = {
+    DashboardOutlined: <DashboardOutlined />,
+    BankOutlined: <BankOutlined />,
+    HomeOutlined: <HomeOutlined />,
+    AppstoreOutlined: <AppstoreOutlined />,
+    ToolOutlined: <ToolOutlined />,
+    HistoryOutlined: <HistoryOutlined />,
+    SettingOutlined: <SettingOutlined />,
+    TeamOutlined: <TeamOutlined />,
+    KeyOutlined: <KeyOutlined />,
+    UserOutlined: <UserOutlined />,
+};
 
 const MainLayout = ({ children }) => {
     const [collapsed, setCollapsed] = useState(false);
@@ -24,6 +42,8 @@ const MainLayout = ({ children }) => {
     } = theme.useToken();
     
     const { url, props } = usePage();
+    const { auth, menuScreens, userPermissions } = props;
+    const user = auth?.user;
 
     // Show flash messages from backend
     useEffect(() => {
@@ -31,72 +51,96 @@ const MainLayout = ({ children }) => {
         if (props.flash?.error) message.error(props.flash.error);
     }, [props.flash]);
 
-    const menuItems = [
-        {
-            key: '/',
-            icon: <DashboardOutlined />,
-            label: <Link href="/">Dashboard</Link>,
-        },
-        {
-            key: 'co-so',
-            icon: <BankOutlined />,
-            label: 'QL Cơ sở hạ tầng',
-            children: [
+    const handleLogout = () => {
+        confirm({
+            title: 'Xác nhận đăng xuất',
+            icon: <ExclamationCircleOutlined />,
+            content: 'Bạn có chắc chắn muốn đăng xuất khỏi hệ thống?',
+            okText: 'Đăng xuất',
+            okType: 'danger',
+            cancelText: 'Hủy',
+            onOk() {
+                router.post('/logout');
+            },
+        });
+    };
+
+    // Tạo menu items từ menuScreens
+    const menuItems = useMemo(() => {
+        if (!menuScreens || menuScreens.length === 0) {
+            // Fallback menu khi chưa có data
+            return [
                 {
-                    key: '/co-so',
-                    label: <Link href="/co-so">Danh sách cơ sở</Link>,
+                    key: '/',
+                    icon: <DashboardOutlined />,
+                    label: <Link href="/">Dashboard</Link>,
                 },
-            ],
-        },
-        {
-            key: 'khu-nha',
-            icon: <HomeOutlined />,
-            label: 'QL Khu nhà, Chức năng',
-            children: [
-                {
-                    key: '/khu-nha',
-                    label: <Link href="/khu-nha">Danh sách khu nhà</Link>,
-                },
-            ],
-        },
-        {
-            key: 'phong',
-            icon: <AppstoreOutlined />,
-            label: 'QL Phòng',
-            children: [
-                {
-                    key: '/phong',
-                    label: <Link href="/phong">Danh sách phòng</Link>,
-                },
-            ],
-        },
-        {
-            key: 'thiet-bi',
-            icon: <ToolOutlined />,
-            label: 'QL Thiết bị',
-            children: [
-                {
-                    key: '/thiet-bi',
-                    label: <Link href="/thiet-bi">Danh sách thiết bị</Link>,
-                },
-                {
-                    key: '/lich-su-bao-duong',
-                    label: <Link href="/lich-su-bao-duong">Lịch sử bảo dưỡng</Link>,
-                },
-            ],
-        },
-    ];
+            ];
+        }
+
+        return menuScreens.map((screen) => {
+            const icon = iconMap[screen.icon] || <AppstoreOutlined />;
+
+            // Nếu có children -> tạo submenu
+            if (screen.children && screen.children.length > 0) {
+                return {
+                    key: screen.code,
+                    icon: icon,
+                    label: screen.name,
+                    children: screen.children.map((child) => ({
+                        key: child.route || child.code,
+                        label: <Link href={child.route}>{child.name}</Link>,
+                    })),
+                };
+            }
+
+            // Nếu không có children và có route -> menu item đơn
+            if (screen.route) {
+                return {
+                    key: screen.route,
+                    icon: icon,
+                    label: <Link href={screen.route}>{screen.name}</Link>,
+                };
+            }
+
+            // Fallback
+            return {
+                key: screen.code,
+                icon: icon,
+                label: screen.name,
+            };
+        });
+    }, [menuScreens]);
+
+    // Lấy default open keys (chỉ các menu có children)
+    const defaultOpenKeys = useMemo(() => {
+        if (!menuScreens) return [];
+        return menuScreens
+            .filter((screen) => screen.children && screen.children.length > 0)
+            .map((screen) => screen.code);
+    }, [menuScreens]);
 
     const userMenuItems = [
         {
-            key: 'profile',
-            icon: <UserOutlined />,
-            label: 'Thông tin cá nhân',
-        },
-        {
-            key: 'settings',
-            icon: <SettingOutlined />,
-            label: 'Cài đặt',
+            key: 'user-info',
+            label: (
+                <div style={{ padding: '8px 0' }}>
+                    <div style={{ fontWeight: 600, color: '#1a365d' }}>{user?.name}</div>
+                    <div style={{ fontSize: 12, color: '#666' }}>{user?.email}</div>
+                    <div style={{ 
+                        fontSize: 11, 
+                        color: '#fff', 
+                        background: user?.role === 'admin' ? '#f5222d' : '#1890ff',
+                        padding: '2px 8px',
+                        borderRadius: 4,
+                        marginTop: 4,
+                        display: 'inline-block',
+                    }}>
+                        {user?.role === 'admin' ? 'Quản trị viên' : 'Người dùng'}
+                    </div>
+                </div>
+            ),
+            disabled: true,
         },
         {
             type: 'divider',
@@ -106,16 +150,35 @@ const MainLayout = ({ children }) => {
             icon: <LogoutOutlined />,
             label: 'Đăng xuất',
             danger: true,
+            onClick: handleLogout,
         },
     ];
 
     const getSelectedKey = () => {
-        if (url.startsWith('/co-so')) return '/co-so';
-        if (url.startsWith('/khu-nha')) return '/khu-nha';
-        if (url.startsWith('/phong')) return '/phong';
-        if (url.startsWith('/lich-su-bao-duong')) return '/lich-su-bao-duong';
-        if (url.startsWith('/thiet-bi')) return '/thiet-bi';
-        return url;
+        // Tìm key phù hợp nhất với URL hiện tại
+        const path = url.split('?')[0]; // Bỏ query string
+        
+        // Kiểm tra exact match trước
+        if (path === '/') return '/';
+        
+        // Kiểm tra các route cụ thể
+        const routes = [
+            '/co-so', '/khu-nha', '/phong', '/thiet-bi', 
+            '/lich-su-bao-duong', '/nguoi-dung', '/phan-quyen'
+        ];
+        
+        for (const route of routes) {
+            if (path.startsWith(route)) {
+                return route;
+            }
+        }
+        
+        return path;
+    };
+
+    // Role badge color
+    const getRoleBadgeColor = () => {
+        return user?.role === 'admin' ? '#f5222d' : '#1890ff';
     };
 
     return (
@@ -150,7 +213,7 @@ const MainLayout = ({ children }) => {
                     theme="light"
                     mode="inline"
                     selectedKeys={[getSelectedKey()]}
-                    defaultOpenKeys={['co-so', 'khu-nha', 'phong', 'thiet-bi']}
+                    defaultOpenKeys={defaultOpenKeys}
                     items={menuItems}
                 />
             </Sider>
@@ -172,10 +235,17 @@ const MainLayout = ({ children }) => {
                         {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
                     </div>
                     <Space size="large">
-                        <Dropdown menu={{ items: userMenuItems }} placement="bottomRight">
+                        <Dropdown menu={{ items: userMenuItems }} placement="bottomRight" trigger={['click']}>
                             <Space style={{ cursor: 'pointer' }}>
-                                <Avatar style={{ backgroundColor: '#1890ff' }} icon={<UserOutlined />} />
-                                {!collapsed && <span>Admin</span>}
+                                <Badge dot color={getRoleBadgeColor()}>
+                                    <Avatar 
+                                        style={{ 
+                                            backgroundColor: user?.role === 'admin' ? '#f5222d' : '#1890ff' 
+                                        }} 
+                                        icon={<UserOutlined />} 
+                                    />
+                                </Badge>
+                                <span style={{ fontWeight: 500 }}>{user?.name || 'Người dùng'}</span>
                             </Space>
                         </Dropdown>
                     </Space>
@@ -197,4 +267,3 @@ const MainLayout = ({ children }) => {
 };
 
 export default MainLayout;
-

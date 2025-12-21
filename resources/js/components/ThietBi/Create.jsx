@@ -1,7 +1,7 @@
 import React from 'react';
 import MainLayout from '../Layout/MainLayout';
-import { Form, Input, InputNumber, Button, Card, Space, Select, message, Row, Col, DatePicker, Divider } from 'antd';
-import { SaveOutlined, RollbackOutlined } from '@ant-design/icons';
+import { Form, Input, InputNumber, Button, Card, Space, Select, message, Row, Col, DatePicker, Divider, Alert } from 'antd';
+import { SaveOutlined, RollbackOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import { router, Link } from '@inertiajs/react';
 import dayjs from 'dayjs';
 
@@ -31,14 +31,21 @@ const Create = ({ phongs }) => {
     return (
         <MainLayout>
             <Card title="Thêm thiết bị mới">
+                <Alert
+                    message="Lưu ý: Quản lý từng thiết bị riêng biệt"
+                    description="Mỗi thiết bị (máy tính, máy in...) cần nhập 1 lần với số serial riêng để theo dõi lịch sử bảo dưỡng và trạng thái cụ thể."
+                    type="info"
+                    icon={<InfoCircleOutlined />}
+                    showIcon
+                    style={{ marginBottom: 24 }}
+                    closable
+                />
                 <Form
                     form={form}
                     layout="vertical"
                     onFinish={handleSubmit}
                     initialValues={{
                         trang_thai: 'tot',
-                        so_luong: 1,
-                        don_vi_tinh: 'cái',
                         chu_ky_bao_duong: 6,
                     }}
                 >
@@ -59,8 +66,12 @@ const Create = ({ phongs }) => {
                             <Form.Item
                                 label="Số Serial"
                                 name="serial_number"
+                                rules={[
+                                    { required: true, message: 'Vui lòng nhập số serial!' },
+                                ]}
+                                tooltip="Số serial duy nhất để phân biệt từng thiết bị"
                             >
-                                <Input placeholder="Nhập số serial (nếu có)" size="large" />
+                                <Input placeholder="Ví dụ: SN123456789" size="large" />
                             </Form.Item>
                         </Col>
 
@@ -155,6 +166,10 @@ const Create = ({ phongs }) => {
                             <Form.Item
                                 label="Ngày mua"
                                 name="ngay_mua"
+                                rules={[
+                                    { required: true, message: 'Vui lòng chọn ngày mua!' },
+                                ]}
+                                tooltip="Ngày mua để tính chu kỳ bảo dưỡng"
                             >
                                 <DatePicker 
                                     style={{ width: '100%' }}
@@ -164,53 +179,29 @@ const Create = ({ phongs }) => {
                                 />
                             </Form.Item>
                         </Col>
+                    </Row>
 
-                        <Col xs={24} md={6}>
+                    <Row gutter={16}>
+                        <Col xs={24} md={12}>
                             <Form.Item
-                                label="Số lượng"
-                                name="so_luong"
+                                label="Giá trị (VNĐ)"
+                                name="gia_tri"
                                 rules={[
-                                    { required: true, message: 'Vui lòng nhập số lượng!' },
+                                    { required: true, message: 'Vui lòng nhập giá trị!' },
                                 ]}
+                                tooltip="Giá trị của 1 thiết bị này"
                             >
                                 <InputNumber
                                     style={{ width: '100%' }}
                                     size="large"
-                                    min={1}
-                                    placeholder="Nhập số lượng"
+                                    min={0}
+                                    placeholder="Nhập giá trị"
+                                    formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                    parser={value => value.replace(/\$\s?|(,*)/g, '')}
                                 />
                             </Form.Item>
                         </Col>
-
-                        <Col xs={24} md={6}>
-                            <Form.Item
-                                label="Đơn vị tính"
-                                name="don_vi_tinh"
-                                rules={[
-                                    { required: true, message: 'Vui lòng nhập đơn vị tính!' },
-                                ]}
-                            >
-                                <Input placeholder="Ví dụ: cái, bộ..." size="large" />
-                            </Form.Item>
-                        </Col>
                     </Row>
-
-                    <Form.Item
-                        label="Giá trị (VNĐ)"
-                        name="gia_tri"
-                        rules={[
-                            { required: true, message: 'Vui lòng nhập giá trị!' },
-                        ]}
-                    >
-                        <InputNumber
-                            style={{ width: '100%' }}
-                            size="large"
-                            min={0}
-                            placeholder="Nhập giá trị"
-                            formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                            parser={value => value.replace(/\$\s?|(,*)/g, '')}
-                        />
-                    </Form.Item>
 
                     <Form.Item
                         label="Thông số kỹ thuật"

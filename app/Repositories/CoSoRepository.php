@@ -112,13 +112,14 @@ class CoSoRepository implements CoSoRepositoryInterface
 
     /**
      * {@inheritDoc}
+     * Cập nhật theo cấu trúc mới: dien_tich_dat, vi_tri_khuon_vien, dien_tich_quy_doi
      */
     public function getTotalArea(): array
     {
         return [
-            'tong_dien_tich' => $this->model->sum('tong_dien_tich'),
-            'dien_tich_san_xay_dung' => $this->model->sum('dien_tich_san_xay_dung'),
-            'dien_tich_con_lai' => $this->model->sum('dien_tich_con_lai'),
+            'dien_tich_dat' => $this->model->sum('dien_tich_dat'),
+            'vi_tri_khuon_vien_tb' => $this->model->avg('vi_tri_khuon_vien'),
+            'dien_tich_quy_doi' => $this->model->sum('dien_tich_quy_doi'),
         ];
     }
 }

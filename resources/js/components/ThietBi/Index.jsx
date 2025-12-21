@@ -204,6 +204,14 @@ const Index = ({ thietBis, phongs, filters }) => {
             ellipsis: true,
         },
         {
+            title: 'Serial Number',
+            dataIndex: 'serial_number',
+            key: 'serial_number',
+            width: 140,
+            ellipsis: true,
+            render: (text) => <Tag color="blue">{text}</Tag>,
+        },
+        {
             title: 'Năm mua',
             dataIndex: 'nam_mua',
             key: 'nam_mua',
@@ -211,33 +219,12 @@ const Index = ({ thietBis, phongs, filters }) => {
             align: 'center',
         },
         {
-            title: 'SL',
-            dataIndex: 'so_luong',
-            key: 'so_luong',
-            width: 50,
-            align: 'center',
-        },
-        {
-            title: 'Đơn vị',
-            dataIndex: 'don_vi_tinh',
-            key: 'don_vi_tinh',
-            width: 70,
-            align: 'center',
-        },
-        {
             title: 'Giá trị',
             dataIndex: 'gia_tri',
             key: 'gia_tri',
-            width: 110,
-            align: 'right',
-            render: (value) => formatCurrency(value),
-        },
-        {
-            title: 'Tổng giá trị',
-            key: 'tong_gia_tri',
             width: 120,
             align: 'right',
-            render: (_, record) => formatCurrency(record.gia_tri * record.so_luong),
+            render: (value) => formatCurrency(value),
         },
         {
             title: 'Trạng thái',
@@ -289,11 +276,18 @@ const Index = ({ thietBis, phongs, filters }) => {
                             <h2 style={{ margin: 0 }}>Quản lý thiết bị</h2>
                         </Col>
                         <Col>
-                            <Link href="/thiet-bi/create">
-                                <Button type="primary" icon={<PlusOutlined />} size="large">
-                                    Thêm thiết bị
-                                </Button>
-                            </Link>
+                            <Space>
+                                <Link href="/thiet-bi-theo-phong">
+                                    <Button icon={<SearchOutlined />} size="large">
+                                        Xem theo phòng
+                                    </Button>
+                                </Link>
+                                <Link href="/thiet-bi/create">
+                                    <Button type="primary" icon={<PlusOutlined />} size="large">
+                                        Thêm thiết bị
+                                    </Button>
+                                </Link>
+                            </Space>
                         </Col>
                     </Row>
                 </Card>
@@ -374,7 +368,7 @@ const Index = ({ thietBis, phongs, filters }) => {
                             columns={columns}
                             dataSource={thietBis.data}
                         rowKey="id"
-                        scroll={{ x: 1700 }}
+                        scroll={{ x: 1500 }}
                         pagination={{
                             current: thietBis.current_page,
                             pageSize: thietBis.per_page,

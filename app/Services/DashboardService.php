@@ -72,9 +72,10 @@ class DashboardService
             'tong_phong' => $this->phongRepository->count(),
             'tong_thiet_bi' => $this->thietBiRepository->getTotalQuantity(),
             'tong_gia_tri_thiet_bi' => $this->thietBiRepository->getTotalValue(),
-            'tong_dien_tich' => $totalArea['tong_dien_tich'],
-            'dien_tich_san_xay_dung' => $totalArea['dien_tich_san_xay_dung'],
-            'dien_tich_con_lai' => $totalArea['dien_tich_con_lai'],
+            // Cấu trúc mới: dien_tich_dat, vi_tri_khuon_vien, dien_tich_quy_doi
+            'dien_tich_dat' => $totalArea['dien_tich_dat'],
+            'vi_tri_khuon_vien_tb' => $totalArea['vi_tri_khuon_vien_tb'],
+            'dien_tich_quy_doi' => $totalArea['dien_tich_quy_doi'],
         ];
     }
 
@@ -103,7 +104,7 @@ class DashboardService
             return [
                 'ten_co_so' => $coSo->ten_co_so,
                 'so_khu_nha' => $coSo->khuNhas->count(),
-                'dien_tich' => $coSo->tong_dien_tich,
+                'dien_tich' => $coSo->dien_tich_dat, // Đổi từ tong_dien_tich sang dien_tich_dat
             ];
         });
     }

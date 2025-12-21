@@ -17,8 +17,9 @@ class KhuNha extends Model
         'ten_khu_nha',
         'loai_khu_nha',
         'so_tang',
-        'dien_tich_san_xay_dung',
-        'dien_tich_su_dung',
+        'tong_dien_tich_san',       // Tổng diện tích sàn xây dựng (m²) - nhập tay
+        'he_so_su_dung_dao_tao',    // Hệ số DT sử dụng cho đào tạo - mặc định 0.7
+        'dien_tich_san_dao_tao',    // DT sàn sử dụng cho đào tạo = tong_dien_tich_san * he_so_su_dung_dao_tao
         'nam_xay_dung',
         'mo_ta',
         'trang_thai',
@@ -27,8 +28,9 @@ class KhuNha extends Model
     protected $casts = [
         'so_tang' => 'integer',
         'nam_xay_dung' => 'integer',
-        'dien_tich_san_xay_dung' => 'decimal:2',
-        'dien_tich_su_dung' => 'decimal:2',
+        'tong_dien_tich_san' => 'decimal:2',
+        'he_so_su_dung_dao_tao' => 'decimal:1',
+        'dien_tich_san_dao_tao' => 'decimal:2',
     ];
 
     public function coSo()

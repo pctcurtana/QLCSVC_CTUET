@@ -29,8 +29,9 @@ class StoreKhuNhaRequest extends FormRequest
             'ten_khu_nha' => 'required|string|max:255',
             'loai_khu_nha' => 'required|in:phong_hoc,phong_lam_viec,phong_chuc_nang',
             'so_tang' => 'required|integer|min:1',
-            'dien_tich_san_xay_dung' => 'required|numeric|min:0',
-            'dien_tich_su_dung' => 'required|numeric|min:0',
+            'tong_dien_tich_san' => 'required|numeric|min:0',
+            'he_so_su_dung_dao_tao' => 'required|numeric|min:0|max:1',
+            // dien_tich_san_dao_tao được tính tự động ở backend
             'nam_xay_dung' => 'nullable|integer|min:1900|max:' . (date('Y') + 10),
             'mo_ta' => 'nullable|string',
             'trang_thai' => 'required|in:active,inactive',
@@ -50,8 +51,8 @@ class StoreKhuNhaRequest extends FormRequest
             'ten_khu_nha' => 'Tên khu nhà',
             'loai_khu_nha' => 'Loại khu nhà',
             'so_tang' => 'Số tầng',
-            'dien_tich_san_xay_dung' => 'Diện tích sàn xây dựng',
-            'dien_tich_su_dung' => 'Diện tích sử dụng',
+            'tong_dien_tich_san' => 'Tổng diện tích sàn xây dựng',
+            'he_so_su_dung_dao_tao' => 'Hệ số DT sử dụng cho đào tạo',
             'nam_xay_dung' => 'Năm xây dựng',
             'mo_ta' => 'Mô tả',
             'trang_thai' => 'Trạng thái',
@@ -69,6 +70,7 @@ class StoreKhuNhaRequest extends FormRequest
             'co_so_id.exists' => 'Cơ sở không tồn tại trong hệ thống.',
             'ma_khu_nha.unique' => 'Mã khu nhà đã tồn tại trong hệ thống.',
             'so_tang.min' => 'Số tầng phải lớn hơn hoặc bằng 1.',
+            'he_so_su_dung_dao_tao.max' => 'Hệ số sử dụng phải nhỏ hơn hoặc bằng 1.',
         ];
     }
 }

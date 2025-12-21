@@ -48,10 +48,8 @@ class ThietBi extends Model
         return $this->belongsTo(Phong::class, 'phong_id');
     }
 
-    public function getTongGiaTriAttribute()
-    {
-        return $this->gia_tri * $this->so_luong;
-    }
+    // Mỗi thiết bị là 1 máy riêng biệt, so_luong luôn = 1
+    // Không cần attribute tong_gia_tri nữa vì gia_tri = giá trị của máy đó
 
     public function lichSuBaoDuongs()
     {

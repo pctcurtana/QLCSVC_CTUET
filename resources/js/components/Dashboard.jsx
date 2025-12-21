@@ -204,8 +204,8 @@ const Dashboard = ({ statistics, thongKeLoaiPhong, thongKeLoaiThietBi, thongKeCo
                     <Col xs={24} sm={12} lg={8}>
                         <Card>
                             <Statistic
-                                title="Tổng diện tích (m²)"
-                                value={formatNumber(statistics.tong_dien_tich)}
+                                title="Tổng diện tích đất (m²)"
+                                value={formatNumber(statistics.dien_tich_dat)}
                                 prefix={<AreaChartOutlined />}
                                 valueStyle={{ color: '#13c2c2' }}
                             />
@@ -318,27 +318,26 @@ const Dashboard = ({ statistics, thongKeLoaiPhong, thongKeLoaiThietBi, thongKeCo
                 {/* Thống kê diện tích */}
                 <Row gutter={16}>
                     <Col xs={24}>
-                        <Card title="Thống kê diện tích">
+                        <Card title="Thống kê diện tích cơ sở">
                             <Row gutter={16}>
                                 <Col span={8}>
                                     <Statistic
-                                        title="Tổng diện tích"
-                                        value={formatNumber(statistics.tong_dien_tich)}
+                                        title="Tổng diện tích đất"
+                                        value={formatNumber(statistics.dien_tich_dat)}
                                         suffix="m²"
                                     />
                                 </Col>
                                 <Col span={8}>
                                     <Statistic
-                                        title="Diện tích sân xây dựng"
-                                        value={formatNumber(statistics.dien_tich_san_xay_dung)}
-                                        suffix="m²"
+                                        title="Vị trí khuôn viên (TB)"
+                                        value={statistics.vi_tri_khuon_vien_tb ? Number(statistics.vi_tri_khuon_vien_tb).toFixed(2) : '2.5'}
                                         valueStyle={{ color: '#1890ff' }}
                                     />
                                 </Col>
                                 <Col span={8}>
                                     <Statistic
-                                        title="Diện tích còn lại"
-                                        value={formatNumber(statistics.dien_tich_con_lai)}
+                                        title="Diện tích quy đổi"
+                                        value={formatNumber(statistics.dien_tich_quy_doi)}
                                         suffix="m²"
                                         valueStyle={{ color: '#3f8600' }}
                                     />

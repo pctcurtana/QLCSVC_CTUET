@@ -17,14 +17,14 @@ class QLCSVCSeeder extends Seeder
      */
     public function run()
     {
-        // Tạo cơ sở
+        // Tạo cơ sở (cấu trúc mới: dien_tich_dat, vi_tri_khuon_vien, dien_tich_quy_doi)
         $coSo1 = CoSo::create([
             'ma_co_so' => 'CS001',
             'ten_co_so' => 'Cơ sở chính - Khu 1',
             'dia_chi' => '256 Nguyễn Văn Cừ, An Hòa, Ninh Kiều, Cần Thơ',
-            'tong_dien_tich' => 50000,
-            'dien_tich_san_xay_dung' => 30000,
-            'dien_tich_con_lai' => 20000,
+            'dien_tich_dat' => 50000,
+            'vi_tri_khuon_vien' => 2.5,
+            'dien_tich_quy_doi' => 50000 * 2.5, // = 125000
             'mo_ta' => 'Cơ sở chính của trường, bao gồm các khu giảng dạy, hành chính',
             'trang_thai' => 'active',
         ]);
@@ -33,22 +33,23 @@ class QLCSVCSeeder extends Seeder
             'ma_co_so' => 'CS002',
             'ten_co_so' => 'Cơ sở 2 - Khu thực hành',
             'dia_chi' => '1 Lý Tự Trọng, An Phú, Ninh Kiều, Cần Thơ',
-            'tong_dien_tich' => 30000,
-            'dien_tich_san_xay_dung' => 18000,
-            'dien_tich_con_lai' => 12000,
+            'dien_tich_dat' => 30000,
+            'vi_tri_khuon_vien' => 2.5,
+            'dien_tich_quy_doi' => 30000 * 2.5, // = 75000
             'mo_ta' => 'Khu thực hành và thí nghiệm',
             'trang_thai' => 'active',
         ]);
 
-        // Tạo khu nhà cho cơ sở 1
+        // Tạo khu nhà cho cơ sở 1 (cấu trúc mới: tong_dien_tich_san, he_so_su_dung_dao_tao, dien_tich_san_dao_tao)
         $khuNha1 = KhuNha::create([
             'co_so_id' => $coSo1->id,
             'ma_khu_nha' => 'KN-A',
             'ten_khu_nha' => 'Nhà A - Giảng đường',
             'loai_khu_nha' => 'phong_hoc',
             'so_tang' => 5,
-            'dien_tich_san_xay_dung' => 2000,
-            'dien_tich_su_dung' => 8000,
+            'tong_dien_tich_san' => 8000,
+            'he_so_su_dung_dao_tao' => 0.7,
+            'dien_tich_san_dao_tao' => 8000 * 0.7, // = 5600
             'nam_xay_dung' => 2015,
             'mo_ta' => 'Khu giảng đường chính',
             'trang_thai' => 'active',
@@ -60,8 +61,9 @@ class QLCSVCSeeder extends Seeder
             'ten_khu_nha' => 'Nhà B - Hành chính',
             'loai_khu_nha' => 'phong_lam_viec',
             'so_tang' => 4,
-            'dien_tich_san_xay_dung' => 1500,
-            'dien_tich_su_dung' => 5000,
+            'tong_dien_tich_san' => 5000,
+            'he_so_su_dung_dao_tao' => 0.7,
+            'dien_tich_san_dao_tao' => 5000 * 0.7, // = 3500
             'nam_xay_dung' => 2018,
             'mo_ta' => 'Khu hành chính và văn phòng',
             'trang_thai' => 'active',
@@ -73,8 +75,9 @@ class QLCSVCSeeder extends Seeder
             'ten_khu_nha' => 'Nhà C - Thư viện',
             'loai_khu_nha' => 'phong_chuc_nang',
             'so_tang' => 6,
-            'dien_tich_san_xay_dung' => 2500,
-            'dien_tich_su_dung' => 12000,
+            'tong_dien_tich_san' => 12000,
+            'he_so_su_dung_dao_tao' => 0.7,
+            'dien_tich_san_dao_tao' => 12000 * 0.7, // = 8400
             'nam_xay_dung' => 2020,
             'mo_ta' => 'Thư viện trường',
             'trang_thai' => 'active',
@@ -87,8 +90,9 @@ class QLCSVCSeeder extends Seeder
             'ten_khu_nha' => 'Nhà thực hành 1',
             'loai_khu_nha' => 'phong_hoc',
             'so_tang' => 3,
-            'dien_tich_san_xay_dung' => 1800,
-            'dien_tich_su_dung' => 4500,
+            'tong_dien_tich_san' => 4500,
+            'he_so_su_dung_dao_tao' => 0.7,
+            'dien_tich_san_dao_tao' => 4500 * 0.7, // = 3150
             'nam_xay_dung' => 2017,
             'mo_ta' => 'Phòng thực hành kỹ thuật',
             'trang_thai' => 'active',

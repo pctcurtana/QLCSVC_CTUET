@@ -146,21 +146,28 @@ const Index = ({ khuNhas, coSos, filters }) => {
 
         },
         {
-            title: 'DT sân XD (m²)',
-            dataIndex: 'dien_tich_san_xay_dung',
-            key: 'dien_tich_san_xay_dung',
+            title: 'Tổng DT sàn XD (m²)',
+            dataIndex: 'tong_dien_tich_san',
+            key: 'tong_dien_tich_san',
             align: 'right',
-            width: 110,
-
+            width: 130,
             render: (value) => formatNumber(value),
         },
         {
-            title: 'DT sử dụng (m²)',
-            dataIndex: 'dien_tich_su_dung',
-            key: 'dien_tich_su_dung',
+            title: 'Hệ số ĐT',
+            dataIndex: 'he_so_su_dung_dao_tao',
+            key: 'he_so_su_dung_dao_tao',
+            align: 'center',
+            width: 90,
+            render: (value) => <Tag color="blue">{value}</Tag>,
+        },
+        {
+            title: 'DT sàn đào tạo (m²)',
+            dataIndex: 'dien_tich_san_dao_tao',
+            key: 'dien_tich_san_dao_tao',
             align: 'right',
-            width: 110,
-            render: (value) => formatNumber(value),
+            width: 130,
+            render: (value) => <strong>{formatNumber(value)}</strong>,
         },
         {
             title: 'Năm XD',

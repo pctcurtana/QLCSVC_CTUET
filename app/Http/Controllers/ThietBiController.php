@@ -56,6 +56,26 @@ class ThietBiController extends Controller
     }
 
     /**
+     * Display thiết bị grouped by phòng
+     */
+    public function indexByPhong(Request $request)
+    {
+        try {
+            $filters = $request->only(['search', 'loai_thiet_bi', 'trang_thai', 'can_bao_duong']);
+            $groupedThietBis = $this->thietBiService->getGroupedByPhong($filters);
+            $phongs = $this->phongService->getActivePhongs();
+
+            return Inertia::render('ThietBi/IndexByPhong', [
+                'groupedThietBis' => $groupedThietBis,
+                'phongs' => $phongs,
+                'filters' => $filters
+            ]);
+        } catch (\Throwable $e) {
+            return redirect()->back()->with('error', 'Lỗi khi tải danh sách thiết bị: ' . $e->getMessage());
+        }
+    }
+
+    /**
      * Show the form for creating a new resource.
      */
     public function create()
@@ -125,6 +145,24 @@ class ThietBiController extends Controller
             return redirect()->route('thiet-bi.index')->with('success', 'Xóa thiết bị thành công!');
         } catch (\Throwable $e) {
             return redirect()->back()->with('error', 'Lỗi khi xóa thiết bị: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Show form to duplicate an existing device
+     */
+    public function duplicate($id)
+    {
+        try {
+            $thietBi = $this->thietBiService->getById($id);
+            $phongs = $this->phongService->getActivePhongs();
+
+            return Inertia::render('ThietBi/Duplicate', [
+                'thietBi' => $thietBi,
+                'phongs' => $phongs
+            ]);
+        } catch (\Throwable $e) {
+            return redirect()->route('thiet-bi.index')->with('error', 'Không tìm thấy thiết bị: ' . $e->getMessage());
         }
     }
 }

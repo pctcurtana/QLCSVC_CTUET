@@ -26,19 +26,18 @@ class StoreThietBiRequest extends FormRequest
         return [
             'phong_id' => 'nullable|exists:phongs,id',
             'ma_thiet_bi' => 'required|string|unique:thiet_bis,ma_thiet_bi',
-            'serial_number' => 'nullable|string',
+            'serial_number' => 'required|string|unique:thiet_bis,serial_number',
             'ten_thiet_bi' => 'required|string|max:255',
             'loai_thiet_bi' => 'required|in:van_phong,day_hoc,thi_nghiem,thuc_hanh',
             'hang_san_xuat' => 'nullable|string',
             'model' => 'nullable|string',
             'nam_mua' => 'nullable|integer|min:1900|max:' . (date('Y') + 10),
-            'ngay_mua' => 'nullable|date',
+            'ngay_mua' => 'required|date',
             'chu_ky_bao_duong' => 'nullable|integer|min:1',
             'ngay_bao_duong_cuoi' => 'nullable|date',
             'ghi_chu_bao_duong' => 'nullable|string',
             'gia_tri' => 'required|numeric|min:0',
-            'so_luong' => 'required|integer|min:1',
-            'don_vi_tinh' => 'required|string',
+            // so_luong và don_vi_tinh sẽ tự động set ở backend
             'thong_so_ky_thuat' => 'nullable|string',
             'mo_ta' => 'nullable|string',
             'trang_thai' => 'required|in:tot,can_sua_chua,hu_hong',
@@ -84,7 +83,9 @@ class StoreThietBiRequest extends FormRequest
         return [
             'phong_id.exists' => 'Phòng không tồn tại trong hệ thống.',
             'ma_thiet_bi.unique' => 'Mã thiết bị đã tồn tại trong hệ thống.',
-            'so_luong.min' => 'Số lượng phải lớn hơn hoặc bằng 1.',
+            'serial_number.required' => 'Số serial là bắt buộc để quản lý từng thiết bị.',
+            'serial_number.unique' => 'Số serial đã tồn tại trong hệ thống.',
+            'ngay_mua.required' => 'Ngày mua là bắt buộc để theo dõi chu kỳ bảo dưỡng.',
             'chu_ky_bao_duong.min' => 'Chu kỳ bảo dưỡng phải lớn hơn hoặc bằng 1 tháng.',
         ];
     }

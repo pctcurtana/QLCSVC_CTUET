@@ -1,7 +1,7 @@
 import React from 'react';
 import MainLayout from '../Layout/MainLayout';
-import { Form, Input, InputNumber, Button, Card, Space, Select, message, Row, Col, DatePicker, Divider, Table, Tag, Tabs } from 'antd';
-import { SaveOutlined, RollbackOutlined, HistoryOutlined, PlusOutlined } from '@ant-design/icons';
+import { Form, Input, InputNumber, Button, Card, Space, Select, message, Row, Col, DatePicker, Divider, Table, Tag, Tabs, Alert, Tooltip } from 'antd';
+import { SaveOutlined, RollbackOutlined, HistoryOutlined, PlusOutlined, CopyOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import { router, Link } from '@inertiajs/react';
 import dayjs from 'dayjs';
 
@@ -166,8 +166,12 @@ const Edit = ({ thietBi, phongs }) => {
                     <Form.Item
                         label="Số Serial"
                         name="serial_number"
+                        rules={[
+                            { required: true, message: 'Vui lòng nhập số serial!' },
+                        ]}
+                        tooltip="Số serial duy nhất để phân biệt từng thiết bị"
                     >
-                        <Input placeholder="Nhập số serial (nếu có)" size="large" />
+                        <Input placeholder="Ví dụ: SN123456789" size="large" />
                     </Form.Item>
                 </Col>
 
@@ -262,6 +266,10 @@ const Edit = ({ thietBi, phongs }) => {
                     <Form.Item
                         label="Ngày mua"
                         name="ngay_mua"
+                        rules={[
+                            { required: true, message: 'Vui lòng chọn ngày mua!' },
+                        ]}
+                        tooltip="Ngày mua để tính chu kỳ bảo dưỡng"
                     >
                         <DatePicker 
                             style={{ width: '100%' }}
@@ -271,53 +279,29 @@ const Edit = ({ thietBi, phongs }) => {
                         />
                     </Form.Item>
                 </Col>
+            </Row>
 
-                <Col xs={24} md={6}>
+            <Row gutter={16}>
+                <Col xs={24} md={12}>
                     <Form.Item
-                        label="Số lượng"
-                        name="so_luong"
+                        label="Giá trị (VNĐ)"
+                        name="gia_tri"
                         rules={[
-                            { required: true, message: 'Vui lòng nhập số lượng!' },
+                            { required: true, message: 'Vui lòng nhập giá trị!' },
                         ]}
+                        tooltip="Giá trị của 1 thiết bị này"
                     >
                         <InputNumber
                             style={{ width: '100%' }}
                             size="large"
-                            min={1}
-                            placeholder="Nhập số lượng"
+                            min={0}
+                            placeholder="Nhập giá trị"
+                            formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                            parser={value => value.replace(/\$\s?|(,*)/g, '')}
                         />
                     </Form.Item>
                 </Col>
-
-                <Col xs={24} md={6}>
-                    <Form.Item
-                        label="Đơn vị tính"
-                        name="don_vi_tinh"
-                        rules={[
-                            { required: true, message: 'Vui lòng nhập đơn vị tính!' },
-                        ]}
-                    >
-                        <Input placeholder="Ví dụ: cái, bộ..." size="large" />
-                    </Form.Item>
-                </Col>
             </Row>
-
-            <Form.Item
-                label="Giá trị (VNĐ)"
-                name="gia_tri"
-                rules={[
-                    { required: true, message: 'Vui lòng nhập giá trị!' },
-                ]}
-            >
-                <InputNumber
-                    style={{ width: '100%' }}
-                    size="large"
-                    min={0}
-                    placeholder="Nhập giá trị"
-                    formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                    parser={value => value.replace(/\$\s?|(,*)/g, '')}
-                />
-            </Form.Item>
 
             <Form.Item
                 label="Thông số kỹ thuật"
@@ -417,6 +401,13 @@ const Edit = ({ thietBi, phongs }) => {
                     <Button type="primary" htmlType="submit" icon={<SaveOutlined />} size="large">
                         Cập nhật
                     </Button>
+                    <Link href={`/thiet-bi/${thietBi.id}/duplicate`}>
+                        <Tooltip title="Tạo thiết bị mới với thông tin giống thiết bị này">
+                            <Button icon={<CopyOutlined />} size="large">
+                                Sao chép thiết bị
+                            </Button>
+                        </Tooltip>
+                    </Link>
                     <Link href="/thiet-bi">
                         <Button icon={<RollbackOutlined />} size="large">
                             Quay lại

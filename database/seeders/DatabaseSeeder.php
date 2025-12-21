@@ -15,8 +15,10 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         
-        // Seed dữ liệu mẫu cho QLCSVC
+        // Seed dữ liệu
         $this->call([
+            UserSeeder::class,
+            ScreenSeeder::class,
             QLCSVCSeeder::class,
         ]);
     }
