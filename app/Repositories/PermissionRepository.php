@@ -87,7 +87,7 @@ class PermissionRepository implements PermissionRepositoryInterface
     public function syncPermissions(int $userId, array $permissions): void
     {
         // Xóa tất cả quyền cũ của user
-        $this->model->where('user_id', $userId)->delete();
+        $this->deleteByUserId($userId);
 
         // Thêm quyền mới
         foreach ($permissions as $permission) {
