@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Contracts\Repositories\PermissionRepositoryInterface;
 use App\Models\UserPermission;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 
 class PermissionRepository implements PermissionRepositoryInterface
 {
@@ -86,23 +87,24 @@ class PermissionRepository implements PermissionRepositoryInterface
      */
     public function syncPermissions(int $userId, array $permissions): void
     {
-        // Xóa tất cả quyền cũ của user
-        $this->deleteByUserId($userId);
-
-        // Thêm quyền mới
-        foreach ($permissions as $permission) {
-            // Chỉ tạo bản ghi nếu có ít nhất 1 quyền
-            if ($this->hasAnyPermission($permission)) {
-                $this->model->create([
-                    'user_id' => $userId,
-                    'screen_id' => $permission['screen_id'],
-                    'can_view' => $permission['can_view'] ?? false,
-                    'can_create' => $permission['can_create'] ?? false,
-                    'can_edit' => $permission['can_edit'] ?? false,
-                    'can_delete' => $permission['can_delete'] ?? false,
-                ]);
+        DB::transaction (function() use ($userId, $permissions) {
+            // Xóa tất cả quyền cũ của user
+            $this->deleteByUserId($userId);
+            // Thêm quyền mới
+            foreach ($permissions as $permission) {
+                // Chỉ tạo bản ghi nếu có ít nhất 1 quyền
+                if ($this->hasAnyPermission($permission)) {
+                    $this->model->create([
+                        'user_id' => $userId,
+                        'screen_id' => $permission['screen_id'],
+                        'can_view' => $permission['can_view'] ?? false,
+                        'can_create' => $permission['can_create'] ?? false,
+                        'can_edit' => $permission['can_edit'] ?? false,
+                        'can_delete' => $permission['can_delete'] ?? false,
+                    ]);
+                }
             }
-        }
+        });
     }
 
     /**
