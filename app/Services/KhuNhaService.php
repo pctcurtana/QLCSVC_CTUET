@@ -5,8 +5,10 @@ namespace App\Services;
 use App\Contracts\Repositories\KhuNhaRepositoryInterface;
 use App\Contracts\Services\KhuNhaServiceInterface;
 use App\Models\KhuNha;
+use App\Models\Phong;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 
 class KhuNhaService
 {
@@ -90,6 +92,49 @@ class KhuNhaService
     public function delete(int $id): bool
     {
         return $this->khuNhaRepository->delete($id);
+    }
+
+    /**
+     * Tạo phiên bản mới: lưu trữ bản ghi hiện tại vào lịch sử,
+     * tạo bản ghi mới với dữ liệu đã cập nhật.
+     *
+     * Cascade: cập nhật tất cả Phong hien_hanh trỏ từ old_id sang new_id.
+     */
+    public function createNewVersion(int $id, array $data): KhuNha
+    {
+        return DB::transaction(function () use ($id, $data) {
+            $current = $this->getById($id);
+
+            $gocId = $current->ban_ghi_goc_id ?? $current->id;
+            $phienBanMoi = ($current->phien_ban ?? 1) + 1;
+            $now = now();
+
+            $current->update([
+                'trang_thai_du_lieu' => 'lich_su',
+                'hieu_luc_den' => $now,
+            ]);
+
+            $data['dien_tich_san_dao_tao'] = $this->calculateDienTichSanDaoTao(
+                $data['tong_dien_tich_san'],
+                $data['he_so_su_dung_dao_tao']
+            );
+
+            $newRecord = $this->khuNhaRepository->create(array_merge($data, [
+                'ma_khu_nha'         => $current->ma_khu_nha,
+                'trang_thai_du_lieu' => 'hien_hanh',
+                'hieu_luc_tu'        => $now,
+                'hieu_luc_den'       => null,
+                'phien_ban'          => $phienBanMoi,
+                'ban_ghi_goc_id'     => $gocId,
+            ]));
+
+            // Cascade: chuyển các Phong hien_hanh sang khu_nha_id mới
+            Phong::where('khu_nha_id', $current->id)
+                ->where('trang_thai_du_lieu', 'hien_hanh')
+                ->update(['khu_nha_id' => $newRecord->id]);
+
+            return $newRecord;
+        });
     }
 
     /**

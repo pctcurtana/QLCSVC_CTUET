@@ -31,6 +31,12 @@ class ThietBi extends Model
         'thong_so_ky_thuat',
         'mo_ta',
         'trang_thai',
+        // Versioning fields
+        'trang_thai_du_lieu',
+        'hieu_luc_tu',
+        'hieu_luc_den',
+        'phien_ban',
+        'ban_ghi_goc_id',
     ];
 
     protected $casts = [
@@ -41,6 +47,10 @@ class ThietBi extends Model
         'ngay_bao_duong_tiep_theo' => 'date',
         'gia_tri' => 'decimal:2',
         'so_luong' => 'integer',
+        'hieu_luc_tu' => 'datetime',
+        'hieu_luc_den' => 'datetime',
+        'phien_ban' => 'integer',
+        'ban_ghi_goc_id' => 'integer',
     ];
 
     public function phong()

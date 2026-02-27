@@ -3,6 +3,7 @@
 namespace App\Http\Requests\ThietBi;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateThietBiRequest extends FormRequest
 {
@@ -26,9 +27,19 @@ class UpdateThietBiRequest extends FormRequest
         $thietBiId = $this->route('thiet_bi');
 
         return [
-            'phong_id' => 'nullable|exists:phongs,id',
-            'ma_thiet_bi' => 'required|string|unique:thiet_bis,ma_thiet_bi,' . $thietBiId,
-            'serial_number' => 'required|string|unique:thiet_bis,serial_number,' . $thietBiId,
+            'phong_id'    => 'nullable|exists:phongs,id',
+            'ma_thiet_bi' => [
+                'required', 'string',
+                Rule::unique('thiet_bis', 'ma_thiet_bi')
+                    ->where('trang_thai_du_lieu', 'hien_hanh')
+                    ->ignore($thietBiId),
+            ],
+            'serial_number' => [
+                'required', 'string',
+                Rule::unique('thiet_bis', 'serial_number')
+                    ->where('trang_thai_du_lieu', 'hien_hanh')
+                    ->ignore($thietBiId),
+            ],
             'ten_thiet_bi' => 'required|string|max:255',
             'loai_thiet_bi' => 'required|in:van_phong,day_hoc,thi_nghiem,thuc_hanh',
             'hang_san_xuat' => 'nullable|string',

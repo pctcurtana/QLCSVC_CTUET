@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\CoSoService;
 use App\Http\Requests\CoSo\StoreCoSoRequest;
 use App\Http\Requests\CoSo\UpdateCoSoRequest;
+use App\Http\Requests\CoSo\VersionUpdateCoSoRequest;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -103,6 +104,19 @@ class CoSoController extends Controller
             return redirect()->route('co-so.index')->with('success', 'Xóa cơ sở thành công!');
         } catch (\Throwable $e) {
             return redirect()->back()->with('error', 'Lỗi khi xóa cơ sở: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Lưu phiên bản mới: lưu trữ dữ liệu cũ, tạo bản ghi mới với thay đổi.
+     */
+    public function versionUpdate(VersionUpdateCoSoRequest $request, $id)
+    {
+        try {
+            $this->coSoService->createNewVersion($id, $request->validated());
+            return redirect()->route('co-so.index')->with('success', 'Đã lưu phiên bản mới cho cơ sở thành công!');
+        } catch (\Throwable $e) {
+            return redirect()->back()->withInput()->with('error', 'Lỗi khi lưu phiên bản mới: ' . $e->getMessage());
         }
     }
 }

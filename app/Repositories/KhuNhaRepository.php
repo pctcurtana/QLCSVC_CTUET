@@ -31,9 +31,9 @@ class KhuNhaRepository implements KhuNhaRepositoryInterface
     {
         $query = $this->model->query()
             ->with('coSo')
-            ->withCount('phongs');
+            ->withCount('phongs')
+            ->where('trang_thai_du_lieu', 'hien_hanh');
 
-        // Filter by search
         if (isset($filters['search']) && !empty($filters['search'])) {
             $search = $filters['search'];
             $query->where(function($q) use ($search) {
@@ -42,12 +42,10 @@ class KhuNhaRepository implements KhuNhaRepositoryInterface
             });
         }
 
-        // Filter by co_so_id
         if (isset($filters['co_so_id']) && !empty($filters['co_so_id'])) {
             $query->where('co_so_id', $filters['co_so_id']);
         }
 
-        // Filter by loai_khu_nha
         if (isset($filters['loai_khu_nha']) && !empty($filters['loai_khu_nha'])) {
             $query->where('loai_khu_nha', $filters['loai_khu_nha']);
         }
@@ -106,6 +104,7 @@ class KhuNhaRepository implements KhuNhaRepositoryInterface
         return $this->model
             ->with('coSo')
             ->where('trang_thai', 'active')
+            ->where('trang_thai_du_lieu', 'hien_hanh')
             ->get($columns);
     }
 
@@ -114,7 +113,7 @@ class KhuNhaRepository implements KhuNhaRepositoryInterface
      */
     public function count(): int
     {
-        return $this->model->count();
+        return $this->model->where('trang_thai_du_lieu', 'hien_hanh')->count();
     }
 
     /**
@@ -125,6 +124,7 @@ class KhuNhaRepository implements KhuNhaRepositoryInterface
         return $this->model
             ->where('co_so_id', $coSoId)
             ->where('trang_thai', 'active')
+            ->where('trang_thai_du_lieu', 'hien_hanh')
             ->get();
     }
 }

@@ -8,6 +8,7 @@ use App\Models\ThietBi;
 use Carbon\Carbon;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 
 class ThietBiService
 {
@@ -105,8 +106,51 @@ class ThietBiService
     }
 
     /**
+     * Tạo phiên bản mới: lưu trữ bản ghi hiện tại vào lịch sử,
+     * tạo bản ghi mới với dữ liệu đã cập nhật.
+     *
+     * ThietBi không có con nên không cần cascade FK.
+     * Lịch sử bảo dưỡng vẫn liên kết với bản ghi cũ (có thể truy vết qua ban_ghi_goc_id).
+     */
+    public function createNewVersion(int $id, array $data): ThietBi
+    {
+        return DB::transaction(function () use ($id, $data) {
+            $current = $this->getById($id);
+
+            $gocId = $current->ban_ghi_goc_id ?? $current->id;
+            $phienBanMoi = ($current->phien_ban ?? 1) + 1;
+            $now = now();
+
+            $current->update([
+                'trang_thai_du_lieu' => 'lich_su',
+                'hieu_luc_den' => $now,
+            ]);
+
+            $data['so_luong'] = 1;
+            $data['don_vi_tinh'] = 'cái';
+
+            $nextMaintenanceDate = $this->calculateNextMaintenanceDate($data, $current);
+            if ($nextMaintenanceDate) {
+                $data['ngay_bao_duong_tiep_theo'] = $nextMaintenanceDate;
+            }
+
+            $newRecord = $this->thietBiRepository->create(array_merge($data, [
+                'ma_thiet_bi'        => $current->ma_thiet_bi,
+                'serial_number'      => $current->serial_number,
+                'trang_thai_du_lieu' => 'hien_hanh',
+                'hieu_luc_tu'        => $now,
+                'hieu_luc_den'       => null,
+                'phien_ban'          => $phienBanMoi,
+                'ban_ghi_goc_id'     => $gocId,
+            ]));
+
+            return $newRecord;
+        });
+    }
+
+    /**
      * {@inheritDoc}
-     * 
+     *
      * Logic tính ngày bảo dưỡng tiếp theo:
      * 1. Nếu có ngay_bao_duong_cuoi và chu_ky_bao_duong → cộng từ ngày bảo dưỡng cuối
      * 2. Nếu chỉ có ngay_mua và chu_ky_bao_duong (chưa bảo dưỡng lần nào) → cộng từ ngày mua

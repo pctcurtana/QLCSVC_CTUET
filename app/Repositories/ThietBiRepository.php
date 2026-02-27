@@ -31,9 +31,9 @@ class ThietBiRepository implements ThietBiRepositoryInterface
     {
         $query = $this->model->query()
             ->with(['phong.khuNha.coSo'])
-            ->withCount('lichSuBaoDuongs');
+            ->withCount('lichSuBaoDuongs')
+            ->where('trang_thai_du_lieu', 'hien_hanh');
 
-        // Filter by search
         if (isset($filters['search']) && !empty($filters['search'])) {
             $search = $filters['search'];
             $query->where(function($q) use ($search) {
@@ -44,22 +44,18 @@ class ThietBiRepository implements ThietBiRepositoryInterface
             });
         }
 
-        // Filter by phong_id
         if (isset($filters['phong_id']) && !empty($filters['phong_id'])) {
             $query->where('phong_id', $filters['phong_id']);
         }
 
-        // Filter by loai_thiet_bi
         if (isset($filters['loai_thiet_bi']) && !empty($filters['loai_thiet_bi'])) {
             $query->where('loai_thiet_bi', $filters['loai_thiet_bi']);
         }
 
-        // Filter by status
         if (isset($filters['trang_thai']) && !empty($filters['trang_thai'])) {
             $query->where('trang_thai', $filters['trang_thai']);
         }
 
-        // Filter by can_bao_duong
         if (isset($filters['can_bao_duong']) && $filters['can_bao_duong'] === 'true') {
             $query->whereNotNull('ngay_bao_duong_tiep_theo')
                   ->whereDate('ngay_bao_duong_tiep_theo', '<=', now());
@@ -119,25 +115,24 @@ class ThietBiRepository implements ThietBiRepositoryInterface
         return $this->model
             ->with('phong.khuNha')
             ->where('trang_thai', 'tot')
+            ->where('trang_thai_du_lieu', 'hien_hanh')
             ->get($columns);
     }
 
     /**
      * {@inheritDoc}
-     * Đếm tổng số thiết bị (mỗi record = 1 máy)
      */
     public function getTotalQuantity(): int
     {
-        return $this->model->count();
+        return $this->model->where('trang_thai_du_lieu', 'hien_hanh')->count();
     }
 
     /**
      * {@inheritDoc}
-     * Tính tổng giá trị thiết bị (không cần nhân số lượng nữa)
      */
     public function getTotalValue(): float
     {
-        return (float) $this->model->sum('gia_tri') ?? 0;
+        return (float) $this->model->where('trang_thai_du_lieu', 'hien_hanh')->sum('gia_tri') ?? 0;
     }
 
     /**
@@ -147,17 +142,18 @@ class ThietBiRepository implements ThietBiRepositoryInterface
     {
         return $this->model
             ->where('phong_id', $phongId)
+            ->where('trang_thai_du_lieu', 'hien_hanh')
             ->get();
     }
 
     /**
      * {@inheritDoc}
-     * Thống kê theo loại thiết bị (đếm số máy, không sum số lượng)
      */
     public function getStatsByType(): Collection
     {
         return $this->model
             ->selectRaw('loai_thiet_bi, COUNT(*) as so_luong, SUM(gia_tri) as gia_tri')
+            ->where('trang_thai_du_lieu', 'hien_hanh')
             ->groupBy('loai_thiet_bi')
             ->get();
     }
@@ -168,6 +164,7 @@ class ThietBiRepository implements ThietBiRepositoryInterface
     public function getNeedMaintenance(): Collection
     {
         return $this->model
+            ->where('trang_thai_du_lieu', 'hien_hanh')
             ->whereNotNull('ngay_bao_duong_tiep_theo')
             ->whereDate('ngay_bao_duong_tiep_theo', '<=', now())
             ->with(['phong.khuNha.coSo'])
@@ -175,17 +172,14 @@ class ThietBiRepository implements ThietBiRepositoryInterface
     }
 
     /**
-     * Get all thiet bi grouped by phong
-     * 
-     * @param array $filters
-     * @return Collection
+     * {@inheritDoc}
      */
     public function getGroupedByPhong(array $filters = []): Collection
     {
         $query = $this->model->query()
-            ->with(['phong.khuNha.coSo']);
+            ->with(['phong.khuNha.coSo'])
+            ->where('trang_thai_du_lieu', 'hien_hanh');
 
-        // Filter by search
         if (isset($filters['search']) && !empty($filters['search'])) {
             $search = $filters['search'];
             $query->where(function($q) use ($search) {
@@ -196,27 +190,20 @@ class ThietBiRepository implements ThietBiRepositoryInterface
             });
         }
 
-        // Filter by loai_thiet_bi
         if (isset($filters['loai_thiet_bi']) && !empty($filters['loai_thiet_bi'])) {
             $query->where('loai_thiet_bi', $filters['loai_thiet_bi']);
         }
 
-        // Filter by status
         if (isset($filters['trang_thai']) && !empty($filters['trang_thai'])) {
             $query->where('trang_thai', $filters['trang_thai']);
         }
 
-        // Filter by can_bao_duong
         if (isset($filters['can_bao_duong']) && $filters['can_bao_duong'] === 'true') {
             $query->whereNotNull('ngay_bao_duong_tiep_theo')
                   ->whereDate('ngay_bao_duong_tiep_theo', '<=', now());
         }
 
-        // Get all thiet bi and group by phong_id
-        $thietBis = $query->get();
-        
-        // Group by phong
-        return $thietBis->groupBy('phong_id');
+        return $query->get()->groupBy('phong_id');
     }
 }
 

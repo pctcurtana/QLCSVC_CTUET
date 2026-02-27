@@ -31,9 +31,9 @@ class PhongRepository implements PhongRepositoryInterface
     {
         $query = $this->model->query()
             ->with(['khuNha.coSo'])
-            ->withCount('thietBis');
+            ->withCount('thietBis')
+            ->where('trang_thai_du_lieu', 'hien_hanh');
 
-        // Filter by search
         if (isset($filters['search']) && !empty($filters['search'])) {
             $search = $filters['search'];
             $query->where(function($q) use ($search) {
@@ -42,17 +42,14 @@ class PhongRepository implements PhongRepositoryInterface
             });
         }
 
-        // Filter by khu_nha_id
         if (isset($filters['khu_nha_id']) && !empty($filters['khu_nha_id'])) {
             $query->where('khu_nha_id', $filters['khu_nha_id']);
         }
 
-        // Filter by loai_phong
         if (isset($filters['loai_phong']) && !empty($filters['loai_phong'])) {
             $query->where('loai_phong', $filters['loai_phong']);
         }
 
-        // Filter by status
         if (isset($filters['trang_thai']) && !empty($filters['trang_thai'])) {
             $query->where('trang_thai', $filters['trang_thai']);
         }
@@ -111,6 +108,7 @@ class PhongRepository implements PhongRepositoryInterface
         return $this->model
             ->with('khuNha.coSo')
             ->where('trang_thai', 'active')
+            ->where('trang_thai_du_lieu', 'hien_hanh')
             ->get($columns);
     }
 
@@ -119,7 +117,7 @@ class PhongRepository implements PhongRepositoryInterface
      */
     public function count(): int
     {
-        return $this->model->count();
+        return $this->model->where('trang_thai_du_lieu', 'hien_hanh')->count();
     }
 
     /**
@@ -130,6 +128,7 @@ class PhongRepository implements PhongRepositoryInterface
         return $this->model
             ->where('khu_nha_id', $khuNhaId)
             ->where('trang_thai', 'active')
+            ->where('trang_thai_du_lieu', 'hien_hanh')
             ->get();
     }
 
@@ -140,6 +139,7 @@ class PhongRepository implements PhongRepositoryInterface
     {
         return $this->model
             ->selectRaw('loai_phong, COUNT(*) as so_luong, SUM(dien_tich) as dien_tich')
+            ->where('trang_thai_du_lieu', 'hien_hanh')
             ->groupBy('loai_phong')
             ->get();
     }
@@ -151,6 +151,7 @@ class PhongRepository implements PhongRepositoryInterface
     {
         return $this->model
             ->selectRaw('trang_thai, COUNT(*) as so_luong')
+            ->where('trang_thai_du_lieu', 'hien_hanh')
             ->groupBy('trang_thai')
             ->get();
     }

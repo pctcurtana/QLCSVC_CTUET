@@ -188216,15 +188216,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/input/index.js");
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/input-number/index.js");
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/message/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/row/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/select/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/space/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/statistic/index.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/InfoCircleOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/RollbackOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/SaveOutlined.js");
-/* harmony import */ var _inertiajs_react__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @inertiajs/react */ "./node_modules/@inertiajs/react/dist/index.esm.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/modal/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/row/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/select/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/space/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/statistic/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/tag/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/tooltip/index.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/ExclamationCircleOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/HistoryOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/InfoCircleOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/RollbackOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/SaveOutlined.js");
+/* harmony import */ var _inertiajs_react__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @inertiajs/react */ "./node_modules/@inertiajs/react/dist/index.esm.js");
+/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! dayjs */ "./node_modules/dayjs/dayjs.min.js");
+/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(dayjs__WEBPACK_IMPORTED_MODULE_23__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
@@ -188243,94 +188250,214 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
 
 
+
 var TextArea = antd__WEBPACK_IMPORTED_MODULE_7__["default"].TextArea;
 var Edit = function Edit(_ref) {
+  var _coSo$phien_ban, _coSo$phien_ban2;
   var coSo = _ref.coSo;
   var _Form$useForm = antd__WEBPACK_IMPORTED_MODULE_6__["default"].useForm(),
     _Form$useForm2 = _slicedToArray(_Form$useForm, 1),
     form = _Form$useForm2[0];
-  var _React$useState = react__WEBPACK_IMPORTED_MODULE_0___default().useState((coSo.dien_tich_dat || 0) * (coSo.vi_tri_khuon_vien || 2.5)),
-    _React$useState2 = _slicedToArray(_React$useState, 2),
-    dienTichQuyDoi = _React$useState2[0],
-    setDienTichQuyDoi = _React$useState2[1];
-  var handleSubmit = function handleSubmit(values) {
-    _inertiajs_react__WEBPACK_IMPORTED_MODULE_17__.router.put("/co-so/".concat(coSo.id), values, {
-      // success toast hiển thị qua flash ở MainLayout
-      onError: function onError(errors) {
-        Object.keys(errors).forEach(function (key) {
-          antd__WEBPACK_IMPORTED_MODULE_9__["default"].error(errors[key]);
-        });
-      }
-    });
-  };
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState2 = _slicedToArray(_useState, 2),
+    submitting = _useState2[0],
+    setSubmitting = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState4 = _slicedToArray(_useState3, 2),
+    versionModalVisible = _useState4[0],
+    setVersionModalVisible = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState6 = _slicedToArray(_useState5, 2),
+    pendingValues = _useState6[0],
+    setPendingValues = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)((coSo.dien_tich_dat || 0) * (coSo.vi_tri_khuon_vien || 2.5)),
+    _useState8 = _slicedToArray(_useState7, 2),
+    dienTichQuyDoi = _useState8[0],
+    setDienTichQuyDoi = _useState8[1];
   var handleDienTichChange = function handleDienTichChange() {
     var dienTichDat = form.getFieldValue('dien_tich_dat') || 0;
     var viTriKhuonVien = form.getFieldValue('vi_tri_khuon_vien') || 2.5;
-    var dienTichQuyDoiMoi = dienTichDat * viTriKhuonVien;
-    setDienTichQuyDoi(dienTichQuyDoiMoi);
+    setDienTichQuyDoi(dienTichDat * viTriKhuonVien);
   };
-  var formatNumber = function formatNumber(value) {
-    return new Intl.NumberFormat('vi-VN').format(value);
+
+  // Kiểm tra thay đổi cho version update (không tính ma_co_so vì backend luôn giữ gốc)
+  var checkHasChanges = function checkHasChanges(formValues) {
+    var fields = {
+      ten_co_so: function ten_co_so(v) {
+        return String(v !== null && v !== void 0 ? v : '').trim();
+      },
+      dia_chi: function dia_chi(v) {
+        return String(v !== null && v !== void 0 ? v : '').trim();
+      },
+      dien_tich_dat: function dien_tich_dat(v) {
+        return parseFloat(v) || 0;
+      },
+      vi_tri_khuon_vien: function vi_tri_khuon_vien(v) {
+        return parseFloat(v) || 0;
+      },
+      mo_ta: function mo_ta(v) {
+        return String(v !== null && v !== void 0 ? v : '').trim();
+      },
+      trang_thai: function trang_thai(v) {
+        return String(v !== null && v !== void 0 ? v : '');
+      }
+    };
+    return Object.keys(fields).some(function (key) {
+      var norm = fields[key];
+      return norm(formValues[key]) !== norm(coSo[key]);
+    });
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_Layout_MainLayout__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
-      title: "Ch\u1EC9nh s\u1EEDa c\u01A1 s\u1EDF: ".concat(coSo.ten_co_so),
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
+
+  // Cập nhật trực tiếp
+  var handleDirectUpdate = function handleDirectUpdate(values) {
+    setSubmitting(true);
+    _inertiajs_react__WEBPACK_IMPORTED_MODULE_22__.router.put("/co-so/".concat(coSo.id), values, {
+      onError: function onError(errors) {
+        Object.keys(errors).forEach(function (key) {
+          return antd__WEBPACK_IMPORTED_MODULE_9__["default"].error(errors[key]);
+        });
+        setSubmitting(false);
+      },
+      onFinish: function onFinish() {
+        return setSubmitting(false);
+      }
+    });
+  };
+
+  // Mở modal xác nhận lưu phiên bản mới
+  var handleVersionUpdateClick = function handleVersionUpdateClick() {
+    form.validateFields().then(function (values) {
+      var _values$ma_co_so, _coSo$ma_co_so;
+      var maChanged = String((_values$ma_co_so = values.ma_co_so) !== null && _values$ma_co_so !== void 0 ? _values$ma_co_so : '').trim() !== String((_coSo$ma_co_so = coSo.ma_co_so) !== null && _coSo$ma_co_so !== void 0 ? _coSo$ma_co_so : '').trim();
+      if (!checkHasChanges(values)) {
+        if (maChanged) {
+          antd__WEBPACK_IMPORTED_MODULE_9__["default"].warning('Mã cơ sở chỉ thay đổi được bằng "Cập nhật trực tiếp". Phiên bản mới không ghi nhận thay đổi mã.');
+        } else {
+          antd__WEBPACK_IMPORTED_MODULE_9__["default"].warning('Không có thay đổi nào để lưu phiên bản mới. Hãy chỉnh sửa ít nhất một trường trước.');
+        }
+        return;
+      }
+      if (maChanged) {
+        antd__WEBPACK_IMPORTED_MODULE_9__["default"].info('Lưu ý: Mã cơ sở sẽ không thay đổi khi lưu phiên bản mới. Nếu muốn đổi mã, hãy dùng "Cập nhật trực tiếp".');
+      }
+      setPendingValues(values);
+      setVersionModalVisible(true);
+    })["catch"](function () {
+      antd__WEBPACK_IMPORTED_MODULE_9__["default"].error('Vui lòng kiểm tra lại các trường bắt buộc.');
+    });
+  };
+
+  // Xác nhận lưu phiên bản mới
+  var handleVersionUpdateConfirm = function handleVersionUpdateConfirm() {
+    if (!pendingValues) return;
+    setSubmitting(true);
+    setVersionModalVisible(false);
+    _inertiajs_react__WEBPACK_IMPORTED_MODULE_22__.router.post("/co-so/".concat(coSo.id, "/version-update"), pendingValues, {
+      onError: function onError(errors) {
+        Object.keys(errors).forEach(function (key) {
+          return antd__WEBPACK_IMPORTED_MODULE_9__["default"].error(errors[key]);
+        });
+        setSubmitting(false);
+      },
+      onFinish: function onFinish() {
+        return setSubmitting(false);
+      }
+    });
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(_Layout_MainLayout__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      title: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("span", {
+          children: ["Ch\u1EC9nh s\u1EEDa c\u01A1 s\u1EDF: ", coSo.ten_co_so]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_15__["default"], {
+          color: "blue",
+          children: ["Phi\xEAn b\u1EA3n ", (_coSo$phien_ban = coSo.phien_ban) !== null && _coSo$phien_ban !== void 0 ? _coSo$phien_ban : 1]
+        }), coSo.hieu_luc_tu && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_16__["default"], {
+          title: "Ng\xE0y b\u1EAFt \u0111\u1EA7u hi\u1EC7u l\u1EF1c",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_15__["default"], {
+            color: "green",
+            children: ["T\u1EEB: ", dayjs__WEBPACK_IMPORTED_MODULE_23___default()(coSo.hieu_luc_tu).format('DD/MM/YYYY')]
+          })
+        })]
+      }),
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        message: "Ch\u1ECDn c\xE1ch c\u1EADp nh\u1EADt",
+        description: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("ul", {
+          style: {
+            marginBottom: 0,
+            paddingLeft: 20
+          },
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("li", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("strong", {
+              children: "C\u1EADp nh\u1EADt tr\u1EF1c ti\u1EBFp:"
+            }), " Ghi \u0111\xE8 d\u1EEF li\u1EC7u hi\u1EC7n t\u1EA1i. D\u1EEF li\u1EC7u c\u0169 s\u1EBD b\u1ECB m\u1EA5t."]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("li", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("strong", {
+              children: "L\u01B0u phi\xEAn b\u1EA3n m\u1EDBi:"
+            }), " Gi\u1EEF nguy\xEAn d\u1EEF li\u1EC7u c\u0169 l\xE0m l\u1ECBch s\u1EED, t\u1EA1o b\u1EA3n ghi m\u1EDBi v\u1EDBi thay \u0111\u1ED5i. D\xF9ng khi c\u1EA7n xu\u1EA5t b\xE1o c\xE1o theo m\u1ED1c th\u1EDDi gian."]
+          })]
+        }),
+        type: "info",
+        showIcon: true,
+        style: {
+          marginBottom: 12
+        }
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
         message: "C\xF4ng th\u1EE9c t\xEDnh di\u1EC7n t\xEDch quy \u0111\u1ED5i (theo BGD)",
         description: "Di\u1EC7n t\xEDch quy \u0111\u1ED5i = Di\u1EC7n t\xEDch \u0111\u1EA5t \xD7 V\u1ECB tr\xED khu\xF4n vi\xEAn. H\u1EC7 s\u1ED1 v\u1ECB tr\xED khu\xF4n vi\xEAn m\u1EB7c \u0111\u1ECBnh l\xE0 2.5 theo quy \u0111\u1ECBnh c\u1EE7a B\u1ED9 Gi\xE1o d\u1EE5c.",
-        type: "info",
-        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_14__["default"], {}),
+        type: "warning",
+        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_19__["default"], {}),
         showIcon: true,
         style: {
           marginBottom: 24
         },
         closable: true
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
         form: form,
         layout: "vertical",
-        onFinish: handleSubmit,
         initialValues: _objectSpread(_objectSpread({}, coSo), {}, {
           vi_tri_khuon_vien: coSo.vi_tri_khuon_vien || 2.5
         }),
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
           label: "M\xE3 c\u01A1 s\u1EDF",
           name: "ma_co_so",
           rules: [{
             required: true,
             message: 'Vui lòng nhập mã cơ sở!'
           }],
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
-            placeholder: "V\xED d\u1EE5: CS001",
+          tooltip: "Khi l\u01B0u phi\xEAn b\u1EA3n m\u1EDBi, m\xE3 c\u01A1 s\u1EDF \u0111\u01B0\u1EE3c gi\u1EEF nguy\xEAn t\u1EEB b\u1EA3n g\u1ED1c d\xF9 c\xF3 thay \u0111\u1ED5i \u1EDF \u0111\xE2y",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
+            placeholder: "V\xED d\u1EE5: CS01",
             size: "large"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
           label: "T\xEAn c\u01A1 s\u1EDF",
           name: "ten_co_so",
           rules: [{
             required: true,
             message: 'Vui lòng nhập tên cơ sở!'
           }],
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
             placeholder: "Nh\u1EADp t\xEAn c\u01A1 s\u1EDF",
             size: "large"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
           label: "\u0110\u1ECBa ch\u1EC9",
           name: "dia_chi",
           rules: [{
             required: true,
             message: 'Vui lòng nhập địa chỉ!'
           }],
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
             placeholder: "Nh\u1EADp \u0111\u1ECBa ch\u1EC9 c\u01A1 s\u1EDF",
             size: "large"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
           gutter: 16,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
             xs: 24,
             md: 8,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
               label: "Di\u1EC7n t\xEDch \u0111\u1EA5t (m\xB2)",
               name: "dien_tich_dat",
               rules: [{
@@ -188338,7 +188465,7 @@ var Edit = function Edit(_ref) {
                 message: 'Vui lòng nhập diện tích đất!'
               }],
               tooltip: "Di\u1EC7n t\xEDch \u0111\u1EA5t th\u1EF1c t\u1EBF c\u1EE7a c\u01A1 s\u1EDF",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
                 style: {
                   width: '100%'
                 },
@@ -188354,10 +188481,10 @@ var Edit = function Edit(_ref) {
                 onChange: handleDienTichChange
               })
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
             xs: 24,
             md: 8,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
               label: "V\u1ECB tr\xED khu\xF4n vi\xEAn",
               name: "vi_tri_khuon_vien",
               rules: [{
@@ -188365,7 +188492,7 @@ var Edit = function Edit(_ref) {
                 message: 'Vui lòng nhập hệ số vị trí khuôn viên!'
               }],
               tooltip: "H\u1EC7 s\u1ED1 v\u1ECB tr\xED khu\xF4n vi\xEAn theo BGD (m\u1EB7c \u0111\u1ECBnh 2.5)",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
                 style: {
                   width: '100%'
                 },
@@ -188376,18 +188503,18 @@ var Edit = function Edit(_ref) {
                 onChange: handleDienTichChange
               })
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
             xs: 24,
             md: 8,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
               label: "Di\u1EC7n t\xEDch quy \u0111\u1ED5i (m\xB2)",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
                 size: "small",
                 style: {
                   background: '#f6ffed',
                   border: '1px solid #b7eb8f'
                 },
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
                   value: dienTichQuyDoi,
                   precision: 2,
                   suffix: "m\xB2",
@@ -188395,7 +188522,7 @@ var Edit = function Edit(_ref) {
                     color: '#3f8600',
                     fontSize: '20px'
                   }
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("small", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("small", {
                   style: {
                     color: '#666'
                   },
@@ -188404,42 +188531,57 @@ var Edit = function Edit(_ref) {
               })
             })
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
           label: "M\xF4 t\u1EA3",
           name: "mo_ta",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(TextArea, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(TextArea, {
             rows: 4,
             placeholder: "Nh\u1EADp m\xF4 t\u1EA3 v\u1EC1 c\u01A1 s\u1EDF"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
           label: "Tr\u1EA1ng th\xE1i",
           name: "trang_thai",
           rules: [{
             required: true,
             message: 'Vui lòng chọn trạng thái!'
           }],
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
             size: "large",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"].Option, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_12__["default"].Option, {
               value: "active",
               children: "Ho\u1EA1t \u0111\u1ED9ng"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"].Option, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_12__["default"].Option, {
               value: "inactive",
               children: "Kh\xF4ng ho\u1EA1t \u0111\u1ED9ng"
             })]
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
+            wrap: true,
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
               type: "primary",
-              htmlType: "submit",
-              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_16__["default"], {}),
+              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_21__["default"], {}),
               size: "large",
-              children: "C\u1EADp nh\u1EADt"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_inertiajs_react__WEBPACK_IMPORTED_MODULE_17__.Link, {
+              loading: submitting,
+              onClick: function onClick() {
+                return form.validateFields().then(handleDirectUpdate);
+              },
+              children: "C\u1EADp nh\u1EADt tr\u1EF1c ti\u1EBFp"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
+              type: "default",
+              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_18__["default"], {}),
+              size: "large",
+              loading: submitting,
+              onClick: handleVersionUpdateClick,
+              style: {
+                borderColor: '#fa8c16',
+                color: '#fa8c16'
+              },
+              children: "L\u01B0u phi\xEAn b\u1EA3n m\u1EDBi"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(_inertiajs_react__WEBPACK_IMPORTED_MODULE_22__.Link, {
               href: "/co-so",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
-                icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_15__["default"], {}),
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
+                icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_20__["default"], {}),
                 size: "large",
                 children: "Quay l\u1EA1i"
               })
@@ -188447,7 +188589,53 @@ var Edit = function Edit(_ref) {
           })
         })]
       })]
-    })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      title: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_17__["default"], {
+          style: {
+            color: '#fa8c16'
+          }
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
+          children: "X\xE1c nh\u1EADn l\u01B0u phi\xEAn b\u1EA3n m\u1EDBi"
+        })]
+      }),
+      open: versionModalVisible,
+      onOk: handleVersionUpdateConfirm,
+      onCancel: function onCancel() {
+        return setVersionModalVisible(false);
+      },
+      okText: "X\xE1c nh\u1EADn l\u01B0u phi\xEAn b\u1EA3n m\u1EDBi",
+      cancelText: "H\u1EE7y",
+      okButtonProps: {
+        style: {
+          background: '#fa8c16',
+          borderColor: '#fa8c16'
+        }
+      },
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("p", {
+        children: ["H\u1EC7 th\u1ED1ng s\u1EBD ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("strong", {
+          children: "l\u01B0u tr\u1EEF d\u1EEF li\u1EC7u hi\u1EC7n t\u1EA1i"
+        }), " c\u1EE7a c\u01A1 s\u1EDF ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("strong", {
+          children: coSo.ten_co_so
+        }), " v\xE0o l\u1ECBch s\u1EED v\xE0 t\u1EA1o ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("strong", {
+          children: ["phi\xEAn b\u1EA3n ", ((_coSo$phien_ban2 = coSo.phien_ban) !== null && _coSo$phien_ban2 !== void 0 ? _coSo$phien_ban2 : 1) + 1]
+        }), " v\u1EDBi c\xE1c thay \u0111\u1ED5i b\u1EA1n v\u1EEBa nh\u1EADp."]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        message: "D\u1EEF li\u1EC7u c\u0169 s\u1EBD \u0111\u01B0\u1EE3c gi\u1EEF l\u1EA1i \u0111\u1EC3 xu\u1EA5t b\xE1o c\xE1o theo m\u1ED1c th\u1EDDi gian.",
+        type: "success",
+        showIcon: true,
+        style: {
+          marginTop: 12
+        }
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        message: "T\u1EA5t c\u1EA3 khu nh\xE0 \u0111ang ho\u1EA1t \u0111\u1ED9ng thu\u1ED9c c\u01A1 s\u1EDF n\xE0y s\u1EBD t\u1EF1 \u0111\u1ED9ng li\xEAn k\u1EBFt sang phi\xEAn b\u1EA3n m\u1EDBi.",
+        type: "info",
+        showIcon: true,
+        style: {
+          marginTop: 8
+        }
+      })]
+    })]
   });
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Edit);
@@ -189655,15 +189843,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/input/index.js");
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/input-number/index.js");
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/message/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/row/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/select/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/space/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/statistic/index.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/InfoCircleOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/RollbackOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/SaveOutlined.js");
-/* harmony import */ var _inertiajs_react__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @inertiajs/react */ "./node_modules/@inertiajs/react/dist/index.esm.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/modal/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/row/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/select/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/space/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/statistic/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/tag/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/tooltip/index.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/ExclamationCircleOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/HistoryOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/InfoCircleOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/RollbackOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/SaveOutlined.js");
+/* harmony import */ var _inertiajs_react__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @inertiajs/react */ "./node_modules/@inertiajs/react/dist/index.esm.js");
+/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! dayjs */ "./node_modules/dayjs/dayjs.min.js");
+/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(dayjs__WEBPACK_IMPORTED_MODULE_23__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
@@ -189682,65 +189877,208 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
 
 
+
 var TextArea = antd__WEBPACK_IMPORTED_MODULE_7__["default"].TextArea;
 var Edit = function Edit(_ref) {
+  var _khuNha$phien_ban, _khuNha$phien_ban2;
   var khuNha = _ref.khuNha,
     coSos = _ref.coSos;
   var _Form$useForm = antd__WEBPACK_IMPORTED_MODULE_6__["default"].useForm(),
     _Form$useForm2 = _slicedToArray(_Form$useForm, 1),
     form = _Form$useForm2[0];
-  var _React$useState = react__WEBPACK_IMPORTED_MODULE_0___default().useState((khuNha.tong_dien_tich_san || 0) * (khuNha.he_so_su_dung_dao_tao || 0.7)),
-    _React$useState2 = _slicedToArray(_React$useState, 2),
-    dienTichSanDaoTao = _React$useState2[0],
-    setDienTichSanDaoTao = _React$useState2[1];
-  var handleSubmit = function handleSubmit(values) {
-    _inertiajs_react__WEBPACK_IMPORTED_MODULE_17__.router.put("/khu-nha/".concat(khuNha.id), values, {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState2 = _slicedToArray(_useState, 2),
+    submitting = _useState2[0],
+    setSubmitting = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState4 = _slicedToArray(_useState3, 2),
+    versionModalVisible = _useState4[0],
+    setVersionModalVisible = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState6 = _slicedToArray(_useState5, 2),
+    pendingValues = _useState6[0],
+    setPendingValues = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)((khuNha.tong_dien_tich_san || 0) * (khuNha.he_so_su_dung_dao_tao || 0.7)),
+    _useState8 = _slicedToArray(_useState7, 2),
+    dienTichSanDaoTao = _useState8[0],
+    setDienTichSanDaoTao = _useState8[1];
+  var handleDienTichChange = function handleDienTichChange() {
+    var tongDienTichSan = form.getFieldValue('tong_dien_tich_san') || 0;
+    var heSoSuDung = form.getFieldValue('he_so_su_dung_dao_tao') || 0.7;
+    setDienTichSanDaoTao(tongDienTichSan * heSoSuDung);
+  };
+
+  // Kiểm tra thay đổi cho version update (không tính ma_khu_nha vì backend luôn giữ gốc)
+  var checkHasChanges = function checkHasChanges(formValues) {
+    var fields = {
+      co_so_id: function co_so_id(v) {
+        return Number(v);
+      },
+      ten_khu_nha: function ten_khu_nha(v) {
+        return String(v !== null && v !== void 0 ? v : '').trim();
+      },
+      loai_khu_nha: function loai_khu_nha(v) {
+        return String(v !== null && v !== void 0 ? v : '');
+      },
+      so_tang: function so_tang(v) {
+        return Number(v);
+      },
+      tong_dien_tich_san: function tong_dien_tich_san(v) {
+        return parseFloat(v) || 0;
+      },
+      he_so_su_dung_dao_tao: function he_so_su_dung_dao_tao(v) {
+        return parseFloat(v) || 0;
+      },
+      nam_xay_dung: function nam_xay_dung(v) {
+        return v ? Number(v) : null;
+      },
+      mo_ta: function mo_ta(v) {
+        return String(v !== null && v !== void 0 ? v : '').trim();
+      },
+      trang_thai: function trang_thai(v) {
+        return String(v !== null && v !== void 0 ? v : '');
+      }
+    };
+    return Object.keys(fields).some(function (key) {
+      var norm = fields[key];
+      return norm(formValues[key]) !== norm(khuNha[key]);
+    });
+  };
+
+  // Cập nhật trực tiếp
+  var handleDirectUpdate = function handleDirectUpdate(values) {
+    setSubmitting(true);
+    _inertiajs_react__WEBPACK_IMPORTED_MODULE_22__.router.put("/khu-nha/".concat(khuNha.id), values, {
       onError: function onError(errors) {
         if (errors && _typeof(errors) === 'object') {
           Object.keys(errors).forEach(function (key) {
             return antd__WEBPACK_IMPORTED_MODULE_9__["default"].error(errors[key]);
           });
         }
+        setSubmitting(false);
+      },
+      onFinish: function onFinish() {
+        return setSubmitting(false);
       }
     });
   };
-  var handleDienTichChange = function handleDienTichChange() {
-    var tongDienTichSan = form.getFieldValue('tong_dien_tich_san') || 0;
-    var heSoSuDung = form.getFieldValue('he_so_su_dung_dao_tao') || 0.7;
-    var dienTichSanDaoTaoMoi = tongDienTichSan * heSoSuDung;
-    setDienTichSanDaoTao(dienTichSanDaoTaoMoi);
+
+  // Mở modal xác nhận lưu phiên bản mới
+  var handleVersionUpdateClick = function handleVersionUpdateClick() {
+    form.validateFields().then(function (values) {
+      var _values$ma_khu_nha, _khuNha$ma_khu_nha;
+      var maChanged = String((_values$ma_khu_nha = values.ma_khu_nha) !== null && _values$ma_khu_nha !== void 0 ? _values$ma_khu_nha : '').trim() !== String((_khuNha$ma_khu_nha = khuNha.ma_khu_nha) !== null && _khuNha$ma_khu_nha !== void 0 ? _khuNha$ma_khu_nha : '').trim();
+      if (!checkHasChanges(values)) {
+        if (maChanged) {
+          antd__WEBPACK_IMPORTED_MODULE_9__["default"].warning('Mã khu nhà chỉ thay đổi được bằng "Cập nhật trực tiếp". Phiên bản mới không ghi nhận thay đổi mã.');
+        } else {
+          antd__WEBPACK_IMPORTED_MODULE_9__["default"].warning('Không có thay đổi nào để lưu phiên bản mới. Hãy chỉnh sửa ít nhất một trường trước.');
+        }
+        return;
+      }
+      if (maChanged) {
+        antd__WEBPACK_IMPORTED_MODULE_9__["default"].info('Lưu ý: Mã khu nhà sẽ không thay đổi khi lưu phiên bản mới. Nếu muốn đổi mã, hãy dùng "Cập nhật trực tiếp".');
+      }
+      setPendingValues(values);
+      setVersionModalVisible(true);
+    })["catch"](function () {
+      antd__WEBPACK_IMPORTED_MODULE_9__["default"].error('Vui lòng kiểm tra lại các trường bắt buộc.');
+    });
   };
-  var formatNumber = function formatNumber(value) {
-    return new Intl.NumberFormat('vi-VN').format(value);
+
+  // Xác nhận lưu phiên bản mới
+  var handleVersionUpdateConfirm = function handleVersionUpdateConfirm() {
+    if (!pendingValues) return;
+    setSubmitting(true);
+    setVersionModalVisible(false);
+    _inertiajs_react__WEBPACK_IMPORTED_MODULE_22__.router.post("/khu-nha/".concat(khuNha.id, "/version-update"), pendingValues, {
+      onError: function onError(errors) {
+        if (errors && _typeof(errors) === 'object') {
+          Object.keys(errors).forEach(function (key) {
+            return antd__WEBPACK_IMPORTED_MODULE_9__["default"].error(errors[key]);
+          });
+        }
+        setSubmitting(false);
+      },
+      onFinish: function onFinish() {
+        return setSubmitting(false);
+      }
+    });
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_Layout_MainLayout__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
-      title: "Ch\u1EC9nh s\u1EEDa khu nh\xE0: ".concat(khuNha.ten_khu_nha),
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(_Layout_MainLayout__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      title: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("span", {
+          children: ["Ch\u1EC9nh s\u1EEDa khu nh\xE0: ", khuNha.ten_khu_nha]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_15__["default"], {
+          color: "blue",
+          children: ["Phi\xEAn b\u1EA3n ", (_khuNha$phien_ban = khuNha.phien_ban) !== null && _khuNha$phien_ban !== void 0 ? _khuNha$phien_ban : 1]
+        }), khuNha.hieu_luc_tu && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_16__["default"], {
+          title: "Ng\xE0y b\u1EAFt \u0111\u1EA7u hi\u1EC7u l\u1EF1c",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_15__["default"], {
+            color: "green",
+            children: ["T\u1EEB: ", dayjs__WEBPACK_IMPORTED_MODULE_23___default()(khuNha.hieu_luc_tu).format('DD/MM/YYYY')]
+          })
+        })]
+      }),
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        message: "Ch\u1ECDn c\xE1ch c\u1EADp nh\u1EADt",
+        description: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("ul", {
+          style: {
+            marginBottom: 0,
+            paddingLeft: 20
+          },
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("li", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("strong", {
+              children: "C\u1EADp nh\u1EADt tr\u1EF1c ti\u1EBFp:"
+            }), " Ghi \u0111\xE8 d\u1EEF li\u1EC7u hi\u1EC7n t\u1EA1i. D\u1EEF li\u1EC7u c\u0169 s\u1EBD b\u1ECB m\u1EA5t."]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("li", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("strong", {
+              children: "L\u01B0u phi\xEAn b\u1EA3n m\u1EDBi:"
+            }), " Gi\u1EEF nguy\xEAn d\u1EEF li\u1EC7u c\u0169 l\xE0m l\u1ECBch s\u1EED, t\u1EA1o b\u1EA3n ghi m\u1EDBi v\u1EDBi thay \u0111\u1ED5i. D\xF9ng khi c\u1EA7n xu\u1EA5t b\xE1o c\xE1o theo m\u1ED1c th\u1EDDi gian."]
+          })]
+        }),
+        type: "info",
+        showIcon: true,
+        style: {
+          marginBottom: 12
+        }
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
         message: "C\xF4ng th\u1EE9c t\xEDnh di\u1EC7n t\xEDch s\xE0n \u0111\xE0o t\u1EA1o",
         description: "DT s\xE0n \u0111\xE0o t\u1EA1o = T\u1ED5ng DT s\xE0n x\xE2y d\u1EF1ng \xD7 H\u1EC7 s\u1ED1 s\u1EED d\u1EE5ng cho \u0111\xE0o t\u1EA1o. H\u1EC7 s\u1ED1 m\u1EB7c \u0111\u1ECBnh l\xE0 0.7 (70%).",
-        type: "info",
-        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_14__["default"], {}),
+        type: "warning",
+        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_19__["default"], {}),
         showIcon: true,
         style: {
           marginBottom: 24
         },
         closable: true
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
         form: form,
         layout: "vertical",
-        onFinish: handleSubmit,
         initialValues: _objectSpread(_objectSpread({}, khuNha), {}, {
           he_so_su_dung_dao_tao: khuNha.he_so_su_dung_dao_tao || 0.7
         }),
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
+          label: "M\xE3 khu nh\xE0",
+          name: "ma_khu_nha",
+          rules: [{
+            required: true,
+            message: 'Vui lòng nhập mã khu nhà!'
+          }],
+          tooltip: "Khi l\u01B0u phi\xEAn b\u1EA3n m\u1EDBi, m\xE3 khu nh\xE0 \u0111\u01B0\u1EE3c gi\u1EEF nguy\xEAn t\u1EEB b\u1EA3n g\u1ED1c d\xF9 c\xF3 thay \u0111\u1ED5i \u1EDF \u0111\xE2y",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
+            placeholder: "V\xED d\u1EE5: KNA",
+            size: "large"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
           label: "C\u01A1 s\u1EDF",
           name: "co_so_id",
           rules: [{
             required: true,
             message: 'Vui lòng chọn cơ sở!'
           }],
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
             size: "large",
             placeholder: "Ch\u1ECDn c\u01A1 s\u1EDF",
             options: coSos.map(function (cs) {
@@ -189750,57 +190088,46 @@ var Edit = function Edit(_ref) {
               };
             })
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
-          label: "M\xE3 khu nh\xE0",
-          name: "ma_khu_nha",
-          rules: [{
-            required: true,
-            message: 'Vui lòng nhập mã khu nhà!'
-          }],
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
-            placeholder: "V\xED d\u1EE5: KN001",
-            size: "large"
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
           label: "T\xEAn khu nh\xE0",
           name: "ten_khu_nha",
           rules: [{
             required: true,
             message: 'Vui lòng nhập tên khu nhà!'
           }],
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
             placeholder: "Nh\u1EADp t\xEAn khu nh\xE0",
             size: "large"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
           label: "Lo\u1EA1i khu nh\xE0",
           name: "loai_khu_nha",
           rules: [{
             required: true,
             message: 'Vui lòng chọn loại khu nhà!'
           }],
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
             size: "large",
             placeholder: "Ch\u1ECDn lo\u1EA1i khu nh\xE0",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"].Option, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_12__["default"].Option, {
               value: "phong_hoc",
               children: "Ph\xF2ng h\u1ECDc"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"].Option, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_12__["default"].Option, {
               value: "phong_lam_viec",
               children: "Ph\xF2ng l\xE0m vi\u1EC7c"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"].Option, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_12__["default"].Option, {
               value: "phong_chuc_nang",
               children: "Ph\xF2ng ch\u1EE9c n\u0103ng"
             })]
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
           label: "S\u1ED1 t\u1EA7ng",
           name: "so_tang",
           rules: [{
             required: true,
             message: 'Vui lòng nhập số tầng!'
           }],
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
             style: {
               width: '100%'
             },
@@ -189808,12 +190135,12 @@ var Edit = function Edit(_ref) {
             min: 1,
             placeholder: "Nh\u1EADp s\u1ED1 t\u1EA7ng"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
           gutter: 16,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
             xs: 24,
             md: 8,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
               label: "T\u1ED5ng di\u1EC7n t\xEDch s\xE0n XD (m\xB2)",
               name: "tong_dien_tich_san",
               rules: [{
@@ -189821,7 +190148,7 @@ var Edit = function Edit(_ref) {
                 message: 'Vui lòng nhập tổng diện tích sàn!'
               }],
               tooltip: "T\u1ED5ng di\u1EC7n t\xEDch s\xE0n x\xE2y d\u1EF1ng c\u1EE7a khu nh\xE0",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
                 style: {
                   width: '100%'
                 },
@@ -189837,10 +190164,10 @@ var Edit = function Edit(_ref) {
                 onChange: handleDienTichChange
               })
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
             xs: 24,
             md: 8,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
               label: "H\u1EC7 s\u1ED1 s\u1EED d\u1EE5ng cho \u0111\xE0o t\u1EA1o",
               name: "he_so_su_dung_dao_tao",
               rules: [{
@@ -189848,7 +190175,7 @@ var Edit = function Edit(_ref) {
                 message: 'Vui lòng nhập hệ số!'
               }],
               tooltip: "H\u1EC7 s\u1ED1 ph\u1EA7n di\u1EC7n t\xEDch s\u1EED d\u1EE5ng cho \u0111\xE0o t\u1EA1o (m\u1EB7c \u0111\u1ECBnh 0.7 = 70%)",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
                 style: {
                   width: '100%'
                 },
@@ -189860,18 +190187,18 @@ var Edit = function Edit(_ref) {
                 onChange: handleDienTichChange
               })
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
             xs: 24,
             md: 8,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
               label: "DT s\xE0n s\u1EED d\u1EE5ng cho \u0111\xE0o t\u1EA1o (m\xB2)",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
                 size: "small",
                 style: {
                   background: '#f6ffed',
                   border: '1px solid #b7eb8f'
                 },
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
                   value: dienTichSanDaoTao,
                   precision: 2,
                   suffix: "m\xB2",
@@ -189879,7 +190206,7 @@ var Edit = function Edit(_ref) {
                     color: '#3f8600',
                     fontSize: '20px'
                   }
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("small", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("small", {
                   style: {
                     color: '#666'
                   },
@@ -189888,10 +190215,10 @@ var Edit = function Edit(_ref) {
               })
             })
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
           label: "N\u0103m x\xE2y d\u1EF1ng",
           name: "nam_xay_dung",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
             style: {
               width: '100%'
             },
@@ -189900,42 +190227,57 @@ var Edit = function Edit(_ref) {
             max: new Date().getFullYear() + 10,
             placeholder: "Nh\u1EADp n\u0103m x\xE2y d\u1EF1ng"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
           label: "M\xF4 t\u1EA3",
           name: "mo_ta",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(TextArea, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(TextArea, {
             rows: 4,
             placeholder: "Nh\u1EADp m\xF4 t\u1EA3 v\u1EC1 khu nh\xE0"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
           label: "Tr\u1EA1ng th\xE1i",
           name: "trang_thai",
           rules: [{
             required: true,
             message: 'Vui lòng chọn trạng thái!'
           }],
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
             size: "large",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"].Option, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_12__["default"].Option, {
               value: "active",
               children: "Ho\u1EA1t \u0111\u1ED9ng"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"].Option, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_12__["default"].Option, {
               value: "inactive",
               children: "Kh\xF4ng ho\u1EA1t \u0111\u1ED9ng"
             })]
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
+            wrap: true,
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
               type: "primary",
-              htmlType: "submit",
-              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_16__["default"], {}),
+              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_21__["default"], {}),
               size: "large",
-              children: "C\u1EADp nh\u1EADt"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_inertiajs_react__WEBPACK_IMPORTED_MODULE_17__.Link, {
+              loading: submitting,
+              onClick: function onClick() {
+                return form.validateFields().then(handleDirectUpdate);
+              },
+              children: "C\u1EADp nh\u1EADt tr\u1EF1c ti\u1EBFp"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
+              type: "default",
+              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_18__["default"], {}),
+              size: "large",
+              loading: submitting,
+              onClick: handleVersionUpdateClick,
+              style: {
+                borderColor: '#fa8c16',
+                color: '#fa8c16'
+              },
+              children: "L\u01B0u phi\xEAn b\u1EA3n m\u1EDBi"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(_inertiajs_react__WEBPACK_IMPORTED_MODULE_22__.Link, {
               href: "/khu-nha",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
-                icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_15__["default"], {}),
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
+                icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_20__["default"], {}),
                 size: "large",
                 children: "Quay l\u1EA1i"
               })
@@ -189943,7 +190285,53 @@ var Edit = function Edit(_ref) {
           })
         })]
       })]
-    })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      title: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_17__["default"], {
+          style: {
+            color: '#fa8c16'
+          }
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
+          children: "X\xE1c nh\u1EADn l\u01B0u phi\xEAn b\u1EA3n m\u1EDBi"
+        })]
+      }),
+      open: versionModalVisible,
+      onOk: handleVersionUpdateConfirm,
+      onCancel: function onCancel() {
+        return setVersionModalVisible(false);
+      },
+      okText: "X\xE1c nh\u1EADn l\u01B0u phi\xEAn b\u1EA3n m\u1EDBi",
+      cancelText: "H\u1EE7y",
+      okButtonProps: {
+        style: {
+          background: '#fa8c16',
+          borderColor: '#fa8c16'
+        }
+      },
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("p", {
+        children: ["H\u1EC7 th\u1ED1ng s\u1EBD ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("strong", {
+          children: "l\u01B0u tr\u1EEF d\u1EEF li\u1EC7u hi\u1EC7n t\u1EA1i"
+        }), " c\u1EE7a khu nh\xE0 ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("strong", {
+          children: khuNha.ten_khu_nha
+        }), " v\xE0o l\u1ECBch s\u1EED v\xE0 t\u1EA1o ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("strong", {
+          children: ["phi\xEAn b\u1EA3n ", ((_khuNha$phien_ban2 = khuNha.phien_ban) !== null && _khuNha$phien_ban2 !== void 0 ? _khuNha$phien_ban2 : 1) + 1]
+        }), " v\u1EDBi c\xE1c thay \u0111\u1ED5i b\u1EA1n v\u1EEBa nh\u1EADp."]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        message: "D\u1EEF li\u1EC7u c\u0169 s\u1EBD \u0111\u01B0\u1EE3c gi\u1EEF l\u1EA1i \u0111\u1EC3 xu\u1EA5t b\xE1o c\xE1o theo m\u1ED1c th\u1EDDi gian.",
+        type: "success",
+        showIcon: true,
+        style: {
+          marginTop: 12
+        }
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        message: "T\u1EA5t c\u1EA3 ph\xF2ng \u0111ang ho\u1EA1t \u0111\u1ED9ng thu\u1ED9c khu nh\xE0 n\xE0y s\u1EBD t\u1EF1 \u0111\u1ED9ng li\xEAn k\u1EBFt sang phi\xEAn b\u1EA3n m\u1EDBi.",
+        type: "info",
+        showIcon: true,
+        style: {
+          marginTop: 8
+        }
+      })]
+    })]
   });
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Edit);
@@ -192798,18 +193186,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Layout_MainLayout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Layout/MainLayout */ "./resources/js/components/Layout/MainLayout.jsx");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/button/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/card/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/form/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/input/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/input-number/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/message/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/select/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/space/index.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/RollbackOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/SaveOutlined.js");
-/* harmony import */ var _inertiajs_react__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @inertiajs/react */ "./node_modules/@inertiajs/react/dist/index.esm.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/alert/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/button/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/card/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/form/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/input/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/input-number/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/message/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/modal/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/select/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/space/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/tag/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/tooltip/index.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/ExclamationCircleOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/HistoryOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/RollbackOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/SaveOutlined.js");
+/* harmony import */ var _inertiajs_react__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @inertiajs/react */ "./node_modules/@inertiajs/react/dist/index.esm.js");
+/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! dayjs */ "./node_modules/dayjs/dayjs.min.js");
+/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(dayjs__WEBPACK_IMPORTED_MODULE_19__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -192823,41 +193219,187 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
 
 
-var TextArea = antd__WEBPACK_IMPORTED_MODULE_5__["default"].TextArea;
+
+var TextArea = antd__WEBPACK_IMPORTED_MODULE_6__["default"].TextArea;
 var Edit = function Edit(_ref) {
+  var _phong$phien_ban, _phong$phien_ban2;
   var phong = _ref.phong,
     khuNhas = _ref.khuNhas;
-  var _Form$useForm = antd__WEBPACK_IMPORTED_MODULE_4__["default"].useForm(),
+  var _Form$useForm = antd__WEBPACK_IMPORTED_MODULE_5__["default"].useForm(),
     _Form$useForm2 = _slicedToArray(_Form$useForm, 1),
     form = _Form$useForm2[0];
-  var handleSubmit = function handleSubmit(values) {
-    _inertiajs_react__WEBPACK_IMPORTED_MODULE_12__.router.put("/phong/".concat(phong.id), values, {
-      // Không tự show success ở đây; để MainLayout show flash
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState2 = _slicedToArray(_useState, 2),
+    submitting = _useState2[0],
+    setSubmitting = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState4 = _slicedToArray(_useState3, 2),
+    versionModalVisible = _useState4[0],
+    setVersionModalVisible = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState6 = _slicedToArray(_useState5, 2),
+    pendingValues = _useState6[0],
+    setPendingValues = _useState6[1];
+
+  // Kiểm tra thay đổi cho version update (không tính ma_phong vì backend luôn giữ gốc)
+  var checkHasChanges = function checkHasChanges(formValues) {
+    var fields = {
+      khu_nha_id: function khu_nha_id(v) {
+        return Number(v);
+      },
+      ten_phong: function ten_phong(v) {
+        return String(v !== null && v !== void 0 ? v : '').trim();
+      },
+      loai_phong: function loai_phong(v) {
+        return String(v !== null && v !== void 0 ? v : '');
+      },
+      tang: function tang(v) {
+        return Number(v);
+      },
+      dien_tich: function dien_tich(v) {
+        return parseFloat(v) || 0;
+      },
+      suc_chua: function suc_chua(v) {
+        return Number(v);
+      },
+      trang_thiet_bi: function trang_thiet_bi(v) {
+        return String(v !== null && v !== void 0 ? v : '').trim();
+      },
+      mo_ta: function mo_ta(v) {
+        return String(v !== null && v !== void 0 ? v : '').trim();
+      },
+      trang_thai: function trang_thai(v) {
+        return String(v !== null && v !== void 0 ? v : '');
+      }
+    };
+    return Object.keys(fields).some(function (key) {
+      var norm = fields[key];
+      return norm(formValues[key]) !== norm(phong[key]);
+    });
+  };
+
+  // Cập nhật trực tiếp (ghi đè dữ liệu hiện tại)
+  var handleDirectUpdate = function handleDirectUpdate(values) {
+    setSubmitting(true);
+    _inertiajs_react__WEBPACK_IMPORTED_MODULE_18__.router.put("/phong/".concat(phong.id), values, {
       onError: function onError(errors) {
         if (errors && _typeof(errors) === 'object') {
           Object.keys(errors).forEach(function (key) {
-            return antd__WEBPACK_IMPORTED_MODULE_7__["default"].error(errors[key]);
+            return antd__WEBPACK_IMPORTED_MODULE_8__["default"].error(errors[key]);
           });
         }
+        setSubmitting(false);
+      },
+      onFinish: function onFinish() {
+        return setSubmitting(false);
       }
     });
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Layout_MainLayout__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
-      title: "Ch\u1EC9nh s\u1EEDa ph\xF2ng: ".concat(phong.ten_phong),
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
+
+  // Mở modal xác nhận lưu phiên bản mới
+  var handleVersionUpdateClick = function handleVersionUpdateClick() {
+    form.validateFields().then(function (values) {
+      var _values$ma_phong, _phong$ma_phong;
+      var maChanged = String((_values$ma_phong = values.ma_phong) !== null && _values$ma_phong !== void 0 ? _values$ma_phong : '').trim() !== String((_phong$ma_phong = phong.ma_phong) !== null && _phong$ma_phong !== void 0 ? _phong$ma_phong : '').trim();
+      if (!checkHasChanges(values)) {
+        if (maChanged) {
+          antd__WEBPACK_IMPORTED_MODULE_8__["default"].warning('Mã phòng chỉ thay đổi được bằng "Cập nhật trực tiếp". Phiên bản mới không ghi nhận thay đổi mã.');
+        } else {
+          antd__WEBPACK_IMPORTED_MODULE_8__["default"].warning('Không có thay đổi nào để lưu phiên bản mới. Hãy chỉnh sửa ít nhất một trường trước.');
+        }
+        return;
+      }
+      if (maChanged) {
+        antd__WEBPACK_IMPORTED_MODULE_8__["default"].info('Lưu ý: Mã phòng sẽ không thay đổi khi lưu phiên bản mới. Nếu muốn đổi mã, hãy dùng "Cập nhật trực tiếp".');
+      }
+      setPendingValues(values);
+      setVersionModalVisible(true);
+    })["catch"](function () {
+      antd__WEBPACK_IMPORTED_MODULE_8__["default"].error('Vui lòng kiểm tra lại các trường bắt buộc.');
+    });
+  };
+
+  // Xác nhận lưu phiên bản mới
+  var handleVersionUpdateConfirm = function handleVersionUpdateConfirm() {
+    if (!pendingValues) return;
+    setSubmitting(true);
+    setVersionModalVisible(false);
+    _inertiajs_react__WEBPACK_IMPORTED_MODULE_18__.router.post("/phong/".concat(phong.id, "/version-update"), pendingValues, {
+      onError: function onError(errors) {
+        if (errors && _typeof(errors) === 'object') {
+          Object.keys(errors).forEach(function (key) {
+            return antd__WEBPACK_IMPORTED_MODULE_8__["default"].error(errors[key]);
+          });
+        }
+        setSubmitting(false);
+      },
+      onFinish: function onFinish() {
+        return setSubmitting(false);
+      }
+    });
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)(_Layout_MainLayout__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      title: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)("span", {
+          children: ["Ch\u1EC9nh s\u1EEDa ph\xF2ng: ", phong.ten_phong]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
+          color: "blue",
+          children: ["Phi\xEAn b\u1EA3n ", (_phong$phien_ban = phong.phien_ban) !== null && _phong$phien_ban !== void 0 ? _phong$phien_ban : 1]
+        }), phong.hieu_luc_tu && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
+          title: "Ng\xE0y b\u1EAFt \u0111\u1EA7u hi\u1EC7u l\u1EF1c",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
+            color: "green",
+            children: ["T\u1EEB: ", dayjs__WEBPACK_IMPORTED_MODULE_19___default()(phong.hieu_luc_tu).format('DD/MM/YYYY')]
+          })
+        })]
+      }),
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        message: "Ch\u1ECDn c\xE1ch c\u1EADp nh\u1EADt",
+        description: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)("ul", {
+          style: {
+            marginBottom: 0,
+            paddingLeft: 20
+          },
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)("li", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("strong", {
+              children: "C\u1EADp nh\u1EADt tr\u1EF1c ti\u1EBFp:"
+            }), " Ghi \u0111\xE8 d\u1EEF li\u1EC7u hi\u1EC7n t\u1EA1i. D\u1EEF li\u1EC7u c\u0169 s\u1EBD b\u1ECB m\u1EA5t."]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)("li", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("strong", {
+              children: "L\u01B0u phi\xEAn b\u1EA3n m\u1EDBi:"
+            }), " Gi\u1EEF nguy\xEAn d\u1EEF li\u1EC7u c\u0169 l\xE0m l\u1ECBch s\u1EED, t\u1EA1o b\u1EA3n ghi m\u1EDBi v\u1EDBi thay \u0111\u1ED5i. D\xF9ng khi c\u1EA7n xu\u1EA5t b\xE1o c\xE1o theo m\u1ED1c th\u1EDDi gian."]
+          })]
+        }),
+        type: "info",
+        showIcon: true,
+        style: {
+          marginBottom: 24
+        }
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
         form: form,
         layout: "vertical",
-        onFinish: handleSubmit,
         initialValues: phong,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"].Item, {
+          label: "M\xE3 ph\xF2ng",
+          name: "ma_phong",
+          rules: [{
+            required: true,
+            message: 'Vui lòng nhập mã phòng!'
+          }],
+          tooltip: "Khi l\u01B0u phi\xEAn b\u1EA3n m\u1EDBi, m\xE3 ph\xF2ng \u0111\u01B0\u1EE3c gi\u1EEF nguy\xEAn t\u1EEB b\u1EA3n g\u1ED1c d\xF9 c\xF3 thay \u0111\u1ED5i \u1EDF \u0111\xE2y",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
+            placeholder: "V\xED d\u1EE5: P101",
+            size: "large"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"].Item, {
           label: "Khu nh\xE0",
           name: "khu_nha_id",
           rules: [{
             required: true,
             message: 'Vui lòng chọn khu nhà!'
           }],
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"], {
             size: "large",
             placeholder: "Ch\u1ECDn khu nh\xE0",
             showSearch: true,
@@ -192869,63 +193411,52 @@ var Edit = function Edit(_ref) {
               };
             })
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
-          label: "M\xE3 ph\xF2ng",
-          name: "ma_phong",
-          rules: [{
-            required: true,
-            message: 'Vui lòng nhập mã phòng!'
-          }],
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
-            placeholder: "V\xED d\u1EE5: P001",
-            size: "large"
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"].Item, {
           label: "T\xEAn ph\xF2ng",
           name: "ten_phong",
           rules: [{
             required: true,
             message: 'Vui lòng nhập tên phòng!'
           }],
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
             placeholder: "Nh\u1EADp t\xEAn ph\xF2ng",
             size: "large"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"].Item, {
           label: "Lo\u1EA1i ph\xF2ng",
           name: "loai_phong",
           rules: [{
             required: true,
             message: 'Vui lòng chọn loại phòng!'
           }],
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_10__["default"], {
             size: "large",
             placeholder: "Ch\u1ECDn lo\u1EA1i ph\xF2ng",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Option, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"].Option, {
               value: "phong_hoc",
               children: "Ph\xF2ng h\u1ECDc"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Option, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"].Option, {
               value: "phong_thi_nghiem",
               children: "Ph\xF2ng th\xED nghi\u1EC7m"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Option, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"].Option, {
               value: "phong_thuc_hanh",
               children: "Ph\xF2ng th\u1EF1c h\xE0nh"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Option, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"].Option, {
               value: "phong_lam_viec",
               children: "Ph\xF2ng l\xE0m vi\u1EC7c"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Option, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"].Option, {
               value: "phong_chuc_nang",
               children: "Ph\xF2ng ch\u1EE9c n\u0103ng"
             })]
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"].Item, {
           label: "T\u1EA7ng",
           name: "tang",
           rules: [{
             required: true,
             message: 'Vui lòng nhập tầng!'
           }],
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
             style: {
               width: '100%'
             },
@@ -192933,14 +193464,14 @@ var Edit = function Edit(_ref) {
             min: 1,
             placeholder: "Nh\u1EADp s\u1ED1 t\u1EA7ng"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"].Item, {
           label: "Di\u1EC7n t\xEDch (m\xB2)",
           name: "dien_tich",
           rules: [{
             required: true,
             message: 'Vui lòng nhập diện tích!'
           }],
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
             style: {
               width: '100%'
             },
@@ -192954,14 +193485,14 @@ var Edit = function Edit(_ref) {
               return value.replace(/\$\s?|(,*)/g, '');
             }
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"].Item, {
           label: "S\u1EE9c ch\u1EE9a (ng\u01B0\u1EDDi)",
           name: "suc_chua",
           rules: [{
             required: true,
             message: 'Vui lòng nhập sức chứa!'
           }],
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
             style: {
               width: '100%'
             },
@@ -192969,60 +193500,121 @@ var Edit = function Edit(_ref) {
             min: 0,
             placeholder: "Nh\u1EADp s\u1EE9c ch\u1EE9a"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"].Item, {
           label: "Trang thi\u1EBFt b\u1ECB",
           name: "trang_thiet_bi",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(TextArea, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(TextArea, {
             rows: 3,
             placeholder: "Nh\u1EADp danh s\xE1ch trang thi\u1EBFt b\u1ECB"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"].Item, {
           label: "M\xF4 t\u1EA3",
           name: "mo_ta",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(TextArea, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(TextArea, {
             rows: 4,
             placeholder: "Nh\u1EADp m\xF4 t\u1EA3 v\u1EC1 ph\xF2ng"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"].Item, {
           label: "Tr\u1EA1ng th\xE1i",
           name: "trang_thai",
           rules: [{
             required: true,
             message: 'Vui lòng chọn trạng thái!'
           }],
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_10__["default"], {
             size: "large",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Option, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"].Option, {
               value: "active",
               children: "Ho\u1EA1t \u0111\u1ED9ng"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Option, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"].Option, {
               value: "maintenance",
               children: "B\u1EA3o tr\xEC"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Option, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"].Option, {
               value: "inactive",
               children: "Kh\xF4ng ho\u1EA1t \u0111\u1ED9ng"
             })]
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_9__["default"], {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"].Item, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+            wrap: true,
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
               type: "primary",
-              htmlType: "submit",
-              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_11__["default"], {}),
+              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_17__["default"], {}),
               size: "large",
-              children: "C\u1EADp nh\u1EADt"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_inertiajs_react__WEBPACK_IMPORTED_MODULE_12__.Link, {
+              loading: submitting,
+              onClick: function onClick() {
+                return form.validateFields().then(handleDirectUpdate);
+              },
+              children: "C\u1EADp nh\u1EADt tr\u1EF1c ti\u1EBFp"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
+              type: "default",
+              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_15__["default"], {}),
+              size: "large",
+              loading: submitting,
+              onClick: handleVersionUpdateClick,
+              style: {
+                borderColor: '#fa8c16',
+                color: '#fa8c16'
+              },
+              children: "L\u01B0u phi\xEAn b\u1EA3n m\u1EDBi"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(_inertiajs_react__WEBPACK_IMPORTED_MODULE_18__.Link, {
               href: "/phong",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
-                icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_10__["default"], {}),
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
+                icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_16__["default"], {}),
                 size: "large",
                 children: "Quay l\u1EA1i"
               })
             })]
           })
         })]
-      })
-    })
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_9__["default"], {
+      title: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_14__["default"], {
+          style: {
+            color: '#fa8c16'
+          }
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("span", {
+          children: "X\xE1c nh\u1EADn l\u01B0u phi\xEAn b\u1EA3n m\u1EDBi"
+        })]
+      }),
+      open: versionModalVisible,
+      onOk: handleVersionUpdateConfirm,
+      onCancel: function onCancel() {
+        return setVersionModalVisible(false);
+      },
+      okText: "X\xE1c nh\u1EADn l\u01B0u phi\xEAn b\u1EA3n m\u1EDBi",
+      cancelText: "H\u1EE7y",
+      okButtonProps: {
+        style: {
+          background: '#fa8c16',
+          borderColor: '#fa8c16'
+        }
+      },
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)("p", {
+        children: ["H\u1EC7 th\u1ED1ng s\u1EBD ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("strong", {
+          children: "l\u01B0u tr\u1EEF d\u1EEF li\u1EC7u hi\u1EC7n t\u1EA1i"
+        }), " c\u1EE7a ph\xF2ng ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("strong", {
+          children: phong.ten_phong
+        }), " v\xE0o l\u1ECBch s\u1EED v\xE0 t\u1EA1o ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)("strong", {
+          children: ["phi\xEAn b\u1EA3n ", ((_phong$phien_ban2 = phong.phien_ban) !== null && _phong$phien_ban2 !== void 0 ? _phong$phien_ban2 : 1) + 1]
+        }), " v\u1EDBi c\xE1c thay \u0111\u1ED5i b\u1EA1n v\u1EEBa nh\u1EADp."]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        message: "D\u1EEF li\u1EC7u c\u0169 s\u1EBD \u0111\u01B0\u1EE3c gi\u1EEF l\u1EA1i \u0111\u1EC3 xu\u1EA5t b\xE1o c\xE1o theo m\u1ED1c th\u1EDDi gian.",
+        type: "success",
+        showIcon: true,
+        style: {
+          marginTop: 12
+        }
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        message: "T\u1EA5t c\u1EA3 thi\u1EBFt b\u1ECB \u0111ang ho\u1EA1t \u0111\u1ED9ng trong ph\xF2ng n\xE0y s\u1EBD t\u1EF1 \u0111\u1ED9ng li\xEAn k\u1EBFt sang phi\xEAn b\u1EA3n m\u1EDBi.",
+        type: "info",
+        showIcon: true,
+        style: {
+          marginTop: 8
+        }
+      })]
+    })]
   });
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Edit);
@@ -194343,31 +194935,34 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Layout_MainLayout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Layout/MainLayout */ "./resources/js/components/Layout/MainLayout.jsx");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/button/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/card/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/col/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/date-picker/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/divider/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/form/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/input/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/input-number/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/message/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/row/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/select/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/space/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/table/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/tabs/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/tag/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/tooltip/index.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/CopyOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/HistoryOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/PlusOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/RollbackOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/SaveOutlined.js");
-/* harmony import */ var _inertiajs_react__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @inertiajs/react */ "./node_modules/@inertiajs/react/dist/index.esm.js");
-/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! dayjs */ "./node_modules/dayjs/dayjs.min.js");
-/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(dayjs__WEBPACK_IMPORTED_MODULE_24__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/alert/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/button/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/card/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/col/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/date-picker/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/divider/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/form/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/input/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/input-number/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/message/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/modal/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/row/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/select/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/space/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/table/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/tabs/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/tag/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/tooltip/index.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/CopyOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/ExclamationCircleOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/HistoryOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/PlusOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/RollbackOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/SaveOutlined.js");
+/* harmony import */ var _inertiajs_react__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @inertiajs/react */ "./node_modules/@inertiajs/react/dist/index.esm.js");
+/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! dayjs */ "./node_modules/dayjs/dayjs.min.js");
+/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_27___default = /*#__PURE__*/__webpack_require__.n(dayjs__WEBPACK_IMPORTED_MODULE_27__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
@@ -194387,33 +194982,138 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
 
 
-var TextArea = antd__WEBPACK_IMPORTED_MODULE_8__["default"].TextArea;
+var TextArea = antd__WEBPACK_IMPORTED_MODULE_9__["default"].TextArea;
 var Edit = function Edit(_ref) {
-  var _thietBi$lich_su_bao_;
+  var _thietBi$lich_su_bao_, _thietBi$phien_ban, _thietBi$phien_ban2;
   var thietBi = _ref.thietBi,
     phongs = _ref.phongs;
-  var _Form$useForm = antd__WEBPACK_IMPORTED_MODULE_7__["default"].useForm(),
+  var _Form$useForm = antd__WEBPACK_IMPORTED_MODULE_8__["default"].useForm(),
     _Form$useForm2 = _slicedToArray(_Form$useForm, 1),
     form = _Form$useForm2[0];
-
-  // Format initial values for dates
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState2 = _slicedToArray(_useState, 2),
+    submitting = _useState2[0],
+    setSubmitting = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState4 = _slicedToArray(_useState3, 2),
+    versionModalVisible = _useState4[0],
+    setVersionModalVisible = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState6 = _slicedToArray(_useState5, 2),
+    pendingValues = _useState6[0],
+    setPendingValues = _useState6[1];
   var initialValues = _objectSpread(_objectSpread({}, thietBi), {}, {
-    ngay_mua: thietBi.ngay_mua ? dayjs__WEBPACK_IMPORTED_MODULE_24___default()(thietBi.ngay_mua) : null,
-    ngay_bao_duong_cuoi: thietBi.ngay_bao_duong_cuoi ? dayjs__WEBPACK_IMPORTED_MODULE_24___default()(thietBi.ngay_bao_duong_cuoi) : null,
-    ngay_bao_duong_tiep_theo: thietBi.ngay_bao_duong_tiep_theo ? dayjs__WEBPACK_IMPORTED_MODULE_24___default()(thietBi.ngay_bao_duong_tiep_theo) : null
+    ngay_mua: thietBi.ngay_mua ? dayjs__WEBPACK_IMPORTED_MODULE_27___default()(thietBi.ngay_mua) : null,
+    ngay_bao_duong_cuoi: thietBi.ngay_bao_duong_cuoi ? dayjs__WEBPACK_IMPORTED_MODULE_27___default()(thietBi.ngay_bao_duong_cuoi) : null,
+    ngay_bao_duong_tiep_theo: thietBi.ngay_bao_duong_tiep_theo ? dayjs__WEBPACK_IMPORTED_MODULE_27___default()(thietBi.ngay_bao_duong_tiep_theo) : null
   });
-  var handleSubmit = function handleSubmit(values) {
-    // Format dates
-    var formattedValues = _objectSpread(_objectSpread({}, values), {}, {
-      ngay_mua: values.ngay_mua ? dayjs__WEBPACK_IMPORTED_MODULE_24___default()(values.ngay_mua).format('YYYY-MM-DD') : null,
-      ngay_bao_duong_cuoi: values.ngay_bao_duong_cuoi ? dayjs__WEBPACK_IMPORTED_MODULE_24___default()(values.ngay_bao_duong_cuoi).format('YYYY-MM-DD') : null
+  var formatDates = function formatDates(values) {
+    return _objectSpread(_objectSpread({}, values), {}, {
+      ngay_mua: values.ngay_mua ? dayjs__WEBPACK_IMPORTED_MODULE_27___default()(values.ngay_mua).format('YYYY-MM-DD') : null,
+      ngay_bao_duong_cuoi: values.ngay_bao_duong_cuoi ? dayjs__WEBPACK_IMPORTED_MODULE_27___default()(values.ngay_bao_duong_cuoi).format('YYYY-MM-DD') : null
     });
-    _inertiajs_react__WEBPACK_IMPORTED_MODULE_23__.router.put("/thiet-bi/".concat(thietBi.id), formattedValues, {
-      // success toast hiển thị qua flash ở MainLayout
+  };
+
+  // Kiểm tra thay đổi cho version update (không tính ma_thiet_bi + serial_number vì backend luôn giữ gốc)
+  var checkHasChanges = function checkHasChanges(formValues) {
+    var fields = {
+      phong_id: function phong_id(v) {
+        return v ? Number(v) : null;
+      },
+      ten_thiet_bi: function ten_thiet_bi(v) {
+        return String(v !== null && v !== void 0 ? v : '').trim();
+      },
+      loai_thiet_bi: function loai_thiet_bi(v) {
+        return String(v !== null && v !== void 0 ? v : '');
+      },
+      hang_san_xuat: function hang_san_xuat(v) {
+        return String(v !== null && v !== void 0 ? v : '').trim();
+      },
+      model: function model(v) {
+        return String(v !== null && v !== void 0 ? v : '').trim();
+      },
+      nam_mua: function nam_mua(v) {
+        return v ? Number(v) : null;
+      },
+      ngay_mua: function ngay_mua(v) {
+        return v ? dayjs__WEBPACK_IMPORTED_MODULE_27___default().isDayjs(v) ? v.format('YYYY-MM-DD') : String(v) : null;
+      },
+      gia_tri: function gia_tri(v) {
+        return parseFloat(v) || 0;
+      },
+      chu_ky_bao_duong: function chu_ky_bao_duong(v) {
+        return v ? Number(v) : null;
+      },
+      thong_so_ky_thuat: function thong_so_ky_thuat(v) {
+        return String(v !== null && v !== void 0 ? v : '').trim();
+      },
+      mo_ta: function mo_ta(v) {
+        return String(v !== null && v !== void 0 ? v : '').trim();
+      },
+      trang_thai: function trang_thai(v) {
+        return String(v !== null && v !== void 0 ? v : '');
+      }
+    };
+    return Object.keys(fields).some(function (key) {
+      var norm = fields[key];
+      var origVal = key === 'ngay_mua' && thietBi[key] ? dayjs__WEBPACK_IMPORTED_MODULE_27___default()(thietBi[key]).format('YYYY-MM-DD') : thietBi[key];
+      return norm(formValues[key]) !== norm(origVal);
+    });
+  };
+
+  // Cập nhật trực tiếp
+  var handleDirectUpdate = function handleDirectUpdate(values) {
+    setSubmitting(true);
+    _inertiajs_react__WEBPACK_IMPORTED_MODULE_26__.router.put("/thiet-bi/".concat(thietBi.id), formatDates(values), {
       onError: function onError(errors) {
         Object.keys(errors).forEach(function (key) {
-          antd__WEBPACK_IMPORTED_MODULE_10__["default"].error(errors[key]);
+          return antd__WEBPACK_IMPORTED_MODULE_11__["default"].error(errors[key]);
         });
+        setSubmitting(false);
+      },
+      onFinish: function onFinish() {
+        return setSubmitting(false);
+      }
+    });
+  };
+
+  // Mở modal xác nhận lưu phiên bản mới
+  var handleVersionUpdateClick = function handleVersionUpdateClick() {
+    form.validateFields().then(function (values) {
+      var _values$ma_thiet_bi, _thietBi$ma_thiet_bi, _values$serial_number, _thietBi$serial_numbe;
+      var maChanged = String((_values$ma_thiet_bi = values.ma_thiet_bi) !== null && _values$ma_thiet_bi !== void 0 ? _values$ma_thiet_bi : '').trim() !== String((_thietBi$ma_thiet_bi = thietBi.ma_thiet_bi) !== null && _thietBi$ma_thiet_bi !== void 0 ? _thietBi$ma_thiet_bi : '').trim() || String((_values$serial_number = values.serial_number) !== null && _values$serial_number !== void 0 ? _values$serial_number : '').trim() !== String((_thietBi$serial_numbe = thietBi.serial_number) !== null && _thietBi$serial_numbe !== void 0 ? _thietBi$serial_numbe : '').trim();
+      if (!checkHasChanges(values)) {
+        if (maChanged) {
+          antd__WEBPACK_IMPORTED_MODULE_11__["default"].warning('Mã thiết bị / Số serial chỉ thay đổi được bằng "Cập nhật trực tiếp". Phiên bản mới không ghi nhận thay đổi mã.');
+        } else {
+          antd__WEBPACK_IMPORTED_MODULE_11__["default"].warning('Không có thay đổi nào để lưu phiên bản mới. Hãy chỉnh sửa ít nhất một trường trước.');
+        }
+        return;
+      }
+      if (maChanged) {
+        antd__WEBPACK_IMPORTED_MODULE_11__["default"].info('Lưu ý: Mã thiết bị và Số serial sẽ không thay đổi khi lưu phiên bản mới. Nếu muốn đổi, hãy dùng "Cập nhật trực tiếp".');
+      }
+      setPendingValues(formatDates(values));
+      setVersionModalVisible(true);
+    })["catch"](function () {
+      antd__WEBPACK_IMPORTED_MODULE_11__["default"].error('Vui lòng kiểm tra lại các trường bắt buộc.');
+    });
+  };
+
+  // Xác nhận lưu phiên bản mới
+  var handleVersionUpdateConfirm = function handleVersionUpdateConfirm() {
+    if (!pendingValues) return;
+    setSubmitting(true);
+    setVersionModalVisible(false);
+    _inertiajs_react__WEBPACK_IMPORTED_MODULE_26__.router.post("/thiet-bi/".concat(thietBi.id, "/version-update"), pendingValues, {
+      onError: function onError(errors) {
+        Object.keys(errors).forEach(function (key) {
+          return antd__WEBPACK_IMPORTED_MODULE_11__["default"].error(errors[key]);
+        });
+        setSubmitting(false);
+      },
+      onFinish: function onFinish() {
+        return setSubmitting(false);
       }
     });
   };
@@ -194424,133 +195124,139 @@ var Edit = function Edit(_ref) {
     }).format(value);
   };
   var getLoaiBaoDuongLabel = function getLoaiBaoDuongLabel(loai) {
-    var labels = {
-      'dinh_ky': 'Định kỳ',
-      'sua_chua': 'Sửa chữa',
-      'thay_the': 'Thay thế'
-    };
-    return labels[loai] || loai;
+    return {
+      dinh_ky: 'Định kỳ',
+      sua_chua: 'Sửa chữa',
+      thay_the: 'Thay thế'
+    }[loai] || loai;
   };
-  var getTrangThaiLabel = function getTrangThaiLabel(trangThai) {
-    var labels = {
-      'hoan_thanh': 'Hoàn thành',
-      'dang_thuc_hien': 'Đang thực hiện',
-      'chua_thuc_hien': 'Chưa thực hiện'
-    };
-    return labels[trangThai] || trangThai;
+  var getTrangThaiLabel = function getTrangThaiLabel(tt) {
+    return {
+      hoan_thanh: 'Hoàn thành',
+      dang_thuc_hien: 'Đang thực hiện',
+      chua_thuc_hien: 'Chưa thực hiện'
+    }[tt] || tt;
   };
-  var getTrangThaiColor = function getTrangThaiColor(trangThai) {
-    var colors = {
-      'hoan_thanh': 'green',
-      'dang_thuc_hien': 'blue',
-      'chua_thuc_hien': 'orange'
-    };
-    return colors[trangThai] || 'default';
+  var getTrangThaiColor = function getTrangThaiColor(tt) {
+    return {
+      hoan_thanh: 'green',
+      dang_thuc_hien: 'blue',
+      chua_thuc_hien: 'orange'
+    }[tt] || 'default';
   };
+  var ngayDenBaoDuong = thietBi.ngay_bao_duong_tiep_theo ? dayjs__WEBPACK_IMPORTED_MODULE_27___default()(thietBi.ngay_bao_duong_tiep_theo).diff(dayjs__WEBPACK_IMPORTED_MODULE_27___default()(), 'day') : null;
+  var canBaoDuong = ngayDenBaoDuong !== null && ngayDenBaoDuong <= 0;
   var lichSuColumns = [{
     title: 'Ngày bảo dưỡng',
     dataIndex: 'ngay_bao_duong',
-    key: 'ngay_bao_duong',
-    render: function render(date) {
-      return dayjs__WEBPACK_IMPORTED_MODULE_24___default()(date).format('DD/MM/YYYY');
+    render: function render(d) {
+      return dayjs__WEBPACK_IMPORTED_MODULE_27___default()(d).format('DD/MM/YYYY');
     }
   }, {
     title: 'Loại',
     dataIndex: 'loai_bao_duong',
-    key: 'loai_bao_duong',
-    render: function render(loai) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_16__["default"], {
-        children: getLoaiBaoDuongLabel(loai)
+    render: function render(l) {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_18__["default"], {
+        children: getLoaiBaoDuongLabel(l)
       });
     }
   }, {
     title: 'Nội dung',
-    dataIndex: 'noi_dung',
-    key: 'noi_dung'
+    dataIndex: 'noi_dung'
   }, {
     title: 'Chi phí',
     dataIndex: 'chi_phi',
-    key: 'chi_phi',
-    render: function render(value) {
-      return formatCurrency(value);
+    render: function render(v) {
+      return formatCurrency(v);
     }
   }, {
     title: 'Người thực hiện',
-    dataIndex: 'nguoi_thuc_hien',
-    key: 'nguoi_thuc_hien'
+    dataIndex: 'nguoi_thuc_hien'
   }, {
     title: 'Trạng thái',
     dataIndex: 'trang_thai',
-    key: 'trang_thai',
-    render: function render(trangThai) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_16__["default"], {
-        color: getTrangThaiColor(trangThai),
-        children: getTrangThaiLabel(trangThai)
+    render: function render(tt) {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_18__["default"], {
+        color: getTrangThaiColor(tt),
+        children: getTrangThaiLabel(tt)
       });
     }
   }];
-
-  // Tính số ngày đến bảo dưỡng tiếp theo
-  var getNgayDenBaoDuong = function getNgayDenBaoDuong() {
-    if (!thietBi.ngay_bao_duong_tiep_theo) return null;
-    var days = dayjs__WEBPACK_IMPORTED_MODULE_24___default()(thietBi.ngay_bao_duong_tiep_theo).diff(dayjs__WEBPACK_IMPORTED_MODULE_24___default()(), 'day');
-    return days;
-  };
-  var ngayDenBaoDuong = getNgayDenBaoDuong();
-  var canBaoDuong = ngayDenBaoDuong !== null && ngayDenBaoDuong <= 0;
-  var formContent = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
+  var formContent = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
     form: form,
     layout: "vertical",
-    onFinish: handleSubmit,
     initialValues: initialValues,
-    children: [canBaoDuong && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      message: "Ch\u1ECDn c\xE1ch c\u1EADp nh\u1EADt",
+      description: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)("ul", {
+        style: {
+          marginBottom: 0,
+          paddingLeft: 20
+        },
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)("li", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)("strong", {
+            children: "C\u1EADp nh\u1EADt tr\u1EF1c ti\u1EBFp:"
+          }), " Ghi \u0111\xE8 d\u1EEF li\u1EC7u hi\u1EC7n t\u1EA1i."]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)("li", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)("strong", {
+            children: "L\u01B0u phi\xEAn b\u1EA3n m\u1EDBi:"
+          }), " Gi\u1EEF nguy\xEAn d\u1EEF li\u1EC7u c\u0169 l\xE0m l\u1ECBch s\u1EED, t\u1EA1o b\u1EA3n ghi m\u1EDBi. M\xE3 thi\u1EBFt b\u1ECB v\xE0 Serial \u0111\u01B0\u1EE3c gi\u1EEF nguy\xEAn t\u1EEB b\u1EA3n ghi g\u1ED1c."]
+        })]
+      }),
+      type: "info",
+      showIcon: true,
+      style: {
+        marginBottom: 16
+      }
+    }), canBaoDuong && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
       style: {
         marginBottom: 16,
         background: '#fff2e8',
         borderColor: '#ff7a45'
       },
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_19__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_15__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_22__["default"], {
           style: {
             fontSize: 20,
             color: '#ff7a45'
           }
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)("span", {
           style: {
             fontWeight: 'bold',
             color: '#ff7a45'
           },
           children: ngayDenBaoDuong < 0 ? "\u0110\xE3 qu\xE1 h\u1EA1n b\u1EA3o d\u01B0\u1EE1ng ".concat(Math.abs(ngayDenBaoDuong), " ng\xE0y!") : 'Đến hạn bảo dưỡng hôm nay!'
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(_inertiajs_react__WEBPACK_IMPORTED_MODULE_23__.Link, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_inertiajs_react__WEBPACK_IMPORTED_MODULE_26__.Link, {
           href: "/lich-su-bao-duong/create?thiet_bi_id=".concat(thietBi.id),
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
             type: "primary",
-            icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_20__["default"], {}),
+            icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_23__["default"], {}),
             children: "T\u1EA1o l\u1ECBch b\u1EA3o d\u01B0\u1EE1ng"
           })
         })]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
       gutter: 16,
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
         xs: 24,
         md: 8,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"].Item, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Item, {
           label: "M\xE3 thi\u1EBFt b\u1ECB",
           name: "ma_thiet_bi",
           rules: [{
             required: true,
             message: 'Vui lòng nhập mã thiết bị!'
           }],
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          tooltip: "M\xE3 thi\u1EBFt b\u1ECB v\xE0 Serial kh\xF4ng thay \u0111\u1ED5i khi l\u01B0u phi\xEAn b\u1EA3n m\u1EDBi",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__["default"], {
             placeholder: "V\xED d\u1EE5: TB001",
             size: "large"
           })
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
         xs: 24,
         md: 8,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"].Item, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Item, {
           label: "S\u1ED1 Serial",
           name: "serial_number",
           rules: [{
@@ -194558,36 +195264,36 @@ var Edit = function Edit(_ref) {
             message: 'Vui lòng nhập số serial!'
           }],
           tooltip: "S\u1ED1 serial duy nh\u1EA5t \u0111\u1EC3 ph\xE2n bi\u1EC7t t\u1EEBng thi\u1EBFt b\u1ECB",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__["default"], {
             placeholder: "V\xED d\u1EE5: SN123456789",
             size: "large"
           })
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
         xs: 24,
         md: 8,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"].Item, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Item, {
           label: "T\xEAn thi\u1EBFt b\u1ECB",
           name: "ten_thiet_bi",
           rules: [{
             required: true,
             message: 'Vui lòng nhập tên thiết bị!'
           }],
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__["default"], {
             placeholder: "Nh\u1EADp t\xEAn thi\u1EBFt b\u1ECB",
             size: "large"
           })
         })
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
       gutter: 16,
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
         xs: 24,
         md: 12,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"].Item, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Item, {
           label: "Ph\xF2ng",
           name: "phong_id",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
             size: "large",
             placeholder: "Ch\u1ECDn ph\xF2ng (c\xF3 th\u1EC3 b\u1ECF tr\u1ED1ng)",
             allowClear: true,
@@ -194601,82 +195307,82 @@ var Edit = function Edit(_ref) {
             })
           })
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
         xs: 24,
         md: 12,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"].Item, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Item, {
           label: "Lo\u1EA1i thi\u1EBFt b\u1ECB",
           name: "loai_thiet_bi",
           rules: [{
             required: true,
             message: 'Vui lòng chọn loại thiết bị!'
           }],
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
             size: "large",
             placeholder: "Ch\u1ECDn lo\u1EA1i thi\u1EBFt b\u1ECB",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_12__["default"].Option, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"].Option, {
               value: "van_phong",
               children: "V\u0103n ph\xF2ng"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_12__["default"].Option, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"].Option, {
               value: "day_hoc",
               children: "D\u1EA1y h\u1ECDc"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_12__["default"].Option, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"].Option, {
               value: "thi_nghiem",
               children: "Th\xED nghi\u1EC7m"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_12__["default"].Option, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"].Option, {
               value: "thuc_hanh",
               children: "Th\u1EF1c h\xE0nh"
             })]
           })
         })
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
       gutter: 16,
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
         xs: 24,
         md: 12,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"].Item, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Item, {
           label: "H\xE3ng s\u1EA3n xu\u1EA5t",
           name: "hang_san_xuat",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__["default"], {
             placeholder: "Nh\u1EADp h\xE3ng s\u1EA3n xu\u1EA5t",
             size: "large"
           })
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
         xs: 24,
         md: 12,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"].Item, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Item, {
           label: "Model",
           name: "model",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__["default"], {
             placeholder: "Nh\u1EADp model",
             size: "large"
           })
         })
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
       gutter: 16,
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
         xs: 24,
         md: 6,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"].Item, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Item, {
           label: "N\u0103m mua",
           name: "nam_mua",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"], {
             style: {
               width: '100%'
             },
             size: "large",
             min: 1900,
             max: new Date().getFullYear() + 10,
-            placeholder: "Nh\u1EADp n\u0103m mua"
+            placeholder: "N\u0103m mua"
           })
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
         xs: 24,
         md: 6,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"].Item, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Item, {
           label: "Ng\xE0y mua",
           name: "ngay_mua",
           rules: [{
@@ -194684,7 +195390,7 @@ var Edit = function Edit(_ref) {
             message: 'Vui lòng chọn ngày mua!'
           }],
           tooltip: "Ng\xE0y mua \u0111\u1EC3 t\xEDnh chu k\u1EF3 b\u1EA3o d\u01B0\u1EE1ng",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
             style: {
               width: '100%'
             },
@@ -194693,13 +195399,10 @@ var Edit = function Edit(_ref) {
             format: "DD/MM/YYYY"
           })
         })
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
-      gutter: 16,
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
         xs: 24,
         md: 12,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"].Item, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Item, {
           label: "Gi\xE1 tr\u1ECB (VN\u0110)",
           name: "gia_tri",
           rules: [{
@@ -194707,7 +195410,7 @@ var Edit = function Edit(_ref) {
             message: 'Vui lòng nhập giá trị!'
           }],
           tooltip: "Gi\xE1 tr\u1ECB c\u1EE7a 1 thi\u1EBFt b\u1ECB n\xE0y",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"], {
             style: {
               width: '100%'
             },
@@ -194722,34 +195425,34 @@ var Edit = function Edit(_ref) {
             }
           })
         })
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"].Item, {
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Item, {
       label: "Th\xF4ng s\u1ED1 k\u1EF9 thu\u1EADt",
       name: "thong_so_ky_thuat",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(TextArea, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(TextArea, {
         rows: 3,
         placeholder: "Nh\u1EADp th\xF4ng s\u1ED1 k\u1EF9 thu\u1EADt"
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"].Item, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Item, {
       label: "M\xF4 t\u1EA3",
       name: "mo_ta",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(TextArea, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(TextArea, {
         rows: 4,
         placeholder: "Nh\u1EADp m\xF4 t\u1EA3 v\u1EC1 thi\u1EBFt b\u1ECB"
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
       orientation: "left",
       children: "Th\xF4ng tin b\u1EA3o d\u01B0\u1EE1ng"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
       gutter: 16,
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
         xs: 24,
         md: 8,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"].Item, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Item, {
           label: "Chu k\u1EF3 b\u1EA3o d\u01B0\u1EE1ng (th\xE1ng)",
           name: "chu_ky_bao_duong",
           tooltip: "S\u1ED1 th\xE1ng gi\u1EEFa c\xE1c l\u1EA7n b\u1EA3o d\u01B0\u1EE1ng",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"], {
             style: {
               width: '100%'
             },
@@ -194758,14 +195461,14 @@ var Edit = function Edit(_ref) {
             placeholder: "V\xED d\u1EE5: 6"
           })
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
         xs: 24,
         md: 8,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"].Item, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Item, {
           label: "Ng\xE0y b\u1EA3o d\u01B0\u1EE1ng cu\u1ED1i",
           name: "ngay_bao_duong_cuoi",
           tooltip: "Ng\xE0y b\u1EA3o d\u01B0\u1EE1ng g\u1EA7n nh\u1EA5t",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
             style: {
               width: '100%'
             },
@@ -194775,48 +195478,48 @@ var Edit = function Edit(_ref) {
             disabled: true
           })
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
         xs: 24,
         md: 8,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"].Item, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Item, {
           label: "Tr\u1EA1ng th\xE1i",
           name: "trang_thai",
           rules: [{
             required: true,
             message: 'Vui lòng chọn trạng thái!'
           }],
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
             size: "large",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_12__["default"].Option, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"].Option, {
               value: "tot",
               children: "T\u1ED1t"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_12__["default"].Option, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"].Option, {
               value: "can_sua_chua",
               children: "C\u1EA7n s\u1EEDa ch\u1EEFa"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_12__["default"].Option, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"].Option, {
               value: "hu_hong",
               children: "H\u01B0 h\u1ECFng"
             })]
           })
         })
       })]
-    }), thietBi.ngay_bao_duong_tiep_theo && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    }), thietBi.ngay_bao_duong_tiep_theo && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
       style: {
         marginBottom: 16,
         background: canBaoDuong ? '#fff1f0' : '#f6ffed'
       },
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
         gutter: 16,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
           span: 12,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("strong", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)("strong", {
             children: "Ng\xE0y b\u1EA3o d\u01B0\u1EE1ng ti\u1EBFp theo:"
-          }), " ", dayjs__WEBPACK_IMPORTED_MODULE_24___default()(thietBi.ngay_bao_duong_tiep_theo).format('DD/MM/YYYY')]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          }), " ", dayjs__WEBPACK_IMPORTED_MODULE_27___default()(thietBi.ngay_bao_duong_tiep_theo).format('DD/MM/YYYY')]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
           span: 12,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("strong", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)("strong", {
             children: "C\xF2n l\u1EA1i:"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_16__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_18__["default"], {
             color: canBaoDuong ? 'red' : 'green',
             style: {
               marginLeft: 8
@@ -194825,35 +195528,52 @@ var Edit = function Edit(_ref) {
           })]
         })]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"].Item, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Item, {
       label: "Ghi ch\xFA b\u1EA3o d\u01B0\u1EE1ng",
       name: "ghi_chu_bao_duong",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(TextArea, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(TextArea, {
         rows: 2,
         placeholder: "Ghi ch\xFA v\u1EC1 l\u1ECBch b\u1EA3o d\u01B0\u1EE1ng"
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"].Item, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Item, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_15__["default"], {
+        wrap: true,
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
           type: "primary",
-          htmlType: "submit",
-          icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_22__["default"], {}),
+          icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_25__["default"], {}),
           size: "large",
-          children: "C\u1EADp nh\u1EADt"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(_inertiajs_react__WEBPACK_IMPORTED_MODULE_23__.Link, {
+          loading: submitting,
+          onClick: function onClick() {
+            return form.validateFields().then(function (values) {
+              return handleDirectUpdate(values);
+            });
+          },
+          children: "C\u1EADp nh\u1EADt tr\u1EF1c ti\u1EBFp"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          type: "default",
+          icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_22__["default"], {}),
+          size: "large",
+          loading: submitting,
+          onClick: handleVersionUpdateClick,
+          style: {
+            borderColor: '#fa8c16',
+            color: '#fa8c16'
+          },
+          children: "L\u01B0u phi\xEAn b\u1EA3n m\u1EDBi"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_inertiajs_react__WEBPACK_IMPORTED_MODULE_26__.Link, {
           href: "/thiet-bi/".concat(thietBi.id, "/duplicate"),
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_17__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_19__["default"], {
             title: "T\u1EA1o thi\u1EBFt b\u1ECB m\u1EDBi v\u1EDBi th\xF4ng tin gi\u1ED1ng thi\u1EBFt b\u1ECB n\xE0y",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
-              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_18__["default"], {}),
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
+              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_20__["default"], {}),
               size: "large",
               children: "Sao ch\xE9p thi\u1EBFt b\u1ECB"
             })
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(_inertiajs_react__WEBPACK_IMPORTED_MODULE_23__.Link, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_inertiajs_react__WEBPACK_IMPORTED_MODULE_26__.Link, {
           href: "/thiet-bi",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
-            icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_21__["default"], {}),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_24__["default"], {}),
             size: "large",
             children: "Quay l\u1EA1i"
           })
@@ -194861,20 +195581,20 @@ var Edit = function Edit(_ref) {
       })
     })]
   });
-  var lichSuContent = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
+  var lichSuContent = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_15__["default"], {
       style: {
         marginBottom: 16
       },
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(_inertiajs_react__WEBPACK_IMPORTED_MODULE_23__.Link, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_inertiajs_react__WEBPACK_IMPORTED_MODULE_26__.Link, {
         href: "/lich-su-bao-duong/create?thiet_bi_id=".concat(thietBi.id),
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
           type: "primary",
-          icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_20__["default"], {}),
+          icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_23__["default"], {}),
           children: "Th\xEAm l\u1ECBch s\u1EED b\u1EA3o d\u01B0\u1EE1ng"
         })
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_16__["default"], {
       columns: lichSuColumns,
       dataSource: thietBi.lich_su_bao_duongs || [],
       rowKey: "id",
@@ -194895,13 +195615,72 @@ var Edit = function Edit(_ref) {
     label: "L\u1ECBch s\u1EED b\u1EA3o d\u01B0\u1EE1ng (".concat(((_thietBi$lich_su_bao_ = thietBi.lich_su_bao_duongs) === null || _thietBi$lich_su_bao_ === void 0 ? void 0 : _thietBi$lich_su_bao_.length) || 0, ")"),
     children: lichSuContent
   }];
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(_Layout_MainLayout__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
-      title: "Ch\u1EC9nh s\u1EEDa thi\u1EBFt b\u1ECB: ".concat(thietBi.ten_thiet_bi),
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(antd__WEBPACK_IMPORTED_MODULE_15__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(_Layout_MainLayout__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      title: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_15__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)("span", {
+          children: ["Ch\u1EC9nh s\u1EEDa thi\u1EBFt b\u1ECB: ", thietBi.ten_thiet_bi]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_18__["default"], {
+          color: "blue",
+          children: ["Phi\xEAn b\u1EA3n ", (_thietBi$phien_ban = thietBi.phien_ban) !== null && _thietBi$phien_ban !== void 0 ? _thietBi$phien_ban : 1]
+        }), thietBi.hieu_luc_tu && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_19__["default"], {
+          title: "Ng\xE0y b\u1EAFt \u0111\u1EA7u hi\u1EC7u l\u1EF1c",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_18__["default"], {
+            color: "green",
+            children: ["T\u1EEB: ", dayjs__WEBPACK_IMPORTED_MODULE_27___default()(thietBi.hieu_luc_tu).format('DD/MM/YYYY')]
+          })
+        })]
+      }),
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_17__["default"], {
         items: tabItems
       })
-    })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
+      title: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_15__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_21__["default"], {
+          style: {
+            color: '#fa8c16'
+          }
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)("span", {
+          children: "X\xE1c nh\u1EADn l\u01B0u phi\xEAn b\u1EA3n m\u1EDBi"
+        })]
+      }),
+      open: versionModalVisible,
+      onOk: handleVersionUpdateConfirm,
+      onCancel: function onCancel() {
+        return setVersionModalVisible(false);
+      },
+      okText: "X\xE1c nh\u1EADn l\u01B0u phi\xEAn b\u1EA3n m\u1EDBi",
+      cancelText: "H\u1EE7y",
+      okButtonProps: {
+        style: {
+          background: '#fa8c16',
+          borderColor: '#fa8c16'
+        }
+      },
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)("p", {
+        children: ["H\u1EC7 th\u1ED1ng s\u1EBD ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)("strong", {
+          children: "l\u01B0u tr\u1EEF d\u1EEF li\u1EC7u hi\u1EC7n t\u1EA1i"
+        }), " c\u1EE7a thi\u1EBFt b\u1ECB ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)("strong", {
+          children: thietBi.ten_thiet_bi
+        }), " v\xE0o l\u1ECBch s\u1EED v\xE0 t\u1EA1o ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)("strong", {
+          children: ["phi\xEAn b\u1EA3n ", ((_thietBi$phien_ban2 = thietBi.phien_ban) !== null && _thietBi$phien_ban2 !== void 0 ? _thietBi$phien_ban2 : 1) + 1]
+        }), " v\u1EDBi c\xE1c thay \u0111\u1ED5i b\u1EA1n v\u1EEBa nh\u1EADp."]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        message: "D\u1EEF li\u1EC7u c\u0169 s\u1EBD \u0111\u01B0\u1EE3c gi\u1EEF l\u1EA1i \u0111\u1EC3 xu\u1EA5t b\xE1o c\xE1o theo m\u1ED1c th\u1EDDi gian.",
+        type: "success",
+        showIcon: true,
+        style: {
+          marginTop: 12
+        }
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        message: "M\xE3 thi\u1EBFt b\u1ECB v\xE0 S\u1ED1 Serial s\u1EBD \u0111\u01B0\u1EE3c gi\u1EEF nguy\xEAn t\u1EEB b\u1EA3n ghi g\u1ED1c.",
+        type: "info",
+        showIcon: true,
+        style: {
+          marginTop: 8
+        }
+      })]
+    })]
   });
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Edit);

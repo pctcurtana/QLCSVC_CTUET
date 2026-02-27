@@ -5,8 +5,10 @@ namespace App\Services;
 use App\Contracts\Repositories\PhongRepositoryInterface;
 use App\Contracts\Services\PhongServiceInterface;
 use App\Models\Phong;
+use App\Models\ThietBi;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 
 class PhongService
 {
@@ -80,6 +82,44 @@ class PhongService
     public function delete(int $id): bool
     {
         return $this->phongRepository->delete($id);
+    }
+
+    /**
+     * Tạo phiên bản mới: lưu trữ bản ghi hiện tại vào lịch sử,
+     * tạo bản ghi mới với dữ liệu đã cập nhật.
+     *
+     * Cascade: cập nhật tất cả ThietBi hien_hanh trỏ từ old_id sang new_id.
+     */
+    public function createNewVersion(int $id, array $data): Phong
+    {
+        return DB::transaction(function () use ($id, $data) {
+            $current = $this->getById($id);
+
+            $gocId = $current->ban_ghi_goc_id ?? $current->id;
+            $phienBanMoi = ($current->phien_ban ?? 1) + 1;
+            $now = now();
+
+            $current->update([
+                'trang_thai_du_lieu' => 'lich_su',
+                'hieu_luc_den' => $now,
+            ]);
+
+            $newRecord = $this->phongRepository->create(array_merge($data, [
+                'ma_phong'           => $current->ma_phong,
+                'trang_thai_du_lieu' => 'hien_hanh',
+                'hieu_luc_tu'        => $now,
+                'hieu_luc_den'       => null,
+                'phien_ban'          => $phienBanMoi,
+                'ban_ghi_goc_id'     => $gocId,
+            ]));
+
+            // Cascade: chuyển các ThietBi hien_hanh sang phong_id mới
+            ThietBi::where('phong_id', $current->id)
+                ->where('trang_thai_du_lieu', 'hien_hanh')
+                ->update(['phong_id' => $newRecord->id]);
+
+            return $newRecord;
+        });
     }
 }
 

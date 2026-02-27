@@ -6,6 +6,7 @@ use App\Services\KhuNhaService;
 use App\Services\PhongService;
 use App\Http\Requests\Phong\StorePhongRequest;
 use App\Http\Requests\Phong\UpdatePhongRequest;
+use App\Http\Requests\Phong\VersionUpdatePhongRequest;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -125,6 +126,19 @@ class PhongController extends Controller
             return redirect()->route('phong.index')->with('success', 'Xóa phòng thành công!');
         } catch (\Throwable $e) {
             return redirect()->back()->with('error', 'Lỗi khi xóa phòng: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Lưu phiên bản mới: lưu trữ dữ liệu cũ, tạo bản ghi mới với thay đổi.
+     */
+    public function versionUpdate(VersionUpdatePhongRequest $request, $id)
+    {
+        try {
+            $this->phongService->createNewVersion($id, $request->validated());
+            return redirect()->route('phong.index')->with('success', 'Đã lưu phiên bản mới cho phòng thành công!');
+        } catch (\Throwable $e) {
+            return redirect()->back()->withInput()->with('error', 'Lỗi khi lưu phiên bản mới: ' . $e->getMessage());
         }
     }
 }

@@ -6,6 +6,7 @@ use App\Services\CoSoService;
 use App\Services\KhuNhaService;
 use App\Http\Requests\KhuNha\StoreKhuNhaRequest;
 use App\Http\Requests\KhuNha\UpdateKhuNhaRequest;
+use App\Http\Requests\KhuNha\VersionUpdateKhuNhaRequest;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -125,6 +126,19 @@ class KhuNhaController extends Controller
             return redirect()->route('khu-nha.index')->with('success', 'Xóa khu nhà thành công!');
         } catch (\Throwable $e) {
             return redirect()->back()->with('error', 'Lỗi khi xóa khu nhà: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Lưu phiên bản mới: lưu trữ dữ liệu cũ, tạo bản ghi mới với thay đổi.
+     */
+    public function versionUpdate(VersionUpdateKhuNhaRequest $request, $id)
+    {
+        try {
+            $this->khuNhaService->createNewVersion($id, $request->validated());
+            return redirect()->route('khu-nha.index')->with('success', 'Đã lưu phiên bản mới cho khu nhà thành công!');
+        } catch (\Throwable $e) {
+            return redirect()->back()->withInput()->with('error', 'Lỗi khi lưu phiên bản mới: ' . $e->getMessage());
         }
     }
 }

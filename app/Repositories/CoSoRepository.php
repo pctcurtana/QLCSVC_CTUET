@@ -29,9 +29,10 @@ class CoSoRepository implements CoSoRepositoryInterface
      */
     public function paginate(array $filters = [], int $perPage = 10): LengthAwarePaginator
     {
-        $query = $this->model->query()->withCount('khuNhas');
+        $query = $this->model->query()
+            ->withCount('khuNhas')
+            ->where('trang_thai_du_lieu', 'hien_hanh');
 
-        // Filter by search
         if (isset($filters['search']) && !empty($filters['search'])) {
             $search = $filters['search'];
             $query->where(function($q) use ($search) {
@@ -41,7 +42,6 @@ class CoSoRepository implements CoSoRepositoryInterface
             });
         }
 
-        // Filter by status
         if (isset($filters['trang_thai']) && !empty($filters['trang_thai'])) {
             $query->where('trang_thai', $filters['trang_thai']);
         }
@@ -99,6 +99,7 @@ class CoSoRepository implements CoSoRepositoryInterface
     {
         return $this->model
             ->where('trang_thai', 'active')
+            ->where('trang_thai_du_lieu', 'hien_hanh')
             ->get($columns);
     }
 
@@ -107,19 +108,18 @@ class CoSoRepository implements CoSoRepositoryInterface
      */
     public function count(): int
     {
-        return $this->model->count();
+        return $this->model->where('trang_thai_du_lieu', 'hien_hanh')->count();
     }
 
     /**
      * {@inheritDoc}
-     * Cập nhật theo cấu trúc mới: dien_tich_dat, vi_tri_khuon_vien, dien_tich_quy_doi
      */
     public function getTotalArea(): array
     {
         return [
-            'dien_tich_dat' => $this->model->sum('dien_tich_dat'),
-            'vi_tri_khuon_vien_tb' => $this->model->avg('vi_tri_khuon_vien'),
-            'dien_tich_quy_doi' => $this->model->sum('dien_tich_quy_doi'),
+            'dien_tich_dat' => $this->model->where('trang_thai_du_lieu', 'hien_hanh')->sum('dien_tich_dat'),
+            'vi_tri_khuon_vien_tb' => $this->model->where('trang_thai_du_lieu', 'hien_hanh')->avg('vi_tri_khuon_vien'),
+            'dien_tich_quy_doi' => $this->model->where('trang_thai_du_lieu', 'hien_hanh')->sum('dien_tich_quy_doi'),
         ];
     }
 }

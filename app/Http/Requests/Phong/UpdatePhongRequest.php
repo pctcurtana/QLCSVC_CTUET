@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Phong;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdatePhongRequest extends FormRequest
 {
@@ -27,7 +28,12 @@ class UpdatePhongRequest extends FormRequest
 
         return [
             'khu_nha_id' => 'required|exists:khu_nhas,id',
-            'ma_phong' => 'required|string|unique:phongs,ma_phong,' . $phongId,
+            'ma_phong'   => [
+                'required', 'string',
+                Rule::unique('phongs', 'ma_phong')
+                    ->where('trang_thai_du_lieu', 'hien_hanh')
+                    ->ignore($phongId),
+            ],
             'ten_phong' => 'required|string|max:255',
             'loai_phong' => 'required|in:phong_hoc,phong_thi_nghiem,phong_thuc_hanh,phong_lam_viec,phong_chuc_nang',
             'tang' => 'required|integer|min:1',

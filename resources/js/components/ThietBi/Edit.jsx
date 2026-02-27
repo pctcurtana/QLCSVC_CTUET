@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import MainLayout from '../Layout/MainLayout';
-import { Form, Input, InputNumber, Button, Card, Space, Select, message, Row, Col, DatePicker, Divider, Table, Tag, Tabs, Alert, Tooltip } from 'antd';
-import { SaveOutlined, RollbackOutlined, HistoryOutlined, PlusOutlined, CopyOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import { Form, Input, InputNumber, Button, Card, Space, Select, message, Row, Col, DatePicker, Divider, Table, Tag, Tabs, Alert, Tooltip, Modal } from 'antd';
+import { SaveOutlined, RollbackOutlined, HistoryOutlined, PlusOutlined, CopyOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import { router, Link } from '@inertiajs/react';
 import dayjs from 'dayjs';
 
@@ -9,8 +9,10 @@ const { TextArea } = Input;
 
 const Edit = ({ thietBi, phongs }) => {
     const [form] = Form.useForm();
+    const [submitting, setSubmitting] = useState(false);
+    const [versionModalVisible, setVersionModalVisible] = useState(false);
+    const [pendingValues, setPendingValues] = useState(null);
 
-    // Format initial values for dates
     const initialValues = {
         ...thietBi,
         ngay_mua: thietBi.ngay_mua ? dayjs(thietBi.ngay_mua) : null,
@@ -18,132 +20,130 @@ const Edit = ({ thietBi, phongs }) => {
         ngay_bao_duong_tiep_theo: thietBi.ngay_bao_duong_tiep_theo ? dayjs(thietBi.ngay_bao_duong_tiep_theo) : null,
     };
 
-    const handleSubmit = (values) => {
-        // Format dates
-        const formattedValues = {
-            ...values,
-            ngay_mua: values.ngay_mua ? dayjs(values.ngay_mua).format('YYYY-MM-DD') : null,
-            ngay_bao_duong_cuoi: values.ngay_bao_duong_cuoi ? dayjs(values.ngay_bao_duong_cuoi).format('YYYY-MM-DD') : null,
-        };
+    const formatDates = (values) => ({
+        ...values,
+        ngay_mua: values.ngay_mua ? dayjs(values.ngay_mua).format('YYYY-MM-DD') : null,
+        ngay_bao_duong_cuoi: values.ngay_bao_duong_cuoi ? dayjs(values.ngay_bao_duong_cuoi).format('YYYY-MM-DD') : null,
+    });
 
-        router.put(`/thiet-bi/${thietBi.id}`, formattedValues, {
-            // success toast hiển thị qua flash ở MainLayout
-            onError: (errors) => {
-                Object.keys(errors).forEach(key => {
-                    message.error(errors[key]);
-                });
-            },
+    // Kiểm tra thay đổi cho version update (không tính ma_thiet_bi + serial_number vì backend luôn giữ gốc)
+    const checkHasChanges = (formValues) => {
+        const fields = {
+            phong_id:           (v) => v ? Number(v) : null,
+            ten_thiet_bi:       (v) => String(v ?? '').trim(),
+            loai_thiet_bi:      (v) => String(v ?? ''),
+            hang_san_xuat:      (v) => String(v ?? '').trim(),
+            model:              (v) => String(v ?? '').trim(),
+            nam_mua:            (v) => v ? Number(v) : null,
+            ngay_mua:           (v) => v ? (dayjs.isDayjs(v) ? v.format('YYYY-MM-DD') : String(v)) : null,
+            gia_tri:            (v) => parseFloat(v) || 0,
+            chu_ky_bao_duong:   (v) => v ? Number(v) : null,
+            thong_so_ky_thuat:  (v) => String(v ?? '').trim(),
+            mo_ta:              (v) => String(v ?? '').trim(),
+            trang_thai:         (v) => String(v ?? ''),
+        };
+        return Object.keys(fields).some(key => {
+            const norm = fields[key];
+            const origVal = key === 'ngay_mua' && thietBi[key]
+                ? dayjs(thietBi[key]).format('YYYY-MM-DD')
+                : thietBi[key];
+            return norm(formValues[key]) !== norm(origVal);
         });
     };
 
-    const formatCurrency = (value) => {
-        return new Intl.NumberFormat('vi-VN', {
-            style: 'currency',
-            currency: 'VND'
-        }).format(value);
+    // Cập nhật trực tiếp
+    const handleDirectUpdate = (values) => {
+        setSubmitting(true);
+        router.put(`/thiet-bi/${thietBi.id}`, formatDates(values), {
+            onError: (errors) => {
+                Object.keys(errors).forEach(key => message.error(errors[key]));
+                setSubmitting(false);
+            },
+            onFinish: () => setSubmitting(false),
+        });
     };
 
-    const getLoaiBaoDuongLabel = (loai) => {
-        const labels = {
-            'dinh_ky': 'Định kỳ',
-            'sua_chua': 'Sửa chữa',
-            'thay_the': 'Thay thế',
-        };
-        return labels[loai] || loai;
+    // Mở modal xác nhận lưu phiên bản mới
+    const handleVersionUpdateClick = () => {
+        form.validateFields().then(values => {
+            const maChanged = String(values.ma_thiet_bi ?? '').trim() !== String(thietBi.ma_thiet_bi ?? '').trim()
+                || String(values.serial_number ?? '').trim() !== String(thietBi.serial_number ?? '').trim();
+            if (!checkHasChanges(values)) {
+                if (maChanged) {
+                    message.warning('Mã thiết bị / Số serial chỉ thay đổi được bằng "Cập nhật trực tiếp". Phiên bản mới không ghi nhận thay đổi mã.');
+                } else {
+                    message.warning('Không có thay đổi nào để lưu phiên bản mới. Hãy chỉnh sửa ít nhất một trường trước.');
+                }
+                return;
+            }
+            if (maChanged) {
+                message.info('Lưu ý: Mã thiết bị và Số serial sẽ không thay đổi khi lưu phiên bản mới. Nếu muốn đổi, hãy dùng "Cập nhật trực tiếp".');
+            }
+            setPendingValues(formatDates(values));
+            setVersionModalVisible(true);
+        }).catch(() => {
+            message.error('Vui lòng kiểm tra lại các trường bắt buộc.');
+        });
     };
 
-    const getTrangThaiLabel = (trangThai) => {
-        const labels = {
-            'hoan_thanh': 'Hoàn thành',
-            'dang_thuc_hien': 'Đang thực hiện',
-            'chua_thuc_hien': 'Chưa thực hiện',
-        };
-        return labels[trangThai] || trangThai;
+    // Xác nhận lưu phiên bản mới
+    const handleVersionUpdateConfirm = () => {
+        if (!pendingValues) return;
+        setSubmitting(true);
+        setVersionModalVisible(false);
+        router.post(`/thiet-bi/${thietBi.id}/version-update`, pendingValues, {
+            onError: (errors) => {
+                Object.keys(errors).forEach(key => message.error(errors[key]));
+                setSubmitting(false);
+            },
+            onFinish: () => setSubmitting(false),
+        });
     };
 
-    const getTrangThaiColor = (trangThai) => {
-        const colors = {
-            'hoan_thanh': 'green',
-            'dang_thuc_hien': 'blue',
-            'chua_thuc_hien': 'orange',
-        };
-        return colors[trangThai] || 'default';
-    };
+    const formatCurrency = (value) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value);
 
-    const lichSuColumns = [
-        {
-            title: 'Ngày bảo dưỡng',
-            dataIndex: 'ngay_bao_duong',
-            key: 'ngay_bao_duong',
-            render: (date) => dayjs(date).format('DD/MM/YYYY'),
-        },
-        {
-            title: 'Loại',
-            dataIndex: 'loai_bao_duong',
-            key: 'loai_bao_duong',
-            render: (loai) => <Tag>{getLoaiBaoDuongLabel(loai)}</Tag>,
-        },
-        {
-            title: 'Nội dung',
-            dataIndex: 'noi_dung',
-            key: 'noi_dung',
-        },
-        {
-            title: 'Chi phí',
-            dataIndex: 'chi_phi',
-            key: 'chi_phi',
-            render: (value) => formatCurrency(value),
-        },
-        {
-            title: 'Người thực hiện',
-            dataIndex: 'nguoi_thuc_hien',
-            key: 'nguoi_thuc_hien',
-        },
-        {
-            title: 'Trạng thái',
-            dataIndex: 'trang_thai',
-            key: 'trang_thai',
-            render: (trangThai) => (
-                <Tag color={getTrangThaiColor(trangThai)}>
-                    {getTrangThaiLabel(trangThai)}
-                </Tag>
-            ),
-        },
-    ];
+    const getLoaiBaoDuongLabel = (loai) => ({ dinh_ky: 'Định kỳ', sua_chua: 'Sửa chữa', thay_the: 'Thay thế' })[loai] || loai;
+    const getTrangThaiLabel = (tt) => ({ hoan_thanh: 'Hoàn thành', dang_thuc_hien: 'Đang thực hiện', chua_thuc_hien: 'Chưa thực hiện' })[tt] || tt;
+    const getTrangThaiColor = (tt) => ({ hoan_thanh: 'green', dang_thuc_hien: 'blue', chua_thuc_hien: 'orange' })[tt] || 'default';
 
-    // Tính số ngày đến bảo dưỡng tiếp theo
-    const getNgayDenBaoDuong = () => {
-        if (!thietBi.ngay_bao_duong_tiep_theo) return null;
-        const days = dayjs(thietBi.ngay_bao_duong_tiep_theo).diff(dayjs(), 'day');
-        return days;
-    };
-
-    const ngayDenBaoDuong = getNgayDenBaoDuong();
+    const ngayDenBaoDuong = thietBi.ngay_bao_duong_tiep_theo
+        ? dayjs(thietBi.ngay_bao_duong_tiep_theo).diff(dayjs(), 'day')
+        : null;
     const canBaoDuong = ngayDenBaoDuong !== null && ngayDenBaoDuong <= 0;
 
+    const lichSuColumns = [
+        { title: 'Ngày bảo dưỡng', dataIndex: 'ngay_bao_duong', render: d => dayjs(d).format('DD/MM/YYYY') },
+        { title: 'Loại', dataIndex: 'loai_bao_duong', render: l => <Tag>{getLoaiBaoDuongLabel(l)}</Tag> },
+        { title: 'Nội dung', dataIndex: 'noi_dung' },
+        { title: 'Chi phí', dataIndex: 'chi_phi', render: v => formatCurrency(v) },
+        { title: 'Người thực hiện', dataIndex: 'nguoi_thuc_hien' },
+        { title: 'Trạng thái', dataIndex: 'trang_thai', render: tt => <Tag color={getTrangThaiColor(tt)}>{getTrangThaiLabel(tt)}</Tag> },
+    ];
+
     const formContent = (
-        <Form
-            form={form}
-            layout="vertical"
-            onFinish={handleSubmit}
-            initialValues={initialValues}
-        >
+        <Form form={form} layout="vertical" initialValues={initialValues}>
+            <Alert
+                message="Chọn cách cập nhật"
+                description={
+                    <ul style={{ marginBottom: 0, paddingLeft: 20 }}>
+                        <li><strong>Cập nhật trực tiếp:</strong> Ghi đè dữ liệu hiện tại.</li>
+                        <li><strong>Lưu phiên bản mới:</strong> Giữ nguyên dữ liệu cũ làm lịch sử, tạo bản ghi mới. Mã thiết bị và Serial được giữ nguyên từ bản ghi gốc.</li>
+                    </ul>
+                }
+                type="info"
+                showIcon
+                style={{ marginBottom: 16 }}
+            />
+
             {canBaoDuong && (
-                <Card 
-                    style={{ marginBottom: 16, background: '#fff2e8', borderColor: '#ff7a45' }}
-                >
+                <Card style={{ marginBottom: 16, background: '#fff2e8', borderColor: '#ff7a45' }}>
                     <Space>
                         <HistoryOutlined style={{ fontSize: 20, color: '#ff7a45' }} />
                         <span style={{ fontWeight: 'bold', color: '#ff7a45' }}>
-                            {ngayDenBaoDuong < 0 
-                                ? `Đã quá hạn bảo dưỡng ${Math.abs(ngayDenBaoDuong)} ngày!`
-                                : 'Đến hạn bảo dưỡng hôm nay!'
-                            }
+                            {ngayDenBaoDuong < 0 ? `Đã quá hạn bảo dưỡng ${Math.abs(ngayDenBaoDuong)} ngày!` : 'Đến hạn bảo dưỡng hôm nay!'}
                         </span>
                         <Link href={`/lich-su-bao-duong/create?thiet_bi_id=${thietBi.id}`}>
-                            <Button type="primary" icon={<PlusOutlined />}>
-                                Tạo lịch bảo dưỡng
-                            </Button>
+                            <Button type="primary" icon={<PlusOutlined />}>Tạo lịch bảo dưỡng</Button>
                         </Link>
                     </Space>
                 </Card>
@@ -154,34 +154,27 @@ const Edit = ({ thietBi, phongs }) => {
                     <Form.Item
                         label="Mã thiết bị"
                         name="ma_thiet_bi"
-                        rules={[
-                            { required: true, message: 'Vui lòng nhập mã thiết bị!' },
-                        ]}
+                        rules={[{ required: true, message: 'Vui lòng nhập mã thiết bị!' }]}
+                        tooltip="Mã thiết bị và Serial không thay đổi khi lưu phiên bản mới"
                     >
                         <Input placeholder="Ví dụ: TB001" size="large" />
                     </Form.Item>
                 </Col>
-
                 <Col xs={24} md={8}>
                     <Form.Item
                         label="Số Serial"
                         name="serial_number"
-                        rules={[
-                            { required: true, message: 'Vui lòng nhập số serial!' },
-                        ]}
+                        rules={[{ required: true, message: 'Vui lòng nhập số serial!' }]}
                         tooltip="Số serial duy nhất để phân biệt từng thiết bị"
                     >
                         <Input placeholder="Ví dụ: SN123456789" size="large" />
                     </Form.Item>
                 </Col>
-
                 <Col xs={24} md={8}>
                     <Form.Item
                         label="Tên thiết bị"
                         name="ten_thiet_bi"
-                        rules={[
-                            { required: true, message: 'Vui lòng nhập tên thiết bị!' },
-                        ]}
+                        rules={[{ required: true, message: 'Vui lòng nhập tên thiết bị!' }]}
                     >
                         <Input placeholder="Nhập tên thiết bị" size="large" />
                     </Form.Item>
@@ -190,31 +183,22 @@ const Edit = ({ thietBi, phongs }) => {
 
             <Row gutter={16}>
                 <Col xs={24} md={12}>
-                    <Form.Item
-                        label="Phòng"
-                        name="phong_id"
-                    >
-                        <Select 
-                            size="large" 
+                    <Form.Item label="Phòng" name="phong_id">
+                        <Select
+                            size="large"
                             placeholder="Chọn phòng (có thể bỏ trống)"
                             allowClear
                             showSearch
                             optionFilterProp="label"
-                            options={phongs.map(p => ({ 
-                                value: p.id, 
-                                label: `${p.ten_phong} - ${p.khu_nha.ten_khu_nha}` 
-                            }))}
+                            options={phongs.map(p => ({ value: p.id, label: `${p.ten_phong} - ${p.khu_nha.ten_khu_nha}` }))}
                         />
                     </Form.Item>
                 </Col>
-
                 <Col xs={24} md={12}>
                     <Form.Item
                         label="Loại thiết bị"
                         name="loai_thiet_bi"
-                        rules={[
-                            { required: true, message: 'Vui lòng chọn loại thiết bị!' },
-                        ]}
+                        rules={[{ required: true, message: 'Vui lòng chọn loại thiết bị!' }]}
                     >
                         <Select size="large" placeholder="Chọn loại thiết bị">
                             <Select.Option value="van_phong">Văn phòng</Select.Option>
@@ -228,19 +212,12 @@ const Edit = ({ thietBi, phongs }) => {
 
             <Row gutter={16}>
                 <Col xs={24} md={12}>
-                    <Form.Item
-                        label="Hãng sản xuất"
-                        name="hang_san_xuat"
-                    >
+                    <Form.Item label="Hãng sản xuất" name="hang_san_xuat">
                         <Input placeholder="Nhập hãng sản xuất" size="large" />
                     </Form.Item>
                 </Col>
-
                 <Col xs={24} md={12}>
-                    <Form.Item
-                        label="Model"
-                        name="model"
-                    >
+                    <Form.Item label="Model" name="model">
                         <Input placeholder="Nhập model" size="large" />
                     </Form.Item>
                 </Col>
@@ -248,47 +225,25 @@ const Edit = ({ thietBi, phongs }) => {
 
             <Row gutter={16}>
                 <Col xs={24} md={6}>
-                    <Form.Item
-                        label="Năm mua"
-                        name="nam_mua"
-                    >
-                        <InputNumber
-                            style={{ width: '100%' }}
-                            size="large"
-                            min={1900}
-                            max={new Date().getFullYear() + 10}
-                            placeholder="Nhập năm mua"
-                        />
+                    <Form.Item label="Năm mua" name="nam_mua">
+                        <InputNumber style={{ width: '100%' }} size="large" min={1900} max={new Date().getFullYear() + 10} placeholder="Năm mua" />
                     </Form.Item>
                 </Col>
-
                 <Col xs={24} md={6}>
                     <Form.Item
                         label="Ngày mua"
                         name="ngay_mua"
-                        rules={[
-                            { required: true, message: 'Vui lòng chọn ngày mua!' },
-                        ]}
+                        rules={[{ required: true, message: 'Vui lòng chọn ngày mua!' }]}
                         tooltip="Ngày mua để tính chu kỳ bảo dưỡng"
                     >
-                        <DatePicker 
-                            style={{ width: '100%' }}
-                            size="large"
-                            placeholder="Chọn ngày mua"
-                            format="DD/MM/YYYY"
-                        />
+                        <DatePicker style={{ width: '100%' }} size="large" placeholder="Chọn ngày mua" format="DD/MM/YYYY" />
                     </Form.Item>
                 </Col>
-            </Row>
-
-            <Row gutter={16}>
                 <Col xs={24} md={12}>
                     <Form.Item
                         label="Giá trị (VNĐ)"
                         name="gia_tri"
-                        rules={[
-                            { required: true, message: 'Vui lòng nhập giá trị!' },
-                        ]}
+                        rules={[{ required: true, message: 'Vui lòng nhập giá trị!' }]}
                         tooltip="Giá trị của 1 thiết bị này"
                     >
                         <InputNumber
@@ -303,17 +258,11 @@ const Edit = ({ thietBi, phongs }) => {
                 </Col>
             </Row>
 
-            <Form.Item
-                label="Thông số kỹ thuật"
-                name="thong_so_ky_thuat"
-            >
+            <Form.Item label="Thông số kỹ thuật" name="thong_so_ky_thuat">
                 <TextArea rows={3} placeholder="Nhập thông số kỹ thuật" />
             </Form.Item>
 
-            <Form.Item
-                label="Mô tả"
-                name="mo_ta"
-            >
+            <Form.Item label="Mô tả" name="mo_ta">
                 <TextArea rows={4} placeholder="Nhập mô tả về thiết bị" />
             </Form.Item>
 
@@ -326,39 +275,16 @@ const Edit = ({ thietBi, phongs }) => {
                         name="chu_ky_bao_duong"
                         tooltip="Số tháng giữa các lần bảo dưỡng"
                     >
-                        <InputNumber
-                            style={{ width: '100%' }}
-                            size="large"
-                            min={1}
-                            placeholder="Ví dụ: 6"
-                        />
+                        <InputNumber style={{ width: '100%' }} size="large" min={1} placeholder="Ví dụ: 6" />
                     </Form.Item>
                 </Col>
-
                 <Col xs={24} md={8}>
-                    <Form.Item
-                        label="Ngày bảo dưỡng cuối"
-                        name="ngay_bao_duong_cuoi"
-                        tooltip="Ngày bảo dưỡng gần nhất"
-                    >
-                        <DatePicker 
-                            style={{ width: '100%' }}
-                            size="large"
-                            placeholder="Chọn ngày"
-                            format="DD/MM/YYYY"
-                            disabled
-                        />
+                    <Form.Item label="Ngày bảo dưỡng cuối" name="ngay_bao_duong_cuoi" tooltip="Ngày bảo dưỡng gần nhất">
+                        <DatePicker style={{ width: '100%' }} size="large" placeholder="Chọn ngày" format="DD/MM/YYYY" disabled />
                     </Form.Item>
                 </Col>
-
                 <Col xs={24} md={8}>
-                    <Form.Item
-                        label="Trạng thái"
-                        name="trang_thai"
-                        rules={[
-                            { required: true, message: 'Vui lòng chọn trạng thái!' },
-                        ]}
-                    >
+                    <Form.Item label="Trạng thái" name="trang_thai" rules={[{ required: true, message: 'Vui lòng chọn trạng thái!' }]}>
                         <Select size="large">
                             <Select.Option value="tot">Tốt</Select.Option>
                             <Select.Option value="can_sua_chua">Cần sửa chữa</Select.Option>
@@ -375,43 +301,47 @@ const Edit = ({ thietBi, phongs }) => {
                             <strong>Ngày bảo dưỡng tiếp theo:</strong> {dayjs(thietBi.ngay_bao_duong_tiep_theo).format('DD/MM/YYYY')}
                         </Col>
                         <Col span={12}>
-                            <strong>Còn lại:</strong> 
+                            <strong>Còn lại:</strong>
                             <Tag color={canBaoDuong ? 'red' : 'green'} style={{ marginLeft: 8 }}>
-                                {ngayDenBaoDuong > 0 
-                                    ? `${ngayDenBaoDuong} ngày`
-                                    : ngayDenBaoDuong === 0
-                                    ? 'Hôm nay'
-                                    : `Quá hạn ${Math.abs(ngayDenBaoDuong)} ngày`
-                                }
+                                {ngayDenBaoDuong > 0 ? `${ngayDenBaoDuong} ngày` : ngayDenBaoDuong === 0 ? 'Hôm nay' : `Quá hạn ${Math.abs(ngayDenBaoDuong)} ngày`}
                             </Tag>
                         </Col>
                     </Row>
                 </Card>
             )}
 
-            <Form.Item
-                label="Ghi chú bảo dưỡng"
-                name="ghi_chu_bao_duong"
-            >
+            <Form.Item label="Ghi chú bảo dưỡng" name="ghi_chu_bao_duong">
                 <TextArea rows={2} placeholder="Ghi chú về lịch bảo dưỡng" />
             </Form.Item>
 
             <Form.Item>
-                <Space>
-                    <Button type="primary" htmlType="submit" icon={<SaveOutlined />} size="large">
-                        Cập nhật
+                <Space wrap>
+                    <Button
+                        type="primary"
+                        icon={<SaveOutlined />}
+                        size="large"
+                        loading={submitting}
+                        onClick={() => form.validateFields().then(values => handleDirectUpdate(values))}
+                    >
+                        Cập nhật trực tiếp
+                    </Button>
+                    <Button
+                        type="default"
+                        icon={<HistoryOutlined />}
+                        size="large"
+                        loading={submitting}
+                        onClick={handleVersionUpdateClick}
+                        style={{ borderColor: '#fa8c16', color: '#fa8c16' }}
+                    >
+                        Lưu phiên bản mới
                     </Button>
                     <Link href={`/thiet-bi/${thietBi.id}/duplicate`}>
                         <Tooltip title="Tạo thiết bị mới với thông tin giống thiết bị này">
-                            <Button icon={<CopyOutlined />} size="large">
-                                Sao chép thiết bị
-                            </Button>
+                            <Button icon={<CopyOutlined />} size="large">Sao chép thiết bị</Button>
                         </Tooltip>
                     </Link>
                     <Link href="/thiet-bi">
-                        <Button icon={<RollbackOutlined />} size="large">
-                            Quay lại
-                        </Button>
+                        <Button icon={<RollbackOutlined />} size="large">Quay lại</Button>
                     </Link>
                 </Space>
             </Form.Item>
@@ -422,9 +352,7 @@ const Edit = ({ thietBi, phongs }) => {
         <div>
             <Space style={{ marginBottom: 16 }}>
                 <Link href={`/lich-su-bao-duong/create?thiet_bi_id=${thietBi.id}`}>
-                    <Button type="primary" icon={<PlusOutlined />}>
-                        Thêm lịch sử bảo dưỡng
-                    </Button>
+                    <Button type="primary" icon={<PlusOutlined />}>Thêm lịch sử bảo dưỡng</Button>
                 </Link>
             </Space>
             <Table
@@ -438,23 +366,58 @@ const Edit = ({ thietBi, phongs }) => {
     );
 
     const tabItems = [
-        {
-            key: '1',
-            label: 'Thông tin thiết bị',
-            children: formContent,
-        },
-        {
-            key: '2',
-            label: `Lịch sử bảo dưỡng (${thietBi.lich_su_bao_duongs?.length || 0})`,
-            children: lichSuContent,
-        },
+        { key: '1', label: 'Thông tin thiết bị', children: formContent },
+        { key: '2', label: `Lịch sử bảo dưỡng (${thietBi.lich_su_bao_duongs?.length || 0})`, children: lichSuContent },
     ];
 
     return (
         <MainLayout>
-            <Card title={`Chỉnh sửa thiết bị: ${thietBi.ten_thiet_bi}`}>
+            <Card
+                title={
+                    <Space>
+                        <span>Chỉnh sửa thiết bị: {thietBi.ten_thiet_bi}</span>
+                        <Tag color="blue">Phiên bản {thietBi.phien_ban ?? 1}</Tag>
+                        {thietBi.hieu_luc_tu && (
+                            <Tooltip title="Ngày bắt đầu hiệu lực">
+                                <Tag color="green">Từ: {dayjs(thietBi.hieu_luc_tu).format('DD/MM/YYYY')}</Tag>
+                            </Tooltip>
+                        )}
+                    </Space>
+                }
+            >
                 <Tabs items={tabItems} />
             </Card>
+
+            <Modal
+                title={
+                    <Space>
+                        <ExclamationCircleOutlined style={{ color: '#fa8c16' }} />
+                        <span>Xác nhận lưu phiên bản mới</span>
+                    </Space>
+                }
+                open={versionModalVisible}
+                onOk={handleVersionUpdateConfirm}
+                onCancel={() => setVersionModalVisible(false)}
+                okText="Xác nhận lưu phiên bản mới"
+                cancelText="Hủy"
+                okButtonProps={{ style: { background: '#fa8c16', borderColor: '#fa8c16' } }}
+            >
+                <p>
+                    Hệ thống sẽ <strong>lưu trữ dữ liệu hiện tại</strong> của thiết bị <strong>{thietBi.ten_thiet_bi}</strong> vào lịch sử và tạo <strong>phiên bản {(thietBi.phien_ban ?? 1) + 1}</strong> với các thay đổi bạn vừa nhập.
+                </p>
+                <Alert
+                    message="Dữ liệu cũ sẽ được giữ lại để xuất báo cáo theo mốc thời gian."
+                    type="success"
+                    showIcon
+                    style={{ marginTop: 12 }}
+                />
+                <Alert
+                    message="Mã thiết bị và Số Serial sẽ được giữ nguyên từ bản ghi gốc."
+                    type="info"
+                    showIcon
+                    style={{ marginTop: 8 }}
+                />
+            </Modal>
         </MainLayout>
     );
 };

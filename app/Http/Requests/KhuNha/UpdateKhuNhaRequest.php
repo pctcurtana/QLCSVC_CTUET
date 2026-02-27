@@ -3,6 +3,7 @@
 namespace App\Http\Requests\KhuNha;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateKhuNhaRequest extends FormRequest
 {
@@ -26,8 +27,13 @@ class UpdateKhuNhaRequest extends FormRequest
         $khuNhaId = $this->route('khu_nha');
 
         return [
-            'co_so_id' => 'required|exists:co_sos,id',
-            'ma_khu_nha' => 'required|string|unique:khu_nhas,ma_khu_nha,' . $khuNhaId,
+            'co_so_id'   => 'required|exists:co_sos,id',
+            'ma_khu_nha' => [
+                'required', 'string',
+                Rule::unique('khu_nhas', 'ma_khu_nha')
+                    ->where('trang_thai_du_lieu', 'hien_hanh')
+                    ->ignore($khuNhaId),
+            ],
             'ten_khu_nha' => 'required|string|max:255',
             'loai_khu_nha' => 'required|in:phong_hoc,phong_lam_viec,phong_chuc_nang',
             'so_tang' => 'required|integer|min:1',

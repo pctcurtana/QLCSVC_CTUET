@@ -22,12 +22,22 @@ class Phong extends Model
         'trang_thiet_bi',
         'mo_ta',
         'trang_thai',
+        // Versioning fields
+        'trang_thai_du_lieu',
+        'hieu_luc_tu',
+        'hieu_luc_den',
+        'phien_ban',
+        'ban_ghi_goc_id',
     ];
 
     protected $casts = [
         'tang' => 'integer',
         'dien_tich' => 'decimal:2',
         'suc_chua' => 'integer',
+        'hieu_luc_tu' => 'datetime',
+        'hieu_luc_den' => 'datetime',
+        'phien_ban' => 'integer',
+        'ban_ghi_goc_id' => 'integer',
     ];
 
     public function khuNha()

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\CoSo;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateCoSoRequest extends FormRequest
 {
@@ -26,7 +27,12 @@ class UpdateCoSoRequest extends FormRequest
         $coSoId = $this->route('co_so');
 
         return [
-            'ma_co_so' => 'required|string|unique:co_sos,ma_co_so,' . $coSoId,
+            'ma_co_so' => [
+                'required', 'string',
+                Rule::unique('co_sos', 'ma_co_so')
+                    ->where('trang_thai_du_lieu', 'hien_hanh')
+                    ->ignore($coSoId),
+            ],
             'ten_co_so' => 'required|string|max:255',
             'dia_chi' => 'required|string',
             'dien_tich_dat' => 'required|numeric|min:0',

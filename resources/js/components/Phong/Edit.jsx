@@ -1,69 +1,154 @@
-import React from 'react';
+import React, { useState } from 'react';
 import MainLayout from '../Layout/MainLayout';
-import { Form, Input, InputNumber, Button, Card, Space, Select, message } from 'antd';
-import { SaveOutlined, RollbackOutlined } from '@ant-design/icons';
+import { Form, Input, InputNumber, Button, Card, Space, Select, message, Modal, Alert, Tag, Tooltip } from 'antd';
+import { SaveOutlined, RollbackOutlined, HistoryOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import { router, Link } from '@inertiajs/react';
+import dayjs from 'dayjs';
 
 const { TextArea } = Input;
 
 const Edit = ({ phong, khuNhas }) => {
     const [form] = Form.useForm();
+    const [submitting, setSubmitting] = useState(false);
+    const [versionModalVisible, setVersionModalVisible] = useState(false);
+    const [pendingValues, setPendingValues] = useState(null);
 
-    const handleSubmit = (values) => {
+    // Kiểm tra thay đổi cho version update (không tính ma_phong vì backend luôn giữ gốc)
+    const checkHasChanges = (formValues) => {
+        const fields = {
+            khu_nha_id: (v) => Number(v),
+            ten_phong: (v) => String(v ?? '').trim(),
+            loai_phong: (v) => String(v ?? ''),
+            tang: (v) => Number(v),
+            dien_tich: (v) => parseFloat(v) || 0,
+            suc_chua: (v) => Number(v),
+            trang_thiet_bi: (v) => String(v ?? '').trim(),
+            mo_ta: (v) => String(v ?? '').trim(),
+            trang_thai: (v) => String(v ?? ''),
+        };
+        return Object.keys(fields).some(key => {
+            const norm = fields[key];
+            return norm(formValues[key]) !== norm(phong[key]);
+        });
+    };
+
+    // Cập nhật trực tiếp (ghi đè dữ liệu hiện tại)
+    const handleDirectUpdate = (values) => {
+        setSubmitting(true);
         router.put(`/phong/${phong.id}`, values, {
-            // Không tự show success ở đây; để MainLayout show flash
             onError: (errors) => {
                 if (errors && typeof errors === 'object') {
                     Object.keys(errors).forEach(key => message.error(errors[key]));
                 }
+                setSubmitting(false);
             },
+            onFinish: () => setSubmitting(false),
+        });
+    };
+
+    // Mở modal xác nhận lưu phiên bản mới
+    const handleVersionUpdateClick = () => {
+        form.validateFields().then(values => {
+            const maChanged = String(values.ma_phong ?? '').trim() !== String(phong.ma_phong ?? '').trim();
+            if (!checkHasChanges(values)) {
+                if (maChanged) {
+                    message.warning('Mã phòng chỉ thay đổi được bằng "Cập nhật trực tiếp". Phiên bản mới không ghi nhận thay đổi mã.');
+                } else {
+                    message.warning('Không có thay đổi nào để lưu phiên bản mới. Hãy chỉnh sửa ít nhất một trường trước.');
+                }
+                return;
+            }
+            if (maChanged) {
+                message.info('Lưu ý: Mã phòng sẽ không thay đổi khi lưu phiên bản mới. Nếu muốn đổi mã, hãy dùng "Cập nhật trực tiếp".');
+            }
+            setPendingValues(values);
+            setVersionModalVisible(true);
+        }).catch(() => {
+            message.error('Vui lòng kiểm tra lại các trường bắt buộc.');
+        });
+    };
+
+    // Xác nhận lưu phiên bản mới
+    const handleVersionUpdateConfirm = () => {
+        if (!pendingValues) return;
+        setSubmitting(true);
+        setVersionModalVisible(false);
+        router.post(`/phong/${phong.id}/version-update`, pendingValues, {
+            onError: (errors) => {
+                if (errors && typeof errors === 'object') {
+                    Object.keys(errors).forEach(key => message.error(errors[key]));
+                }
+                setSubmitting(false);
+            },
+            onFinish: () => setSubmitting(false),
         });
     };
 
     return (
         <MainLayout>
-            <Card title={`Chỉnh sửa phòng: ${phong.ten_phong}`}>
+            <Card
+                title={
+                    <Space>
+                        <span>Chỉnh sửa phòng: {phong.ten_phong}</span>
+                        <Tag color="blue">Phiên bản {phong.phien_ban ?? 1}</Tag>
+                        {phong.hieu_luc_tu && (
+                            <Tooltip title="Ngày bắt đầu hiệu lực">
+                                <Tag color="green">
+                                    Từ: {dayjs(phong.hieu_luc_tu).format('DD/MM/YYYY')}
+                                </Tag>
+                            </Tooltip>
+                        )}
+                    </Space>
+                }
+            >
+                <Alert
+                    message="Chọn cách cập nhật"
+                    description={
+                        <ul style={{ marginBottom: 0, paddingLeft: 20 }}>
+                            <li><strong>Cập nhật trực tiếp:</strong> Ghi đè dữ liệu hiện tại. Dữ liệu cũ sẽ bị mất.</li>
+                            <li><strong>Lưu phiên bản mới:</strong> Giữ nguyên dữ liệu cũ làm lịch sử, tạo bản ghi mới với thay đổi. Dùng khi cần xuất báo cáo theo mốc thời gian.</li>
+                        </ul>
+                    }
+                    type="info"
+                    showIcon
+                    style={{ marginBottom: 24 }}
+                />
+
                 <Form
                     form={form}
                     layout="vertical"
-                    onFinish={handleSubmit}
                     initialValues={phong}
                 >
                     <Form.Item
+                        label="Mã phòng"
+                        name="ma_phong"
+                        rules={[{ required: true, message: 'Vui lòng nhập mã phòng!' }]}
+                        tooltip="Khi lưu phiên bản mới, mã phòng được giữ nguyên từ bản gốc dù có thay đổi ở đây"
+                    >
+                        <Input placeholder="Ví dụ: P101" size="large" />
+                    </Form.Item>
+
+                    <Form.Item
                         label="Khu nhà"
                         name="khu_nha_id"
-                        rules={[
-                            { required: true, message: 'Vui lòng chọn khu nhà!' },
-                        ]}
+                        rules={[{ required: true, message: 'Vui lòng chọn khu nhà!' }]}
                     >
-                        <Select 
-                            size="large" 
+                        <Select
+                            size="large"
                             placeholder="Chọn khu nhà"
                             showSearch
                             optionFilterProp="label"
-                            options={khuNhas.map(kn => ({ 
-                                value: kn.id, 
-                                label: `${kn.ten_khu_nha} - ${kn.co_so.ten_co_so}` 
+                            options={khuNhas.map(kn => ({
+                                value: kn.id,
+                                label: `${kn.ten_khu_nha} - ${kn.co_so.ten_co_so}`
                             }))}
                         />
                     </Form.Item>
 
                     <Form.Item
-                        label="Mã phòng"
-                        name="ma_phong"
-                        rules={[
-                            { required: true, message: 'Vui lòng nhập mã phòng!' },
-                        ]}
-                    >
-                        <Input placeholder="Ví dụ: P001" size="large" />
-                    </Form.Item>
-
-                    <Form.Item
                         label="Tên phòng"
                         name="ten_phong"
-                        rules={[
-                            { required: true, message: 'Vui lòng nhập tên phòng!' },
-                        ]}
+                        rules={[{ required: true, message: 'Vui lòng nhập tên phòng!' }]}
                     >
                         <Input placeholder="Nhập tên phòng" size="large" />
                     </Form.Item>
@@ -71,9 +156,7 @@ const Edit = ({ phong, khuNhas }) => {
                     <Form.Item
                         label="Loại phòng"
                         name="loai_phong"
-                        rules={[
-                            { required: true, message: 'Vui lòng chọn loại phòng!' },
-                        ]}
+                        rules={[{ required: true, message: 'Vui lòng chọn loại phòng!' }]}
                     >
                         <Select size="large" placeholder="Chọn loại phòng">
                             <Select.Option value="phong_hoc">Phòng học</Select.Option>
@@ -87,24 +170,15 @@ const Edit = ({ phong, khuNhas }) => {
                     <Form.Item
                         label="Tầng"
                         name="tang"
-                        rules={[
-                            { required: true, message: 'Vui lòng nhập tầng!' },
-                        ]}
+                        rules={[{ required: true, message: 'Vui lòng nhập tầng!' }]}
                     >
-                        <InputNumber
-                            style={{ width: '100%' }}
-                            size="large"
-                            min={1}
-                            placeholder="Nhập số tầng"
-                        />
+                        <InputNumber style={{ width: '100%' }} size="large" min={1} placeholder="Nhập số tầng" />
                     </Form.Item>
 
                     <Form.Item
                         label="Diện tích (m²)"
                         name="dien_tich"
-                        rules={[
-                            { required: true, message: 'Vui lòng nhập diện tích!' },
-                        ]}
+                        rules={[{ required: true, message: 'Vui lòng nhập diện tích!' }]}
                     >
                         <InputNumber
                             style={{ width: '100%' }}
@@ -119,38 +193,23 @@ const Edit = ({ phong, khuNhas }) => {
                     <Form.Item
                         label="Sức chứa (người)"
                         name="suc_chua"
-                        rules={[
-                            { required: true, message: 'Vui lòng nhập sức chứa!' },
-                        ]}
+                        rules={[{ required: true, message: 'Vui lòng nhập sức chứa!' }]}
                     >
-                        <InputNumber
-                            style={{ width: '100%' }}
-                            size="large"
-                            min={0}
-                            placeholder="Nhập sức chứa"
-                        />
+                        <InputNumber style={{ width: '100%' }} size="large" min={0} placeholder="Nhập sức chứa" />
                     </Form.Item>
 
-                    <Form.Item
-                        label="Trang thiết bị"
-                        name="trang_thiet_bi"
-                    >
+                    <Form.Item label="Trang thiết bị" name="trang_thiet_bi">
                         <TextArea rows={3} placeholder="Nhập danh sách trang thiết bị" />
                     </Form.Item>
 
-                    <Form.Item
-                        label="Mô tả"
-                        name="mo_ta"
-                    >
+                    <Form.Item label="Mô tả" name="mo_ta">
                         <TextArea rows={4} placeholder="Nhập mô tả về phòng" />
                     </Form.Item>
 
                     <Form.Item
                         label="Trạng thái"
                         name="trang_thai"
-                        rules={[
-                            { required: true, message: 'Vui lòng chọn trạng thái!' },
-                        ]}
+                        rules={[{ required: true, message: 'Vui lòng chọn trạng thái!' }]}
                     >
                         <Select size="large">
                             <Select.Option value="active">Hoạt động</Select.Option>
@@ -160,22 +219,66 @@ const Edit = ({ phong, khuNhas }) => {
                     </Form.Item>
 
                     <Form.Item>
-                        <Space>
-                            <Button type="primary" htmlType="submit" icon={<SaveOutlined />} size="large">
-                                Cập nhật
+                        <Space wrap>
+                            <Button
+                                type="primary"
+                                icon={<SaveOutlined />}
+                                size="large"
+                                loading={submitting}
+                                onClick={() => form.validateFields().then(handleDirectUpdate)}
+                            >
+                                Cập nhật trực tiếp
+                            </Button>
+                            <Button
+                                type="default"
+                                icon={<HistoryOutlined />}
+                                size="large"
+                                loading={submitting}
+                                onClick={handleVersionUpdateClick}
+                                style={{ borderColor: '#fa8c16', color: '#fa8c16' }}
+                            >
+                                Lưu phiên bản mới
                             </Button>
                             <Link href="/phong">
-                                <Button icon={<RollbackOutlined />} size="large">
-                                    Quay lại
-                                </Button>
+                                <Button icon={<RollbackOutlined />} size="large">Quay lại</Button>
                             </Link>
                         </Space>
                     </Form.Item>
                 </Form>
             </Card>
+
+            <Modal
+                title={
+                    <Space>
+                        <ExclamationCircleOutlined style={{ color: '#fa8c16' }} />
+                        <span>Xác nhận lưu phiên bản mới</span>
+                    </Space>
+                }
+                open={versionModalVisible}
+                onOk={handleVersionUpdateConfirm}
+                onCancel={() => setVersionModalVisible(false)}
+                okText="Xác nhận lưu phiên bản mới"
+                cancelText="Hủy"
+                okButtonProps={{ style: { background: '#fa8c16', borderColor: '#fa8c16' } }}
+            >
+                <p>
+                    Hệ thống sẽ <strong>lưu trữ dữ liệu hiện tại</strong> của phòng <strong>{phong.ten_phong}</strong> vào lịch sử và tạo <strong>phiên bản {(phong.phien_ban ?? 1) + 1}</strong> với các thay đổi bạn vừa nhập.
+                </p>
+                <Alert
+                    message="Dữ liệu cũ sẽ được giữ lại để xuất báo cáo theo mốc thời gian."
+                    type="success"
+                    showIcon
+                    style={{ marginTop: 12 }}
+                />
+                <Alert
+                    message="Tất cả thiết bị đang hoạt động trong phòng này sẽ tự động liên kết sang phiên bản mới."
+                    type="info"
+                    showIcon
+                    style={{ marginTop: 8 }}
+                />
+            </Modal>
         </MainLayout>
     );
 };
 
 export default Edit;
-

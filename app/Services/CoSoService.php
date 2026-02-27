@@ -5,8 +5,10 @@ namespace App\Services;
 use App\Contracts\Repositories\CoSoRepositoryInterface;
 use App\Contracts\Services\CoSoServiceInterface;
 use App\Models\CoSo;
+use App\Models\KhuNha;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 
 class CoSoService
 {
@@ -87,6 +89,53 @@ class CoSoService
     {
         $this->getById($id);
         return $this->coSoRepository->delete($id);
+    }
+
+    /**
+     * Tạo phiên bản mới: lưu trữ bản ghi hiện tại vào lịch sử,
+     * tạo bản ghi mới với dữ liệu đã cập nhật.
+     *
+     * Cascade: cập nhật tất cả KhuNha hien_hanh trỏ từ old_id sang new_id.
+     */
+    public function createNewVersion(int $id, array $data): CoSo
+    {
+        return DB::transaction(function () use ($id, $data) {
+            $current = $this->getById($id);
+
+            // Xác định ban_ghi_goc_id và phien_ban mới
+            $gocId = $current->ban_ghi_goc_id ?? $current->id;
+            $phienBanMoi = ($current->phien_ban ?? 1) + 1;
+            $now = now();
+
+            // Đánh dấu bản ghi hiện tại là lịch sử
+            $current->update([
+                'trang_thai_du_lieu' => 'lich_su',
+                'hieu_luc_den' => $now,
+            ]);
+
+            // Tính diện tích quy đổi
+            $data['dien_tich_quy_doi'] = $this->calculateDienTichQuyDoi(
+                $data['dien_tich_dat'],
+                $data['vi_tri_khuon_vien']
+            );
+
+            // Tạo bản ghi phiên bản mới
+            $newRecord = $this->coSoRepository->create(array_merge($data, [
+                'ma_co_so'          => $current->ma_co_so,
+                'trang_thai_du_lieu' => 'hien_hanh',
+                'hieu_luc_tu'       => $now,
+                'hieu_luc_den'      => null,
+                'phien_ban'         => $phienBanMoi,
+                'ban_ghi_goc_id'    => $gocId,
+            ]));
+
+            // Cascade: chuyển các KhuNha hien_hanh sang co_so_id mới
+            KhuNha::where('co_so_id', $current->id)
+                ->where('trang_thai_du_lieu', 'hien_hanh')
+                ->update(['co_so_id' => $newRecord->id]);
+
+            return $newRecord;
+        });
     }
 
     /**

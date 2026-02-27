@@ -44,6 +44,7 @@ Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::middleware('permission:co-so,can_edit')->group(function () {
         Route::get('/co-so/{co_so}/edit', [CoSoController::class, 'edit'])->name('co-so.edit');
         Route::put('/co-so/{co_so}', [CoSoController::class, 'update'])->name('co-so.update');
+        Route::post('/co-so/{co_so}/version-update', [CoSoController::class, 'versionUpdate'])->name('co-so.version-update');
     });
     Route::middleware('permission:co-so,can_delete')->group(function () {
         Route::delete('/co-so/{co_so}', [CoSoController::class, 'destroy'])->name('co-so.destroy');
@@ -60,6 +61,7 @@ Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::middleware('permission:khu-nha,can_edit')->group(function () {
         Route::get('/khu-nha/{khu_nha}/edit', [KhuNhaController::class, 'edit'])->name('khu-nha.edit');
         Route::put('/khu-nha/{khu_nha}', [KhuNhaController::class, 'update'])->name('khu-nha.update');
+        Route::post('/khu-nha/{khu_nha}/version-update', [KhuNhaController::class, 'versionUpdate'])->name('khu-nha.version-update');
     });
     Route::middleware('permission:khu-nha,can_delete')->group(function () {
         Route::delete('/khu-nha/{khu_nha}', [KhuNhaController::class, 'destroy'])->name('khu-nha.destroy');
@@ -76,6 +78,7 @@ Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::middleware('permission:phong,can_edit')->group(function () {
         Route::get('/phong/{phong}/edit', [PhongController::class, 'edit'])->name('phong.edit');
         Route::put('/phong/{phong}', [PhongController::class, 'update'])->name('phong.update');
+        Route::post('/phong/{phong}/version-update', [PhongController::class, 'versionUpdate'])->name('phong.version-update');
     });
     Route::middleware('permission:phong,can_delete')->group(function () {
         Route::delete('/phong/{phong}', [PhongController::class, 'destroy'])->name('phong.destroy');
@@ -94,6 +97,7 @@ Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::middleware('permission:thiet-bi,can_edit')->group(function () {
         Route::get('/thiet-bi/{thiet_bi}/edit', [ThietBiController::class, 'edit'])->name('thiet-bi.edit');
         Route::put('/thiet-bi/{thiet_bi}', [ThietBiController::class, 'update'])->name('thiet-bi.update');
+        Route::post('/thiet-bi/{thiet_bi}/version-update', [ThietBiController::class, 'versionUpdate'])->name('thiet-bi.version-update');
     });
     Route::middleware('permission:thiet-bi,can_delete')->group(function () {
         Route::delete('/thiet-bi/{thiet_bi}', [ThietBiController::class, 'destroy'])->name('thiet-bi.destroy');
