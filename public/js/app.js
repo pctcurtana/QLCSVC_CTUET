@@ -188308,7 +188308,7 @@ var Edit = function Edit(_ref) {
     });
   };
 
-  // Cập nhật trực tiếp
+  // Cập nhật trực tiếp — thực thi submit
   var handleDirectUpdate = function handleDirectUpdate(values) {
     setSubmitting(true);
     _inertiajs_react__WEBPACK_IMPORTED_MODULE_22__.router.put("/co-so/".concat(coSo.id), values, {
@@ -188324,6 +188324,46 @@ var Edit = function Edit(_ref) {
     });
   };
 
+  // Nút Cập nhật trực tiếp — validate trước khi submit
+  var handleDirectUpdateClick = function handleDirectUpdateClick() {
+    form.validateFields().then(function (values) {
+      var allFields = {
+        ma_co_so: function ma_co_so(v) {
+          return String(v !== null && v !== void 0 ? v : '').trim();
+        },
+        ten_co_so: function ten_co_so(v) {
+          return String(v !== null && v !== void 0 ? v : '').trim();
+        },
+        dia_chi: function dia_chi(v) {
+          return String(v !== null && v !== void 0 ? v : '').trim();
+        },
+        dien_tich_dat: function dien_tich_dat(v) {
+          return parseFloat(v) || 0;
+        },
+        vi_tri_khuon_vien: function vi_tri_khuon_vien(v) {
+          return parseFloat(v) || 0;
+        },
+        mo_ta: function mo_ta(v) {
+          return String(v !== null && v !== void 0 ? v : '').trim();
+        },
+        trang_thai: function trang_thai(v) {
+          return String(v !== null && v !== void 0 ? v : '');
+        }
+      };
+      var hasChanges = Object.keys(allFields).some(function (key) {
+        var norm = allFields[key];
+        return norm(values[key]) !== norm(coSo[key]);
+      });
+      if (!hasChanges) {
+        antd__WEBPACK_IMPORTED_MODULE_9__["default"].info('Không có thay đổi nào để cập nhật.');
+        return;
+      }
+      handleDirectUpdate(values);
+    })["catch"](function () {
+      antd__WEBPACK_IMPORTED_MODULE_9__["default"].error('Vui lòng kiểm tra lại các trường bắt buộc.');
+    });
+  };
+
   // Mở modal xác nhận lưu phiên bản mới
   var handleVersionUpdateClick = function handleVersionUpdateClick() {
     form.validateFields().then(function (values) {
@@ -188333,7 +188373,7 @@ var Edit = function Edit(_ref) {
         if (maChanged) {
           antd__WEBPACK_IMPORTED_MODULE_9__["default"].warning('Mã cơ sở chỉ thay đổi được bằng "Cập nhật trực tiếp". Phiên bản mới không ghi nhận thay đổi mã.');
         } else {
-          antd__WEBPACK_IMPORTED_MODULE_9__["default"].warning('Không có thay đổi nào để lưu phiên bản mới. Hãy chỉnh sửa ít nhất một trường trước.');
+          antd__WEBPACK_IMPORTED_MODULE_9__["default"].warning('Không có thay đổi nào để lưu phiên bản mới.');
         }
         return;
       }
@@ -188563,9 +188603,7 @@ var Edit = function Edit(_ref) {
               icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_21__["default"], {}),
               size: "large",
               loading: submitting,
-              onClick: function onClick() {
-                return form.validateFields().then(handleDirectUpdate);
-              },
+              onClick: handleDirectUpdateClick,
               children: "C\u1EADp nh\u1EADt tr\u1EF1c ti\u1EBFp"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
               type: "default",
@@ -189945,7 +189983,7 @@ var Edit = function Edit(_ref) {
     });
   };
 
-  // Cập nhật trực tiếp
+  // Cập nhật trực tiếp — thực thi submit
   var handleDirectUpdate = function handleDirectUpdate(values) {
     setSubmitting(true);
     _inertiajs_react__WEBPACK_IMPORTED_MODULE_22__.router.put("/khu-nha/".concat(khuNha.id), values, {
@@ -189963,6 +190001,55 @@ var Edit = function Edit(_ref) {
     });
   };
 
+  // Nút Cập nhật trực tiếp — validate trước khi submit
+  var handleDirectUpdateClick = function handleDirectUpdateClick() {
+    form.validateFields().then(function (values) {
+      var allFields = {
+        ma_khu_nha: function ma_khu_nha(v) {
+          return String(v !== null && v !== void 0 ? v : '').trim();
+        },
+        co_so_id: function co_so_id(v) {
+          return Number(v);
+        },
+        ten_khu_nha: function ten_khu_nha(v) {
+          return String(v !== null && v !== void 0 ? v : '').trim();
+        },
+        loai_khu_nha: function loai_khu_nha(v) {
+          return String(v !== null && v !== void 0 ? v : '');
+        },
+        so_tang: function so_tang(v) {
+          return Number(v);
+        },
+        tong_dien_tich_san: function tong_dien_tich_san(v) {
+          return parseFloat(v) || 0;
+        },
+        he_so_su_dung_dao_tao: function he_so_su_dung_dao_tao(v) {
+          return parseFloat(v) || 0;
+        },
+        nam_xay_dung: function nam_xay_dung(v) {
+          return v ? Number(v) : null;
+        },
+        mo_ta: function mo_ta(v) {
+          return String(v !== null && v !== void 0 ? v : '').trim();
+        },
+        trang_thai: function trang_thai(v) {
+          return String(v !== null && v !== void 0 ? v : '');
+        }
+      };
+      var hasChanges = Object.keys(allFields).some(function (key) {
+        var norm = allFields[key];
+        return norm(values[key]) !== norm(khuNha[key]);
+      });
+      if (!hasChanges) {
+        antd__WEBPACK_IMPORTED_MODULE_9__["default"].info('Không có thay đổi nào để cập nhật.');
+        return;
+      }
+      handleDirectUpdate(values);
+    })["catch"](function () {
+      antd__WEBPACK_IMPORTED_MODULE_9__["default"].error('Vui lòng kiểm tra lại các trường bắt buộc.');
+    });
+  };
+
   // Mở modal xác nhận lưu phiên bản mới
   var handleVersionUpdateClick = function handleVersionUpdateClick() {
     form.validateFields().then(function (values) {
@@ -189972,7 +190059,7 @@ var Edit = function Edit(_ref) {
         if (maChanged) {
           antd__WEBPACK_IMPORTED_MODULE_9__["default"].warning('Mã khu nhà chỉ thay đổi được bằng "Cập nhật trực tiếp". Phiên bản mới không ghi nhận thay đổi mã.');
         } else {
-          antd__WEBPACK_IMPORTED_MODULE_9__["default"].warning('Không có thay đổi nào để lưu phiên bản mới. Hãy chỉnh sửa ít nhất một trường trước.');
+          antd__WEBPACK_IMPORTED_MODULE_9__["default"].warning('Không có thay đổi nào để lưu phiên bản mới.');
         }
         return;
       }
@@ -190259,9 +190346,7 @@ var Edit = function Edit(_ref) {
               icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_21__["default"], {}),
               size: "large",
               loading: submitting,
-              onClick: function onClick() {
-                return form.validateFields().then(handleDirectUpdate);
-              },
+              onClick: handleDirectUpdateClick,
               children: "C\u1EADp nh\u1EADt tr\u1EF1c ti\u1EBFp"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
               type: "default",
@@ -193278,7 +193363,7 @@ var Edit = function Edit(_ref) {
     });
   };
 
-  // Cập nhật trực tiếp (ghi đè dữ liệu hiện tại)
+  // Cập nhật trực tiếp — thực thi submit
   var handleDirectUpdate = function handleDirectUpdate(values) {
     setSubmitting(true);
     _inertiajs_react__WEBPACK_IMPORTED_MODULE_18__.router.put("/phong/".concat(phong.id), values, {
@@ -193296,6 +193381,55 @@ var Edit = function Edit(_ref) {
     });
   };
 
+  // Nút Cập nhật trực tiếp — validate trước khi submit
+  var handleDirectUpdateClick = function handleDirectUpdateClick() {
+    form.validateFields().then(function (values) {
+      var allFields = {
+        ma_phong: function ma_phong(v) {
+          return String(v !== null && v !== void 0 ? v : '').trim();
+        },
+        khu_nha_id: function khu_nha_id(v) {
+          return Number(v);
+        },
+        ten_phong: function ten_phong(v) {
+          return String(v !== null && v !== void 0 ? v : '').trim();
+        },
+        loai_phong: function loai_phong(v) {
+          return String(v !== null && v !== void 0 ? v : '');
+        },
+        tang: function tang(v) {
+          return Number(v);
+        },
+        dien_tich: function dien_tich(v) {
+          return parseFloat(v) || 0;
+        },
+        suc_chua: function suc_chua(v) {
+          return Number(v);
+        },
+        trang_thiet_bi: function trang_thiet_bi(v) {
+          return String(v !== null && v !== void 0 ? v : '').trim();
+        },
+        mo_ta: function mo_ta(v) {
+          return String(v !== null && v !== void 0 ? v : '').trim();
+        },
+        trang_thai: function trang_thai(v) {
+          return String(v !== null && v !== void 0 ? v : '');
+        }
+      };
+      var hasChanges = Object.keys(allFields).some(function (key) {
+        var norm = allFields[key];
+        return norm(values[key]) !== norm(phong[key]);
+      });
+      if (!hasChanges) {
+        antd__WEBPACK_IMPORTED_MODULE_8__["default"].info('Không có thay đổi nào để cập nhật.');
+        return;
+      }
+      handleDirectUpdate(values);
+    })["catch"](function () {
+      antd__WEBPACK_IMPORTED_MODULE_8__["default"].error('Vui lòng kiểm tra lại các trường bắt buộc.');
+    });
+  };
+
   // Mở modal xác nhận lưu phiên bản mới
   var handleVersionUpdateClick = function handleVersionUpdateClick() {
     form.validateFields().then(function (values) {
@@ -193305,7 +193439,7 @@ var Edit = function Edit(_ref) {
         if (maChanged) {
           antd__WEBPACK_IMPORTED_MODULE_8__["default"].warning('Mã phòng chỉ thay đổi được bằng "Cập nhật trực tiếp". Phiên bản mới không ghi nhận thay đổi mã.');
         } else {
-          antd__WEBPACK_IMPORTED_MODULE_8__["default"].warning('Không có thay đổi nào để lưu phiên bản mới. Hãy chỉnh sửa ít nhất một trường trước.');
+          antd__WEBPACK_IMPORTED_MODULE_8__["default"].warning('Không có thay đổi nào để lưu phiên bản mới.');
         }
         return;
       }
@@ -193542,9 +193676,7 @@ var Edit = function Edit(_ref) {
               icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_17__["default"], {}),
               size: "large",
               loading: submitting,
-              onClick: function onClick() {
-                return form.validateFields().then(handleDirectUpdate);
-              },
+              onClick: handleDirectUpdateClick,
               children: "C\u1EADp nh\u1EADt tr\u1EF1c ti\u1EBFp"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
               type: "default",
@@ -195061,7 +195193,7 @@ var Edit = function Edit(_ref) {
     });
   };
 
-  // Cập nhật trực tiếp
+  // Cập nhật trực tiếp — thực thi submit
   var handleDirectUpdate = function handleDirectUpdate(values) {
     setSubmitting(true);
     _inertiajs_react__WEBPACK_IMPORTED_MODULE_26__.router.put("/thiet-bi/".concat(thietBi.id), formatDates(values), {
@@ -195077,6 +195209,68 @@ var Edit = function Edit(_ref) {
     });
   };
 
+  // Nút Cập nhật trực tiếp — validate trước khi submit
+  var handleDirectUpdateClick = function handleDirectUpdateClick() {
+    form.validateFields().then(function (values) {
+      var allFields = {
+        ma_thiet_bi: function ma_thiet_bi(v) {
+          return String(v !== null && v !== void 0 ? v : '').trim();
+        },
+        serial_number: function serial_number(v) {
+          return String(v !== null && v !== void 0 ? v : '').trim();
+        },
+        phong_id: function phong_id(v) {
+          return v ? Number(v) : null;
+        },
+        ten_thiet_bi: function ten_thiet_bi(v) {
+          return String(v !== null && v !== void 0 ? v : '').trim();
+        },
+        loai_thiet_bi: function loai_thiet_bi(v) {
+          return String(v !== null && v !== void 0 ? v : '');
+        },
+        hang_san_xuat: function hang_san_xuat(v) {
+          return String(v !== null && v !== void 0 ? v : '').trim();
+        },
+        model: function model(v) {
+          return String(v !== null && v !== void 0 ? v : '').trim();
+        },
+        nam_mua: function nam_mua(v) {
+          return v ? Number(v) : null;
+        },
+        ngay_mua: function ngay_mua(v) {
+          return v ? dayjs__WEBPACK_IMPORTED_MODULE_27___default().isDayjs(v) ? v.format('YYYY-MM-DD') : String(v) : null;
+        },
+        gia_tri: function gia_tri(v) {
+          return parseFloat(v) || 0;
+        },
+        chu_ky_bao_duong: function chu_ky_bao_duong(v) {
+          return v ? Number(v) : null;
+        },
+        thong_so_ky_thuat: function thong_so_ky_thuat(v) {
+          return String(v !== null && v !== void 0 ? v : '').trim();
+        },
+        mo_ta: function mo_ta(v) {
+          return String(v !== null && v !== void 0 ? v : '').trim();
+        },
+        trang_thai: function trang_thai(v) {
+          return String(v !== null && v !== void 0 ? v : '');
+        }
+      };
+      var hasChanges = Object.keys(allFields).some(function (key) {
+        var norm = allFields[key];
+        var origVal = key === 'ngay_mua' && thietBi[key] ? dayjs__WEBPACK_IMPORTED_MODULE_27___default()(thietBi[key]).format('YYYY-MM-DD') : thietBi[key];
+        return norm(values[key]) !== norm(origVal);
+      });
+      if (!hasChanges) {
+        antd__WEBPACK_IMPORTED_MODULE_11__["default"].info('Không có thay đổi nào để cập nhật.');
+        return;
+      }
+      handleDirectUpdate(values);
+    })["catch"](function () {
+      antd__WEBPACK_IMPORTED_MODULE_11__["default"].error('Vui lòng kiểm tra lại các trường bắt buộc.');
+    });
+  };
+
   // Mở modal xác nhận lưu phiên bản mới
   var handleVersionUpdateClick = function handleVersionUpdateClick() {
     form.validateFields().then(function (values) {
@@ -195086,7 +195280,7 @@ var Edit = function Edit(_ref) {
         if (maChanged) {
           antd__WEBPACK_IMPORTED_MODULE_11__["default"].warning('Mã thiết bị / Số serial chỉ thay đổi được bằng "Cập nhật trực tiếp". Phiên bản mới không ghi nhận thay đổi mã.');
         } else {
-          antd__WEBPACK_IMPORTED_MODULE_11__["default"].warning('Không có thay đổi nào để lưu phiên bản mới. Hãy chỉnh sửa ít nhất một trường trước.');
+          antd__WEBPACK_IMPORTED_MODULE_11__["default"].warning('Không có thay đổi nào để lưu phiên bản mới.');
         }
         return;
       }
@@ -195543,11 +195737,7 @@ var Edit = function Edit(_ref) {
           icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_25__["default"], {}),
           size: "large",
           loading: submitting,
-          onClick: function onClick() {
-            return form.validateFields().then(function (values) {
-              return handleDirectUpdate(values);
-            });
-          },
+          onClick: handleDirectUpdateClick,
           children: "C\u1EADp nh\u1EADt tr\u1EF1c ti\u1EBFp"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
           type: "default",

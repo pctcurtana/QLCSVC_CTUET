@@ -41,7 +41,7 @@ const Edit = ({ khuNha, coSos }) => {
         });
     };
 
-    // Cập nhật trực tiếp
+    // Cập nhật trực tiếp — thực thi submit
     const handleDirectUpdate = (values) => {
         setSubmitting(true);
         router.put(`/khu-nha/${khuNha.id}`, values, {
@@ -55,6 +55,35 @@ const Edit = ({ khuNha, coSos }) => {
         });
     };
 
+    // Nút Cập nhật trực tiếp — validate trước khi submit
+    const handleDirectUpdateClick = () => {
+        form.validateFields().then(values => {
+            const allFields = {
+                ma_khu_nha: (v) => String(v ?? '').trim(),
+                co_so_id: (v) => Number(v),
+                ten_khu_nha: (v) => String(v ?? '').trim(),
+                loai_khu_nha: (v) => String(v ?? ''),
+                so_tang: (v) => Number(v),
+                tong_dien_tich_san: (v) => parseFloat(v) || 0,
+                he_so_su_dung_dao_tao: (v) => parseFloat(v) || 0,
+                nam_xay_dung: (v) => v ? Number(v) : null,
+                mo_ta: (v) => String(v ?? '').trim(),
+                trang_thai: (v) => String(v ?? ''),
+            };
+            const hasChanges = Object.keys(allFields).some(key => {
+                const norm = allFields[key];
+                return norm(values[key]) !== norm(khuNha[key]);
+            });
+            if (!hasChanges) {
+                message.info('Không có thay đổi nào để cập nhật.');
+                return;
+            }
+            handleDirectUpdate(values);
+        }).catch(() => {
+            message.error('Vui lòng kiểm tra lại các trường bắt buộc.');
+        });
+    };
+
     // Mở modal xác nhận lưu phiên bản mới
     const handleVersionUpdateClick = () => {
         form.validateFields().then(values => {
@@ -63,7 +92,7 @@ const Edit = ({ khuNha, coSos }) => {
                 if (maChanged) {
                     message.warning('Mã khu nhà chỉ thay đổi được bằng "Cập nhật trực tiếp". Phiên bản mới không ghi nhận thay đổi mã.');
                 } else {
-                    message.warning('Không có thay đổi nào để lưu phiên bản mới. Hãy chỉnh sửa ít nhất một trường trước.');
+                    message.warning('Không có thay đổi nào để lưu phiên bản mới.');
                 }
                 return;
             }
@@ -268,7 +297,7 @@ const Edit = ({ khuNha, coSos }) => {
                                 icon={<SaveOutlined />}
                                 size="large"
                                 loading={submitting}
-                                onClick={() => form.validateFields().then(handleDirectUpdate)}
+                                onClick={handleDirectUpdateClick}
                             >
                                 Cập nhật trực tiếp
                             </Button>

@@ -51,7 +51,7 @@ const Edit = ({ thietBi, phongs }) => {
         });
     };
 
-    // Cập nhật trực tiếp
+    // Cập nhật trực tiếp — thực thi submit
     const handleDirectUpdate = (values) => {
         setSubmitting(true);
         router.put(`/thiet-bi/${thietBi.id}`, formatDates(values), {
@@ -60,6 +60,42 @@ const Edit = ({ thietBi, phongs }) => {
                 setSubmitting(false);
             },
             onFinish: () => setSubmitting(false),
+        });
+    };
+
+    // Nút Cập nhật trực tiếp — validate trước khi submit
+    const handleDirectUpdateClick = () => {
+        form.validateFields().then(values => {
+            const allFields = {
+                ma_thiet_bi:        (v) => String(v ?? '').trim(),
+                serial_number:      (v) => String(v ?? '').trim(),
+                phong_id:           (v) => v ? Number(v) : null,
+                ten_thiet_bi:       (v) => String(v ?? '').trim(),
+                loai_thiet_bi:      (v) => String(v ?? ''),
+                hang_san_xuat:      (v) => String(v ?? '').trim(),
+                model:              (v) => String(v ?? '').trim(),
+                nam_mua:            (v) => v ? Number(v) : null,
+                ngay_mua:           (v) => v ? (dayjs.isDayjs(v) ? v.format('YYYY-MM-DD') : String(v)) : null,
+                gia_tri:            (v) => parseFloat(v) || 0,
+                chu_ky_bao_duong:   (v) => v ? Number(v) : null,
+                thong_so_ky_thuat:  (v) => String(v ?? '').trim(),
+                mo_ta:              (v) => String(v ?? '').trim(),
+                trang_thai:         (v) => String(v ?? ''),
+            };
+            const hasChanges = Object.keys(allFields).some(key => {
+                const norm = allFields[key];
+                const origVal = key === 'ngay_mua' && thietBi[key]
+                    ? dayjs(thietBi[key]).format('YYYY-MM-DD')
+                    : thietBi[key];
+                return norm(values[key]) !== norm(origVal);
+            });
+            if (!hasChanges) {
+                message.info('Không có thay đổi nào để cập nhật.');
+                return;
+            }
+            handleDirectUpdate(values);
+        }).catch(() => {
+            message.error('Vui lòng kiểm tra lại các trường bắt buộc.');
         });
     };
 
@@ -72,7 +108,7 @@ const Edit = ({ thietBi, phongs }) => {
                 if (maChanged) {
                     message.warning('Mã thiết bị / Số serial chỉ thay đổi được bằng "Cập nhật trực tiếp". Phiên bản mới không ghi nhận thay đổi mã.');
                 } else {
-                    message.warning('Không có thay đổi nào để lưu phiên bản mới. Hãy chỉnh sửa ít nhất một trường trước.');
+                    message.warning('Không có thay đổi nào để lưu phiên bản mới.');
                 }
                 return;
             }
@@ -321,7 +357,7 @@ const Edit = ({ thietBi, phongs }) => {
                         icon={<SaveOutlined />}
                         size="large"
                         loading={submitting}
-                        onClick={() => form.validateFields().then(values => handleDirectUpdate(values))}
+                        onClick={handleDirectUpdateClick}
                     >
                         Cập nhật trực tiếp
                     </Button>
