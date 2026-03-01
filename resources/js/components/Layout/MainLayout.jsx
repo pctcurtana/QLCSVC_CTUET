@@ -16,6 +16,7 @@ import {
     ExclamationCircleOutlined,
     TeamOutlined,
     KeyOutlined,
+    AreaChartOutlined,
 } from '@ant-design/icons';
 
 const { Header, Sider, Content } = Layout;
@@ -33,6 +34,7 @@ const iconMap = {
     TeamOutlined: <TeamOutlined />,
     KeyOutlined: <KeyOutlined />,
     UserOutlined: <UserOutlined />,
+    AreaChartOutlined: <AreaChartOutlined />,
 };
 
 const MainLayout = ({ children }) => {
@@ -163,8 +165,8 @@ const MainLayout = ({ children }) => {
         
         // Kiểm tra các route cụ thể
         const routes = [
-            '/co-so', '/khu-nha', '/phong', '/thiet-bi', 
-            '/lich-su-bao-duong', '/nguoi-dung', '/phan-quyen'
+            '/co-so', '/khu-nha', '/phong', '/thiet-bi',
+            '/lich-su-bao-duong', '/nguoi-dung', '/phan-quyen', '/thong-ke'
         ];
         
         for (const route of routes) {

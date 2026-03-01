@@ -11,6 +11,7 @@ use App\Http\Controllers\ThietBiController;
 use App\Http\Controllers\LichSuBaoDuongController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\ThongKeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -134,6 +135,11 @@ Route::get('/thiet-bi/{thietBi}/lich-su-bao-duong', [LichSuBaoDuongController::c
     });
     Route::middleware('permission:nguoi-dung,can_delete')->group(function () {
         Route::delete('/nguoi-dung/{nguoi_dung}', [UserController::class, 'destroy'])->name('nguoi-dung.destroy');
+    });
+
+    // ==================== Thống kê chi tiết ====================
+    Route::middleware('permission:thong-ke,can_view')->group(function () {
+        Route::get('/thong-ke', [ThongKeController::class, 'index'])->name('thong-ke.index');
     });
 
     // ==================== Phân quyền ====================

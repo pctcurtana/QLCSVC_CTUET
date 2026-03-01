@@ -73,14 +73,26 @@ class ScreenSeeder extends Seeder
             'is_menu' => true,
         ]);
 
-        // 5. Quản lý Thiết bị
+        // 5. Thống kê chi tiết (standalone)
+        Screen::create([
+            'name' => 'Thống kê chi tiết',
+            'code' => 'thong-ke',
+            'route' => '/thong-ke',
+            'icon' => 'AreaChartOutlined',
+            'parent_id' => null,
+            'order' => 5,
+            'is_active' => true,
+            'is_menu' => true,
+        ]);
+
+        // 6. Quản lý Thiết bị
         $thietBiGroup = Screen::create([
             'name' => 'QL Thiết bị',
             'code' => 'thiet-bi-group',
             'route' => null,
             'icon' => 'ToolOutlined',
             'parent_id' => null,
-            'order' => 5,
+            'order' => 6,
             'is_active' => true,
             'is_menu' => true,
         ]);
@@ -107,14 +119,14 @@ class ScreenSeeder extends Seeder
             'is_menu' => true,
         ]);
 
-        // 6. Quản lý Hệ thống
+        // 7. Quản lý Hệ thống
         $heThongGroup = Screen::create([
             'name' => 'Quản lý Hệ thống',
             'code' => 'he-thong-group',
             'route' => null,
             'icon' => 'SettingOutlined',
             'parent_id' => null,
-            'order' => 6,
+            'order' => 7,
             'is_active' => true,
             'is_menu' => true,
         ]);
