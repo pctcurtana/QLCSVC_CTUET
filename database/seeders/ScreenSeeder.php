@@ -37,11 +37,11 @@ class ScreenSeeder extends Seeder
             'is_menu' => true,
         ]);
 
-        // 2. Quản lý Cơ sở hạ tầng
-        $coSoGroup = Screen::create([
+        // 2. Quản lý Cơ sở hạ tầng (standalone)
+        Screen::create([
             'name' => 'QL Cơ sở hạ tầng',
-            'code' => 'co-so-group',
-            'route' => null,
+            'code' => 'co-so',
+            'route' => '/co-so',
             'icon' => 'BankOutlined',
             'parent_id' => null,
             'order' => 2,
@@ -49,22 +49,11 @@ class ScreenSeeder extends Seeder
             'is_menu' => true,
         ]);
 
+        // 3. Quản lý Khu nhà (standalone)
         Screen::create([
-            'name' => 'Danh sách cơ sở',
-            'code' => 'co-so',
-            'route' => '/co-so',
-            'icon' => null,
-            'parent_id' => $coSoGroup->id,
-            'order' => 1,
-            'is_active' => true,
-            'is_menu' => true,
-        ]);
-
-        // 3. Quản lý Khu nhà
-        $khuNhaGroup = Screen::create([
             'name' => 'QL Khu nhà, Chức năng',
-            'code' => 'khu-nha-group',
-            'route' => null,
+            'code' => 'khu-nha',
+            'route' => '/khu-nha',
             'icon' => 'HomeOutlined',
             'parent_id' => null,
             'order' => 3,
@@ -72,36 +61,14 @@ class ScreenSeeder extends Seeder
             'is_menu' => true,
         ]);
 
+        // 4. Quản lý Phòng (standalone)
         Screen::create([
-            'name' => 'Danh sách khu nhà',
-            'code' => 'khu-nha',
-            'route' => '/khu-nha',
-            'icon' => null,
-            'parent_id' => $khuNhaGroup->id,
-            'order' => 1,
-            'is_active' => true,
-            'is_menu' => true,
-        ]);
-
-        // 4. Quản lý Phòng
-        $phongGroup = Screen::create([
             'name' => 'QL Phòng',
-            'code' => 'phong-group',
-            'route' => null,
+            'code' => 'phong',
+            'route' => '/phong',
             'icon' => 'AppstoreOutlined',
             'parent_id' => null,
             'order' => 4,
-            'is_active' => true,
-            'is_menu' => true,
-        ]);
-
-        Screen::create([
-            'name' => 'Danh sách phòng',
-            'code' => 'phong',
-            'route' => '/phong',
-            'icon' => null,
-            'parent_id' => $phongGroup->id,
-            'order' => 1,
             'is_active' => true,
             'is_menu' => true,
         ]);
