@@ -180,6 +180,28 @@ class ThietBiService
     }
 
     /**
+     * Lấy danh sách thiết bị lịch sử (kho) có phân trang
+     *
+     * @param array $filters
+     * @param int $perPage
+     * @return LengthAwarePaginator
+     */
+    public function getKhoPaginated(array $filters = [], int $perPage = 12): LengthAwarePaginator
+    {
+        return $this->thietBiRepository->paginateArchived($filters, $perPage);
+    }
+
+    /**
+     * Lấy thống kê tổng quan kho thiết bị
+     *
+     * @return array
+     */
+    public function getKhoStats(): array
+    {
+        return $this->thietBiRepository->getKhoStats();
+    }
+
+    /**
      * Get all thiet bi grouped by phong
      * 
      * @param array $filters

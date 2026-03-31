@@ -101,7 +101,7 @@ const TabCoSo = ({ data }) => {
                         <ResponsiveContainer width="100%" height={280}>
                             <BarChart data={bieu_do_dien_tich} margin={{ bottom: 40 }}>
                                 <CartesianGrid strokeDasharray="0" strokeWidth={0.5} vertical={false} />
-                                <XAxis dataKey="name" angle={-20} textAnchor="end" interval={0} tick={{ fontSize: 12 }} />
+                                <XAxis dataKey="name" angle={-10} textAnchor="end" interval={0} tick={{ fontSize: 12 }} />
                                 <YAxis tickFormatter={v => formatNumber(v)} />
                                 <RTooltip {...tooltipStyle} formatter={v => formatNumber(v)} />
                                 <Legend />
@@ -132,7 +132,7 @@ const TabCoSo = ({ data }) => {
                 <ResponsiveContainer width="100%" height={280}>
                     <BarChart data={bieu_do_so_luong} margin={{ bottom: 40 }}>
                         <CartesianGrid strokeDasharray="0" strokeWidth={0.5} vertical={false} />
-                        <XAxis dataKey="name" angle={-20} textAnchor="end" interval={0} tick={{ fontSize: 12 }} />
+                        <XAxis dataKey="name" angle={-10} textAnchor="end" interval={0} tick={{ fontSize: 12 }} />
                         <YAxis />
                         <RTooltip {...tooltipStyle} />
                         <Legend />
@@ -223,7 +223,7 @@ const TabKhuNha = ({ data }) => {
                 <ResponsiveContainer width="100%" height={300}>
                     <BarChart data={bieu_do_dien_tich} margin={{ bottom: 50 }}>
                         <CartesianGrid strokeDasharray="0" strokeWidth={0.5} vertical={false} />
-                        <XAxis dataKey="name" angle={-25} textAnchor="end" interval={0} tick={{ fontSize: 11 }} />
+                        <XAxis dataKey="name" angle={-10} textAnchor="end" interval={0} tick={{ fontSize: 11 }} />
                         <YAxis tickFormatter={v => formatNumber(v)} />
                         <RTooltip {...tooltipStyle} formatter={v => formatNumber(v)} />
                         <Legend />

@@ -174,6 +174,91 @@ class ThietBiRepository implements ThietBiRepositoryInterface
     /**
      * {@inheritDoc}
      */
+    public function paginateArchived(array $filters = [], int $perPage = 15): LengthAwarePaginator
+    {
+        $query = $this->model->query()
+            ->with(['phong.khuNha.coSo'])
+            ->where('trang_thai_du_lieu', 'lich_su');
+
+        if (isset($filters['search']) && !empty($filters['search'])) {
+            $search = $filters['search'];
+            $query->where(function ($q) use ($search) {
+                $q->where('ma_thiet_bi', 'like', "%{$search}%")
+                  ->orWhere('ten_thiet_bi', 'like', "%{$search}%")
+                  ->orWhere('serial_number', 'like', "%{$search}%")
+                  ->orWhere('hang_san_xuat', 'like', "%{$search}%");
+            });
+        }
+
+        if (isset($filters['phong_id']) && !empty($filters['phong_id'])) {
+            $query->where('phong_id', $filters['phong_id']);
+        }
+
+        if (isset($filters['ngay_vao_kho_tu']) && !empty($filters['ngay_vao_kho_tu'])) {
+            $query->whereDate('hieu_luc_den', '>=', $filters['ngay_vao_kho_tu']);
+        }
+
+        if (isset($filters['ngay_vao_kho_den']) && !empty($filters['ngay_vao_kho_den'])) {
+            $query->whereDate('hieu_luc_den', '<=', $filters['ngay_vao_kho_den']);
+        }
+
+        $paginated = $query->orderBy('hieu_luc_den', 'desc')->paginate($perPage);
+
+        // Lấy thiết bị thay thế (phiên bản hiện hành) cho từng bản ghi kho
+        $gocIds = $paginated->getCollection()->map(function ($tb) {
+            return $tb->ban_ghi_goc_id ?? $tb->id;
+        })->unique()->values()->toArray();
+
+        if (!empty($gocIds)) {
+            $replacements = $this->model
+                ->with(['phong.khuNha.coSo'])
+                ->where('trang_thai_du_lieu', 'hien_hanh')
+                ->whereIn('ban_ghi_goc_id', $gocIds)
+                ->get()
+                ->keyBy('ban_ghi_goc_id');
+
+            $paginated->getCollection()->transform(function ($tb) use ($replacements) {
+                $gocId = $tb->ban_ghi_goc_id ?? $tb->id;
+                $tb->thiet_bi_thay_the = $replacements->get($gocId);
+                return $tb;
+            });
+        }
+
+        return $paginated;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getKhoStats(): array
+    {
+        $base = $this->model->where('trang_thai_du_lieu', 'lich_su');
+
+        $tong = (clone $base)->count();
+        $tot = (clone $base)->where('trang_thai', 'tot')->count();
+        $canSuaChua = (clone $base)->where('trang_thai', 'can_sua_chua')->count();
+        $huHong = (clone $base)->where('trang_thai', 'hu_hong')->count();
+        $tongGiaTri = (float) ((clone $base)->sum('gia_tri') ?? 0);
+
+        $theoLoai = (clone $base)
+            ->selectRaw('loai_thiet_bi, COUNT(*) as so_luong')
+            ->groupBy('loai_thiet_bi')
+            ->pluck('so_luong', 'loai_thiet_bi')
+            ->toArray();
+
+        return [
+            'tong'          => $tong,
+            'tot'           => $tot,
+            'can_sua_chua'  => $canSuaChua,
+            'hu_hong'       => $huHong,
+            'tong_gia_tri'  => $tongGiaTri,
+            'theo_loai'     => $theoLoai,
+        ];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getGroupedByPhong(array $filters = []): Collection
     {
         $query = $this->model->query()

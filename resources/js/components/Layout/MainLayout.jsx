@@ -8,6 +8,7 @@ import {
     AppstoreOutlined,
     ToolOutlined,
     HistoryOutlined,
+    InboxOutlined,
     MenuFoldOutlined,
     MenuUnfoldOutlined,
     UserOutlined,
@@ -35,6 +36,7 @@ const iconMap = {
     KeyOutlined: <KeyOutlined />,
     UserOutlined: <UserOutlined />,
     AreaChartOutlined: <AreaChartOutlined />,
+    InboxOutlined: <InboxOutlined />,
 };
 
 const MainLayout = ({ children }) => {
@@ -166,7 +168,7 @@ const MainLayout = ({ children }) => {
         // Kiểm tra các route cụ thể
         const routes = [
             '/co-so', '/khu-nha', '/phong', '/thiet-bi',
-            '/lich-su-bao-duong', '/nguoi-dung', '/phan-quyen', '/thong-ke'
+            '/lich-su-bao-duong', '/kho', '/nguoi-dung', '/phan-quyen', '/thong-ke'
         ];
         
         for (const route of routes) {

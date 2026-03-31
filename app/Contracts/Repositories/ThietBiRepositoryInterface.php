@@ -109,5 +109,21 @@ interface ThietBiRepositoryInterface
      * @return Collection
      */
     public function getGroupedByPhong(array $filters = []): Collection;
+
+    /**
+     * Lấy danh sách thiết bị lịch sử (đã lưu kho) có phân trang và filter
+     *
+     * @param array $filters
+     * @param int $perPage
+     * @return LengthAwarePaginator
+     */
+    public function paginateArchived(array $filters = [], int $perPage = 12): LengthAwarePaginator;
+
+    /**
+     * Thống kê tổng quan thiết bị trong kho
+     *
+     * @return array
+     */
+    public function getKhoStats(): array;
 }
 

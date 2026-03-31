@@ -95,6 +95,9 @@ Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('/thiet-bi', [ThietBiController::class, 'index'])->name('thiet-bi.index');
         Route::get('/thiet-bi-theo-phong', [ThietBiController::class, 'indexByPhong'])->name('thiet-bi.by-phong');
     });
+    Route::middleware('permission:kho,can_view')->group(function () {
+        Route::get('/kho', [ThietBiController::class, 'kho'])->name('kho.index');
+    });
     Route::middleware('permission:thiet-bi,can_edit')->group(function () {
         Route::get('/thiet-bi/{thiet_bi}/edit', [ThietBiController::class, 'edit'])->name('thiet-bi.edit');
         Route::put('/thiet-bi/{thiet_bi}', [ThietBiController::class, 'update'])->name('thiet-bi.update');

@@ -163,6 +163,28 @@ class ThietBiController extends Controller
     }
 
     /**
+     * Hiển thị kho thiết bị (các thiết bị đã được thay thế bởi phiên bản mới)
+     */
+    public function kho(Request $request)
+    {
+        try {
+            $filters = $request->only(['search', 'phong_id', 'ngay_vao_kho_tu', 'ngay_vao_kho_den']);
+            $thietBis = $this->thietBiService->getKhoPaginated($filters, 15);
+            $stats    = $this->thietBiService->getKhoStats();
+            $phongs   = $this->phongService->getActivePhongs();
+
+            return Inertia::render('ThietBi/Kho', [
+                'thietBis' => $thietBis,
+                'stats'    => $stats,
+                'phongs'   => $phongs,
+                'filters'  => $filters,
+            ]);
+        } catch (\Throwable $e) {
+            return redirect()->back()->with('error', 'Lỗi khi tải kho thiết bị: ' . $e->getMessage());
+        }
+    }
+
+    /**
      * Show form to duplicate an existing device
      */
     public function duplicate($id)

@@ -10,7 +10,7 @@ interface CoSoRepositoryInterface
 {
     /**
      * Lấy danh sách cơ sở có phân trang và filter
-     *
+     * 
      * @param array $filters
      * @param int $perPage
      * @return LengthAwarePaginator
