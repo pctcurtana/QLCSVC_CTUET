@@ -1,0 +1,290 @@
+import React, { useState } from 'react';
+import { router, usePage, Head } from '@inertiajs/react';
+import MainLayout from '../Layout/MainLayout';
+import usePermission from '../../hooks/usePermission';
+import {
+    Card, Table, Typography, Space, Tag, Button, Modal,
+    Input, Select, Row, Col, Statistic, Badge, Tooltip, Popconfirm,
+} from 'antd';
+import {
+    AlertOutlined, CheckCircleOutlined, ClockCircleOutlined,
+    DeleteOutlined, ExclamationCircleOutlined,
+    SearchOutlined, ReloadOutlined, EyeOutlined, UserOutlined,
+} from '@ant-design/icons';
+
+const { Title, Text } = Typography;
+
+const MUC_DO_MAP = {
+    thap:       { color: 'green',  label: 'Thấp' },
+    trung_binh: { color: 'orange', label: 'Trung bình' },
+    cao:        { color: 'red',    label: 'Cao' },
+    khan_cap:   { color: 'purple', label: 'Khẩn cấp' },
+};
+
+const TRANG_THAI_MAP = {
+    yeu_cau_sua_chua:    { color: 'orange', label: 'Yêu cầu sửa chữa', icon: <ClockCircleOutlined /> },
+    hoan_thanh_sua_chua: { color: 'green',  label: 'Hoàn thành sửa chữa', icon: <CheckCircleOutlined /> },
+};
+
+const BaoCaoSuCoIndex = ({ baoCaos, stats, filters }) => {
+    const perm = usePermission('bao-cao-su-co');
+    const [search, setSearch] = useState(filters?.search || '');
+    const [mucDoFilter, setMucDoFilter] = useState(filters?.muc_do || '');
+    const [trangThaiFilter, setTrangThaiFilter] = useState(filters?.trang_thai || '');
+    const [detailModal, setDetailModal] = useState(null);
+
+    const doFilter = (overrides = {}) => {
+        router.get('/bao-cao-su-co', {
+            search, muc_do: mucDoFilter, trang_thai: trangThaiFilter, ...overrides,
+        }, { preserveState: true, replace: true });
+    };
+
+    const handleReset = () => {
+        setSearch(''); setMucDoFilter(''); setTrangThaiFilter('');
+        router.get('/bao-cao-su-co');
+    };
+
+    const handleDelete = (id) => {
+        router.delete(`/bao-cao-su-co/${id}`);
+    };
+
+    const formatDate = (d) => {
+        if (!d) return '—';
+        return new Date(d).toLocaleString('vi-VN', { dateStyle: 'short', timeStyle: 'short' });
+    };
+
+    const columns = [
+        {
+            title: 'STT', key: 'index', width: 55, align: 'center',
+            render: (_, __, i) => (baoCaos.current_page - 1) * baoCaos.per_page + i + 1,
+        },
+        {
+            title: 'Thời gian', dataIndex: 'created_at', width: 130,
+            render: formatDate,
+        },
+        {
+            title: 'Phòng',
+            render: (_, r) => {
+                const phong  = r.phong;
+                const khuNha = phong?.khu_nha ?? phong?.khuNha;
+                return (
+                    <Space direction="vertical" size={2}>
+                        <Text strong style={{ fontSize: 13 }}>{phong?.ten_phong}</Text>
+                        <Text type="secondary" style={{ fontSize: 11 }}>{khuNha?.ten_khu_nha}</Text>
+                    </Space>
+                );
+            },
+        },
+        {
+            title: 'Người báo',
+            render: (_, r) => (
+                <Space direction="vertical" size={2}>
+                    <Text>{r.ten_nguoi_bao}</Text>
+                    {r.so_dien_thoai && <Text type="secondary" style={{ fontSize: 12 }}>{r.so_dien_thoai}</Text>}
+                </Space>
+            ),
+        },
+        {
+            title: 'Thiết bị',
+            render: (_, r) => r.thiet_bi
+                ? <Tag color="blue">{r.thiet_bi.ten_thiet_bi}</Tag>
+                : <Text type="secondary" style={{ fontSize: 12 }}>—</Text>,
+        },
+        {
+            title: 'Mức độ', dataIndex: 'muc_do', width: 110, align: 'center',
+            render: v => {
+                const m = MUC_DO_MAP[v] ?? { color: 'default', label: v };
+                return <Tag color={m.color}>{m.label}</Tag>;
+            },
+        },
+        {
+            title: 'Trạng thái', dataIndex: 'trang_thai', width: 180,
+            render: (v, r) => {
+                const m = TRANG_THAI_MAP[v] ?? { color: 'default', label: v };
+                return (
+                    <Space direction="vertical" size={2}>
+                        <Badge color={m.color} text={<Text strong style={{ fontSize: 12 }}>{m.label}</Text>} />
+                        {v === 'hoan_thanh_sua_chua' && r.nguoi_hoan_thanh && (
+                            <Space size={4}>
+                                <UserOutlined style={{ color: '#888', fontSize: 11 }} />
+                                <Text type="secondary" style={{ fontSize: 11 }}>{r.nguoi_hoan_thanh}</Text>
+                            </Space>
+                        )}
+                        {v === 'hoan_thanh_sua_chua' && r.ngay_hoan_thanh && (
+                            <Text type="secondary" style={{ fontSize: 11 }}>{formatDate(r.ngay_hoan_thanh)}</Text>
+                        )}
+                    </Space>
+                );
+            },
+        },
+        {
+            title: 'Thao tác', key: 'action', width: 90, align: 'center', fixed: 'right',
+            render: (_, r) => (
+                <Space>
+                    <Tooltip title="Xem chi tiết">
+                        <Button size="small" icon={<EyeOutlined />} onClick={() => setDetailModal(r)} />
+                    </Tooltip>
+                    {perm.can_delete && (
+                        <Popconfirm
+                            title="Xóa báo cáo này?"
+                            okText="Xóa" cancelText="Hủy" okType="danger"
+                            onConfirm={() => handleDelete(r.id)}
+                        >
+                            <Button size="small" danger icon={<DeleteOutlined />} />
+                        </Popconfirm>
+                    )}
+                </Space>
+            ),
+        },
+    ];
+
+    const kpiCards = [
+        { title: 'Tổng báo cáo',          value: stats?.tong ?? 0,               color: '#244380', icon: <AlertOutlined /> },
+        { title: 'Yêu cầu sửa chữa',      value: stats?.yeu_cau ?? 0,            color: '#fa8c16', icon: <ClockCircleOutlined /> },
+        { title: 'Hoàn thành sửa chữa',   value: stats?.hoan_thanh ?? 0,         color: '#52c41a', icon: <CheckCircleOutlined /> },
+        { title: 'Khẩn cấp chưa xử lý',  value: stats?.khan_cap_chua_xu_ly ?? 0, color: '#722ed1', icon: <ExclamationCircleOutlined /> },
+    ];
+
+    return (
+        <MainLayout>
+            <Head title="Báo cáo Sự cố" />
+            <Space direction="vertical" size="large" style={{ width: '100%' }}>
+
+                {/* KPIs */}
+                <Row gutter={16}>
+                    {kpiCards.map((k, i) => (
+                        <Col xs={24} sm={12} md={6} key={i}>
+                            <Card>
+                                <Statistic title={k.title} value={k.value} prefix={k.icon}
+                                    valueStyle={{ color: k.color }} />
+                            </Card>
+                        </Col>
+                    ))}
+                </Row>
+
+                {/* Filters */}
+                <Card>
+                    <Row gutter={[16, 12]}>
+                        <Col xs={24} sm={10}>
+                            <Input
+                                placeholder="Tìm theo tên, SĐT, mô tả..."
+                                prefix={<SearchOutlined />}
+                                size="large"
+                                value={search}
+                                onChange={e => setSearch(e.target.value)}
+                                onPressEnter={() => doFilter()}
+                                allowClear
+                            />
+                        </Col>
+                        <Col xs={12} sm={5}>
+                            <Select
+                                placeholder="Mức độ"
+                                size="large"
+                                style={{ width: '100%' }}
+                                allowClear
+                                value={mucDoFilter || undefined}
+                                onChange={v => { setMucDoFilter(v ?? ''); doFilter({ muc_do: v ?? '' }); }}
+                                options={Object.entries(MUC_DO_MAP).map(([k, v]) => ({ value: k, label: v.label }))}
+                            />
+                        </Col>
+                        <Col xs={12} sm={5}>
+                            <Select
+                                placeholder="Trạng thái"
+                                size="large"
+                                style={{ width: '100%' }}
+                                allowClear
+                                value={trangThaiFilter || undefined}
+                                onChange={v => { setTrangThaiFilter(v ?? ''); doFilter({ trang_thai: v ?? '' }); }}
+                                options={Object.entries(TRANG_THAI_MAP).map(([k, v]) => ({ value: k, label: v.label }))}
+                            />
+                        </Col>
+                        <Col>
+                            <Button icon={<SearchOutlined />} size="large" type="primary" onClick={() => doFilter()}>Lọc</Button>
+                        </Col>
+                        <Col>
+                            <Button icon={<ReloadOutlined />} size="large" onClick={handleReset}>Làm mới</Button>
+                        </Col>
+                    </Row>
+                </Card>
+
+                {/* Table */}
+                <Card title={
+                    <Space>
+                        <AlertOutlined />
+                        <Title level={4} style={{ margin: 0 }}>Danh sách Báo cáo Sự cố</Title>
+                    </Space>
+                }>
+                    <Table
+                        dataSource={baoCaos.data}
+                        columns={columns}
+                        rowKey="id"
+                        size="small"
+                        scroll={{ x: 1000 }}
+                        rowClassName={r =>
+                            r.muc_do === 'khan_cap' && r.trang_thai === 'yeu_cau_sua_chua'
+                                ? 'table-row-urgent' : ''
+                        }
+                        pagination={{
+                            current: baoCaos.current_page,
+                            pageSize: baoCaos.per_page,
+                            total: baoCaos.total,
+                            showTotal: t => `Tổng ${t} báo cáo`,
+                            onChange: page => router.get('/bao-cao-su-co', { ...filters, page }, { preserveState: true }),
+                        }}
+                    />
+                </Card>
+
+                {/* Detail modal */}
+                <Modal
+                    title="Chi tiết Báo cáo"
+                    open={!!detailModal}
+                    onCancel={() => setDetailModal(null)}
+                    footer={<Button onClick={() => setDetailModal(null)}>Đóng</Button>}
+                >
+                    {detailModal && (
+                        <Space direction="vertical" size="small" style={{ width: '100%' }}>
+                            {[
+                                ['Người báo',  detailModal.ten_nguoi_bao],
+                                ['SĐT',        detailModal.so_dien_thoai || '—'],
+                                ['Phòng',      detailModal.phong?.ten_phong],
+                                ['Thiết bị',   detailModal.thiet_bi?.ten_thiet_bi || '—'],
+                                ['Mức độ',     <Tag color={MUC_DO_MAP[detailModal.muc_do]?.color}>{MUC_DO_MAP[detailModal.muc_do]?.label}</Tag>],
+                                ['Trạng thái', <Badge color={TRANG_THAI_MAP[detailModal.trang_thai]?.color} text={TRANG_THAI_MAP[detailModal.trang_thai]?.label} />],
+                                ['Thời gian',  formatDate(detailModal.created_at)],
+                            ].map(([label, value]) => (
+                                <Row key={label}>
+                                    <Col span={8}><Text type="secondary">{label}:</Text></Col>
+                                    <Col span={16}><Text>{value}</Text></Col>
+                                </Row>
+                            ))}
+                            <Row>
+                                <Col span={8}><Text type="secondary">Mô tả:</Text></Col>
+                                <Col span={16}>
+                                    <Card size="small" style={{ background: '#fafafa', borderRadius: 8 }}>
+                                        <Text>{detailModal.mo_ta_su_co}</Text>
+                                    </Card>
+                                </Col>
+                            </Row>
+                            {detailModal.trang_thai === 'hoan_thanh_sua_chua' && (
+                                <Row>
+                                    <Col span={8}><Text type="secondary">Người sửa:</Text></Col>
+                                    <Col span={16}>
+                                        <Text>{detailModal.nguoi_hoan_thanh || '—'}</Text>
+                                        {detailModal.ngay_hoan_thanh && (
+                                            <div><Text type="secondary" style={{ fontSize: 12 }}>{formatDate(detailModal.ngay_hoan_thanh)}</Text></div>
+                                        )}
+                                    </Col>
+                                </Row>
+                            )}
+                        </Space>
+                    )}
+                </Modal>
+
+            </Space>
+
+            <style>{`.table-row-urgent > td { background-color: #fff1f0 !important; }`}</style>
+        </MainLayout>
+    );
+};
+
+export default BaoCaoSuCoIndex;

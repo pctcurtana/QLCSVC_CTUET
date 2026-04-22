@@ -50,8 +50,8 @@ class PhongRepository implements PhongRepositoryInterface
             $query->where('loai_phong', $filters['loai_phong']);
         }
 
-        if (isset($filters['trang_thai']) && !empty($filters['trang_thai'])) {
-            $query->where('trang_thai', $filters['trang_thai']);
+        if (isset($filters['tang']) && $filters['tang'] !== '') {
+            $query->where('tang', $filters['tang']);
         }
 
         return $query->latest()->paginate($perPage);

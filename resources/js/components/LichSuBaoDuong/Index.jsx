@@ -1,20 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import MainLayout from '../Layout/MainLayout';
-import { Table, Button, Space, Card, Row, Col, Popconfirm, message, Select, Tag, Skeleton } from 'antd';
+import { 
+    Table, Button, Space, Card, Row, Col, message, Select, Tag, Skeleton,
+    Modal, Typography, Statistic, Badge, Tooltip, Descriptions
+} from 'antd';
 import {
     PlusOutlined,
-    EditOutlined,
-    DeleteOutlined,
     ReloadOutlined,
+    EyeOutlined,
+    ToolOutlined,
+    CheckCircleOutlined,
+    SyncOutlined,
+    DollarOutlined,
+    HistoryOutlined,
 } from '@ant-design/icons';
-import { Link, router } from '@inertiajs/react';
+import { Link, router, Head } from '@inertiajs/react';
 import dayjs from 'dayjs';
+import usePermission from '../../hooks/usePermission';
 
-const Index = ({ lichSuBaoDuongs, thietBis, filters }) => {
+const { Text, Title } = Typography;
+
+const LOAI_BD_MAP = {
+    'dinh_ky':  { color: 'blue',   label: 'Định kỳ' },
+    'sua_chua': { color: 'orange', label: 'Sửa chữa' },
+    'thay_the': { color: 'red',    label: 'Thay thế' },
+};
+
+const TRANG_THAI_MAP = {
+    'hoan_thanh':      { color: 'green',  label: 'Hoàn thành', icon: <CheckCircleOutlined /> },
+    'dang_thuc_hien':  { color: 'blue',   label: 'Đang thực hiện', icon: <SyncOutlined spin /> },
+    'chua_thuc_hien':  { color: 'orange', label: 'Chưa thực hiện', icon: <HistoryOutlined /> },
+};
+
+const Index = ({ lichSuBaoDuongs, thietBis, filters, stats }) => {
+    const perm = usePermission('lich-su-bao-duong');
     const [thietBiFilter, setThietBiFilter] = useState(filters.thiet_bi_id || '');
     const [loaiFilter, setLoaiFilter] = useState(filters.loai_bao_duong || '');
     const [trangThaiFilter, setTrangThaiFilter] = useState(filters.trang_thai || '');
     const [loading, setLoading] = useState(true);
+    const [detailModal, setDetailModal] = useState(null);
 
     useEffect(() => {
         setLoading(false);
@@ -56,17 +80,6 @@ const Index = ({ lichSuBaoDuongs, thietBis, filters }) => {
         });
     };
 
-    const handleDelete = (id) => {
-        router.delete(`/lich-su-bao-duong/${id}`, {
-            onSuccess: () => {
-                // success toast hiển thị qua flash ở MainLayout
-            },
-            onError: () => {
-                message.error('Có lỗi xảy ra khi xóa lịch sử bảo dưỡng!');
-            },
-        });
-    };
-
     const handleReset = () => {
         setThietBiFilter('');
         setLoaiFilter('');
@@ -75,46 +88,16 @@ const Index = ({ lichSuBaoDuongs, thietBis, filters }) => {
     };
 
     const formatCurrency = (value) => {
+        if (!value) return '—';
         return new Intl.NumberFormat('vi-VN', {
             style: 'currency',
             currency: 'VND'
         }).format(value);
     };
 
-    const getLoaiBaoDuongLabel = (loai) => {
-        const labels = {
-            'dinh_ky': 'Định kỳ',
-            'sua_chua': 'Sửa chữa',
-            'thay_the': 'Thay thế',
-        };
-        return labels[loai] || loai;
-    };
-
-    const getLoaiBaoDuongColor = (loai) => {
-        const colors = {
-            'dinh_ky': 'blue',
-            'sua_chua': 'orange',
-            'thay_the': 'red',
-        };
-        return colors[loai] || 'default';
-    };
-
-    const getTrangThaiLabel = (trangThai) => {
-        const labels = {
-            'hoan_thanh': 'Hoàn thành',
-            'dang_thuc_hien': 'Đang thực hiện',
-            'chua_thuc_hien': 'Chưa thực hiện',
-        };
-        return labels[trangThai] || trangThai;
-    };
-
-    const getTrangThaiColor = (trangThai) => {
-        const colors = {
-            'hoan_thanh': 'green',
-            'dang_thuc_hien': 'blue',
-            'chua_thuc_hien': 'orange',
-        };
-        return colors[trangThai] || 'default';
+    const formatDate = (date) => {
+        if (!date) return '—';
+        return dayjs(date).format('DD/MM/YYYY');
     };
 
     const columns = [
@@ -122,135 +105,142 @@ const Index = ({ lichSuBaoDuongs, thietBis, filters }) => {
             title: 'STT',
             key: 'index',
             width: 60,
-            render: (text, record, index) => (lichSuBaoDuongs.current_page - 1) * lichSuBaoDuongs.per_page + index + 1,
+            align: 'center',
+            render: (_, __, index) => (lichSuBaoDuongs.current_page - 1) * lichSuBaoDuongs.per_page + index + 1,
         },
         {
-            title: 'Ngày BĐ',
+            title: 'Ngày bảo dưỡng',
             dataIndex: 'ngay_bao_duong',
             key: 'ngay_bao_duong',
-            width: 100,
-            render: (date) => dayjs(date).format('DD/MM/YYYY'),
+            width: 130,
+            render: formatDate,
         },
         {
             title: 'Thiết bị',
-            dataIndex: ['thiet_bi', 'ten_thiet_bi'],
             key: 'thiet_bi',
-            width: 180,
-            ellipsis: true,
-            render: (text, record) => (
-                <div>
-                    <strong>{text}</strong>
-                    <br />
-                    <small style={{ color: '#888' }}>{record.thiet_bi?.ma_thiet_bi}</small>
-                </div>
+            width: 280,
+            render: (_, record) => (
+                <Space direction="vertical" size={0}>
+                    <Text strong>{record.thiet_bi?.ten_thiet_bi}</Text>
+                    <Text type="secondary" style={{ fontSize: 11 }}>
+                        {record.thiet_bi?.ma_thiet_bi} • {record.thiet_bi?.phong?.ten_phong || 'Chưa phân bổ'}
+                    </Text>
+                </Space>
             ),
         },
         {
-            title: 'Phòng',
-            dataIndex: ['thiet_bi', 'phong', 'ten_phong'],
-            key: 'phong',
-            width: 140,
-            ellipsis: true,
-        },
-        {
-            title: 'Loại BĐ',
+            title: 'Loại',
             dataIndex: 'loai_bao_duong',
             key: 'loai_bao_duong',
-            width: 100,
-            render: (loai) => (
-                <Tag color={getLoaiBaoDuongColor(loai)}>
-                    {getLoaiBaoDuongLabel(loai)}
-                </Tag>
-            ),
-        },
-        {
-            title: 'Nội dung',
-            dataIndex: 'noi_dung',
-            key: 'noi_dung',
-            width: 200,
-            ellipsis: true,
-        },
-        {
-            title: 'Chi phí',
-            dataIndex: 'chi_phi',
-            key: 'chi_phi',
             width: 110,
-            align: 'right',
-            render: (value) => value ? formatCurrency(value) : '-',
-        },
-        {
-            title: 'Người thực hiện',
-            dataIndex: 'nguoi_thuc_hien',
-            key: 'nguoi_thuc_hien',
-            width: 130,
-            ellipsis: true,
-        },
-        {
-            title: 'Đơn vị',
-            dataIndex: 'don_vi_thuc_hien',
-            key: 'don_vi_thuc_hien',
-            width: 140,
-            ellipsis: true,
+            align: 'center',
+            render: (loai) => {
+                const m = LOAI_BD_MAP[loai] ?? { color: 'default', label: loai };
+                return <Tag color={m.color}>{m.label}</Tag>;
+            },
         },
         {
             title: 'Trạng thái',
             dataIndex: 'trang_thai',
             key: 'trang_thai',
-            width: 110,
+            width: 140,
             align: 'center',
-            render: (trangThai) => (
-                <Tag color={getTrangThaiColor(trangThai)}>
-                    {getTrangThaiLabel(trangThai)}
-                </Tag>
-            ),
+            render: (trangThai) => {
+                const m = TRANG_THAI_MAP[trangThai] ?? { color: 'default', label: trangThai };
+                return <Badge color={m.color} text={m.label} />;
+            },
         },
         {
             title: 'Thao tác',
             key: 'action',
-            fixed: 'right',
-            width: 150,
+            width: 100,
+            align: 'center',
             render: (_, record) => (
-                <Space size="small">
-                    <Link href={`/lich-su-bao-duong/${record.id}/edit`}>
-                        <Button type="primary" size="small" icon={<EditOutlined />}>
-                            Sửa
-                        </Button>
-                    </Link>
-                    <Popconfirm
-                        title="Xác nhận xóa"
-                        description="Bạn có chắc chắn muốn xóa lịch sử này?"
-                        onConfirm={() => handleDelete(record.id)}
-                        okText="Xóa"
-                        cancelText="Hủy"
-                        okButtonProps={{ danger: true }}
-                    >
-                        <Button danger size="small" icon={<DeleteOutlined />}>
-                            Xóa
-                        </Button>
-                    </Popconfirm>
-                </Space>
+                <Button 
+                    type="primary"
+                    ghost
+                    size="small" 
+                    icon={<EyeOutlined />}
+                    onClick={() => setDetailModal(record)}
+                >
+                    Xem
+                </Button>
             ),
+        },
+    ];
+
+    // KPI cards config
+    const kpiCards = [
+        { 
+            title: 'Tổng lịch sử', 
+            value: stats?.tong ?? 0, 
+            color: '#244380', 
+            icon: <HistoryOutlined /> 
+        },
+        { 
+            title: 'Bảo dưỡng định kỳ', 
+            value: stats?.dinh_ky ?? 0, 
+            color: '#1890ff', 
+            icon: <SyncOutlined /> 
+        },
+        { 
+            title: 'Sửa chữa', 
+            value: stats?.sua_chua ?? 0, 
+            color: '#fa8c16', 
+            icon: <ToolOutlined /> 
+        },
+        { 
+            title: 'Tổng chi phí', 
+            value: stats?.tong_chi_phi ?? 0, 
+            color: '#52c41a', 
+            icon: <DollarOutlined />,
+            formatter: (val) => formatCurrency(val),
         },
     ];
 
     return (
         <MainLayout>
+            <Head title="Lịch sử Bảo dưỡng" />
             <Space direction="vertical" size="large" style={{ width: '100%' }}>
+
+                {/* KPI Cards */}
+                <Row gutter={16}>
+                    {kpiCards.map((k, i) => (
+                        <Col xs={24} sm={12} md={6} key={i}>
+                            <Card>
+                                <Statistic 
+                                    title={k.title} 
+                                    value={k.formatter ? k.formatter(k.value) : k.value} 
+                                    prefix={k.icon}
+                                    valueStyle={{ color: k.color, fontSize: k.formatter ? 18 : 24 }} 
+                                />
+                            </Card>
+                        </Col>
+                    ))}
+                </Row>
+
+                {/* Header + Filters */}
                 <Card>
                     <Row gutter={[16, 16]} align="middle">
                         <Col flex="auto">
-                            <h2 style={{ margin: 0 }}>Lịch sử bảo dưỡng thiết bị</h2>
+                            <Space>
+                                <HistoryOutlined style={{ fontSize: 20 }} />
+                                <Title level={4} style={{ margin: 0 }}>Lịch sử bảo dưỡng thiết bị</Title>
+                            </Space>
                         </Col>
-                        <Col>
-                            <Link href="/lich-su-bao-duong/create">
-                                <Button type="primary" icon={<PlusOutlined />} size="large">
-                                    Thêm lịch sử
-                                </Button>
-                            </Link>
-                        </Col>
+                        {perm.can_create && (
+                            <Col>
+                                <Link href="/lich-su-bao-duong/create">
+                                    <Button type="primary" icon={<PlusOutlined />} size="large">
+                                        Thêm lịch sử
+                                    </Button>
+                                </Link>
+                            </Col>
+                        )}
                     </Row>
                 </Card>
 
+                {/* Filters */}
                 <Card>
                     <Row gutter={[16, 16]}>
                         <Col xs={24} sm={12} md={6}>
@@ -277,11 +267,7 @@ const Index = ({ lichSuBaoDuongs, thietBis, filters }) => {
                                 allowClear
                                 value={loaiFilter || undefined}
                                 onChange={handleLoaiFilter}
-                                options={[
-                                    { value: 'dinh_ky', label: 'Định kỳ' },
-                                    { value: 'sua_chua', label: 'Sửa chữa' },
-                                    { value: 'thay_the', label: 'Thay thế' },
-                                ]}
+                                options={Object.entries(LOAI_BD_MAP).map(([k, v]) => ({ value: k, label: v.label }))}
                             />
                         </Col>
                         <Col xs={24} sm={12} md={5}>
@@ -292,11 +278,7 @@ const Index = ({ lichSuBaoDuongs, thietBis, filters }) => {
                                 allowClear
                                 value={trangThaiFilter || undefined}
                                 onChange={handleTrangThaiFilter}
-                                options={[
-                                    { value: 'hoan_thanh', label: 'Hoàn thành' },
-                                    { value: 'dang_thuc_hien', label: 'Đang thực hiện' },
-                                    { value: 'chua_thuc_hien', label: 'Chưa thực hiện' },
-                                ]}
+                                options={Object.entries(TRANG_THAI_MAP).map(([k, v]) => ({ value: k, label: v.label }))}
                             />
                         </Col>
                         <Col>
@@ -307,6 +289,7 @@ const Index = ({ lichSuBaoDuongs, thietBis, filters }) => {
                     </Row>
                 </Card>
 
+                {/* Table */}
                 <Card>
                     {loading ? (
                         <Skeleton active paragraph={{ rows: 10 }} />
@@ -314,34 +297,110 @@ const Index = ({ lichSuBaoDuongs, thietBis, filters }) => {
                         <Table
                             columns={columns}
                             dataSource={lichSuBaoDuongs.data}
-                        rowKey="id"
-                        scroll={{ x: 1550 }}
-                        pagination={{
-                            current: lichSuBaoDuongs.current_page,
-                            pageSize: lichSuBaoDuongs.per_page,
-                            total: lichSuBaoDuongs.total,
-                            showSizeChanger: true,
-                            showTotal: (total) => `Tổng số ${total} lịch sử`,
-                            onChange: (page, pageSize) => {
-                                router.get('/lich-su-bao-duong', {
-                                    page,
-                                    per_page: pageSize,
-                                    thiet_bi_id: thietBiFilter,
-                                    loai_bao_duong: loaiFilter,
-                                    trang_thai: trangThaiFilter,
-                                }, {
-                                    preserveState: true,
-                                    replace: true,
-                                });
-                            },
-                        }}
+                            rowKey="id"
+                            scroll={{ x: 820 }}
+                            size="middle"
+                            tableLayout="fixed"
+                            pagination={{
+                                current: lichSuBaoDuongs.current_page,
+                                pageSize: lichSuBaoDuongs.per_page,
+                                total: lichSuBaoDuongs.total,
+                                showSizeChanger: true,
+                                showTotal: (total) => `Tổng số ${total} lịch sử`,
+                                onChange: (page, pageSize) => {
+                                    router.get('/lich-su-bao-duong', {
+                                        page,
+                                        per_page: pageSize,
+                                        thiet_bi_id: thietBiFilter,
+                                        loai_bao_duong: loaiFilter,
+                                        trang_thai: trangThaiFilter,
+                                    }, {
+                                        preserveState: true,
+                                        replace: true,
+                                    });
+                                },
+                            }}
                         />
                     )}
                 </Card>
+
+                {/* Detail Modal */}
+                <Modal
+                    title={
+                        <Space>
+                            <HistoryOutlined />
+                            <span>Chi tiết lịch sử bảo dưỡng</span>
+                        </Space>
+                    }
+                    open={!!detailModal}
+                    onCancel={() => setDetailModal(null)}
+                    footer={<Button onClick={() => setDetailModal(null)}>Đóng</Button>}
+                    width={700}
+                >
+                    {detailModal && (
+                        <Descriptions bordered column={2} size="small">
+                            <Descriptions.Item label="Ngày bảo dưỡng" span={1}>
+                                <Text strong>{formatDate(detailModal.ngay_bao_duong)}</Text>
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Loại bảo dưỡng" span={1}>
+                                <Tag color={LOAI_BD_MAP[detailModal.loai_bao_duong]?.color}>
+                                    {LOAI_BD_MAP[detailModal.loai_bao_duong]?.label}
+                                </Tag>
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Thiết bị" span={2}>
+                                <Space direction="vertical" size={0}>
+                                    <Text strong>{detailModal.thiet_bi?.ten_thiet_bi}</Text>
+                                    <Text type="secondary">{detailModal.thiet_bi?.ma_thiet_bi}</Text>
+                                </Space>
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Phòng" span={1}>
+                                {detailModal.thiet_bi?.phong?.ten_phong || '—'}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Khu nhà" span={1}>
+                                {detailModal.thiet_bi?.phong?.khu_nha?.ten_khu_nha || '—'}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Nội dung bảo dưỡng" span={2}>
+                                <Card size="small" style={{ background: '#fafafa', borderRadius: 8 }}>
+                                    <Text>{detailModal.noi_dung || '—'}</Text>
+                                </Card>
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Chi phí" span={1}>
+                                <Text strong style={{ color: '#52c41a' }}>
+                                    {formatCurrency(detailModal.chi_phi)}
+                                </Text>
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Trạng thái" span={1}>
+                                <Badge 
+                                    color={TRANG_THAI_MAP[detailModal.trang_thai]?.color} 
+                                    text={TRANG_THAI_MAP[detailModal.trang_thai]?.label} 
+                                />
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Người thực hiện" span={1}>
+                                {detailModal.nguoi_thuc_hien || '—'}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Đơn vị thực hiện" span={1}>
+                                {detailModal.don_vi_thuc_hien || '—'}
+                            </Descriptions.Item>
+                            {detailModal.ghi_chu && (
+                                <Descriptions.Item label="Ghi chú" span={2}>
+                                    <Card size="small" style={{ background: '#fffbe6', borderRadius: 8 }}>
+                                        <Text>{detailModal.ghi_chu}</Text>
+                                    </Card>
+                                </Descriptions.Item>
+                            )}
+                            <Descriptions.Item label="Ngày tạo" span={1}>
+                                {detailModal.created_at ? dayjs(detailModal.created_at).format('DD/MM/YYYY HH:mm') : '—'}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Cập nhật lần cuối" span={1}>
+                                {detailModal.updated_at ? dayjs(detailModal.updated_at).format('DD/MM/YYYY HH:mm') : '—'}
+                            </Descriptions.Item>
+                        </Descriptions>
+                    )}
+                </Modal>
+
             </Space>
         </MainLayout>
     );
 };
 
 export default Index;
-

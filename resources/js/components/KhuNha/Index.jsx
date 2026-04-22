@@ -9,10 +9,12 @@ import {
     ReloadOutlined,
 } from '@ant-design/icons';
 import { Link, router } from '@inertiajs/react';
+import usePermission from '../../hooks/usePermission';
 
 const { Search } = Input;
 
 const Index = ({ khuNhas, coSos, filters }) => {
+    const perm = usePermission('khu-nha');
     const [searchText, setSearchText] = useState(filters.search || '');
     const [coSoFilter, setCoSoFilter] = useState(filters.co_so_id || '');
     const [loaiFilter, setLoaiFilter] = useState(filters.loai_khu_nha || '');
@@ -196,33 +198,37 @@ const Index = ({ khuNhas, coSos, filters }) => {
                 </Tag>
             ),
         },
-        {
+        ...(perm.can_edit || perm.can_delete ? [{
             title: 'Thao tác',
             key: 'action',
             fixed: 'right',
             width: 150,
             render: (_, record) => (
                 <Space size="small">
-                    <Link href={`/khu-nha/${record.id}/edit`}>
-                        <Button type="primary" size="small" icon={<EditOutlined />}>
-                            Sửa
-                        </Button>
-                    </Link>
-                    <Popconfirm
-                        title="Xác nhận xóa"
-                        description="Bạn có chắc chắn muốn xóa khu nhà này?"
-                        onConfirm={() => handleDelete(record.id)}
-                        okText="Xóa"
-                        cancelText="Hủy"
-                        okButtonProps={{ danger: true }}
-                    >
-                        <Button danger size="small" icon={<DeleteOutlined />}>
-                            Xóa
-                        </Button>
-                    </Popconfirm>
+                    {perm.can_edit && (
+                        <Link href={`/khu-nha/${record.id}/edit`}>
+                            <Button type="primary" size="small" icon={<EditOutlined />}>
+                                Sửa
+                            </Button>
+                        </Link>
+                    )}
+                    {perm.can_delete && (
+                        <Popconfirm
+                            title="Xác nhận xóa"
+                            description="Bạn có chắc chắn muốn xóa khu nhà này?"
+                            onConfirm={() => handleDelete(record.id)}
+                            okText="Xóa"
+                            cancelText="Hủy"
+                            okButtonProps={{ danger: true }}
+                        >
+                            <Button danger size="small" icon={<DeleteOutlined />}>
+                                Xóa
+                            </Button>
+                        </Popconfirm>
+                    )}
                 </Space>
             ),
-        },
+        }] : []),
     ];
 
     return (
@@ -233,13 +239,15 @@ const Index = ({ khuNhas, coSos, filters }) => {
                         <Col flex="auto">
                             <h2 style={{ margin: 0 }}>Quản lý khu nhà học, chức năng</h2>
                         </Col>
-                        <Col>
-                            <Link href="/khu-nha/create">
-                                <Button type="primary" icon={<PlusOutlined />} size="large">
-                                    Thêm khu nhà
-                                </Button>
-                            </Link>
-                        </Col>
+                        {perm.can_create && (
+                            <Col>
+                                <Link href="/khu-nha/create">
+                                    <Button type="primary" icon={<PlusOutlined />} size="large">
+                                        Thêm khu nhà
+                                    </Button>
+                                </Link>
+                            </Col>
+                        )}
                     </Row>
                 </Card>
 

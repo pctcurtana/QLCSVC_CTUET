@@ -82,6 +82,9 @@ class PermissionService
                 'can_create' => $permission->can_create,
                 'can_edit' => $permission->can_edit,
                 'can_delete' => $permission->can_delete,
+                'can_regenerate_qr' => $permission->can_regenerate_qr,
+                'can_import' => $permission->can_import,
+                'can_export' => $permission->can_export,
             ];
         })->toArray();
     }

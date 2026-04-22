@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, router, usePage } from '@inertiajs/react';
 import MainLayout from '../Layout/MainLayout';
+import usePermission from '../../hooks/usePermission';
 import {
     Card,
     Table,
@@ -29,6 +30,7 @@ const { Option } = Select;
 const UserIndex = ({ users, filters }) => {
     const { auth } = usePage().props;
     const currentUserId = auth?.user?.id;
+    const perm = usePermission('nguoi-dung');
     
     const [search, setSearch] = useState(filters.search || '');
     const [role, setRole] = useState(filters.role || '');
@@ -108,47 +110,51 @@ const UserIndex = ({ users, filters }) => {
             width: 150,
             render: (date) => new Date(date).toLocaleDateString('vi-VN'),
         },
-        {
+        ...(perm.can_edit || perm.can_delete ? [{
             title: 'Thao tác',
             key: 'action',
             width: 280,
             render: (_, record) => (
                 <Space>
-                    <Link href={`/nguoi-dung/${record.id}/edit`}>
-                        <Button type="primary" size="small" icon={<EditOutlined />}>
-                            Sửa
-                        </Button>
-                    </Link>
-                    {record.role !== 'admin' && (
+                    {perm.can_edit && (
+                        <Link href={`/nguoi-dung/${record.id}/edit`}>
+                            <Button type="primary" size="small" icon={<EditOutlined />}>
+                                Sửa
+                            </Button>
+                        </Link>
+                    )}
+                    {perm.can_edit && record.role !== 'admin' && (
                         <Link href={`/phan-quyen?user=${record.id}`}>
                             <Button size="small" icon={<KeyOutlined />}>
                                 Phân quyền
                             </Button>
                         </Link>
                     )}
-                    {canDeleteUser(record) ? (
-                        <Popconfirm
-                            title="Xác nhận xóa"
-                            description="Bạn có chắc chắn muốn xóa người dùng này?"
-                            onConfirm={() => handleDelete(record.id)}
-                            okText="Xóa"
-                            cancelText="Hủy"
-                            okButtonProps={{ danger: true }}
-                        >
-                            <Button danger size="small" icon={<DeleteOutlined />}>
-                                Xóa
-                            </Button>
-                        </Popconfirm>
-                    ) : (
-                        <Tooltip title={getDeleteDisabledReason(record)}>
-                            <Button danger size="small" icon={<DeleteOutlined />} disabled>
-                                Xóa
-                            </Button>
-                        </Tooltip>
+                    {perm.can_delete && (
+                        canDeleteUser(record) ? (
+                            <Popconfirm
+                                title="Xác nhận xóa"
+                                description="Bạn có chắc chắn muốn xóa người dùng này?"
+                                onConfirm={() => handleDelete(record.id)}
+                                okText="Xóa"
+                                cancelText="Hủy"
+                                okButtonProps={{ danger: true }}
+                            >
+                                <Button danger size="small" icon={<DeleteOutlined />}>
+                                    Xóa
+                                </Button>
+                            </Popconfirm>
+                        ) : (
+                            <Tooltip title={getDeleteDisabledReason(record)}>
+                                <Button danger size="small" icon={<DeleteOutlined />} disabled>
+                                    Xóa
+                                </Button>
+                            </Tooltip>
+                        )
                     )}
                 </Space>
             ),
-        },
+        }] : []),
     ];
 
     return (
@@ -156,11 +162,13 @@ const UserIndex = ({ users, filters }) => {
             <Space direction="vertical" size="large" style={{ width: '100%' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <Title level={2} style={{ margin: 0 }}>Quản lý người dùng</Title>
-                    <Link href="/nguoi-dung/create">
-                        <Button type="primary" icon={<PlusOutlined />}>
-                            Thêm người dùng
-                        </Button>
-                    </Link>
+                    {perm.can_create && (
+                        <Link href="/nguoi-dung/create">
+                            <Button type="primary" icon={<PlusOutlined />}>
+                                Thêm người dùng
+                            </Button>
+                        </Link>
+                    )}
                 </div>
 
                 <Card>

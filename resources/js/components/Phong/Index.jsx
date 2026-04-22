@@ -9,26 +9,28 @@ import {
     ReloadOutlined,
 } from '@ant-design/icons';
 import { Link, router } from '@inertiajs/react';
+import usePermission from '../../hooks/usePermission';
 
 const { Search } = Input;
 
-const Index = ({ phongs, khuNhas, filters }) => {
+const Index = ({ phongs, khuNhas, danhSachTang, filters }) => {
+    const perm = usePermission('phong');
     const [searchText, setSearchText] = useState(filters.search || '');
     const [khuNhaFilter, setKhuNhaFilter] = useState(filters.khu_nha_id || '');
     const [loaiFilter, setLoaiFilter] = useState(filters.loai_phong || '');
+    const [tangFilter, setTangFilter] = useState(filters.tang ?? '');
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         setLoading(false);
     }, [phongs]);
-    const [trangThaiFilter, setTrangThaiFilter] = useState(filters.trang_thai || '');
 
     const handleSearch = (value) => {
         router.get('/phong', { 
             search: value, 
             khu_nha_id: khuNhaFilter,
             loai_phong: loaiFilter,
-            trang_thai: trangThaiFilter 
+            tang: tangFilter 
         }, {
             preserveState: true,
             replace: true,
@@ -41,7 +43,7 @@ const Index = ({ phongs, khuNhas, filters }) => {
             search: searchText, 
             khu_nha_id: value,
             loai_phong: loaiFilter,
-            trang_thai: trangThaiFilter 
+            tang: tangFilter 
         }, {
             preserveState: true,
             replace: true,
@@ -54,20 +56,20 @@ const Index = ({ phongs, khuNhas, filters }) => {
             search: searchText, 
             khu_nha_id: khuNhaFilter,
             loai_phong: value,
-            trang_thai: trangThaiFilter 
+            tang: tangFilter 
         }, {
             preserveState: true,
             replace: true,
         });
     };
 
-    const handleTrangThaiFilter = (value) => {
-        setTrangThaiFilter(value);
+    const handleTangFilter = (value) => {
+        setTangFilter(value);
         router.get('/phong', { 
             search: searchText, 
             khu_nha_id: khuNhaFilter,
             loai_phong: loaiFilter,
-            trang_thai: value 
+            tang: value 
         }, {
             preserveState: true,
             replace: true,
@@ -89,7 +91,7 @@ const Index = ({ phongs, khuNhas, filters }) => {
         setSearchText('');
         setKhuNhaFilter('');
         setLoaiFilter('');
-        setTrangThaiFilter('');
+        setTangFilter('');
         router.get('/phong');
     };
 
@@ -229,33 +231,37 @@ const Index = ({ phongs, khuNhas, filters }) => {
                 </Tag>
             ),
         },
-        {
+        ...(perm.can_edit || perm.can_delete ? [{
             title: 'Thao tác',
             key: 'action',
             fixed: 'right',
             width: 150,
             render: (_, record) => (
                 <Space size="small">
-                    <Link href={`/phong/${record.id}/edit`}>
-                        <Button type="primary" size="small" icon={<EditOutlined />}>
-                            Sửa
-                        </Button>
-                    </Link>
-                    <Popconfirm
-                        title="Xác nhận xóa"
-                        description="Bạn có chắc chắn muốn xóa phòng này?"
-                        onConfirm={() => handleDelete(record.id)}
-                        okText="Xóa"
-                        cancelText="Hủy"
-                        okButtonProps={{ danger: true }}
-                    >
-                        <Button danger size="small" icon={<DeleteOutlined />}>
-                            Xóa
-                        </Button>
-                    </Popconfirm>
+                    {perm.can_edit && (
+                        <Link href={`/phong/${record.id}/edit`}>
+                            <Button type="primary" size="small" icon={<EditOutlined />}>
+                                Sửa
+                            </Button>
+                        </Link>
+                    )}
+                    {perm.can_delete && (
+                        <Popconfirm
+                            title="Xác nhận xóa"
+                            description="Bạn có chắc chắn muốn xóa phòng này?"
+                            onConfirm={() => handleDelete(record.id)}
+                            okText="Xóa"
+                            cancelText="Hủy"
+                            okButtonProps={{ danger: true }}
+                        >
+                            <Button danger size="small" icon={<DeleteOutlined />}>
+                                Xóa
+                            </Button>
+                        </Popconfirm>
+                    )}
                 </Space>
             ),
-        },
+        }] : []),
     ];
 
     return (
@@ -266,13 +272,15 @@ const Index = ({ phongs, khuNhas, filters }) => {
                         <Col flex="auto">
                             <h2 style={{ margin: 0 }}>Quản lý phòng</h2>
                         </Col>
-                        <Col>
-                            <Link href="/phong/create">
-                                <Button type="primary" icon={<PlusOutlined />} size="large">
-                                    Thêm phòng
-                                </Button>
-                            </Link>
-                        </Col>
+                        {perm.can_create && (
+                            <Col>
+                                <Link href="/phong/create">
+                                    <Button type="primary" icon={<PlusOutlined />} size="large">
+                                        Thêm phòng
+                                    </Button>
+                                </Link>
+                            </Col>
+                        )}
                     </Row>
                 </Card>
 
@@ -322,17 +330,16 @@ const Index = ({ phongs, khuNhas, filters }) => {
                         </Col>
                         <Col xs={24} sm={12} md={5}>
                             <Select
-                                placeholder="Lọc theo trạng thái"
+                                placeholder="Lọc theo tầng"
                                 size="large"
                                 style={{ width: '100%' }}
                                 allowClear
-                                value={trangThaiFilter || undefined}
-                                onChange={handleTrangThaiFilter}
-                                options={[
-                                    { value: 'active', label: 'Hoạt động' },
-                                    { value: 'maintenance', label: 'Bảo trì' },
-                                    { value: 'inactive', label: 'Không hoạt động' },
-                                ]}
+                                value={tangFilter !== '' ? tangFilter : undefined}
+                                onChange={handleTangFilter}
+                                options={danhSachTang?.map(t => ({ 
+                                    value: t, 
+                                    label: t === 0 ? 'Tầng trệt' : `Tầng ${t}` 
+                                })) || []}
                             />
                         </Col>
                         <Col>
@@ -365,7 +372,7 @@ const Index = ({ phongs, khuNhas, filters }) => {
                                     search: searchText,
                                     khu_nha_id: khuNhaFilter,
                                     loai_phong: loaiFilter,
-                                    trang_thai: trangThaiFilter,
+                                    tang: tangFilter,
                                 }, {
                                     preserveState: true,
                                     replace: true,

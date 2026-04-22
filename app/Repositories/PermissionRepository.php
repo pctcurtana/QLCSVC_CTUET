@@ -101,6 +101,9 @@ class PermissionRepository implements PermissionRepositoryInterface
                         'can_create' => $permission['can_create'] ?? false,
                         'can_edit' => $permission['can_edit'] ?? false,
                         'can_delete' => $permission['can_delete'] ?? false,
+                        'can_regenerate_qr' => $permission['can_regenerate_qr'] ?? false,
+                        'can_import' => $permission['can_import'] ?? false,
+                        'can_export' => $permission['can_export'] ?? false,
                     ]);
                 }
             }
@@ -118,7 +121,10 @@ class PermissionRepository implements PermissionRepositoryInterface
         return ($permission['can_view'] ?? false) ||
                ($permission['can_create'] ?? false) ||
                ($permission['can_edit'] ?? false) ||
-               ($permission['can_delete'] ?? false);
+               ($permission['can_delete'] ?? false) ||
+               ($permission['can_regenerate_qr'] ?? false) ||
+               ($permission['can_import'] ?? false) ||
+               ($permission['can_export'] ?? false);
     }
 }
 

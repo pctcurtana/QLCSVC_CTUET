@@ -71,6 +71,9 @@ class HandleInertiaRequests extends Middleware
                     'can_create' => true,
                     'can_edit' => true,
                     'can_delete' => true,
+                    'can_regenerate_qr' => true,
+                    'can_import' => true,
+                    'can_export' => true,
                 ];
             }
             return $permissions;
@@ -86,6 +89,9 @@ class HandleInertiaRequests extends Middleware
                     'can_create' => $permission->can_create,
                     'can_edit' => $permission->can_edit,
                     'can_delete' => $permission->can_delete,
+                    'can_regenerate_qr' => $permission->can_regenerate_qr,
+                    'can_import' => $permission->can_import,
+                    'can_export' => $permission->can_export,
                 ];
             }
         }

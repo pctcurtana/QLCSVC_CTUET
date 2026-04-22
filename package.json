@@ -22,8 +22,10 @@
         "@inertiajs/react": "^1.0.0",
         "antd": "^5.27.4",
         "dayjs": "^1.11.18",
+        "qrcode.react": "^4.2.0",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
+        "react-to-print": "^3.3.0",
         "recharts": "^3.2.1"
     }
 }

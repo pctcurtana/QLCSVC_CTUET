@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Phong extends Model
 {
@@ -28,6 +29,7 @@ class Phong extends Model
         'hieu_luc_den',
         'phien_ban',
         'ban_ghi_goc_id',
+        'qr_token',
     ];
 
     protected $casts = [
@@ -39,6 +41,16 @@ class Phong extends Model
         'phien_ban' => 'integer',
         'ban_ghi_goc_id' => 'integer',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::creating(function ($model) {
+            if (empty($model->qr_token)) {
+                $model->qr_token = (string) Str::uuid();
+            }
+        });
+    }
 
     public function khuNha()
     {

@@ -1,21 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import MainLayout from '../Layout/MainLayout';
 import {
-    Table, Space, Input, Tag, Card, Row, Col, Select, Skeleton, Statistic, Empty, Tooltip, Button, DatePicker,
+    Table, Space, Input, Tag, Card, Row, Col, Select, Skeleton, Statistic, Empty, 
+    Button, DatePicker, Modal, Typography, Descriptions, Badge, Tooltip,
 } from 'antd';
 import {
     SearchOutlined,
     ReloadOutlined,
-    InboxOutlined,
+    HistoryOutlined,
+    SwapOutlined,
+    CalendarOutlined,
+    EyeOutlined,
     ToolOutlined,
-    ArrowRightOutlined,
+    LaptopOutlined,
 } from '@ant-design/icons';
-import { router } from '@inertiajs/react';
+import { router, Head } from '@inertiajs/react';
 import dayjs from 'dayjs';
 
 const { RangePicker } = DatePicker;
-
 const { Search } = Input;
+const { Text, Title } = Typography;
+
+const LOAI_TB_MAP = {
+    van_phong:  { color: 'blue',   label: 'Văn phòng' },
+    day_hoc:    { color: 'green',  label: 'Dạy học' },
+    thi_nghiem: { color: 'purple', label: 'Thí nghiệm' },
+    thuc_hanh:  { color: 'orange', label: 'Thực hành' },
+};
 
 const Kho = ({ thietBis, stats, phongs, filters }) => {
     const [searchText, setSearchText] = useState(filters.search || '');
@@ -26,6 +37,7 @@ const Kho = ({ thietBis, stats, phongs, filters }) => {
             : null
     );
     const [loading, setLoading] = useState(true);
+    const [detailModal, setDetailModal] = useState(null);
 
     useEffect(() => {
         setLoading(false);
@@ -66,32 +78,13 @@ const Kho = ({ thietBis, stats, phongs, filters }) => {
     };
 
     const formatCurrency = (value) => {
+        if (!value) return '—';
         return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value);
     };
 
     const formatDate = (dateStr) => {
         if (!dateStr) return '—';
-        return new Date(dateStr).toLocaleDateString('vi-VN');
-    };
-
-    const getLoaiLabel = (loai) => {
-        const labels = { van_phong: 'Văn phòng', day_hoc: 'Dạy học', thi_nghiem: 'Thí nghiệm', thuc_hanh: 'Thực hành' };
-        return labels[loai] || loai;
-    };
-
-    const getLoaiColor = (loai) => {
-        const colors = { van_phong: 'blue', day_hoc: 'green', thi_nghiem: 'purple', thuc_hanh: 'orange' };
-        return colors[loai] || 'default';
-    };
-
-    const getKhoTrangThaiLabel = (trangThai) => {
-        const labels = { tot: 'Đang lưu kho', can_sua_chua: 'Chờ sửa chữa', hu_hong: 'Chờ thanh lý' };
-        return labels[trangThai] || trangThai;
-    };
-
-    const getKhoTrangThaiColor = (trangThai) => {
-        const colors = { tot: 'blue', can_sua_chua: 'orange', hu_hong: 'red' };
-        return colors[trangThai] || 'default';
+        return dayjs(dateStr).format('DD/MM/YYYY');
     };
 
     const columns = [
@@ -99,231 +92,154 @@ const Kho = ({ thietBis, stats, phongs, filters }) => {
             title: 'STT',
             key: 'index',
             width: 60,
-            fixed: 'left',
             align: 'center',
             render: (_, __, index) =>
                 (thietBis.current_page - 1) * thietBis.per_page + index + 1,
         },
-        // {
-        //     title: 'Mã TB',
-        //     dataIndex: 'ma_thiet_bi',
-        //     key: 'ma_thiet_bi',
-        //     width: 110,
-        //     fixed: 'left',
-        // },
         {
-            title: 'Tên thiết bị',
-            dataIndex: 'ten_thiet_bi',
-            key: 'ten_thiet_bi',
-            width: 200,
-            fixed: 'left',
-            ellipsis: true,
-            render: (text) => <strong>{text}</strong>,
-        },
-        {
-            title: 'Phiên bản',
-            dataIndex: 'phien_ban',
-            key: 'phien_ban',
-            width: 90,
-            align: 'center',
-            render: (v) => <Tag color="default">v{v ?? 1}</Tag>,
-        },
-        {
-            title: 'Phòng (cũ)',
-            key: 'phong',
-            width: 140,
-            ellipsis: true,
-            render: (_, record) => record.phong?.ten_phong || <Tag>Chưa phân bổ</Tag>,
-        },
-        {
-            title: 'Khu nhà (cũ)',
-            key: 'khu_nha',
-            width: 150,
-            ellipsis: true,
-            render: (_, record) =>
-                record.phong?.khu_nha?.ten_khu_nha
-                ?? record.phong?.khuNha?.ten_khu_nha
-                ?? '—',
-        },
-        {
-            title: 'Cơ sở (cũ)',
-            key: 'co_so',
-            width: 150,
-            ellipsis: true,
-            render: (_, record) =>
-                record.phong?.khu_nha?.co_so?.ten_co_so
-                ?? record.phong?.khuNha?.coSo?.ten_co_so
-                ?? '—',
-        },
-        {
-            title: 'Loại TB',
-            dataIndex: 'loai_thiet_bi',
-            key: 'loai_thiet_bi',
-            width: 110,
-            render: (loai) => <Tag color={getLoaiColor(loai)}>{getLoaiLabel(loai)}</Tag>,
-        },
-        {
-            title: 'Hãng SX',
-            dataIndex: 'hang_san_xuat',
-            key: 'hang_san_xuat',
-            width: 120,
-            ellipsis: true,
-        },
-        {
-            title: 'Model',
-            dataIndex: 'model',
-            key: 'model',
-            width: 110,
-            ellipsis: true,
-        },
-        {
-            title: 'Serial Number',
-            dataIndex: 'serial_number',
-            key: 'serial_number',
-            width: 140,
-            ellipsis: true,
-            render: (text) => text ? <Tag color="blue">{text}</Tag> : '—',
-        },
-        {
-            title: 'Năm mua',
-            dataIndex: 'nam_mua',
-            key: 'nam_mua',
-            width: 85,
-            align: 'center',
-        },
-        {
-            title: 'Giá trị',
-            dataIndex: 'gia_tri',
-            key: 'gia_tri',
-            width: 130,
-            align: 'right',
-            render: (value) => formatCurrency(value),
-        },
-        {
-            title: 'Trạng thái kho',
-            dataIndex: 'trang_thai',
-            key: 'trang_thai',
-            width: 130,
-            align: 'center',
-            render: (trangThai) => (
-                <Tag color={getKhoTrangThaiColor(trangThai)}>
-                    {getKhoTrangThaiLabel(trangThai)}
-                </Tag>
-            ),
-        },
-        {
-            title: 'Đưa vào kho',
+            title: 'Ngày kết thúc',
             dataIndex: 'hieu_luc_den',
             key: 'hieu_luc_den',
             width: 120,
+            render: formatDate,
+        },
+        {
+            title: 'Thiết bị',
+            key: 'thiet_bi',
+            width: 280,
+            render: (_, record) => (
+                <Space direction="vertical" size={0}>
+                    <Text strong>{record.ten_thiet_bi}</Text>
+                    <Text type="secondary" style={{ fontSize: 11 }}>
+                        {record.ma_thiet_bi} • {record.phong?.ten_phong || 'Chưa phân bổ'}
+                    </Text>
+                </Space>
+            ),
+        },
+        {
+            title: 'Loại',
+            dataIndex: 'loai_thiet_bi',
+            key: 'loai_thiet_bi',
+            width: 110,
             align: 'center',
-            render: (date) => formatDate(date),
+            render: (loai) => {
+                const m = LOAI_TB_MAP[loai] ?? { color: 'default', label: loai };
+                return <Tag color={m.color}>{m.label}</Tag>;
+            },
         },
         {
             title: 'Thay thế bởi',
             key: 'thiet_bi_thay_the',
-            width: 220,
+            width: 200,
             render: (_, record) => {
                 const tb = record.thiet_bi_thay_the;
-                if (!tb) return <Tag color="default">—</Tag>;
-                const phong = tb.phong?.ten_phong;
+                if (!tb) return <Text type="secondary">—</Text>;
                 return (
-                    <Tooltip
-                        title={
-                            <div>
-                                <div><strong>{tb.ten_thiet_bi}</strong> (v{tb.phien_ban ?? 1})</div>
-                                <div>Cập nhật: {formatDate(tb.hieu_luc_tu)}</div>
-                                {phong && <div>Phòng: {phong}</div>}
-                            </div>
-                        }
-                    >
-                        <span style={{ cursor: 'default' }}>
-                            <ArrowRightOutlined style={{ color: '#52c41a', marginRight: 6 }} />
-                            <Tag color="green" style={{ marginRight: 0 }}>
-                                v{tb.phien_ban ?? 1}
-                            </Tag>
-                            <span style={{ marginLeft: 6, fontSize: 13 }}>
-                                {tb.ten_thiet_bi.length > 20
-                                    ? tb.ten_thiet_bi.slice(0, 20) + '…'
-                                    : tb.ten_thiet_bi}
-                            </span>
-                        </span>
-                    </Tooltip>
+                    <Space size={4}>
+                        <SwapOutlined style={{ color: '#52c41a' }} />
+                        <Text style={{ fontSize: 13 }}>
+                            {tb.ten_thiet_bi?.length > 25 
+                                ? tb.ten_thiet_bi.slice(0, 25) + '…' 
+                                : tb.ten_thiet_bi}
+                        </Text>
+                    </Space>
                 );
             },
+        },
+        {
+            title: 'Thao tác',
+            key: 'action',
+            width: 100,
+            align: 'center',
+            render: (_, record) => (
+                <Button 
+                    type="primary"
+                    ghost
+                    size="small" 
+                    icon={<EyeOutlined />}
+                    onClick={() => setDetailModal(record)}
+                >
+                    Xem
+                </Button>
+            ),
+        },
+    ];
+
+    // KPI cards
+    const kpiCards = [
+        { 
+            title: 'Tổng thiết bị cũ', 
+            value: stats?.tong ?? 0, 
+            color: '#722ed1', 
+            icon: <HistoryOutlined />,
+            bg: '#f9f0ff',
+        },
+        { 
+            title: 'Đã thay thế', 
+            value: stats?.da_thay_the ?? stats?.tong ?? 0, 
+            color: '#52c41a', 
+            icon: <SwapOutlined />,
+            bg: '#f6ffed',
+        },
+        { 
+            title: 'Tháng này', 
+            value: stats?.thang_nay ?? 0, 
+            color: '#1890ff', 
+            icon: <CalendarOutlined />,
+            bg: '#e6f7ff',
+        },
+        { 
+            title: 'Tổng giá trị', 
+            value: stats?.tong_gia_tri ?? 0, 
+            color: '#fa8c16', 
+            icon: <LaptopOutlined />,
+            bg: '#fff7e6',
+            formatter: formatCurrency,
         },
     ];
 
     return (
         <MainLayout>
+            <Head title="Lịch sử Thiết bị" />
             <Space direction="vertical" size="large" style={{ width: '100%' }}>
-                {/* Tiêu đề trang */}
+
+                {/* KPI Cards */}
+                <Row gutter={16}>
+                    {kpiCards.map((k, i) => (
+                        <Col xs={24} sm={12} md={6} key={i}>
+                            <Card style={{ background: k.bg }}>
+                                <Statistic 
+                                    title={k.title} 
+                                    value={k.formatter ? k.formatter(k.value) : k.value} 
+                                    prefix={k.icon}
+                                    valueStyle={{ color: k.color, fontSize: k.formatter ? 18 : 24 }} 
+                                />
+                            </Card>
+                        </Col>
+                    ))}
+                </Row>
+
+                {/* Header */}
                 <Card>
                     <Row gutter={[16, 16]} align="middle">
                         <Col flex="auto">
-                            <h2 style={{ margin: 0 }}>Kho thiết bị</h2>
+                            <Space>
+                                <HistoryOutlined style={{ fontSize: 20 }} />
+                                <Title level={4} style={{ margin: 0 }}>Lịch sử thiết bị</Title>
+                            </Space>
                             <div style={{ color: '#666', fontSize: 13, marginTop: 4 }}>
-                                Thiết bị đã được thay thế bởi phiên bản mới — lưu trữ để theo dõi lịch sử
+                                Các thiết bị đã được thay thế bởi phiên bản mới hoặc ngừng sử dụng
                             </div>
                         </Col>
                     </Row>
                 </Card>
 
-                {/* Thống kê tổng quan */}
-                <Card>
-                    <Row gutter={16}>
-                        <Col xs={24} sm={12} md={6}>
-                            <Card bordered={false} style={{ background: '#f9f0ff' }}>
-                                <Statistic
-                                    title="Tổng thiết bị trong kho"
-                                    value={stats?.tong ?? 0}
-                                    prefix={<InboxOutlined />}
-                                    valueStyle={{ color: '#722ed1' }}
-                                />
-                            </Card>
-                        </Col>
-                        <Col xs={24} sm={12} md={6}>
-                            <Card bordered={false} style={{ background: '#f0f5ff' }}>
-                                <Statistic
-                                    title="Đang lưu kho"
-                                    value={stats?.tot ?? 0}
-                                    prefix={<InboxOutlined />}
-                                    valueStyle={{ color: '#1890ff' }}
-                                    suffix={<span style={{ fontSize: 12, fontWeight: 400, color: '#888' }}>thiết bị</span>}
-                                />
-                            </Card>
-                        </Col>
-                        <Col xs={24} sm={12} md={6}>
-                            <Card bordered={false} style={{ background: '#fff7e6' }}>
-                                <Statistic
-                                    title="Chờ sửa chữa"
-                                    value={stats?.can_sua_chua ?? 0}
-                                    prefix={<ToolOutlined />}
-                                    valueStyle={{ color: '#fa8c16' }}
-                                    suffix={<span style={{ fontSize: 12, fontWeight: 400, color: '#888' }}>thiết bị</span>}
-                                />
-                            </Card>
-                        </Col>
-                        <Col xs={24} sm={12} md={6}>
-                            <Card bordered={false} style={{ background: '#fff1f0' }}>
-                                <Statistic
-                                    title="Chờ thanh lý"
-                                    value={stats?.hu_hong ?? 0}
-                                    prefix={<ToolOutlined />}
-                                    valueStyle={{ color: '#cf1322' }}
-                                    suffix={<span style={{ fontSize: 12, fontWeight: 400, color: '#888' }}>thiết bị</span>}
-                                />
-                            </Card>
-                        </Col>
-                    </Row>
-                </Card>
-
-                {/* Bộ lọc */}
+                {/* Filters */}
                 <Card>
                     <Row gutter={[16, 16]}>
-                        <Col xs={24} sm={12} md={8}>
+                        <Col xs={24} sm={12} md={7}>
                             <Search
-                                placeholder="Tìm kiếm theo mã, tên, serial, hãng..."
+                                placeholder="Tìm theo mã, tên, serial..."
                                 allowClear
                                 enterButton={<SearchOutlined />}
                                 size="large"
@@ -332,7 +248,7 @@ const Kho = ({ thietBis, stats, phongs, filters }) => {
                                 onSearch={handleSearch}
                             />
                         </Col>
-                        <Col xs={24} sm={12} md={6}>
+                        <Col xs={24} sm={12} md={5}>
                             <Select
                                 placeholder="Lọc theo phòng"
                                 size="large"
@@ -348,11 +264,11 @@ const Kho = ({ thietBis, stats, phongs, filters }) => {
                                 }))}
                             />
                         </Col>
-                        <Col xs={24} sm={12} md={7}>
+                        <Col xs={24} sm={12} md={6}>
                             <RangePicker
                                 size="large"
                                 style={{ width: '100%' }}
-                                placeholder={['Từ ngày vào kho', 'Đến ngày']}
+                                placeholder={['Từ ngày', 'Đến ngày']}
                                 value={dateRange}
                                 onChange={handleDateRange}
                                 format="DD/MM/YYYY"
@@ -366,7 +282,7 @@ const Kho = ({ thietBis, stats, phongs, filters }) => {
                     </Row>
                 </Card>
 
-                {/* Bảng danh sách */}
+                {/* Table */}
                 <Card>
                     {loading ? (
                         <Skeleton active paragraph={{ rows: 10 }} />
@@ -375,18 +291,26 @@ const Kho = ({ thietBis, stats, phongs, filters }) => {
                             columns={columns}
                             dataSource={thietBis.data}
                             rowKey="id"
-                            scroll={{ x: 1800 }}
-                            locale={{ emptyText: <Empty description="Kho đang trống — chưa có thiết bị nào được lưu trữ" image={Empty.PRESENTED_IMAGE_SIMPLE} /> }}
+                            scroll={{ x: 870 }}
+                            size="middle"
+                            tableLayout="fixed"
+                            locale={{ 
+                                emptyText: <Empty 
+                                    description="Chưa có thiết bị nào trong lịch sử" 
+                                    image={Empty.PRESENTED_IMAGE_SIMPLE} 
+                                /> 
+                            }}
                             pagination={{
                                 current: thietBis.current_page,
                                 pageSize: thietBis.per_page,
                                 total: thietBis.total,
-                                showSizeChanger: false,
-                                showTotal: (total) => `Tổng số ${total} thiết bị trong kho`,
-                                onChange: (page) => {
+                                showSizeChanger: true,
+                                showTotal: (total) => `Tổng số ${total} thiết bị`,
+                                onChange: (page, pageSize) => {
                                     setLoading(true);
                                     router.get('/kho', {
                                         page,
+                                        per_page: pageSize,
                                         search: searchText,
                                         phong_id: phongFilter,
                                         ngay_vao_kho_tu: dateRange?.[0]?.format('YYYY-MM-DD') || '',
@@ -397,6 +321,90 @@ const Kho = ({ thietBis, stats, phongs, filters }) => {
                         />
                     )}
                 </Card>
+
+                {/* Detail Modal */}
+                <Modal
+                    title={
+                        <Space>
+                            <HistoryOutlined />
+                            <span>Chi tiết thiết bị (phiên bản cũ)</span>
+                        </Space>
+                    }
+                    open={!!detailModal}
+                    onCancel={() => setDetailModal(null)}
+                    footer={<Button onClick={() => setDetailModal(null)}>Đóng</Button>}
+                    width={750}
+                >
+                    {detailModal && (
+                        <Descriptions bordered column={2} size="small">
+                            <Descriptions.Item label="Mã thiết bị" span={1}>
+                                <Tag color="blue">{detailModal.ma_thiet_bi}</Tag>
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Loại thiết bị" span={1}>
+                                <Tag color={LOAI_TB_MAP[detailModal.loai_thiet_bi]?.color}>
+                                    {LOAI_TB_MAP[detailModal.loai_thiet_bi]?.label}
+                                </Tag>
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Tên thiết bị" span={2}>
+                                <Text strong>{detailModal.ten_thiet_bi}</Text>
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Phòng (lúc kết thúc)" span={1}>
+                                {detailModal.phong?.ten_phong || '—'}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Khu nhà" span={1}>
+                                {detailModal.phong?.khu_nha?.ten_khu_nha || detailModal.phong?.khuNha?.ten_khu_nha || '—'}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Cơ sở" span={2}>
+                                {detailModal.phong?.khu_nha?.co_so?.ten_co_so || detailModal.phong?.khuNha?.coSo?.ten_co_so || '—'}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Hãng sản xuất" span={1}>
+                                {detailModal.hang_san_xuat || '—'}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Model" span={1}>
+                                {detailModal.model || '—'}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Serial Number" span={1}>
+                                {detailModal.serial_number ? <Tag color="cyan">{detailModal.serial_number}</Tag> : '—'}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Năm mua" span={1}>
+                                {detailModal.nam_mua || '—'}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Giá trị" span={1}>
+                                <Text strong style={{ color: '#52c41a' }}>
+                                    {formatCurrency(detailModal.gia_tri)}
+                                </Text>
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Nguồn gốc" span={1}>
+                                {detailModal.nguon_goc || '—'}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Thời gian sử dụng" span={2}>
+                                <Space>
+                                    <Badge status="success" text={`Từ: ${formatDate(detailModal.hieu_luc_tu)}`} />
+                                    <Badge status="error" text={`Đến: ${formatDate(detailModal.hieu_luc_den)}`} />
+                                </Space>
+                            </Descriptions.Item>
+                            {detailModal.thiet_bi_thay_the && (
+                                <Descriptions.Item label="Được thay thế bởi" span={2}>
+                                    <Card size="small" style={{ background: '#f6ffed', borderColor: '#b7eb8f' }}>
+                                        <Space>
+                                            <SwapOutlined style={{ color: '#52c41a' }} />
+                                            <Text strong>{detailModal.thiet_bi_thay_the.ten_thiet_bi}</Text>
+                                            <Text type="secondary">({detailModal.thiet_bi_thay_the.ma_thiet_bi})</Text>
+                                        </Space>
+                                    </Card>
+                                </Descriptions.Item>
+                            )}
+                            {detailModal.mo_ta && (
+                                <Descriptions.Item label="Mô tả" span={2}>
+                                    <Card size="small" style={{ background: '#fafafa', borderRadius: 8 }}>
+                                        <Text>{detailModal.mo_ta}</Text>
+                                    </Card>
+                                </Descriptions.Item>
+                            )}
+                        </Descriptions>
+                    )}
+                </Modal>
+
             </Space>
         </MainLayout>
     );

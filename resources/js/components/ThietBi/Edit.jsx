@@ -1,17 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import MainLayout from '../Layout/MainLayout';
-import { Form, Input, InputNumber, Button, Card, Space, Select, message, Row, Col, DatePicker, Divider, Table, Tag, Tabs, Alert, Tooltip, Modal } from 'antd';
-import { SaveOutlined, RollbackOutlined, HistoryOutlined, PlusOutlined, CopyOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { Form, Input, InputNumber, Button, Card, Space, Select, message, Row, Col, DatePicker, Divider, Tag, Alert, Tooltip, Modal } from 'antd';
+import { SaveOutlined, RollbackOutlined, HistoryOutlined, PlusOutlined, CopyOutlined, ExclamationCircleOutlined, DownloadOutlined, PrinterOutlined } from '@ant-design/icons';
 import { router, Link } from '@inertiajs/react';
 import dayjs from 'dayjs';
+import { QRCodeCanvas } from 'qrcode.react';
 
 const { TextArea } = Input;
 
-const Edit = ({ thietBi, phongs }) => {
+const Edit = ({ thietBi, phongs, baseUrl }) => {
     const [form] = Form.useForm();
     const [submitting, setSubmitting] = useState(false);
     const [versionModalVisible, setVersionModalVisible] = useState(false);
     const [pendingValues, setPendingValues] = useState(null);
+    const qrRef = useRef(null);
+
+    // QR URL của thiết bị
+    const qrUrl = thietBi.qr_token ? `${baseUrl || ''}/qr/thiet-bi/${thietBi.qr_token}` : null;
+
+    // Download QR
+    const handleDownloadQr = () => {
+        const canvas = qrRef.current?.querySelector('canvas');
+        if (!canvas) return;
+        const link = document.createElement('a');
+        link.download = `QR-${thietBi.ma_thiet_bi}.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+    };
+
+    // Print QR
+    const handlePrintQr = () => {
+        const canvas = qrRef.current?.querySelector('canvas');
+        if (!canvas) return;
+        const win = window.open('', '_blank');
+        win.document.write(`
+            <html><head><title>In QR - ${thietBi.ma_thiet_bi}</title>
+            <style>body{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;margin:0;font-family:sans-serif;}
+            img{width:200px;height:200px;} h3{margin:16px 0 4px;} p{margin:4px 0;color:#666;}</style></head>
+            <body><img src="${canvas.toDataURL('image/png')}"/><h3>${thietBi.ten_thiet_bi}</h3><p>${thietBi.ma_thiet_bi}</p>
+            <script>window.onload=()=>{window.print();window.close();}</script></body></html>
+        `);
+        win.document.close();
+    };
 
     const initialValues = {
         ...thietBi,
@@ -136,25 +166,10 @@ const Edit = ({ thietBi, phongs }) => {
         });
     };
 
-    const formatCurrency = (value) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value);
-
-    const getLoaiBaoDuongLabel = (loai) => ({ dinh_ky: 'Định kỳ', sua_chua: 'Sửa chữa', thay_the: 'Thay thế' })[loai] || loai;
-    const getTrangThaiLabel = (tt) => ({ hoan_thanh: 'Hoàn thành', dang_thuc_hien: 'Đang thực hiện', chua_thuc_hien: 'Chưa thực hiện' })[tt] || tt;
-    const getTrangThaiColor = (tt) => ({ hoan_thanh: 'green', dang_thuc_hien: 'blue', chua_thuc_hien: 'orange' })[tt] || 'default';
-
     const ngayDenBaoDuong = thietBi.ngay_bao_duong_tiep_theo
         ? dayjs(thietBi.ngay_bao_duong_tiep_theo).diff(dayjs(), 'day')
         : null;
     const canBaoDuong = ngayDenBaoDuong !== null && ngayDenBaoDuong <= 0;
-
-    const lichSuColumns = [
-        { title: 'Ngày bảo dưỡng', dataIndex: 'ngay_bao_duong', render: d => dayjs(d).format('DD/MM/YYYY') },
-        { title: 'Loại', dataIndex: 'loai_bao_duong', render: l => <Tag>{getLoaiBaoDuongLabel(l)}</Tag> },
-        { title: 'Nội dung', dataIndex: 'noi_dung' },
-        { title: 'Chi phí', dataIndex: 'chi_phi', render: v => formatCurrency(v) },
-        { title: 'Người thực hiện', dataIndex: 'nguoi_thuc_hien' },
-        { title: 'Trạng thái', dataIndex: 'trang_thai', render: tt => <Tag color={getTrangThaiColor(tt)}>{getTrangThaiLabel(tt)}</Tag> },
-    ];
 
     const formContent = (
         <Form form={form} layout="vertical" initialValues={initialValues}>
@@ -384,45 +399,55 @@ const Edit = ({ thietBi, phongs }) => {
         </Form>
     );
 
-    const lichSuContent = (
-        <div>
-            <Space style={{ marginBottom: 16 }}>
-                <Link href={`/lich-su-bao-duong/create?thiet_bi_id=${thietBi.id}`}>
-                    <Button type="primary" icon={<PlusOutlined />}>Thêm lịch sử bảo dưỡng</Button>
-                </Link>
-            </Space>
-            <Table
-                columns={lichSuColumns}
-                dataSource={thietBi.lich_su_bao_duongs || []}
-                rowKey="id"
-                pagination={{ pageSize: 5 }}
-                locale={{ emptyText: 'Chưa có lịch sử bảo dưỡng' }}
-            />
-        </div>
-    );
-
-    const tabItems = [
-        { key: '1', label: 'Thông tin thiết bị', children: formContent },
-        { key: '2', label: `Lịch sử bảo dưỡng (${thietBi.lich_su_bao_duongs?.length || 0})`, children: lichSuContent },
-    ];
-
     return (
         <MainLayout>
-            <Card
-                title={
-                    <Space>
-                        <span>Chỉnh sửa thiết bị: {thietBi.ten_thiet_bi}</span>
-                        <Tag color="blue">Phiên bản {thietBi.phien_ban ?? 1}</Tag>
-                        {thietBi.hieu_luc_tu && (
-                            <Tooltip title="Ngày bắt đầu hiệu lực">
-                                <Tag color="green">Từ: {dayjs(thietBi.hieu_luc_tu).format('DD/MM/YYYY')}</Tag>
-                            </Tooltip>
-                        )}
-                    </Space>
-                }
-            >
-                <Tabs items={tabItems} />
-            </Card>
+            <Row gutter={16}>
+                {/* Form chính */}
+                <Col xs={24} lg={qrUrl ? 18 : 24}>
+                    <Card
+                        title={
+                            <Space>
+                                <span>Chỉnh sửa thiết bị: {thietBi.ten_thiet_bi}</span>
+                                <Tag color="blue">Phiên bản {thietBi.phien_ban ?? 1}</Tag>
+                                {thietBi.hieu_luc_tu && (
+                                    <Tooltip title="Ngày bắt đầu hiệu lực">
+                                        <Tag color="green">Từ: {dayjs(thietBi.hieu_luc_tu).format('DD/MM/YYYY')}</Tag>
+                                    </Tooltip>
+                                )}
+                            </Space>
+                        }
+                    >
+                        {formContent}
+                    </Card>
+                </Col>
+
+                {/* QR Code */}
+                {qrUrl && (
+                    <Col xs={24} lg={6}>
+                        <Card 
+                            title="Mã QR thiết bị" 
+                            style={{ textAlign: 'center', position: 'sticky', top: 16 }}
+                            styles={{ body: { padding: '16px 12px' } }}
+                        >
+                            <div ref={qrRef} style={{ marginBottom: 12 }}>
+                                <QRCodeCanvas 
+                                    value={qrUrl} 
+                                    size={160} 
+                                    level="M"
+                                    includeMargin
+                                    style={{ display: 'block', margin: '0 auto' }}
+                                />
+                            </div>
+                            <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 4 }}>{thietBi.ten_thiet_bi}</div>
+                            <div style={{ fontSize: 12, color: '#888', marginBottom: 12 }}>{thietBi.ma_thiet_bi}</div>
+                            <Space>
+                                <Button size="small" icon={<DownloadOutlined />} onClick={handleDownloadQr}>Tải</Button>
+                                <Button size="small" icon={<PrinterOutlined />} onClick={handlePrintQr}>In</Button>
+                            </Space>
+                        </Card>
+                    </Col>
+                )}
+            </Row>
 
             <Modal
                 title={

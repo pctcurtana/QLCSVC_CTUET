@@ -18,6 +18,9 @@ import {
     TeamOutlined,
     KeyOutlined,
     AreaChartOutlined,
+    AlertOutlined,
+    QrcodeOutlined,
+    FileExcelOutlined,
 } from '@ant-design/icons';
 
 const { Header, Sider, Content } = Layout;
@@ -37,6 +40,9 @@ const iconMap = {
     UserOutlined: <UserOutlined />,
     AreaChartOutlined: <AreaChartOutlined />,
     InboxOutlined: <InboxOutlined />,
+    AlertOutlined: <AlertOutlined />,
+    QrcodeOutlined: <QrcodeOutlined />,
+    FileExcelOutlined: <FileExcelOutlined />,
 };
 
 const MainLayout = ({ children }) => {
@@ -168,7 +174,8 @@ const MainLayout = ({ children }) => {
         // Kiểm tra các route cụ thể
         const routes = [
             '/co-so', '/khu-nha', '/phong', '/thiet-bi',
-            '/lich-su-bao-duong', '/kho', '/nguoi-dung', '/phan-quyen', '/thong-ke'
+            '/lich-su-bao-duong', '/kho', '/nguoi-dung', '/phan-quyen', '/thong-ke',
+            '/bao-cao-su-co', '/quan-ly-qr', '/qr/thiet-bi',
         ];
         
         for (const route of routes) {

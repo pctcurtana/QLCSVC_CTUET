@@ -11,6 +11,7 @@ use App\Contracts\Repositories\PhongRepositoryInterface;
 use App\Contracts\Repositories\ThietBiRepositoryInterface;
 use App\Contracts\Repositories\LichSuBaoDuongRepositoryInterface;
 use App\Contracts\Repositories\PermissionRepositoryInterface;
+use App\Contracts\Repositories\BaoCaoSuCoRepositoryInterface;
 
 // Repository Implementations
 use App\Repositories\CoSoRepository;
@@ -19,6 +20,7 @@ use App\Repositories\PhongRepository;
 use App\Repositories\ThietBiRepository;
 use App\Repositories\LichSuBaoDuongRepository;
 use App\Repositories\PermissionRepository;
+use App\Repositories\BaoCaoSuCoRepository;
 
 // Services
 use App\Services\CoSoService;
@@ -29,6 +31,7 @@ use App\Services\LichSuBaoDuongService;
 use App\Services\DashboardService;
 use App\Services\PermissionService;
 use App\Services\AuthService;
+use App\Services\BaoCaoSuCoService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -46,6 +49,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ThietBiRepositoryInterface::class, ThietBiRepository::class);
         $this->app->bind(LichSuBaoDuongRepositoryInterface::class, LichSuBaoDuongRepository::class);
         $this->app->bind(PermissionRepositoryInterface::class, PermissionRepository::class);
+        $this->app->bind(BaoCaoSuCoRepositoryInterface::class, BaoCaoSuCoRepository::class);
 
         // Services: bind concrete to itself for clarity (optional, container can resolve automatically)
         $this->app->bind(CoSoService::class, CoSoService::class);
@@ -56,6 +60,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(DashboardService::class, DashboardService::class);
         $this->app->bind(PermissionService::class, PermissionService::class);
         $this->app->bind(AuthService::class, AuthService::class);
+        $this->app->bind(BaoCaoSuCoService::class, BaoCaoSuCoService::class);
     }
 
     /**

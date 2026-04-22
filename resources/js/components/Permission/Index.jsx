@@ -143,6 +143,9 @@ const PermissionIndex = ({ users, screens }) => {
                         can_create: false,
                         can_edit: false,
                         can_delete: false,
+                        can_regenerate_qr: false,
+                        can_import: false,
+                        can_export: false,
                     };
                 }
                 newPermissions[id][type] = value;
@@ -152,6 +155,9 @@ const PermissionIndex = ({ users, screens }) => {
                     newPermissions[id].can_create = false;
                     newPermissions[id].can_edit = false;
                     newPermissions[id].can_delete = false;
+                    newPermissions[id].can_regenerate_qr = false;
+                    newPermissions[id].can_import = false;
+                    newPermissions[id].can_export = false;
                 }
                 
                 // Nếu tích quyền khác, tự động tích can_view
@@ -207,6 +213,9 @@ const PermissionIndex = ({ users, screens }) => {
                     can_create: value,
                     can_edit: value,
                     can_delete: value,
+                    can_regenerate_qr: value,
+                    can_import: value,
+                    can_export: value,
                 };
             };
 
@@ -232,7 +241,8 @@ const PermissionIndex = ({ users, screens }) => {
                         const anyChildHasPermission = parent.childIds.some((childId) => {
                             if (childId === screenId) return false;
                             const perms = newPermissions[childId] || {};
-                            return perms.can_view || perms.can_create || perms.can_edit || perms.can_delete;
+                            return perms.can_view || perms.can_create || perms.can_edit || perms.can_delete
+                                || perms.can_regenerate_qr || perms.can_import || perms.can_export;
                         });
                         if (!anyChildHasPermission) {
                             setAllPermissions(record.parentId, false);
@@ -256,6 +266,9 @@ const PermissionIndex = ({ users, screens }) => {
                         can_create: false,
                         can_edit: false,
                         can_delete: false,
+                        can_regenerate_qr: false,
+                        can_import: false,
+                        can_export: false,
                     };
                 }
                 
@@ -265,6 +278,9 @@ const PermissionIndex = ({ users, screens }) => {
                         newPermissions[screenId].can_create = false;
                         newPermissions[screenId].can_edit = false;
                         newPermissions[screenId].can_delete = false;
+                        newPermissions[screenId].can_regenerate_qr = false;
+                        newPermissions[screenId].can_import = false;
+                        newPermissions[screenId].can_export = false;
                     }
                 } else {
                     newPermissions[screenId][permissionType] = checked;
@@ -325,20 +341,27 @@ const PermissionIndex = ({ users, screens }) => {
 
     // Kiểm tra row có tích hết không (bao gồm children nếu là parent)
     const isRowAllChecked = (record) => {
+        const checkAllPerms = (perms) => 
+            perms.can_view && perms.can_create && perms.can_edit && perms.can_delete 
+            && perms.can_regenerate_qr && perms.can_import && perms.can_export;
+        
         // Nếu là parent, chỉ kiểm tra children
         if (record.isParent && record.childIds && record.childIds.length > 0) {
-            return record.childIds.every((id) => {
-                const perms = permissions[id] || {};
-                return perms.can_view && perms.can_create && perms.can_edit && perms.can_delete;
-            });
+            return record.childIds.every((id) => checkAllPerms(permissions[id] || {}));
         }
         
         // Nếu không phải parent, kiểm tra chính nó
-        const perms = permissions[record.id] || {};
-        return perms.can_view && perms.can_create && perms.can_edit && perms.can_delete;
+        return checkAllPerms(permissions[record.id] || {});
     };
 
     const isRowIndeterminate = (record) => {
+        const checkAllPerms = (perms) => 
+            perms.can_view && perms.can_create && perms.can_edit && perms.can_delete 
+            && perms.can_regenerate_qr && perms.can_import && perms.can_export;
+        const checkNoPerms = (perms) => 
+            !perms.can_view && !perms.can_create && !perms.can_edit && !perms.can_delete 
+            && !perms.can_regenerate_qr && !perms.can_import && !perms.can_export;
+        
         // Nếu là parent, kiểm tra children
         if (record.isParent && record.childIds && record.childIds.length > 0) {
             let totalChecked = 0;
@@ -347,11 +370,8 @@ const PermissionIndex = ({ users, screens }) => {
             
             record.childIds.forEach((id) => {
                 const perms = permissions[id] || {};
-                const allPerms = perms.can_view && perms.can_create && perms.can_edit && perms.can_delete;
-                const noPerms = !perms.can_view && !perms.can_create && !perms.can_edit && !perms.can_delete;
-                
-                if (allPerms) totalChecked++;
-                else if (noPerms) totalUnchecked++;
+                if (checkAllPerms(perms)) totalChecked++;
+                else if (checkNoPerms(perms)) totalUnchecked++;
                 else totalPartial++;
             });
             
@@ -361,10 +381,7 @@ const PermissionIndex = ({ users, screens }) => {
         
         // Nếu không phải parent, kiểm tra chính nó có partial không
         const perms = permissions[record.id] || {};
-        const allPerms = perms.can_view && perms.can_create && perms.can_edit && perms.can_delete;
-        const noPerms = !perms.can_view && !perms.can_create && !perms.can_edit && !perms.can_delete;
-        
-        return !allPerms && !noPerms;
+        return !checkAllPerms(perms) && !checkNoPerms(perms);
     };
 
     // Kiểm tra permission của 1 cell có checked không (bao gồm logic parent-child)
@@ -432,7 +449,7 @@ const PermissionIndex = ({ users, screens }) => {
             ),
             dataIndex: 'can_view',
             key: 'can_view',
-            width: 100,
+            width: 80,
             align: 'center',
             render: (_, record) => (
                 <Checkbox
@@ -457,7 +474,7 @@ const PermissionIndex = ({ users, screens }) => {
             ),
             dataIndex: 'can_create',
             key: 'can_create',
-            width: 100,
+            width: 80,
             align: 'center',
             render: (_, record) => (
                 <Checkbox
@@ -482,7 +499,7 @@ const PermissionIndex = ({ users, screens }) => {
             ),
             dataIndex: 'can_edit',
             key: 'can_edit',
-            width: 100,
+            width: 80,
             align: 'center',
             render: (_, record) => (
                 <Checkbox
@@ -507,7 +524,7 @@ const PermissionIndex = ({ users, screens }) => {
             ),
             dataIndex: 'can_delete',
             key: 'can_delete',
-            width: 100,
+            width: 80,
             align: 'center',
             render: (_, record) => (
                 <Checkbox
@@ -519,9 +536,84 @@ const PermissionIndex = ({ users, screens }) => {
             ),
         },
         {
+            title: (
+                <Space direction="vertical" align="center" size={0}>
+                    <Checkbox
+                        checked={isColumnAllChecked('can_regenerate_qr')}
+                        indeterminate={isColumnIndeterminate('can_regenerate_qr')}
+                        onChange={(e) => handleColumnCheckAll('can_regenerate_qr', e.target.checked)}
+                        disabled={!selectedUserId}
+                    />
+                    <Text style={{ fontSize: 12 }}>Tạo QR</Text>
+                </Space>
+            ),
+            dataIndex: 'can_regenerate_qr',
+            key: 'can_regenerate_qr',
+            width: 80,
+            align: 'center',
+            render: (_, record) => (
+                <Checkbox
+                    checked={isCellChecked(record, 'can_regenerate_qr')}
+                    indeterminate={isCellIndeterminate(record, 'can_regenerate_qr')}
+                    onChange={(e) => handlePermissionChange(record.id, 'can_regenerate_qr', e.target.checked)}
+                    disabled={!selectedUserId}
+                />
+            ),
+        },
+        {
+            title: (
+                <Space direction="vertical" align="center" size={0}>
+                    <Checkbox
+                        checked={isColumnAllChecked('can_import')}
+                        indeterminate={isColumnIndeterminate('can_import')}
+                        onChange={(e) => handleColumnCheckAll('can_import', e.target.checked)}
+                        disabled={!selectedUserId}
+                    />
+                    <Text>Import</Text>
+                </Space>
+            ),
+            dataIndex: 'can_import',
+            key: 'can_import',
+            width: 80,
+            align: 'center',
+            render: (_, record) => (
+                <Checkbox
+                    checked={isCellChecked(record, 'can_import')}
+                    indeterminate={isCellIndeterminate(record, 'can_import')}
+                    onChange={(e) => handlePermissionChange(record.id, 'can_import', e.target.checked)}
+                    disabled={!selectedUserId}
+                />
+            ),
+        },
+        {
+            title: (
+                <Space direction="vertical" align="center" size={0}>
+                    <Checkbox
+                        checked={isColumnAllChecked('can_export')}
+                        indeterminate={isColumnIndeterminate('can_export')}
+                        onChange={(e) => handleColumnCheckAll('can_export', e.target.checked)}
+                        disabled={!selectedUserId}
+                    />
+                    <Text>Export</Text>
+                </Space>
+            ),
+            dataIndex: 'can_export',
+            key: 'can_export',
+            width: 80,
+            align: 'center',
+            render: (_, record) => (
+                <Checkbox
+                    checked={isCellChecked(record, 'can_export')}
+                    indeterminate={isCellIndeterminate(record, 'can_export')}
+                    onChange={(e) => handlePermissionChange(record.id, 'can_export', e.target.checked)}
+                    disabled={!selectedUserId}
+                />
+            ),
+        },
+        {
             title: 'Tất cả',
             key: 'all',
-            width: 100,
+            width: 80,
             align: 'center',
             render: (_, record) => (
                 <Checkbox
@@ -654,6 +746,15 @@ const PermissionIndex = ({ users, screens }) => {
                                     </li>
                                     <li>
                                         <Text><strong>Xóa:</strong> Cho phép xóa dữ liệu</Text>
+                                    </li>
+                                    <li>
+                                        <Text><strong>Tạo QR:</strong> Cho phép tạo lại mã QR cho phòng/thiết bị</Text>
+                                    </li>
+                                    <li>
+                                        <Text><strong>Import:</strong> Cho phép nhập dữ liệu từ file (tính năng sẽ phát triển)</Text>
+                                    </li>
+                                    <li>
+                                        <Text><strong>Export:</strong> Cho phép xuất báo cáo, xuất dữ liệu (tính năng sẽ phát triển)</Text>
                                     </li>
                                     <li>
                                         <Text type="secondary">Admin có tất cả quyền mặc định, không cần phân quyền</Text>

@@ -12,12 +12,22 @@ use App\Http\Controllers\LichSuBaoDuongController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ThongKeController;
+use App\Http\Controllers\BaoCaoSuCoController;
+use App\Http\Controllers\QuanLyQrController;
+use App\Http\Controllers\XuatBaoCaoController;
 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
 */
+
+// ==================== Public QR Routes (no auth) ====================
+Route::get('/bao-cao/phong/{token}', [BaoCaoSuCoController::class, 'showPhongForm'])
+    ->name('bao-cao.phong.show');
+Route::post('/bao-cao/phong/{token}', [BaoCaoSuCoController::class, 'submitPhongForm'])
+    ->name('bao-cao.phong.submit')
+    ->middleware('throttle:5,1');
 
 // Auth Routes - Guest only
 Route::middleware('guest')->group(function () {
@@ -145,6 +155,28 @@ Route::get('/thiet-bi/{thietBi}/lich-su-bao-duong', [LichSuBaoDuongController::c
         Route::get('/thong-ke', [ThongKeController::class, 'index'])->name('thong-ke.index');
     });
 
+    // ==================== Phản ứng nhanh QR ====================
+    // Device QR repair form — uses qr_token (not numeric ID) to avoid guessing
+    Route::get('/qr/thiet-bi/{token}', [BaoCaoSuCoController::class, 'showSuaChuaForm'])->name('sua-chua.show');
+    Route::post('/qr/thiet-bi/{token}', [BaoCaoSuCoController::class, 'submitSuaChua'])->name('sua-chua.submit');
+
+    // Admin: Báo cáo sự cố
+    Route::middleware('permission:bao-cao-su-co,can_view')->group(function () {
+        Route::get('/bao-cao-su-co', [BaoCaoSuCoController::class, 'index'])->name('bao-cao-su-co.index');
+    });
+    Route::middleware('permission:bao-cao-su-co,can_delete')->group(function () {
+        Route::delete('/bao-cao-su-co/{id}', [BaoCaoSuCoController::class, 'destroy'])->name('bao-cao-su-co.destroy');
+    });
+
+    // Admin: Quản lý Mã QR
+    Route::middleware('permission:quan-ly-qr,can_view')->group(function () {
+        Route::get('/quan-ly-qr', [QuanLyQrController::class, 'index'])->name('quan-ly-qr.index');
+    });
+    Route::middleware('permission:quan-ly-qr,can_regenerate_qr')->group(function () {
+        Route::post('/quan-ly-qr/phong/{phong_id}/regenerate', [QuanLyQrController::class, 'regeneratePhongQr'])->name('quan-ly-qr.regenerate-phong');
+        Route::post('/quan-ly-qr/thiet-bi/{thiet_bi_id}/regenerate', [QuanLyQrController::class, 'regenerateThietBiQr'])->name('quan-ly-qr.regenerate-thiet-bi');
+    });
+
     // ==================== Phân quyền ====================
     Route::middleware('permission:phan-quyen,can_view')->group(function () {
         Route::get('/phan-quyen', [PermissionController::class, 'index'])->name('phan-quyen.index');
@@ -152,5 +184,21 @@ Route::get('/thiet-bi/{thietBi}/lich-su-bao-duong', [LichSuBaoDuongController::c
     });
     Route::middleware('permission:phan-quyen,can_edit')->group(function () {
         Route::post('/phan-quyen/{user}/permissions', [PermissionController::class, 'updateUserPermissions'])->name('phan-quyen.update');
+    });
+
+    // ==================== Xuất báo cáo BGD ====================
+    Route::middleware('permission:xuat-bao-cao,can_view')->group(function () {
+        Route::get('/xuat-bao-cao', [XuatBaoCaoController::class, 'index'])->name('xuat-bao-cao.index');
+        Route::get('/xuat-bao-cao/{dotBaoCao}', [XuatBaoCaoController::class, 'show'])->name('xuat-bao-cao.show');
+    });
+    Route::middleware('permission:xuat-bao-cao,can_create')->group(function () {
+        Route::post('/xuat-bao-cao', [XuatBaoCaoController::class, 'store'])->name('xuat-bao-cao.store');
+        Route::post('/xuat-bao-cao/{dotBaoCao}/tong-hop', [XuatBaoCaoController::class, 'tongHop'])->name('xuat-bao-cao.tong-hop');
+    });
+    Route::middleware('permission:xuat-bao-cao,can_export')->group(function () {
+        Route::get('/xuat-bao-cao/{dotBaoCao}/export', [XuatBaoCaoController::class, 'export'])->name('xuat-bao-cao.export');
+    });
+    Route::middleware('permission:xuat-bao-cao,can_delete')->group(function () {
+        Route::delete('/xuat-bao-cao/{dotBaoCao}', [XuatBaoCaoController::class, 'destroy'])->name('xuat-bao-cao.destroy');
     });
 });

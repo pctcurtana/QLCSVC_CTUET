@@ -119,14 +119,48 @@ class ScreenSeeder extends Seeder
             'is_menu' => true,
         ]);
 
-        // 7. Quản lý Hệ thống
+        Screen::create([
+            'name' => 'Báo cáo sự cố',
+            'code' => 'bao-cao-su-co',
+            'route' => '/bao-cao-su-co',
+            'icon' => 'AlertOutlined',
+            'parent_id' => $thietBiGroup->id,
+            'order' => 3,
+            'is_active' => true,
+            'is_menu' => true,
+        ]);
+
+        Screen::create([
+            'name' => 'Quản lý Mã QR',
+            'code' => 'quan-ly-qr',
+            'route' => '/quan-ly-qr',
+            'icon' => 'QrcodeOutlined',
+            'parent_id' => $thietBiGroup->id,
+            'order' => 4,
+            'is_active' => true,
+            'is_menu' => true,
+        ]);
+
+        // 7. Xuất báo cáo BGD
+        Screen::create([
+            'name' => 'Xuất báo cáo BGD',
+            'code' => 'xuat-bao-cao',
+            'route' => '/xuat-bao-cao',
+            'icon' => 'FileExcelOutlined',
+            'parent_id' => null,
+            'order' => 7,
+            'is_active' => true,
+            'is_menu' => true,
+        ]);
+
+        // 8. Quản lý Hệ thống
         $heThongGroup = Screen::create([
             'name' => 'Quản lý Hệ thống',
             'code' => 'he-thong-group',
             'route' => null,
             'icon' => 'SettingOutlined',
             'parent_id' => null,
-            'order' => 7,
+            'order' => 8,
             'is_active' => true,
             'is_menu' => true,
         ]);

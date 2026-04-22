@@ -32,11 +32,13 @@ import {
     ToolOutlined,
 } from '@ant-design/icons';
 import { Link, router } from '@inertiajs/react';
+import usePermission from '../../hooks/usePermission';
 
 const { Search } = Input;
 const { Panel } = Collapse;
 
 const IndexByPhong = ({ groupedThietBis, phongs, filters }) => {
+    const perm = usePermission('thiet-bi');
     const [searchText, setSearchText] = useState(filters.search || '');
     const [loaiFilter, setLoaiFilter] = useState(filters.loai_thiet_bi || '');
     const [trangThaiFilter, setTrangThaiFilter] = useState(filters.trang_thai || '');
@@ -231,33 +233,37 @@ const IndexByPhong = ({ groupedThietBis, phongs, filters }) => {
                 </Tag>
             ),
         },
-        {
+        ...(perm.can_edit || perm.can_delete ? [{
             title: 'Thao tác',
             key: 'action',
             fixed: 'right',
             width: 150,
             render: (_, record) => (
                 <Space size="small">
-                    <Link href={`/thiet-bi/${record.id}/edit`}>
-                        <Button type="primary" size="small" icon={<EditOutlined />}>
-                            Sửa
-                        </Button>
-                    </Link>
-                    <Popconfirm
-                        title="Xác nhận xóa"
-                        description="Bạn có chắc chắn muốn xóa thiết bị này?"
-                        onConfirm={() => handleDelete(record.id)}
-                        okText="Xóa"
-                        cancelText="Hủy"
-                        okButtonProps={{ danger: true }}
-                    >
-                        <Button danger size="small" icon={<DeleteOutlined />}>
-                            Xóa
-                        </Button>
-                    </Popconfirm>
+                    {perm.can_edit && (
+                        <Link href={`/thiet-bi/${record.id}/edit`}>
+                            <Button type="primary" size="small" icon={<EditOutlined />}>
+                                Sửa
+                            </Button>
+                        </Link>
+                    )}
+                    {perm.can_delete && (
+                        <Popconfirm
+                            title="Xác nhận xóa"
+                            description="Bạn có chắc chắn muốn xóa thiết bị này?"
+                            onConfirm={() => handleDelete(record.id)}
+                            okText="Xóa"
+                            cancelText="Hủy"
+                            okButtonProps={{ danger: true }}
+                        >
+                            <Button danger size="small" icon={<DeleteOutlined />}>
+                                Xóa
+                            </Button>
+                        </Popconfirm>
+                    )}
                 </Space>
             ),
-        },
+        }] : []),
     ];
 
     // Tính tổng thống kê
@@ -333,11 +339,13 @@ const IndexByPhong = ({ groupedThietBis, phongs, filters }) => {
                                         Xem dạng danh sách
                                     </Button>
                                 </Link>
-                                <Link href="/thiet-bi/create">
-                                    <Button type="primary" icon={<PlusOutlined />} size="large">
-                                        Thêm thiết bị
-                                    </Button>
-                                </Link>
+                                {perm.can_create && (
+                                    <Link href="/thiet-bi/create">
+                                        <Button type="primary" icon={<PlusOutlined />} size="large">
+                                            Thêm thiết bị
+                                        </Button>
+                                    </Link>
+                                )}
                             </Space>
                         </Col>
                     </Row>

@@ -16,6 +16,9 @@ class UserPermission extends Model
         'can_create',
         'can_edit',
         'can_delete',
+        'can_regenerate_qr',
+        'can_import',
+        'can_export',
     ];
 
     protected $casts = [
@@ -23,6 +26,9 @@ class UserPermission extends Model
         'can_create' => 'boolean',
         'can_edit' => 'boolean',
         'can_delete' => 'boolean',
+        'can_regenerate_qr' => 'boolean',
+        'can_import' => 'boolean',
+        'can_export' => 'boolean',
     ];
 
     /**
@@ -46,7 +52,8 @@ class UserPermission extends Model
      */
     public function hasAnyPermission()
     {
-        return $this->can_view || $this->can_create || $this->can_edit || $this->can_delete;
+        return $this->can_view || $this->can_create || $this->can_edit || $this->can_delete
+            || $this->can_regenerate_qr || $this->can_import || $this->can_export;
     }
 }
 

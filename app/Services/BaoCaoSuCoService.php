@@ -1,0 +1,76 @@
+<?php
+
+namespace App\Services;
+
+use App\Contracts\Repositories\BaoCaoSuCoRepositoryInterface;
+use App\Models\BaoCaoSuCo;
+use App\Models\Phong;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+
+class BaoCaoSuCoService
+{
+    protected $repository;
+
+    public function __construct(BaoCaoSuCoRepositoryInterface $repository)
+    {
+        $this->repository = $repository;
+    }
+
+    public function getAllPaginated(array $filters = [], int $perPage = 15): LengthAwarePaginator
+    {
+        return $this->repository->paginate($filters, $perPage);
+    }
+
+    public function getById(int $id): BaoCaoSuCo
+    {
+        $record = $this->repository->find($id);
+        if (!$record) {
+            throw new \Illuminate\Database\Eloquent\ModelNotFoundException('Không tìm thấy báo cáo');
+        }
+        return $record;
+    }
+
+    public function getPhongByToken(string $token): ?Phong
+    {
+        return Phong::where('qr_token', $token)
+            ->where('trang_thai_du_lieu', 'hien_hanh')
+            ->with(['khuNha.coSo', 'thietBis' => function ($q) {
+                $q->where('trang_thai_du_lieu', 'hien_hanh')
+                  ->select('id', 'ten_thiet_bi', 'ma_thiet_bi', 'trang_thai', 'phong_id');
+            }])
+            ->first();
+    }
+
+    public function create(array $data): BaoCaoSuCo
+    {
+        // Anti-spam: block duplicate open reports for the same device
+        if (!empty($data['thiet_bi_id'])) {
+            if ($this->repository->hasOpenReportForDevice((int) $data['thiet_bi_id'])) {
+                throw new \RuntimeException(
+                    'Thiết bị này đã có yêu cầu sửa chữa đang chờ xử lý. Vui lòng chờ kỹ thuật viên xử lý xong.'
+                );
+            }
+        }
+
+        return $this->repository->create($data);
+    }
+
+    /**
+     * Tự động đánh dấu hoàn thành tất cả báo cáo đang chờ của thiết bị
+     * khi kỹ thuật viên ghi nhận hoàn thành sửa chữa qua QR.
+     */
+    public function completeReportsForDevice(int $thietBiId, string $nguoiHoanThanh): int
+    {
+        return $this->repository->completeOpenReportsForDevice($thietBiId, $nguoiHoanThanh);
+    }
+
+    public function delete(int $id): bool
+    {
+        return $this->repository->delete($id);
+    }
+
+    public function getStats(): array
+    {
+        return $this->repository->countByTrangThai();
+    }
+}

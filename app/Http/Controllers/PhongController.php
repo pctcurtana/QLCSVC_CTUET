@@ -42,13 +42,23 @@ class PhongController extends Controller
     public function index(Request $request)
     {
         try {
-            $filters = $request->only(['search', 'khu_nha_id', 'loai_phong', 'trang_thai']);
+            $filters = $request->only(['search', 'khu_nha_id', 'loai_phong', 'tang']);
             $phongs = $this->phongService->getAllPaginated($filters, 10);
             $khuNhas = $this->khuNhaService->getActiveKhuNhas();
+            
+            // Lấy danh sách tầng unique từ database
+            $danhSachTang = \DB::table('phongs')
+                ->where('trang_thai_du_lieu', 'hien_hanh')
+                ->select('tang')
+                ->distinct()
+                ->orderBy('tang')
+                ->pluck('tang')
+                ->toArray();
 
             return Inertia::render('Phong/Index', [
                 'phongs' => $phongs,
                 'khuNhas' => $khuNhas,
+                'danhSachTang' => $danhSachTang,
                 'filters' => $filters
             ]);
         } catch (\Throwable $e) {

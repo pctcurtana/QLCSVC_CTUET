@@ -30,6 +30,9 @@ class UpdatePermissionRequest extends FormRequest
             'permissions.*.can_create' => 'boolean',
             'permissions.*.can_edit' => 'boolean',
             'permissions.*.can_delete' => 'boolean',
+            'permissions.*.can_regenerate_qr' => 'boolean',
+            'permissions.*.can_import' => 'boolean',
+            'permissions.*.can_export' => 'boolean',
         ];
     }
 
@@ -47,6 +50,9 @@ class UpdatePermissionRequest extends FormRequest
             'permissions.*.can_create' => 'Quyền thêm',
             'permissions.*.can_edit' => 'Quyền sửa',
             'permissions.*.can_delete' => 'Quyền xóa',
+            'permissions.*.can_regenerate_qr' => 'Quyền tạo lại QR',
+            'permissions.*.can_import' => 'Quyền import',
+            'permissions.*.can_export' => 'Quyền xuất báo cáo',
         ];
     }
 

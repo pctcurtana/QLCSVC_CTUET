@@ -46,10 +46,22 @@ class LichSuBaoDuongController extends Controller
             $lichSuBaoDuongs = $this->lichSuBaoDuongService->getAllPaginated($filters, 10);
             $thietBis = $this->thietBiService->getActiveThietBis();
 
+            // Thống kê cho KPI cards
+            $stats = [
+                'tong' => \DB::table('lich_su_bao_duongs')->count(),
+                'dinh_ky' => \DB::table('lich_su_bao_duongs')->where('loai_bao_duong', 'dinh_ky')->count(),
+                'sua_chua' => \DB::table('lich_su_bao_duongs')->where('loai_bao_duong', 'sua_chua')->count(),
+                'thay_the' => \DB::table('lich_su_bao_duongs')->where('loai_bao_duong', 'thay_the')->count(),
+                'hoan_thanh' => \DB::table('lich_su_bao_duongs')->where('trang_thai', 'hoan_thanh')->count(),
+                'dang_thuc_hien' => \DB::table('lich_su_bao_duongs')->where('trang_thai', 'dang_thuc_hien')->count(),
+                'tong_chi_phi' => \DB::table('lich_su_bao_duongs')->sum('chi_phi') ?? 0,
+            ];
+
             return Inertia::render('LichSuBaoDuong/Index', [
                 'lichSuBaoDuongs' => $lichSuBaoDuongs,
                 'thietBis' => $thietBis,
-                'filters' => $filters
+                'filters' => $filters,
+                'stats' => $stats,
             ]);
         } catch (\Throwable $e) {
             return redirect()->back()->with('error', 'Lỗi khi tải danh sách lịch sử bảo dưỡng: ' . $e->getMessage());

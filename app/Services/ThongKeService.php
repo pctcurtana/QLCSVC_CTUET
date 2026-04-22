@@ -122,7 +122,7 @@ class ThongKeService
             ->selectRaw("
                 kn.id, kn.ma_khu_nha, kn.ten_khu_nha, kn.loai_khu_nha,
                 kn.so_tang, kn.tong_dien_tich_san, kn.he_so_su_dung_dao_tao,
-                kn.trang_thai, kn.nam_xay_dung,
+                kn.trang_thai, kn.nam_xay_dung, kn.co_so_id,
                 (kn.tong_dien_tich_san * kn.he_so_su_dung_dao_tao) as dt_dao_tao,
                 cs.ten_co_so,
                 COUNT(DISTINCT p.id) as so_phong,
@@ -130,7 +130,7 @@ class ThongKeService
             ")
             ->groupBy('kn.id','kn.ma_khu_nha','kn.ten_khu_nha','kn.loai_khu_nha',
                       'kn.so_tang','kn.tong_dien_tich_san','kn.he_so_su_dung_dao_tao',
-                      'kn.trang_thai','kn.nam_xay_dung','cs.ten_co_so')
+                      'kn.trang_thai','kn.nam_xay_dung','kn.co_so_id','cs.ten_co_so')
             ->orderBy('cs.ten_co_so')->orderBy('kn.ten_khu_nha')
             ->get();
 
@@ -208,13 +208,13 @@ class ThongKeService
             })
             ->selectRaw("
                 p.id, p.ma_phong, p.ten_phong, p.loai_phong, p.tang,
-                p.dien_tich, p.suc_chua, p.trang_thai,
+                p.dien_tich, p.suc_chua, p.trang_thai, p.khu_nha_id, kn.co_so_id,
                 kn.ten_khu_nha, cs.ten_co_so,
                 COUNT(DISTINCT tb.id) as so_thiet_bi,
                 COALESCE(SUM(tb.gia_tri), 0) as tong_gia_tri_thiet_bi
             ")
             ->groupBy('p.id','p.ma_phong','p.ten_phong','p.loai_phong','p.tang',
-                      'p.dien_tich','p.suc_chua','p.trang_thai','kn.ten_khu_nha','cs.ten_co_so')
+                      'p.dien_tich','p.suc_chua','p.trang_thai','p.khu_nha_id','kn.co_so_id','kn.ten_khu_nha','cs.ten_co_so')
             ->orderBy('cs.ten_co_so')->orderBy('kn.ten_khu_nha')->orderBy('p.tang')->orderBy('p.ten_phong')
             ->get();
 
@@ -305,11 +305,11 @@ class ThongKeService
                 tb.id, tb.ma_thiet_bi, tb.ten_thiet_bi, tb.loai_thiet_bi,
                 tb.hang_san_xuat, tb.model, tb.serial_number,
                 tb.nam_mua, tb.gia_tri, tb.trang_thai,
-                tb.ngay_bao_duong_tiep_theo,
+                tb.ngay_bao_duong_tiep_theo, tb.phong_id, p.khu_nha_id, kn.co_so_id,
                 (CASE WHEN tb.ngay_bao_duong_tiep_theo IS NOT NULL AND tb.ngay_bao_duong_tiep_theo <= CURDATE() THEN 1 ELSE 0 END) as qua_han_bao_duong,
                 p.ten_phong, kn.ten_khu_nha, cs.ten_co_so
             ")
-            ->orderBy('tb.loai_thiet_bi')->orderBy('tb.ten_thiet_bi')
+            ->orderBy('cs.ten_co_so')->orderBy('kn.ten_khu_nha')->orderBy('p.ten_phong')->orderBy('tb.ten_thiet_bi')
             ->get();
 
         $loaiLabels = [

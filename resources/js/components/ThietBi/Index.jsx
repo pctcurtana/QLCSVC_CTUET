@@ -9,14 +9,16 @@ import {
     ReloadOutlined,
 } from '@ant-design/icons';
 import { Link, router } from '@inertiajs/react';
+import usePermission from '../../hooks/usePermission';
 
 const { Search } = Input;
 
-const Index = ({ thietBis, phongs, filters }) => {
+const Index = ({ thietBis, phongs, coSos, filters }) => {
+    const perm = usePermission('thiet-bi');
     const [searchText, setSearchText] = useState(filters.search || '');
     const [phongFilter, setPhongFilter] = useState(filters.phong_id || '');
     const [loaiFilter, setLoaiFilter] = useState(filters.loai_thiet_bi || '');
-    const [trangThaiFilter, setTrangThaiFilter] = useState(filters.trang_thai || '');
+    const [coSoFilter, setCoSoFilter] = useState(filters.co_so_id || '');
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -28,7 +30,7 @@ const Index = ({ thietBis, phongs, filters }) => {
             search: value, 
             phong_id: phongFilter,
             loai_thiet_bi: loaiFilter,
-            trang_thai: trangThaiFilter 
+            co_so_id: coSoFilter 
         }, {
             preserveState: true,
             replace: true,
@@ -41,7 +43,7 @@ const Index = ({ thietBis, phongs, filters }) => {
             search: searchText, 
             phong_id: value,
             loai_thiet_bi: loaiFilter,
-            trang_thai: trangThaiFilter 
+            co_so_id: coSoFilter 
         }, {
             preserveState: true,
             replace: true,
@@ -54,20 +56,20 @@ const Index = ({ thietBis, phongs, filters }) => {
             search: searchText, 
             phong_id: phongFilter,
             loai_thiet_bi: value,
-            trang_thai: trangThaiFilter 
+            co_so_id: coSoFilter 
         }, {
             preserveState: true,
             replace: true,
         });
     };
 
-    const handleTrangThaiFilter = (value) => {
-        setTrangThaiFilter(value);
+    const handleCoSoFilter = (value) => {
+        setCoSoFilter(value);
         router.get('/thiet-bi', { 
             search: searchText, 
             phong_id: phongFilter,
             loai_thiet_bi: loaiFilter,
-            trang_thai: value 
+            co_so_id: value 
         }, {
             preserveState: true,
             replace: true,
@@ -89,7 +91,7 @@ const Index = ({ thietBis, phongs, filters }) => {
         setSearchText('');
         setPhongFilter('');
         setLoaiFilter('');
-        setTrangThaiFilter('');
+        setCoSoFilter('');
         router.get('/thiet-bi');
     };
 
@@ -238,33 +240,37 @@ const Index = ({ thietBis, phongs, filters }) => {
                 </Tag>
             ),
         },
-        {
+        ...(perm.can_edit || perm.can_delete ? [{
             title: 'Thao tác',
             key: 'action',
             fixed: 'right',
             width: 150,
             render: (_, record) => (
                 <Space size="small">
-                    <Link href={`/thiet-bi/${record.id}/edit`}>
-                        <Button type="primary" size="small" icon={<EditOutlined />}>
-                            Sửa
-                        </Button>
-                    </Link>
-                    <Popconfirm
-                        title="Xác nhận xóa"
-                        description="Bạn có chắc chắn muốn xóa thiết bị này?"
-                        onConfirm={() => handleDelete(record.id)}
-                        okText="Xóa"
-                        cancelText="Hủy"
-                        okButtonProps={{ danger: true }}
-                    >
-                        <Button danger size="small" icon={<DeleteOutlined />}>
-                            Xóa
-                        </Button>
-                    </Popconfirm>
+                    {perm.can_edit && (
+                        <Link href={`/thiet-bi/${record.id}/edit`}>
+                            <Button type="primary" size="small" icon={<EditOutlined />}>
+                                Sửa
+                            </Button>
+                        </Link>
+                    )}
+                    {perm.can_delete && (
+                        <Popconfirm
+                            title="Xác nhận xóa"
+                            description="Bạn có chắc chắn muốn xóa thiết bị này?"
+                            onConfirm={() => handleDelete(record.id)}
+                            okText="Xóa"
+                            cancelText="Hủy"
+                            okButtonProps={{ danger: true }}
+                        >
+                            <Button danger size="small" icon={<DeleteOutlined />}>
+                                Xóa
+                            </Button>
+                        </Popconfirm>
+                    )}
                 </Space>
             ),
-        },
+        }] : []),
     ];
 
     return (
@@ -282,11 +288,13 @@ const Index = ({ thietBis, phongs, filters }) => {
                                         Xem theo phòng
                                     </Button>
                                 </Link>
-                                <Link href="/thiet-bi/create">
-                                    <Button type="primary" icon={<PlusOutlined />} size="large">
-                                        Thêm thiết bị
-                                    </Button>
-                                </Link>
+                                {perm.can_create && (
+                                    <Link href="/thiet-bi/create">
+                                        <Button type="primary" icon={<PlusOutlined />} size="large">
+                                            Thêm thiết bị
+                                        </Button>
+                                    </Link>
+                                )}
                             </Space>
                         </Col>
                     </Row>
@@ -305,6 +313,22 @@ const Index = ({ thietBis, phongs, filters }) => {
                                 onSearch={handleSearch}
                             />
                         </Col>
+                        <Col xs={24} sm={12} md={4}>
+                            <Select
+                                placeholder="Lọc theo cơ sở"
+                                size="large"
+                                style={{ width: '100%' }}
+                                allowClear
+                                showSearch
+                                optionFilterProp="label"
+                                value={coSoFilter || undefined}
+                                onChange={handleCoSoFilter}
+                                options={coSos?.map(cs => ({ 
+                                    value: cs.id, 
+                                    label: cs.ten_co_so 
+                                })) || []}
+                            />
+                        </Col>
                         <Col xs={24} sm={12} md={5}>
                             <Select
                                 placeholder="Lọc theo phòng"
@@ -321,7 +345,7 @@ const Index = ({ thietBis, phongs, filters }) => {
                                 }))}
                             />
                         </Col>
-                        <Col xs={24} sm={12} md={5}>
+                        <Col xs={24} sm={12} md={4}>
                             <Select
                                 placeholder="Lọc theo loại"
                                 size="large"
@@ -334,21 +358,6 @@ const Index = ({ thietBis, phongs, filters }) => {
                                     { value: 'day_hoc', label: 'Dạy học' },
                                     { value: 'thi_nghiem', label: 'Thí nghiệm' },
                                     { value: 'thuc_hanh', label: 'Thực hành' },
-                                ]}
-                            />
-                        </Col>
-                        <Col xs={24} sm={12} md={5}>
-                            <Select
-                                placeholder="Lọc theo trạng thái"
-                                size="large"
-                                style={{ width: '100%' }}
-                                allowClear
-                                value={trangThaiFilter || undefined}
-                                onChange={handleTrangThaiFilter}
-                                options={[
-                                    { value: 'tot', label: 'Tốt' },
-                                    { value: 'can_sua_chua', label: 'Cần sửa chữa' },
-                                    { value: 'hu_hong', label: 'Hư hỏng' },
                                 ]}
                             />
                         </Col>
@@ -382,7 +391,7 @@ const Index = ({ thietBis, phongs, filters }) => {
                                     search: searchText,
                                     phong_id: phongFilter,
                                     loai_thiet_bi: loaiFilter,
-                                    trang_thai: trangThaiFilter,
+                                    co_so_id: coSoFilter,
                                 }, {
                                     preserveState: true,
                                     replace: true,

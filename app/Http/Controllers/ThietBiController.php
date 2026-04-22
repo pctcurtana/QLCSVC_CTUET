@@ -42,13 +42,20 @@ class ThietBiController extends Controller
     public function index(Request $request)
     {
         try {
-            $filters = $request->only(['search', 'phong_id', 'loai_thiet_bi', 'trang_thai', 'can_bao_duong']);
+            $filters = $request->only(['search', 'phong_id', 'loai_thiet_bi', 'co_so_id', 'can_bao_duong']);
             $thietBis = $this->thietBiService->getAllPaginated($filters, 10);
             $phongs = $this->phongService->getActivePhongs();
+            
+            $coSos = \DB::table('co_sos')
+                ->where('trang_thai_du_lieu', 'hien_hanh')
+                ->select('id', 'ten_co_so')
+                ->orderBy('ten_co_so')
+                ->get();
 
             return Inertia::render('ThietBi/Index', [
                 'thietBis' => $thietBis,
                 'phongs' => $phongs,
+                'coSos' => $coSos,
                 'filters' => $filters
             ]);
         } catch (\Throwable $e) {
@@ -113,10 +120,12 @@ class ThietBiController extends Controller
         try {
             $thietBi = $this->thietBiService->getById($id);
             $phongs = $this->phongService->getActivePhongs();
+            $baseUrl = rtrim(config('app.url'), '/');
 
             return Inertia::render('ThietBi/Edit', [
                 'thietBi' => $thietBi,
-                'phongs' => $phongs
+                'phongs' => $phongs,
+                'baseUrl' => $baseUrl,
             ]);
         } catch (\Throwable $e) {
             return redirect()->route('thiet-bi.index')->with('error', 'Không tìm thấy thiết bị: ' . $e->getMessage());

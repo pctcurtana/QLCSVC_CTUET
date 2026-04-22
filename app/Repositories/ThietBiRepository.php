@@ -52,8 +52,10 @@ class ThietBiRepository implements ThietBiRepositoryInterface
             $query->where('loai_thiet_bi', $filters['loai_thiet_bi']);
         }
 
-        if (isset($filters['trang_thai']) && !empty($filters['trang_thai'])) {
-            $query->where('trang_thai', $filters['trang_thai']);
+        if (isset($filters['co_so_id']) && !empty($filters['co_so_id'])) {
+            $query->whereHas('phong.khuNha', function($q) use ($filters) {
+                $q->where('co_so_id', $filters['co_so_id']);
+            });
         }
 
         if (isset($filters['can_bao_duong']) && $filters['can_bao_duong'] === 'true') {
@@ -235,24 +237,26 @@ class ThietBiRepository implements ThietBiRepositoryInterface
         $base = $this->model->where('trang_thai_du_lieu', 'lich_su');
 
         $tong = (clone $base)->count();
-        $tot = (clone $base)->where('trang_thai', 'tot')->count();
-        $canSuaChua = (clone $base)->where('trang_thai', 'can_sua_chua')->count();
-        $huHong = (clone $base)->where('trang_thai', 'hu_hong')->count();
         $tongGiaTri = (float) ((clone $base)->sum('gia_tri') ?? 0);
+        
+        // Thiết bị kết thúc trong tháng này
+        $thangNay = (clone $base)
+            ->whereYear('hieu_luc_den', now()->year)
+            ->whereMonth('hieu_luc_den', now()->month)
+            ->count();
 
-        $theoLoai = (clone $base)
-            ->selectRaw('loai_thiet_bi, COUNT(*) as so_luong')
-            ->groupBy('loai_thiet_bi')
-            ->pluck('so_luong', 'loai_thiet_bi')
-            ->toArray();
+        // Đếm thiết bị có phiên bản thay thế (có ban_ghi_goc_id và tồn tại bản hiện hành)
+        $gocIds = (clone $base)->whereNotNull('ban_ghi_goc_id')->pluck('ban_ghi_goc_id')->unique();
+        $daThayThe = $this->model
+            ->where('trang_thai_du_lieu', 'hien_hanh')
+            ->whereIn('ban_ghi_goc_id', $gocIds)
+            ->count();
 
         return [
             'tong'          => $tong,
-            'tot'           => $tot,
-            'can_sua_chua'  => $canSuaChua,
-            'hu_hong'       => $huHong,
+            'da_thay_the'   => $daThayThe,
+            'thang_nay'     => $thangNay,
             'tong_gia_tri'  => $tongGiaTri,
-            'theo_loai'     => $theoLoai,
         ];
     }
 
