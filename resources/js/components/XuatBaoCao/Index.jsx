@@ -111,17 +111,19 @@ const XuatBaoCaoIndex = ({ dotBaoCaos, previewData, selectedId }) => {
             align: 'center',
             render: (_, record) => (
                 <Space size="small">
-                    <Popconfirm
-                        title="Tổng hợp báo cáo?"
-                        description="Dữ liệu sẽ được cập nhật từ hệ thống."
-                        onConfirm={() => handleTongHop(record.id)}
-                        okText="Tổng hợp"
-                        cancelText="Hủy"
-                    >
-                        <Button size="small" icon={<SyncOutlined />} type="primary" ghost>
-                            Tổng hợp
-                        </Button>
-                    </Popconfirm>
+                    {perm.can_create && (
+                        <Popconfirm
+                            title="Tổng hợp báo cáo?"
+                            description="Dữ liệu sẽ được cập nhật từ hệ thống."
+                            onConfirm={() => handleTongHop(record.id)}
+                            okText="Tổng hợp"
+                            cancelText="Hủy"
+                        >
+                            <Button size="small" icon={<SyncOutlined />} type="primary" ghost>
+                                Tổng hợp
+                            </Button>
+                        </Popconfirm>
+                    )}
 
                     {record.trang_thai === 'completed' && (
                         <Button
@@ -293,11 +295,13 @@ const XuatBaoCaoIndex = ({ dotBaoCaos, previewData, selectedId }) => {
                             </Space>
                         }
                         extra={
-                            <Dropdown menu={{ items: exportItems, onClick: ({ key }) => handleExport(key) }} placement="bottomRight">
-                                <Button type="primary" icon={<DownloadOutlined />}>
-                                    Xuất Excel
-                                </Button>
-                            </Dropdown>
+                            perm.can_export ? (
+                                <Dropdown menu={{ items: exportItems, onClick: ({ key }) => handleExport(key) }} placement="bottomRight">
+                                    <Button type="primary" icon={<DownloadOutlined />}>
+                                        Xuất Excel
+                                    </Button>
+                                </Dropdown>
+                            ) : null
                         }
                         style={{ borderRadius: 12 }}
                     >
