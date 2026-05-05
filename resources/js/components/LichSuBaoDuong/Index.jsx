@@ -378,8 +378,23 @@ const Index = ({ lichSuBaoDuongs, thietBis, filters, stats }) => {
                             <Descriptions.Item label="Người thực hiện" span={1}>
                                 {detailModal.nguoi_thuc_hien || '—'}
                             </Descriptions.Item>
-                            <Descriptions.Item label="Đơn vị thực hiện" span={1}>
-                                {detailModal.don_vi_thuc_hien || '—'}
+                            <Descriptions.Item label="Đợt kiểm tra" span={1}>
+                                {(() => {
+                                    const dot = detailModal.dot_kiem_tra_thiet_bi ?? detailModal.dotKiemTraThietBi ?? null;
+                                    if (!dot) return '—';
+                                    const from = dot.ngay_bat_dau ? dayjs(dot.ngay_bat_dau).format('DD/MM/YYYY') : null;
+                                    const to = dot.ngay_ket_thuc ? dayjs(dot.ngay_ket_thuc).format('DD/MM/YYYY') : null;
+                                    return (
+                                        <Space direction="vertical" size={0}>
+                                            <Text>{dot.ten_dot || 'Đợt không tên'}</Text>
+                                            {(from || to) ? (
+                                                <Text type="secondary" style={{ fontSize: 11 }}>
+                                                    {from ?? '—'} - {to ?? '—'}
+                                                </Text>
+                                            ) : null}
+                                        </Space>
+                                    );
+                                })()}
                             </Descriptions.Item>
                             {detailModal.ghi_chu && (
                                 <Descriptions.Item label="Ghi chú" span={2}>

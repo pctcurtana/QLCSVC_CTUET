@@ -228,13 +228,21 @@ const SuaChuaForm = ({ thietBi, soLanSuaChua, token, lichSuDangSuaChua, coPhienD
                                     <Form.Item
                                         label={<Text strong>Chi phí sửa chữa (VNĐ)</Text>}
                                         name="chi_phi"
+                                        rules={[
+                                            {
+                                                validator: (_, value) => (
+                                                    value === null || value === undefined || Number(value) >= 0
+                                                        ? Promise.resolve()
+                                                        : Promise.reject(new Error('Chi phí phải lớn hơn hoặc bằng 0'))
+                                                ),
+                                            },
+                                        ]}
                                     >
                                         <InputNumber
                                             style={{ width: '100%', borderRadius: 10 }}
                                             placeholder="0"
-                                            min={0}
                                             formatter={v => v ? `${v}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : ''}
-                                            parser={v => v.replace(/,/g, '')}
+                                            parser={v => (v ? v.replace(/,/g, '') : '')}
                                             prefix={<DollarOutlined />}
                                         />
                                     </Form.Item>

@@ -110,7 +110,7 @@ class BaoCaoSuCoController extends Controller
             'hu_hong_mo_ta'  => 'required|string|min:5|max:500',
             'noi_dung'       => 'required|string|min:5|max:1000',
             'ngay_bao_duong' => 'required|date',
-            'chi_phi'        => 'nullable|numeric|min:0',
+            'chi_phi'        => 'nullable|numeric|gte:0',
             'trang_thai'     => 'required|in:dang_sua_chua,hoan_thanh',
             'loai_bao_duong' => 'required|in:dinh_ky,sua_chua,thay_the',
             'hinh_thuc_sua_chua' => 'required|in:dot_xuat,dinh_ky_kiem_tra',
@@ -134,6 +134,9 @@ class BaoCaoSuCoController extends Controller
             ->where('trang_thai', 'dang_thuc_hien')
             ->latest('updated_at')
             ->first();
+        $chiPhi = array_key_exists('chi_phi', $validated) && $validated['chi_phi'] !== null
+            ? (float) $validated['chi_phi']
+            : 0;
 
         $payload = [
             'thiet_bi_id'     => $thietBi->id,
@@ -142,7 +145,7 @@ class BaoCaoSuCoController extends Controller
             'dot_kiem_tra_thiet_bi_id'  => $dotKiemTraThietBiId,
             'ngay_bao_duong'  => $validated['ngay_bao_duong'],
             'noi_dung'        => $noiDungSuaChua,
-            'chi_phi'         => $validated['chi_phi'] ?? null,
+            'chi_phi'         => $chiPhi,
             'nguoi_thuc_hien' => $nguoiThucHien,
             'trang_thai'      => $lichSuTrangThai,
             'ghi_chu'         => 'Ghi nhận qua QR code',

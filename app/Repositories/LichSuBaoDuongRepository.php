@@ -30,7 +30,7 @@ class LichSuBaoDuongRepository implements LichSuBaoDuongRepositoryInterface
     public function paginate(array $filters = [], int $perPage = 10): LengthAwarePaginator
     {
         $query = $this->model->query()
-            ->with(['thietBi.phong.khuNha.coSo']);
+            ->with(['thietBi.phong.khuNha.coSo', 'dotKiemTraThietBi']);
 
         // Filter by thiet_bi_id
         if (isset($filters['thiet_bi_id']) && !empty($filters['thiet_bi_id'])) {
@@ -47,7 +47,11 @@ class LichSuBaoDuongRepository implements LichSuBaoDuongRepositoryInterface
             $query->where('trang_thai', $filters['trang_thai']);
         }
 
-        return $query->latest('ngay_bao_duong')->paginate($perPage);
+        // Sắp xếp: ngày bảo dưỡng giảm dần + tie-break theo thời gian tạo mới nhất
+        return $query
+            ->orderBy('ngay_bao_duong', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->paginate($perPage);
     }
 
     /**
@@ -100,7 +104,8 @@ class LichSuBaoDuongRepository implements LichSuBaoDuongRepositoryInterface
     {
         return $this->model
             ->where('thiet_bi_id', $thietBiId)
-            ->latest('ngay_bao_duong')
+            ->orderBy('ngay_bao_duong', 'desc')
+            ->orderBy('created_at', 'desc')
             ->get();
     }
 
@@ -111,7 +116,8 @@ class LichSuBaoDuongRepository implements LichSuBaoDuongRepositoryInterface
     {
         return $this->model
             ->where('thiet_bi_id', $thietBiId)
-            ->latest('ngay_bao_duong')
+            ->orderBy('ngay_bao_duong', 'desc')
+            ->orderBy('created_at', 'desc')
             ->first();
     }
 }

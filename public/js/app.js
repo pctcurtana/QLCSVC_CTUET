@@ -195572,18 +195572,22 @@ var SuaChuaForm = function SuaChuaForm(_ref) {
                     children: "Chi ph\xED s\u1EEDa ch\u1EEFa (VN\u0110)"
                   }),
                   name: "chi_phi",
+                  rules: [{
+                    validator: function validator(_, value) {
+                      return value === null || value === undefined || Number(value) >= 0 ? Promise.resolve() : Promise.reject(new Error('Chi phí phải lớn hơn hoặc bằng 0'));
+                    }
+                  }],
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
                     style: {
                       width: '100%',
                       borderRadius: 10
                     },
                     placeholder: "0",
-                    min: 0,
                     formatter: function formatter(v) {
                       return v ? "".concat(v).replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '';
                     },
                     parser: function parser(v) {
-                      return v.replace(/,/g, '');
+                      return v ? v.replace(/,/g, '') : '';
                     },
                     prefix: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_21__["default"], {})
                   })
@@ -201233,9 +201237,27 @@ var Index = function Index(_ref) {
             span: 1,
             children: detailModal.nguoi_thuc_hien || '—'
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
-            label: "\u0110\u01A1n v\u1ECB th\u1EF1c hi\u1EC7n",
+            label: "\u0110\u1EE3t ki\u1EC3m tra",
             span: 1,
-            children: detailModal.don_vi_thuc_hien || '—'
+            children: function (_ref6, _detailModal$dot_kiem) {
+              var dot = (_ref6 = (_detailModal$dot_kiem = detailModal.dot_kiem_tra_thiet_bi) !== null && _detailModal$dot_kiem !== void 0 ? _detailModal$dot_kiem : detailModal.dotKiemTraThietBi) !== null && _ref6 !== void 0 ? _ref6 : null;
+              if (!dot) return '—';
+              var from = dot.ngay_bat_dau ? dayjs__WEBPACK_IMPORTED_MODULE_25___default()(dot.ngay_bat_dau).format('DD/MM/YYYY') : null;
+              var to = dot.ngay_ket_thuc ? dayjs__WEBPACK_IMPORTED_MODULE_25___default()(dot.ngay_ket_thuc).format('DD/MM/YYYY') : null;
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+                direction: "vertical",
+                size: 0,
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(Text, {
+                  children: dot.ten_dot || 'Đợt không tên'
+                }), from || to ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(Text, {
+                  type: "secondary",
+                  style: {
+                    fontSize: 11
+                  },
+                  children: [from !== null && from !== void 0 ? from : '—', " - ", to !== null && to !== void 0 ? to : '—']
+                }) : null]
+              });
+            }()
           }), detailModal.ghi_chu && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
             label: "Ghi ch\xFA",
             span: 2,
