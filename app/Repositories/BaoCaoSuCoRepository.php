@@ -66,7 +66,7 @@ class BaoCaoSuCoRepository implements BaoCaoSuCoRepositoryInterface
     {
         return $this->model
             ->where('thiet_bi_id', $thietBiId)
-            ->where('trang_thai', 'yeu_cau_sua_chua')
+            ->whereIn('trang_thai', ['yeu_cau_sua_chua', 'dang_sua_chua'])
             ->exists();
     }
 
@@ -74,11 +74,23 @@ class BaoCaoSuCoRepository implements BaoCaoSuCoRepositoryInterface
     {
         return $this->model
             ->where('thiet_bi_id', $thietBiId)
-            ->where('trang_thai', 'yeu_cau_sua_chua')
+            ->whereIn('trang_thai', ['yeu_cau_sua_chua', 'dang_sua_chua'])
             ->update([
-                'trang_thai'      => 'hoan_thanh_sua_chua',
+                'trang_thai'       => 'hoan_thanh_sua_chua',
                 'nguoi_hoan_thanh' => $nguoiHoanThanh,
                 'ngay_hoan_thanh'  => now(),
+            ]);
+    }
+
+    public function updateStatusForDevice(int $thietBiId, string $trangThai, string $nguoiThucHien): int
+    {
+        return $this->model
+            ->where('thiet_bi_id', $thietBiId)
+            ->whereIn('trang_thai', ['yeu_cau_sua_chua', 'dang_sua_chua'])
+            ->update([
+                'trang_thai'       => $trangThai,
+                'nguoi_hoan_thanh' => $nguoiThucHien,
+                'ngay_hoan_thanh'  => null,
             ]);
     }
 
@@ -87,8 +99,9 @@ class BaoCaoSuCoRepository implements BaoCaoSuCoRepositoryInterface
         return $this->model->selectRaw("
             COUNT(*) as tong,
             SUM(CASE WHEN trang_thai = 'yeu_cau_sua_chua'    THEN 1 ELSE 0 END) as yeu_cau,
+            SUM(CASE WHEN trang_thai = 'dang_sua_chua'       THEN 1 ELSE 0 END) as dang_sua,
             SUM(CASE WHEN trang_thai = 'hoan_thanh_sua_chua' THEN 1 ELSE 0 END) as hoan_thanh,
-            SUM(CASE WHEN muc_do = 'khan_cap' AND trang_thai = 'yeu_cau_sua_chua' THEN 1 ELSE 0 END) as khan_cap_chua_xu_ly
+            SUM(CASE WHEN muc_do = 'khan_cap' AND trang_thai IN ('yeu_cau_sua_chua', 'dang_sua_chua') THEN 1 ELSE 0 END) as khan_cap_chua_xu_ly
         ")->first()->toArray();
     }
 }

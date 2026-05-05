@@ -141,6 +141,17 @@ class ScreenSeeder extends Seeder
             'is_menu' => true,
         ]);
 
+        Screen::create([
+            'name' => 'Đợt kiểm tra thiết bị',
+            'code' => 'dot-kiem-tra-thiet-bi',
+            'route' => '/dot-kiem-tra-thiet-bi',
+            'icon' => null,
+            'parent_id' => $thietBiGroup->id,
+            'order' => 5,
+            'is_active' => true,
+            'is_menu' => true,
+        ]);
+
         // 7. Xuất báo cáo BGD
         Screen::create([
             'name' => 'Xuất báo cáo BGD',

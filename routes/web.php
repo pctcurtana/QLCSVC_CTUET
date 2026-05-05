@@ -14,6 +14,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ThongKeController;
 use App\Http\Controllers\BaoCaoSuCoController;
 use App\Http\Controllers\QuanLyQrController;
+use App\Http\Controllers\DotKiemTraThietBiController;
 use App\Http\Controllers\XuatBaoCaoController;
 
 /*
@@ -175,6 +176,20 @@ Route::get('/thiet-bi/{thietBi}/lich-su-bao-duong', [LichSuBaoDuongController::c
     Route::middleware('permission:quan-ly-qr,can_regenerate_qr')->group(function () {
         Route::post('/quan-ly-qr/phong/{phong_id}/regenerate', [QuanLyQrController::class, 'regeneratePhongQr'])->name('quan-ly-qr.regenerate-phong');
         Route::post('/quan-ly-qr/thiet-bi/{thiet_bi_id}/regenerate', [QuanLyQrController::class, 'regenerateThietBiQr'])->name('quan-ly-qr.regenerate-thiet-bi');
+    });
+
+    // Admin: Đợt kiểm tra thiết bị
+    Route::middleware('permission:dot-kiem-tra-thiet-bi,can_view')->group(function () {
+        Route::get('/dot-kiem-tra-thiet-bi', [DotKiemTraThietBiController::class, 'index'])->name('dot-kiem-tra-thiet-bi.index');
+    });
+    Route::middleware('permission:dot-kiem-tra-thiet-bi,can_create')->group(function () {
+        Route::post('/dot-kiem-tra-thiet-bi', [DotKiemTraThietBiController::class, 'store'])->name('dot-kiem-tra-thiet-bi.store');
+    });
+    Route::middleware('permission:dot-kiem-tra-thiet-bi,can_edit')->group(function () {
+        Route::post('/dot-kiem-tra-thiet-bi/{dotKiemTraThietBi}/activate', [DotKiemTraThietBiController::class, 'activate'])->name('dot-kiem-tra-thiet-bi.activate');
+    });
+    Route::middleware('permission:dot-kiem-tra-thiet-bi,can_delete')->group(function () {
+        Route::delete('/dot-kiem-tra-thiet-bi/{dotKiemTraThietBi}', [DotKiemTraThietBiController::class, 'destroy'])->name('dot-kiem-tra-thiet-bi.destroy');
     });
 
     // ==================== Phân quyền ====================

@@ -15,4 +15,5 @@ interface BaoCaoSuCoRepositoryInterface
     public function countByTrangThai(): array;
     public function hasOpenReportForDevice(int $thietBiId): bool;
     public function completeOpenReportsForDevice(int $thietBiId, string $nguoiHoanThanh): int;
+    public function updateStatusForDevice(int $thietBiId, string $trangThai, string $nguoiThucHien): int;
 }

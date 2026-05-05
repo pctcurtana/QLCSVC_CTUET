@@ -23,6 +23,7 @@ const MUC_DO_MAP = {
 
 const TRANG_THAI_MAP = {
     yeu_cau_sua_chua:    { color: 'orange', label: 'Yêu cầu sửa chữa', icon: <ClockCircleOutlined /> },
+    dang_sua_chua:       { color: 'blue',   label: 'Đang sửa chữa', icon: <ClockCircleOutlined /> },
     hoan_thanh_sua_chua: { color: 'green',  label: 'Hoàn thành sửa chữa', icon: <CheckCircleOutlined /> },
 };
 
@@ -104,7 +105,7 @@ const BaoCaoSuCoIndex = ({ baoCaos, stats, filters }) => {
                 return (
                     <Space direction="vertical" size={2}>
                         <Badge color={m.color} text={<Text strong style={{ fontSize: 12 }}>{m.label}</Text>} />
-                        {v === 'hoan_thanh_sua_chua' && r.nguoi_hoan_thanh && (
+                        {['dang_sua_chua', 'hoan_thanh_sua_chua'].includes(v) && r.nguoi_hoan_thanh && (
                             <Space size={4}>
                                 <UserOutlined style={{ color: '#888', fontSize: 11 }} />
                                 <Text type="secondary" style={{ fontSize: 11 }}>{r.nguoi_hoan_thanh}</Text>
@@ -141,8 +142,8 @@ const BaoCaoSuCoIndex = ({ baoCaos, stats, filters }) => {
     const kpiCards = [
         { title: 'Tổng báo cáo',          value: stats?.tong ?? 0,               color: '#244380', icon: <AlertOutlined /> },
         { title: 'Yêu cầu sửa chữa',      value: stats?.yeu_cau ?? 0,            color: '#fa8c16', icon: <ClockCircleOutlined /> },
+        { title: 'Đang sửa chữa',         value: stats?.dang_sua ?? 0,           color: '#1890ff', icon: <ClockCircleOutlined /> },
         { title: 'Hoàn thành sửa chữa',   value: stats?.hoan_thanh ?? 0,         color: '#52c41a', icon: <CheckCircleOutlined /> },
-        { title: 'Khẩn cấp chưa xử lý',  value: stats?.khan_cap_chua_xu_ly ?? 0, color: '#722ed1', icon: <ExclamationCircleOutlined /> },
     ];
 
     return (
@@ -221,7 +222,7 @@ const BaoCaoSuCoIndex = ({ baoCaos, stats, filters }) => {
                         size="small"
                         scroll={{ x: 1000 }}
                         rowClassName={r =>
-                            r.muc_do === 'khan_cap' && r.trang_thai === 'yeu_cau_sua_chua'
+                            r.muc_do === 'khan_cap' && ['yeu_cau_sua_chua', 'dang_sua_chua'].includes(r.trang_thai)
                                 ? 'table-row-urgent' : ''
                         }
                         pagination={{
@@ -265,7 +266,7 @@ const BaoCaoSuCoIndex = ({ baoCaos, stats, filters }) => {
                                     </Card>
                                 </Col>
                             </Row>
-                            {detailModal.trang_thai === 'hoan_thanh_sua_chua' && (
+                            {['dang_sua_chua', 'hoan_thanh_sua_chua'].includes(detailModal.trang_thai) && (
                                 <Row>
                                     <Col span={8}><Text type="secondary">Người sửa:</Text></Col>
                                     <Col span={16}>

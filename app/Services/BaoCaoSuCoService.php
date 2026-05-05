@@ -64,6 +64,14 @@ class BaoCaoSuCoService
         return $this->repository->completeOpenReportsForDevice($thietBiId, $nguoiHoanThanh);
     }
 
+    /**
+     * Cập nhật trạng thái đang sửa chữa cho các báo cáo đang chờ của thiết bị.
+     */
+    public function updateReportsStatusForDevice(int $thietBiId, string $trangThai, string $nguoiThucHien): int
+    {
+        return $this->repository->updateStatusForDevice($thietBiId, $trangThai, $nguoiThucHien);
+    }
+
     public function delete(int $id): bool
     {
         return $this->repository->delete($id);

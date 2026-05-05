@@ -15,6 +15,9 @@ class LichSuBaoDuong extends Model
         'thiet_bi_id',
         'ngay_bao_duong',
         'loai_bao_duong',
+        'hinh_thuc_sua_chua',
+        'dot_bao_cao_id',
+        'dot_kiem_tra_thiet_bi_id',
         'noi_dung',
         'chi_phi',
         'nguoi_thuc_hien',
@@ -31,6 +34,16 @@ class LichSuBaoDuong extends Model
     public function thietBi()
     {
         return $this->belongsTo(ThietBi::class, 'thiet_bi_id');
+    }
+
+    public function dotBaoCao()
+    {
+        return $this->belongsTo(DotBaoCao::class, 'dot_bao_cao_id');
+    }
+
+    public function dotKiemTraThietBi()
+    {
+        return $this->belongsTo(DotKiemTraThietBi::class, 'dot_kiem_tra_thiet_bi_id');
     }
 }
 

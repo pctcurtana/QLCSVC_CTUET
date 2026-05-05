@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Services\BaoCaoSuCoService;
 use App\Services\LichSuBaoDuongService;
 use App\Http\Requests\BaoCaoSuCo\StoreBaoCaoSuCoRequest;
+use App\Models\BaoCaoSuCo;
+use App\Models\DotKiemTraThietBi;
 use App\Models\ThietBi;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -69,17 +71,34 @@ class BaoCaoSuCoController extends Controller
         return $thietBi->load('phong.khuNha.coSo');
     }
 
+    private function getActiveDotKiemTra(): ?DotKiemTraThietBi
+    {
+        return DotKiemTraThietBi::query()
+            ->where('is_active', true)
+            ->latest('id')
+            ->first();
+    }
+
     public function showSuaChuaForm(string $token)
     {
         $thietBi = $this->getThietBiByToken($token);
         $soLanSuaChua = $thietBi->lichSuBaoDuongs()
             ->where('loai_bao_duong', 'sua_chua')
             ->count();
-
+        $lichSuDangSua = $thietBi->lichSuBaoDuongs()
+            ->where('trang_thai', 'dang_thuc_hien')
+            ->latest('updated_at')
+            ->first();
+        $baoCaoDangMo = BaoCaoSuCo::where('thiet_bi_id', $thietBi->id)
+            ->whereIn('trang_thai', ['yeu_cau_sua_chua', 'dang_sua_chua'])
+            ->latest()
+            ->first();
         return Inertia::render('BaoCao/SuaChuaForm', [
-            'thietBi'      => $thietBi,
-            'soLanSuaChua' => $soLanSuaChua,
-            'token'        => $token,
+            'thietBi'           => $thietBi,
+            'soLanSuaChua'      => $soLanSuaChua,
+            'token'             => $token,
+            'lichSuDangSuaChua' => $lichSuDangSua,
+            'coPhienDangSua'    => (bool) $baoCaoDangMo,
         ]);
     }
 
@@ -92,26 +111,60 @@ class BaoCaoSuCoController extends Controller
             'noi_dung'       => 'required|string|min:5|max:1000',
             'ngay_bao_duong' => 'required|date',
             'chi_phi'        => 'nullable|numeric|min:0',
-            'trang_thai'     => 'in:hoan_thanh',
+            'trang_thai'     => 'required|in:dang_sua_chua,hoan_thanh',
+            'loai_bao_duong' => 'required|in:dinh_ky,sua_chua,thay_the',
+            'hinh_thuc_sua_chua' => 'required|in:dot_xuat,dinh_ky_kiem_tra',
         ]);
+        $dotKiemTraThietBiId = null;
+        if ($validated['hinh_thuc_sua_chua'] === 'dinh_ky_kiem_tra') {
+            $activeDot = $this->getActiveDotKiemTra();
+            if (!$activeDot) {
+                return back()->withErrors([
+                    'hinh_thuc_sua_chua' => 'Hiện chưa có đợt quản lý active từ admin để ghi nhận sửa chữa định kỳ.',
+                ])->withInput();
+            }
+            $dotKiemTraThietBiId = $activeDot->id;
+        }
 
         $nguoiThucHien = auth()->user()->name ?? auth()->user()->email;
 
-        $this->lichSuService->create([
+        $lichSuTrangThai = $validated['trang_thai'] === 'hoan_thanh' ? 'hoan_thanh' : 'dang_thuc_hien';
+        $noiDungSuaChua = "Hư hỏng: {$validated['hu_hong_mo_ta']}\n\nSửa chữa: {$validated['noi_dung']}";
+        $lichSuDangSua = $thietBi->lichSuBaoDuongs()
+            ->where('trang_thai', 'dang_thuc_hien')
+            ->latest('updated_at')
+            ->first();
+
+        $payload = [
             'thiet_bi_id'     => $thietBi->id,
-            'loai_bao_duong'  => 'sua_chua',
+            'loai_bao_duong'  => $validated['loai_bao_duong'],
+            'hinh_thuc_sua_chua' => $validated['hinh_thuc_sua_chua'],
+            'dot_kiem_tra_thiet_bi_id'  => $dotKiemTraThietBiId,
             'ngay_bao_duong'  => $validated['ngay_bao_duong'],
-            'noi_dung'        => "Hư hỏng: {$validated['hu_hong_mo_ta']}\n\nSửa chữa: {$validated['noi_dung']}",
+            'noi_dung'        => $noiDungSuaChua,
             'chi_phi'         => $validated['chi_phi'] ?? null,
             'nguoi_thuc_hien' => $nguoiThucHien,
-            'trang_thai'      => 'hoan_thanh',
+            'trang_thai'      => $lichSuTrangThai,
             'ghi_chu'         => 'Ghi nhận qua QR code',
-        ]);
+        ];
 
-        // Tự động đóng tất cả báo cáo đang chờ của thiết bị này
-        $this->baoCaoService->completeReportsForDevice($thietBi->id, $nguoiThucHien);
+        if ($lichSuDangSua) {
+            $this->lichSuService->update($lichSuDangSua->id, $payload);
+        } else {
+            $this->lichSuService->create($payload);
+        }
 
-        return back()->with('success', 'Ghi nhận sửa chữa thành công!');
+        if ($validated['trang_thai'] === 'hoan_thanh') {
+            $this->baoCaoService->completeReportsForDevice($thietBi->id, $nguoiThucHien);
+        } else {
+            $this->baoCaoService->updateReportsStatusForDevice($thietBi->id, 'dang_sua_chua', $nguoiThucHien);
+        }
+
+        $successMsg = $validated['trang_thai'] === 'hoan_thanh' 
+            ? 'Ghi nhận sửa chữa hoàn thành!' 
+            : 'Ghi nhận đang sửa chữa thành công!';
+
+        return back()->with('success', $successMsg);
     }
 
     // ─── Admin: Incident report list ─────────────────────────────────────────

@@ -175,7 +175,7 @@ const MainLayout = ({ children }) => {
         const routes = [
             '/co-so', '/khu-nha', '/phong', '/thiet-bi',
             '/lich-su-bao-duong', '/kho', '/nguoi-dung', '/phan-quyen', '/thong-ke',
-            '/bao-cao-su-co', '/quan-ly-qr', '/qr/thiet-bi',
+            '/bao-cao-su-co', '/quan-ly-qr', '/dot-kiem-tra-thiet-bi', '/qr/thiet-bi',
         ];
         
         for (const route of routes) {

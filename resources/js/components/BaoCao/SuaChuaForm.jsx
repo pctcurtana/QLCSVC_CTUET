@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { usePage, router, Head } from '@inertiajs/react';
 import MainLayout from '../Layout/MainLayout';
 import {
-    Form, Input, Button, Card, Typography, Space, Tag, Divider,
+    Form, Input, Button, Card, Typography, Space, Tag, Divider, Select,
     DatePicker, InputNumber, Alert, Row, Col, Statistic, Result,
 } from 'antd';
 import {
     ToolOutlined, CalendarOutlined, DollarOutlined,
-    UserOutlined, CheckCircleOutlined, HistoryOutlined,
+    UserOutlined, CheckCircleOutlined, HistoryOutlined, SyncOutlined,
 } from '@ant-design/icons';
 import dayjs from 'dayjs';
 
@@ -20,7 +20,32 @@ const TRANG_THAI_TB_LABELS = {
     hu_hong: { color: 'red', label: 'Hư hỏng' },
 };
 
-const SuaChuaForm = ({ thietBi, soLanSuaChua, token }) => {
+const TRANG_THAI_SUA_CHUA = [
+    { value: 'dang_sua_chua', label: 'Đang sửa chữa', color: 'blue', icon: <SyncOutlined spin /> },
+    { value: 'hoan_thanh', label: 'Hoàn thành', color: 'green', icon: <CheckCircleOutlined /> },
+];
+
+const LOAI_SUA_CHUA = [
+    { value: 'sua_chua', label: 'Sửa chữa' },
+    { value: 'thay_the', label: 'Thay thế linh kiện' },
+    { value: 'dinh_ky', label: 'Bảo dưỡng định kỳ' },
+];
+const HINH_THUC_SUA_CHUA = [
+    { value: 'dot_xuat', label: 'Sửa chữa đột xuất' },
+    { value: 'dinh_ky_kiem_tra', label: 'Sửa chữa kiểm tra định kỳ' },
+];
+
+const extractNoiDungParts = (noiDung = '') => {
+    const huHongMatch = noiDung.match(/Hư hỏng:\s*([\s\S]*?)(?:\n\nSửa chữa:|$)/);
+    const suaChuaMatch = noiDung.match(/Sửa chữa:\s*([\s\S]*)$/);
+
+    return {
+        hu_hong_mo_ta: huHongMatch?.[1]?.trim() ?? '',
+        noi_dung: suaChuaMatch?.[1]?.trim() ?? '',
+    };
+};
+
+const SuaChuaForm = ({ thietBi, soLanSuaChua, token, lichSuDangSuaChua, coPhienDangSua }) => {
     const { flash, errors: serverErrors, auth } = usePage().props;
     const [form] = Form.useForm();
     const [submitting, setSubmitting] = useState(false);
@@ -30,6 +55,7 @@ const SuaChuaForm = ({ thietBi, soLanSuaChua, token }) => {
     const khuNha  = phong?.khu_nha  ?? phong?.khuNha;
     const coSo    = khuNha?.co_so   ?? khuNha?.coSo;
     const tt      = TRANG_THAI_TB_LABELS[thietBi?.trang_thai] ?? { color: 'default', label: thietBi?.trang_thai };
+    const phienDangSua = extractNoiDungParts(lichSuDangSuaChua?.noi_dung);
 
     useEffect(() => {
         if (flash?.success) {
@@ -42,7 +68,6 @@ const SuaChuaForm = ({ thietBi, soLanSuaChua, token }) => {
         router.post(`/qr/thiet-bi/${token}`, {
             ...values,
             ngay_bao_duong: values.ngay_bao_duong?.format('YYYY-MM-DD') ?? dayjs().format('YYYY-MM-DD'),
-            trang_thai: 'hoan_thanh',
         }, { onFinish: () => setSubmitting(false) });
     };
 
@@ -121,6 +146,15 @@ const SuaChuaForm = ({ thietBi, soLanSuaChua, token }) => {
                             style={{ borderRadius: 10 }}
                         />
                     )}
+                    {coPhienDangSua && (
+                        <Alert
+                            type="info"
+                            showIcon
+                            message="Thiết bị đang có phiên sửa chữa dở dang"
+                            description="Biểu mẫu đã tự nạp dữ liệu đang sửa để bạn tiếp tục và cập nhật hoàn thành."
+                            style={{ borderRadius: 10 }}
+                        />
+                    )}
 
                     {/* Repair form */}
                     <Card
@@ -138,8 +172,14 @@ const SuaChuaForm = ({ thietBi, soLanSuaChua, token }) => {
                             onFinish={handleSubmit}
                             size="large"
                             initialValues={{
-                                ngay_bao_duong: dayjs(),
+                                hu_hong_mo_ta: phienDangSua.hu_hong_mo_ta,
+                                noi_dung: phienDangSua.noi_dung,
+                                ngay_bao_duong: lichSuDangSuaChua?.ngay_bao_duong ? dayjs(lichSuDangSuaChua.ngay_bao_duong) : dayjs(),
+                                chi_phi: lichSuDangSuaChua?.chi_phi ?? undefined,
                                 nguoi_thuc_hien: auth?.user?.name ?? '',
+                                trang_thai: coPhienDangSua ? 'dang_sua_chua' : 'hoan_thanh',
+                                loai_bao_duong: lichSuDangSuaChua?.loai_bao_duong ?? 'sua_chua',
+                                hinh_thuc_sua_chua: lichSuDangSuaChua?.hinh_thuc_sua_chua ?? 'dot_xuat',
                             }}
                         >
                             <Form.Item
@@ -211,6 +251,59 @@ const SuaChuaForm = ({ thietBi, soLanSuaChua, token }) => {
                                             prefix={<UserOutlined />}
                                             placeholder="Tên kỹ thuật viên"
                                             style={{ borderRadius: 10 }}
+                                        />
+                                    </Form.Item>
+                                </Col>
+                                <Col xs={24} sm={12}>
+                                    <Form.Item
+                                        label={<Text strong>Trạng thái <span style={{ color: 'red' }}>*</span></Text>}
+                                        name="trang_thai"
+                                        rules={[{ required: true, message: 'Vui lòng chọn trạng thái' }]}
+                                    >
+                                        <Select
+                                            size="large"
+                                            placeholder="Chọn trạng thái"
+                                            style={{ borderRadius: 10 }}
+                                        >
+                                            {TRANG_THAI_SUA_CHUA.map(item => (
+                                                <Select.Option key={item.value} value={item.value}>
+                                                    <Space>
+                                                        {item.icon}
+                                                        {item.label}
+                                                    </Space>
+                                                </Select.Option>
+                                            ))}
+                                        </Select>
+                                    </Form.Item>
+                                </Col>
+                            </Row>
+
+                            <Row gutter={16}>
+                                <Col xs={24} sm={12}>
+                                    <Form.Item
+                                        label={<Text strong>Hình thức sửa chữa <span style={{ color: 'red' }}>*</span></Text>}
+                                        name="hinh_thuc_sua_chua"
+                                        rules={[{ required: true, message: 'Vui lòng chọn hình thức sửa chữa' }]}
+                                    >
+                                        <Select
+                                            size="large"
+                                            placeholder="Chọn hình thức sửa chữa"
+                                            style={{ borderRadius: 10 }}
+                                            options={HINH_THUC_SUA_CHUA}
+                                        />
+                                    </Form.Item>
+                                </Col>
+                                <Col xs={24} sm={12}>
+                                    <Form.Item
+                                        label={<Text strong>Loại sửa chữa <span style={{ color: 'red' }}>*</span></Text>}
+                                        name="loai_bao_duong"
+                                        rules={[{ required: true, message: 'Vui lòng chọn loại sửa chữa' }]}
+                                    >
+                                        <Select
+                                            size="large"
+                                            placeholder="Chọn loại sửa chữa"
+                                            style={{ borderRadius: 10 }}
+                                            options={LOAI_SUA_CHUA}
                                         />
                                     </Form.Item>
                                 </Col>
