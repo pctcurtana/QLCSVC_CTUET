@@ -18,14 +18,36 @@ createInertiaApp({
                         colorPrimary: '#244380',
                         colorLink: '#244380',
                         colorInfo: '#244380',
+                        borderRadiusLG: 16,
+                        borderRadius: 12,
+                        colorBgContainer: 'rgba(255, 255, 255, 0.4)',
+                        colorBgElevated: 'rgba(255, 255, 255, 0.8)',
                     },
+                    components: {
+                        Card: {
+                            colorBgContainer: 'rgba(255, 255, 255, 0.35)',
+                            colorBorderSecondary: 'rgba(255, 255, 255, 0.25)',
+                        },
+                        Table: {
+                            colorBgContainer: 'transparent',
+                            colorHeaderBg: 'rgba(255, 255, 255, 0.45)',
+                            colorRowHover: 'rgba(36, 67, 128, 0.05)',
+                        },
+                    }
                 }}
             >
                 <App {...props} />
             </ConfigProvider>
         );
+
+        // Dismiss the server-rendered loading screen
+        const loader = document.getElementById('initial-loader');
+        if (loader) {
+            loader.classList.add('fade-out');
+            setTimeout(() => {
+                loader.remove();
+            }, 500);
+        }
     },
-    progress: {
-        color: '#244380',
-    },
+    progress: false,
 });

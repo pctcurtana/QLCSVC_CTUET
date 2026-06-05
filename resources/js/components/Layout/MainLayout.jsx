@@ -45,8 +45,45 @@ const iconMap = {
     FileExcelOutlined: <FileExcelOutlined />,
 };
 
+const SkeletonLoader = () => (
+    <div className="space-y-6 animate-pulse p-6">
+        {/* Title skeleton */}
+        <div className="h-9 bg-white/20 rounded-xl w-64 border border-white/10 mb-8"></div>
+        
+        {/* KPI grid skeleton */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            {[1, 2, 3].map((i) => (
+                <div key={i} className="h-24 bg-white/25 rounded-2xl border border-white/15 p-5 flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-white/20 flex-shrink-0"></div>
+                    <div className="space-y-2.5 flex-1">
+                        <div className="h-3.5 bg-white/20 rounded-md w-1/2"></div>
+                        <div className="h-5 bg-white/30 rounded-md w-3/4"></div>
+                    </div>
+                </div>
+            ))}
+        </div>
+        
+        {/* Main table area skeleton */}
+        <div className="bg-white/20 rounded-2xl border border-white/15 p-6 space-y-5">
+            <div className="flex justify-between items-center mb-4">
+                <div className="h-7 bg-white/30 rounded-lg w-48"></div>
+                <div className="h-9 bg-white/25 rounded-lg w-28"></div>
+            </div>
+            <div className="space-y-3.5 pt-4">
+                <div className="h-4 bg-white/15 rounded-md w-full"></div>
+                <div className="h-4 bg-white/25 rounded-md w-full"></div>
+                <div className="h-4 bg-white/15 rounded-md w-full"></div>
+                <div className="h-4 bg-white/25 rounded-md w-full"></div>
+                <div className="h-4 bg-white/15 rounded-md w-full"></div>
+            </div>
+        </div>
+    </div>
+);
+
 const MainLayout = ({ children }) => {
     const [collapsed, setCollapsed] = useState(false);
+    const [hoveredMenu, setHoveredMenu] = useState(null);
+    const [isNavigating, setIsNavigating] = useState(false);
     const {
         token: { colorBgContainer, borderRadiusLG },
     } = theme.useToken();
@@ -54,6 +91,16 @@ const MainLayout = ({ children }) => {
     const { url, props } = usePage();
     const { auth, menuScreens, userPermissions } = props;
     const user = auth?.user;
+
+    // Listen to Inertia router events for page transition skeleton loading
+    useEffect(() => {
+        const unregisterStart = router.on('start', () => setIsNavigating(true));
+        const unregisterFinish = router.on('finish', () => setIsNavigating(false));
+        return () => {
+            unregisterStart();
+            unregisterFinish();
+        };
+    }, []);
 
     // Show flash messages from backend
     useEffect(() => {
@@ -97,18 +144,24 @@ const MainLayout = ({ children }) => {
                     key: screen.code,
                     icon: icon,
                     label: screen.name,
-                    children: screen.children.map((child) => ({
-                        key: child.route || child.code,
-                        label: <Link href={child.route}>{child.name}</Link>,
-                    })),
+                    children: screen.children.map((child) => {
+                        return {
+                            key: child.route || child.code,
+                            label: <Link href={child.route}>{child.name}</Link>,
+                        };
+                    }),
                 };
             }
 
             // Nếu không có children và có route -> menu item đơn
             if (screen.route) {
+                let itemIcon = icon;
+                if (screen.route === '/nguoi-dung') itemIcon = <UserOutlined />;
+                if (screen.route === '/phan-quyen') itemIcon = <KeyOutlined />;
+                
                 return {
                     key: screen.route,
-                    icon: icon,
+                    icon: itemIcon,
                     label: <Link href={screen.route}>{screen.name}</Link>,
                 };
             }
@@ -134,18 +187,12 @@ const MainLayout = ({ children }) => {
         {
             key: 'user-info',
             label: (
-                <div style={{ padding: '8px 0' }}>
-                    <div style={{ fontWeight: 600, color: '#1a365d' }}>{user?.name}</div>
-                    <div style={{ fontSize: 12, color: '#666' }}>{user?.email}</div>
-                    <div style={{ 
-                        fontSize: 11, 
-                        color: '#fff', 
-                        background: user?.role === 'admin' ? '#f5222d' : '#1890ff',
-                        padding: '2px 8px',
-                        borderRadius: 4,
-                        marginTop: 4,
-                        display: 'inline-block',
-                    }}>
+                <div className="py-2">
+                    <div className="font-semibold text-[#1a365d]">{user?.name}</div>
+                    <div className="text-xs text-gray-500">{user?.email}</div>
+                    <div className={`text-[11px] text-white px-2 py-0.5 rounded mt-1 inline-block ${
+                        user?.role === 'admin' ? 'bg-[#f5222d]' : 'bg-[#1890ff]'
+                    }`}>
                         {user?.role === 'admin' ? 'Quản trị viên' : 'Người dùng'}
                     </div>
                 </div>
@@ -193,32 +240,29 @@ const MainLayout = ({ children }) => {
     };
 
     return (
-        <Layout style={{ minHeight: '100vh' }}>
+        <Layout style={{ minHeight: '100vh', backgroundColor: 'transparent' }}>
             <Sider 
                 trigger={null} 
                 theme="light"
                 collapsible 
                 collapsed={collapsed}
+                className="custom-sidebar overflow-auto h-screen fixed left-0 top-0 bottom-0 transition-[width] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]"
                 style={{
-                    overflow: 'auto',
-                    height: '100vh',
-                    position: 'fixed',
-                    left: 0,
-                    top: 0,
-                    bottom: 0,
+                    width: collapsed ? 80 : 200,
+                    backgroundColor: 'rgba(255, 255, 255, 0.25)',
+                    backdropFilter: 'blur(24px)',
+                    WebkitBackdropFilter: 'blur(24px)',
                 }}
             >
-                <div style={{ 
-                    height: 64, 
-                    margin: 16, 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    justifyContent: 'center',
-                    color: 'black',
-                    fontSize: collapsed ? '16px' : '18px',
-                    fontWeight: 'bold',
-                }}>
-                    {collapsed ? 'CTUT' : 'QLCSVC CTUT'}
+                <div className={`custom-sidebar-logo-container ${collapsed ? 'justify-center' : 'justify-start pl-4'}`}>
+                    {collapsed ? (
+                        <img src="/favicon.png" alt="Logo" className="w-8 h-8 object-contain" />
+                    ) : (
+                        <div className="flex items-center gap-2.5">
+                            <img src="/favicon.png" alt="Logo" className="w-8 h-8 object-contain" />
+                            <span className="logo-text-expanded">QLCSVC</span>
+                        </div>
+                    )}
                 </div>
                 <Menu
                     theme="light"
@@ -226,37 +270,51 @@ const MainLayout = ({ children }) => {
                     selectedKeys={[getSelectedKey()]}
                     defaultOpenKeys={defaultOpenKeys}
                     items={menuItems}
+                    className="!bg-transparent !border-none"
+                    onClick={(info) => {
+                        if (info.key && info.key.startsWith('/')) {
+                            router.visit(info.key);
+                        }
+                    }}
                 />
             </Sider>
-            <Layout style={{ marginLeft: collapsed ? 80 : 200, transition: 'all 0.2s' }}>
+            <Layout 
+                className="transition-[margin-left] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]"
+                style={{ 
+                    marginLeft: collapsed ? 80 : 200,
+                    backgroundColor: 'transparent',
+                }}
+            >
                 <Header
+                    className="px-7 flex items-center justify-between sticky top-4 z-[100] h-16 transition-all duration-300 ease-in-out"
                     style={{
-                        padding: '0 24px',
-                        background: colorBgContainer,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        position: 'sticky',
-                        top: 0,
-                        zIndex: 1,
-                        boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                        margin: '16px 16px 0 16px',
+                        background: 'rgba(255, 255, 255, 0.45)',
+                        backdropFilter: 'blur(20px)',
+                        WebkitBackdropFilter: 'blur(20px)',
+                        border: '1px solid rgba(255, 255, 255, 0.25)',
+                        borderRadius: '16px',
+                        boxShadow: '0 8px 32px rgba(31, 38, 135, 0.04)',
                     }}
                 >
-                    <div style={{ fontSize: '18px', cursor: 'pointer' }} onClick={() => setCollapsed(!collapsed)}>
+                    <div 
+                        className="text-lg cursor-pointer text-[#244380] transition-all duration-[180ms] ease-in-out p-[8px_12px] rounded-lg flex items-center justify-center w-10 h-10 hover:bg-[#244380]/[0.08] hover:scale-105"
+                        onClick={() => setCollapsed(!collapsed)}
+                    >
                         {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
                     </div>
-                    <Space size="large">
+                    <Space size="large" className="m-0">
                         <Dropdown menu={{ items: userMenuItems }} placement="bottomRight" trigger={['click']}>
-                            <Space style={{ cursor: 'pointer' }}>
-                                <Badge dot color={getRoleBadgeColor()}>
+                            <Space 
+                                className="cursor-pointer p-[6px_12px] rounded-lg transition-all duration-[180ms] ease-in-out hover:bg-[#244380]/[0.08]"
+                            >
+                                <Badge dot color={getRoleBadgeColor()} offset={[-4, 4]}>
                                     <Avatar 
-                                        style={{ 
-                                            backgroundColor: user?.role === 'admin' ? '#f5222d' : '#1890ff' 
-                                        }} 
+                                        className={user?.role === 'admin' ? 'bg-[#f5222d] cursor-pointer' : 'bg-[#1890ff] cursor-pointer'} 
                                         icon={<UserOutlined />} 
                                     />
                                 </Badge>
-                                <span style={{ fontWeight: 500 }}>{user?.name || 'Người dùng'}</span>
+                                <span className="font-medium text-[#0f1c3f] text-sm">{user?.name || 'Người dùng'}</span>
                             </Space>
                         </Dropdown>
                     </Space>
@@ -264,13 +322,14 @@ const MainLayout = ({ children }) => {
                 <Content
                     style={{
                         margin: '24px 16px',
-                        padding: 24,
+                        padding: 0,
                         minHeight: 280,
-                        background: colorBgContainer,
-                        borderRadius: borderRadiusLG,
+                        background: 'transparent',
                     }}
                 >
-                    {children}
+                    <div key={url} className="page-entrance">
+                        {isNavigating ? <SkeletonLoader /> : children}
+                    </div>
                 </Content>
             </Layout>
         </Layout>
