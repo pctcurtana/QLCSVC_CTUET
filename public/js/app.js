@@ -197531,15 +197531,33 @@ var Title = antd__WEBPACK_IMPORTED_MODULE_6__["default"].Title,
 var C = ['#3b82f6', '#0f766e', '#f59e0b', '#8b5cf6', '#ef4444', '#22c55e'];
 var tooltipStyle = {
   contentStyle: {
-    borderRadius: 10,
-    border: '1px solid #e5e7eb',
-    boxShadow: '0 6px 18px rgba(15, 23, 42, .08)',
-    padding: '8px 12px',
+    background: 'rgba(255,255,255,0.75)',
+    backdropFilter: 'blur(20px)',
+    WebkitBackdropFilter: 'blur(20px)',
+    border: '1px solid rgba(255,255,255,0.35)',
+    borderRadius: 16,
+    boxShadow: "\n            0 10px 30px rgba(15,23,42,.08),\n            0 2px 8px rgba(15,23,42,.04)\n        ",
+    padding: '10px 14px',
     fontSize: 12,
-    background: '#fff'
+    fontWeight: 600,
+    color: '#0f172a',
+    fontFamily: "'Plus Jakarta Sans', sans-serif"
+  },
+  labelStyle: {
+    color: '#64748b',
+    fontSize: 11,
+    fontWeight: 700,
+    marginBottom: 4,
+    textTransform: 'uppercase',
+    letterSpacing: '.06em'
+  },
+  itemStyle: {
+    color: '#0f172a',
+    fontSize: 12,
+    fontWeight: 700
   },
   cursor: {
-    fill: 'rgba(59, 130, 246, .06)'
+    fill: 'rgba(36,67,128,.04)'
   }
 };
 
@@ -197585,52 +197603,50 @@ var KpiCard = function KpiCard(_ref) {
     value = _ref.value,
     icon = _ref.icon,
     color = _ref.color;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
     bordered: false,
-    style: {
-      borderRadius: 14,
-      boxShadow: '0 2px 12px rgba(0,0,0,.08)',
-      overflow: 'hidden'
+    className: " relative overflow-hidden h-full rounded-[18px] border border-white/35 bg-white/55 backdrop-blur-xl shadow-[0_6px_20px_rgba(15,23,42,.04)] ",
+    styles: {
+      body: {
+        padding: 16
+      }
     },
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+      className: " absolute -top-6 -right-6 h-20 w-20 rounded-full blur-3xl",
       style: {
-        display: 'flex',
-        alignItems: 'center',
-        gap: 16
-      },
+        background: "".concat(color, "15")
+      }
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
+      className: "mb-3 flex items-center justify-between",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+        className: "text-[10px] font-bold uppercase tracking-[0.12em] text-slate-500",
+        children: title
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+        className: "flex h-9 w-9 items-center justify-center rounded-xl",
         style: {
-          width: 52,
-          height: 52,
-          borderRadius: 14,
-          flexShrink: 0,
-          background: "".concat(color, "18"),
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontSize: 22,
+          background: "".concat(color, "15"),
           color: color
         },
         children: icon
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
-          style: {
-            fontSize: 12,
-            color: '#999',
-            marginBottom: 2
-          },
-          children: title
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
-          style: {
-            fontSize: 22,
-            fontWeight: 800,
-            color: '#111',
-            lineHeight: 1.2
-          },
-          children: value
-        })]
       })]
-    })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+      className: "mb-2 text-[24px] font-extrabold leading-none tracking-[-0.05em] text-[#0f172a]",
+      style: {
+        fontFamily: "'Plus Jakarta Sans', sans-serif"
+      },
+      children: value
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
+      className: "flex items-center gap-1.5",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+        className: "h-1.5 w-1.5 rounded-full",
+        style: {
+          background: color
+        }
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
+        className: "text-[10px] font-semibold uppercase tracking-[0.05em] text-slate-400",
+        children: "D\u1EEF li\u1EC7u m\u1EDBi nh\u1EA5t"
+      })]
+    })]
   });
 };
 
@@ -197638,24 +197654,34 @@ var KpiCard = function KpiCard(_ref) {
 var ChartCard = function ChartCard(_ref2) {
   var title = _ref2.title,
     children = _ref2.children;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    title: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
-      style: {
-        fontWeight: 700,
-        fontSize: 14
-      },
-      children: title
-    }),
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
     bordered: false,
-    style: {
-      borderRadius: 14,
-      boxShadow: '0 2px 12px rgba(0,0,0,.08)',
-      height: '100%'
+    className: " overflow-hidden rounded-3xl border border-white/25 bg-white/55 backdrop-blur-xl shadow-[0_8px_30px_rgba(15,23,42,.05)]",
+    styles: {
+      body: {
+        padding: 20
+      }
     },
-    bodyStyle: {
-      paddingTop: 8
-    },
-    children: children
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
+      className: "mb-5 flex items-center justify-between",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("h3", {
+          className: "text-[15px] font-semibold tracking-[-0.03em] text-slate-900",
+          children: title
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("p", {
+          className: "mt-1 text-[11px] text-slate-500",
+          children: "D\u1EEF li\u1EC7u tr\u1EF1c quan"
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
+        className: "flex items-center gap-2",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+          className: "h-2 w-2 rounded-full bg-emerald-500"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
+          className: "text-[10px] font-bold uppercase tracking-[0.08em] text-slate-400",
+          children: "Live"
+        })]
+      })]
+    }), children]
   });
 };
 
@@ -197684,8 +197710,8 @@ var DonutChart = function DonutChart(_ref3) {
             data: data,
             cx: "50%",
             cy: "50%",
-            innerRadius: 56,
-            outerRadius: 84,
+            innerRadius: 72,
+            outerRadius: 96,
             paddingAngle: 4,
             dataKey: "value",
             startAngle: 90,
@@ -197705,8 +197731,8 @@ var DonutChart = function DonutChart(_ref3) {
             y: "46%",
             textAnchor: "middle",
             dominantBaseline: "middle",
-            fontSize: 28,
-            fontWeight: 800,
+            fontSize: 36,
+            fontWeight: 900,
             fill: "#111",
             children: fmt(total)
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("text", {
@@ -197714,7 +197740,7 @@ var DonutChart = function DonutChart(_ref3) {
             y: "57%",
             textAnchor: "middle",
             dominantBaseline: "middle",
-            fontSize: 11,
+            fontSize: 12,
             fill: "#bbb",
             children: "T\u1ED5ng ph\xF2ng"
           })]
@@ -197725,7 +197751,7 @@ var DonutChart = function DonutChart(_ref3) {
         width: '100%',
         display: 'flex',
         flexDirection: 'column',
-        gap: 8,
+        gap: 12,
         marginTop: 4
       },
       children: data.map(function (item, i) {
@@ -197779,14 +197805,11 @@ var Dashboard = function Dashboard(_ref4) {
     thongKeLoaiThietBi = _ref4.thongKeLoaiThietBi,
     thongKeCoSo = _ref4.thongKeCoSo,
     thongKeTrangThaiPhong = _ref4.thongKeTrangThaiPhong;
-  var loaiPhongData = thongKeLoaiPhong.map(function (d, i) {
+  var loaiPhongData = thongKeLoaiPhong.map(function (d) {
     return {
       name: loaiPhongLabel(d.loai_phong),
-      soLuong: d.so_luong,
-      fill: C[i % C.length]
+      soLuong: d.so_luong
     };
-  }).sort(function (a, b) {
-    return (b.soLuong || 0) - (a.soLuong || 0);
   });
   var loaiThietBiData = thongKeLoaiThietBi.map(function (d) {
     return {
@@ -197863,7 +197886,7 @@ var Dashboard = function Dashboard(_ref4) {
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
             xs: 24,
             sm: 12,
-            lg: 8,
+            lg: 4,
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(KpiCard, _objectSpread({}, k))
           }, i);
         })
@@ -197886,26 +197909,38 @@ var Dashboard = function Dashboard(_ref4) {
                   left: -10,
                   bottom: 6
                 },
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_18__.CartesianGrid, {
-                  strokeDasharray: "2 4",
-                  stroke: "#eef2f7",
-                  vertical: false
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("defs", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("linearGradient", {
+                    id: "roomGradient",
+                    x1: "0",
+                    y1: "0",
+                    x2: "0",
+                    y2: "1",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("stop", {
+                      offset: "0%",
+                      stopColor: "#4f8cff"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("stop", {
+                      offset: "100%",
+                      stopColor: "#244380"
+                    })]
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_18__.CartesianGrid, {
+                  vertical: false,
+                  stroke: "#f1f5f9",
+                  strokeDasharray: "3 6"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_20__.XAxis, {
                   dataKey: "name",
                   tick: {
-                    fill: '#64748b',
-                    fontSize: 12
-                  },
-                  axisLine: false,
-                  tickLine: false
+                    fill: "#64748b",
+                    fontSize: 12,
+                    fontWeight: 600
+                  }
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_21__.YAxis, {
-                  allowDecimals: false,
                   tick: {
-                    fill: '#94a3b8',
-                    fontSize: 11
-                  },
-                  axisLine: false,
-                  tickLine: false
+                    fill: "#94a3b8",
+                    fontSize: 11,
+                    fontWeight: 500
+                  }
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_13__.Tooltip, _objectSpread(_objectSpread({}, tooltipStyle), {}, {
                   formatter: function formatter(v) {
                     return ["".concat(fmt(v), " ph\xF2ng"), 'Số lượng'];
@@ -197913,27 +197948,29 @@ var Dashboard = function Dashboard(_ref4) {
                 })), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_19__.Bar, {
                   dataKey: "soLuong",
                   name: "S\u1ED1 ph\xF2ng",
-                  fill: "#3b82f6",
-                  radius: [10, 10, 0, 0],
-                  maxBarSize: 54,
+                  fill: "url(#roomGradient)",
+                  radius: [999, 999, 0, 0],
+                  maxBarSize: 32,
                   background: {
-                    fill: '#eef2ff',
-                    radius: 10
+                    fill: "#f8fafc",
+                    radius: 999
                   },
                   isAnimationActive: true,
-                  animationDuration: 950,
-                  animationBegin: 120,
+                  animationDuration: 1000,
                   animationEasing: "ease-out",
                   activeBar: {
-                    fill: '#2563eb'
+                    fill: "#1d4ed8",
+                    stroke: "#93c5fd",
+                    strokeWidth: 1
                   },
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_16__.LabelList, {
                     dataKey: "soLuong",
                     position: "top",
                     style: {
-                      fontWeight: 700,
-                      fill: '#334155',
-                      fontSize: 12
+                      fontWeight: 800,
+                      fill: "#0f172a",
+                      fontSize: 13,
+                      fontFamily: "'Plus Jakarta Sans', sans-serif"
                     }
                   })
                 })]
@@ -198000,7 +198037,7 @@ var Dashboard = function Dashboard(_ref4) {
                 })), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_19__.Bar, {
                   dataKey: "soLuong",
                   name: "S\u1ED1 thi\u1EBFt b\u1ECB",
-                  fill: "#0f766e",
+                  fill: "url(#deviceGradient)",
                   radius: [0, 10, 10, 0],
                   maxBarSize: 24,
                   background: {
@@ -198044,23 +198081,19 @@ var Dashboard = function Dashboard(_ref4) {
                   bottom: 4
                 },
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("defs", {
-                  children: coSoData.map(function (_, i) {
-                    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("linearGradient", {
-                      id: "g".concat(i),
-                      x1: "0",
-                      y1: "0",
-                      x2: "0",
-                      y2: "1",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("stop", {
-                        offset: "0%",
-                        stopColor: C[i % C.length],
-                        stopOpacity: 1
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("stop", {
-                        offset: "100%",
-                        stopColor: C[i % C.length],
-                        stopOpacity: 0.25
-                      })]
-                    }, i);
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("linearGradient", {
+                    id: "roomGradient",
+                    x1: "0",
+                    y1: "0",
+                    x2: "0",
+                    y2: "1",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("stop", {
+                      offset: "0%",
+                      stopColor: "#5b8cff"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("stop", {
+                      offset: "100%",
+                      stopColor: "#244380"
+                    })]
                   })
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_18__.CartesianGrid, {
                   strokeDasharray: "0",
@@ -203320,7 +203353,7 @@ var Index = function Index(_ref) {
     title: 'STT',
     key: 'index',
     width: 60,
-    fixed: 'left',
+    // fixed: 'left',
     render: function render(text, record, index) {
       return (phongs.current_page - 1) * phongs.per_page + index + 1;
     }
@@ -203328,14 +203361,14 @@ var Index = function Index(_ref) {
     title: 'Mã phòng',
     dataIndex: 'ma_phong',
     key: 'ma_phong',
-    width: 120,
-    fixed: 'left'
+    width: 120
+    // fixed: 'left',
   }, {
     title: 'Tên phòng',
     dataIndex: 'ten_phong',
     key: 'ten_phong',
     width: 160,
-    fixed: 'left',
+    // fixed: 'left',
     ellipsis: true,
     render: function render(text) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("strong", {
@@ -206471,7 +206504,6 @@ var Index = function Index(_ref) {
     title: 'STT',
     key: 'index',
     width: 60,
-    fixed: 'left',
     align: 'center',
     render: function render(text, record, index) {
       return (thietBis.current_page - 1) * thietBis.per_page + index + 1;
@@ -206480,14 +206512,12 @@ var Index = function Index(_ref) {
     title: 'Mã TB',
     dataIndex: 'ma_thiet_bi',
     key: 'ma_thiet_bi',
-    width: 100,
-    fixed: 'left'
+    width: 100
   }, {
     title: 'Tên thiết bị',
     dataIndex: 'ten_thiet_bi',
     key: 'ten_thiet_bi',
     width: 200,
-    fixed: 'left',
     ellipsis: true,
     render: function render(text) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("strong", {

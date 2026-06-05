@@ -26,11 +26,11 @@ const Index = ({ phongs, khuNhas, danhSachTang, filters }) => {
     }, [phongs]);
 
     const handleSearch = (value) => {
-        router.get('/phong', { 
-            search: value, 
+        router.get('/phong', {
+            search: value,
             khu_nha_id: khuNhaFilter,
             loai_phong: loaiFilter,
-            tang: tangFilter 
+            tang: tangFilter
         }, {
             preserveState: true,
             replace: true,
@@ -39,11 +39,11 @@ const Index = ({ phongs, khuNhas, danhSachTang, filters }) => {
 
     const handleKhuNhaFilter = (value) => {
         setKhuNhaFilter(value);
-        router.get('/phong', { 
-            search: searchText, 
+        router.get('/phong', {
+            search: searchText,
             khu_nha_id: value,
             loai_phong: loaiFilter,
-            tang: tangFilter 
+            tang: tangFilter
         }, {
             preserveState: true,
             replace: true,
@@ -52,11 +52,11 @@ const Index = ({ phongs, khuNhas, danhSachTang, filters }) => {
 
     const handleLoaiFilter = (value) => {
         setLoaiFilter(value);
-        router.get('/phong', { 
-            search: searchText, 
+        router.get('/phong', {
+            search: searchText,
             khu_nha_id: khuNhaFilter,
             loai_phong: value,
-            tang: tangFilter 
+            tang: tangFilter
         }, {
             preserveState: true,
             replace: true,
@@ -65,11 +65,11 @@ const Index = ({ phongs, khuNhas, danhSachTang, filters }) => {
 
     const handleTangFilter = (value) => {
         setTangFilter(value);
-        router.get('/phong', { 
-            search: searchText, 
+        router.get('/phong', {
+            search: searchText,
             khu_nha_id: khuNhaFilter,
             loai_phong: loaiFilter,
-            tang: value 
+            tang: value
         }, {
             preserveState: true,
             replace: true,
@@ -144,7 +144,7 @@ const Index = ({ phongs, khuNhas, danhSachTang, filters }) => {
             title: 'STT',
             key: 'index',
             width: 60,
-            fixed: 'left',
+            // fixed: 'left',
             render: (text, record, index) => (phongs.current_page - 1) * phongs.per_page + index + 1,
         },
         {
@@ -152,14 +152,14 @@ const Index = ({ phongs, khuNhas, danhSachTang, filters }) => {
             dataIndex: 'ma_phong',
             key: 'ma_phong',
             width: 120,
-            fixed: 'left',
+            // fixed: 'left',
         },
         {
             title: 'Tên phòng',
             dataIndex: 'ten_phong',
             key: 'ten_phong',
             width: 160,
-            fixed: 'left',
+            // fixed: 'left',
             ellipsis: true,
             render: (text) => <strong>{text}</strong>,
         },
@@ -305,9 +305,9 @@ const Index = ({ phongs, khuNhas, danhSachTang, filters }) => {
                                 allowClear
                                 value={khuNhaFilter || undefined}
                                 onChange={handleKhuNhaFilter}
-                                options={khuNhas.map(kn => ({ 
-                                    value: kn.id, 
-                                    label: `${kn.ten_khu_nha} - ${kn.co_so.ten_co_so}` 
+                                options={khuNhas.map(kn => ({
+                                    value: kn.id,
+                                    label: `${kn.ten_khu_nha} - ${kn.co_so.ten_co_so}`
                                 }))}
                             />
                         </Col>
@@ -336,9 +336,9 @@ const Index = ({ phongs, khuNhas, danhSachTang, filters }) => {
                                 allowClear
                                 value={tangFilter !== '' ? tangFilter : undefined}
                                 onChange={handleTangFilter}
-                                options={danhSachTang?.map(t => ({ 
-                                    value: t, 
-                                    label: t === 0 ? 'Tầng trệt' : `Tầng ${t}` 
+                                options={danhSachTang?.map(t => ({
+                                    value: t,
+                                    label: t === 0 ? 'Tầng trệt' : `Tầng ${t}`
                                 })) || []}
                             />
                         </Col>
@@ -357,28 +357,28 @@ const Index = ({ phongs, khuNhas, danhSachTang, filters }) => {
                         <Table
                             columns={columns}
                             dataSource={phongs.data}
-                        rowKey="id"
-                        scroll={{ x: 1550 }}
-                        pagination={{
-                            current: phongs.current_page,
-                            pageSize: phongs.per_page,
-                            total: phongs.total,
-                            showSizeChanger: true,
-                            showTotal: (total) => `Tổng số ${total} phòng`,
-                            onChange: (page, pageSize) => {
-                                router.get('/phong', {
-                                    page,
-                                    per_page: pageSize,
-                                    search: searchText,
-                                    khu_nha_id: khuNhaFilter,
-                                    loai_phong: loaiFilter,
-                                    tang: tangFilter,
-                                }, {
-                                    preserveState: true,
-                                    replace: true,
-                                });
-                            },
-                        }}
+                            rowKey="id"
+                            scroll={{ x: 1550 }}
+                            pagination={{
+                                current: phongs.current_page,
+                                pageSize: phongs.per_page,
+                                total: phongs.total,
+                                showSizeChanger: true,
+                                showTotal: (total) => `Tổng số ${total} phòng`,
+                                onChange: (page, pageSize) => {
+                                    router.get('/phong', {
+                                        page,
+                                        per_page: pageSize,
+                                        search: searchText,
+                                        khu_nha_id: khuNhaFilter,
+                                        loai_phong: loaiFilter,
+                                        tang: tangFilter,
+                                    }, {
+                                        preserveState: true,
+                                        replace: true,
+                                    });
+                                },
+                            }}
                         />
                     )}
                 </Card>

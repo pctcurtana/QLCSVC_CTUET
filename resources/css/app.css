@@ -2,26 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
+
+
 @layer components {
+
   /* Custom Sider styling with Tailwind */
   .custom-sidebar {
-    @apply !bg-[#f8fafd] border-r border-[#6378c8]/10 shadow-[2px_0_12px_rgba(36,67,128,0.06)] !important;
+    @apply !bg-[#f8fafd] border-r border-[#6378c8]/10;
+    box-shadow: 2px 0 12px rgba(36, 67, 128, 0.06);
   }
 
   .custom-sidebar .ant-menu {
     @apply !bg-transparent !border-none p-[12px_8px] !important;
   }
 
-  .custom-sidebar .ant-menu-item, 
+  .custom-sidebar .ant-menu-item,
   .custom-sidebar .ant-menu-submenu-title {
-    @apply !text-[#7b90b8] !text-[13px] !font-medium !rounded-lg my-1 mx-0 px-3 py-0 !h-9 !leading-9 transition-all duration-[180ms] ease-[cubic-bezier(0.4,0,0.2,1)] relative !important;
+    @apply !text-[#7b90b8] !text-[13px] !font-medium !rounded-lg my-1 mx-0 px-3 py-0 !h-9 !leading-9 transition-all relative;
+
+    transition-duration: 180ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .custom-sidebar .ant-menu-item-icon {
     @apply !text-base transition-all duration-[180ms] ease-out w-5 flex items-center justify-center !important;
   }
 
-  .custom-sidebar .ant-menu-item:hover, 
+  .custom-sidebar .ant-menu-item:hover,
   .custom-sidebar .ant-menu-submenu-title:hover {
     @apply !text-[#244380] !bg-[#244380]/[0.08] !important;
   }
@@ -127,7 +135,8 @@
     display: inline-block !important;
     vertical-align: middle !important;
     line-height: 40px !important;
-    margin-left: 2px !important; /* Adjust visual centering as requested */
+    margin-left: 2px !important;
+    /* Adjust visual centering as requested */
   }
 
   /* Force hide invisible text content span when collapsed to prevent shifting the icon */
@@ -156,6 +165,7 @@
   animation: aurora-float 20s infinite alternate ease-in-out;
   will-change: transform;
 }
+
 .orb-1 {
   width: 450px;
   height: 450px;
@@ -163,6 +173,7 @@
   top: -10%;
   left: -5%;
 }
+
 .orb-2 {
   width: 550px;
   height: 550px;
@@ -171,6 +182,7 @@
   right: -5%;
   animation-delay: -5s;
 }
+
 .orb-3 {
   width: 380px;
   height: 380px;
@@ -181,9 +193,17 @@
 }
 
 @keyframes aurora-float {
-  0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(60px, -40px) scale(1.1); }
-  100% { transform: translate(-30px, 50px) scale(0.9); }
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate(60px, -40px) scale(1.1);
+  }
+
+  100% {
+    transform: translate(-30px, 50px) scale(0.9);
+  }
 }
 
 /* --- Initial Loader Screen --- */
@@ -265,14 +285,31 @@
 }
 
 @keyframes logo-pulse {
-  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 12px rgba(59, 130, 246, 0.3)); }
-  50% { transform: scale(1.05); filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.6)); }
+
+  0%,
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 12px rgba(59, 130, 246, 0.3));
+  }
+
+  50% {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.6));
+  }
 }
 
 @keyframes loader-fill {
-  0% { transform: translateX(-100%); }
-  50% { transform: translateX(150%); }
-  100% { transform: translateX(250%); }
+  0% {
+    transform: translateX(-100%);
+  }
+
+  50% {
+    transform: translateX(150%);
+  }
+
+  100% {
+    transform: translateX(250%);
+  }
 }
 
 /* --- Page Entrance Transition --- */
@@ -286,6 +323,7 @@
     transform: translateY(16px);
     filter: blur(4px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -329,7 +367,11 @@
 }
 
 /* Input, Selector and Table elements */
-.ant-input, .ant-input-password, .ant-input-affix-wrapper, .ant-select-selector, .ant-picker {
+.ant-input,
+.ant-input-password,
+.ant-input-affix-wrapper,
+.ant-select-selector,
+.ant-picker {
   background: rgba(255, 255, 255, 0.35) !important;
   backdrop-filter: blur(8px) !important;
   -webkit-backdrop-filter: blur(8px) !important;
@@ -344,14 +386,20 @@
   border: none !important;
 }
 
-.ant-input:focus, .ant-input-affix-wrapper-focused, .ant-select-selector:focus, .ant-picker-focused {
+.ant-input:focus,
+.ant-input-affix-wrapper-focused,
+.ant-select-selector:focus,
+.ant-picker-focused {
   background: rgba(255, 255, 255, 0.6) !important;
   border-color: #244380 !important;
   box-shadow: 0 0 0 3px rgba(36, 67, 128, 0.12) !important;
 }
 
 /* Modals & Dropdown popovers */
-.ant-modal-content, .ant-dropdown-menu, .ant-select-dropdown, .ant-popover-content {
+.ant-modal-content,
+.ant-dropdown-menu,
+.ant-select-dropdown,
+.ant-popover-content {
   background: rgba(255, 255, 255, 0.75) !important;
   backdrop-filter: blur(24px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
@@ -360,12 +408,28 @@
   box-shadow: 0 12px 48px rgba(31, 38, 135, 0.08) !important;
 }
 
+.ant-modal-header {
+  padding: 12px 24px !important;
+}
+
+.ant-modal-close {
+  top: 26px !important;
+  right: 24px !important;
+}
+
+.ant-modal-mask {
+  backdrop-filter: blur(10px) saturate(140%) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(140%) !important;
+
+  background: rgba(15, 23, 42, 0.18) !important;
+}
+
 /* Table styling adjustments */
 .ant-table {
   background: transparent !important;
 }
 
-.ant-table-thead > tr > th {
+.ant-table-thead>tr>th {
   background: rgba(255, 255, 255, 0.45) !important;
   backdrop-filter: blur(10px) !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
@@ -373,12 +437,39 @@
   color: #1e293b !important;
 }
 
-.ant-table-tbody > tr > td {
+.ant-table-tbody>tr>td {
   border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
 }
 
-.ant-table-tbody > tr:hover > td {
+.ant-table-tbody>tr:hover>td {
   background: rgba(36, 67, 128, 0.05) !important;
+}
+
+/* fix cột edit bị ghi đè */
+.ant-table-cell-fix-right,
+.ant-table-cell-fix-right-first,
+.ant-table-cell-fix-right-last {
+  background: rgba(255, 255, 255, 0.55) !important;
+
+  backdrop-filter: blur(28px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(180%) !important;
+
+  border-left: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+.ant-table-cell-fix-right-first::before {
+  content: "";
+  position: absolute;
+  left: -32px;
+  top: 0;
+  width: 32px;
+  height: 100%;
+
+  background: linear-gradient(to left,
+      rgba(255, 255, 255, 0.55),
+      transparent);
+
+  pointer-events: none;
 }
 
 /* Buttons */
@@ -402,4 +493,4 @@
   border-radius: 6px !important;
   border: 1px solid rgba(255, 255, 255, 0.25) !important;
   backdrop-filter: blur(4px) !important;
-}
+}

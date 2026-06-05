@@ -26,11 +26,11 @@ const Index = ({ thietBis, phongs, coSos, filters }) => {
     }, [thietBis]);
 
     const handleSearch = (value) => {
-        router.get('/thiet-bi', { 
-            search: value, 
+        router.get('/thiet-bi', {
+            search: value,
             phong_id: phongFilter,
             loai_thiet_bi: loaiFilter,
-            co_so_id: coSoFilter 
+            co_so_id: coSoFilter
         }, {
             preserveState: true,
             replace: true,
@@ -39,11 +39,11 @@ const Index = ({ thietBis, phongs, coSos, filters }) => {
 
     const handlePhongFilter = (value) => {
         setPhongFilter(value);
-        router.get('/thiet-bi', { 
-            search: searchText, 
+        router.get('/thiet-bi', {
+            search: searchText,
             phong_id: value,
             loai_thiet_bi: loaiFilter,
-            co_so_id: coSoFilter 
+            co_so_id: coSoFilter
         }, {
             preserveState: true,
             replace: true,
@@ -52,11 +52,11 @@ const Index = ({ thietBis, phongs, coSos, filters }) => {
 
     const handleLoaiFilter = (value) => {
         setLoaiFilter(value);
-        router.get('/thiet-bi', { 
-            search: searchText, 
+        router.get('/thiet-bi', {
+            search: searchText,
             phong_id: phongFilter,
             loai_thiet_bi: value,
-            co_so_id: coSoFilter 
+            co_so_id: coSoFilter
         }, {
             preserveState: true,
             replace: true,
@@ -65,11 +65,11 @@ const Index = ({ thietBis, phongs, coSos, filters }) => {
 
     const handleCoSoFilter = (value) => {
         setCoSoFilter(value);
-        router.get('/thiet-bi', { 
-            search: searchText, 
+        router.get('/thiet-bi', {
+            search: searchText,
             phong_id: phongFilter,
             loai_thiet_bi: loaiFilter,
-            co_so_id: value 
+            co_so_id: value
         }, {
             preserveState: true,
             replace: true,
@@ -145,7 +145,6 @@ const Index = ({ thietBis, phongs, coSos, filters }) => {
             title: 'STT',
             key: 'index',
             width: 60,
-            fixed: 'left',
             align: 'center',
             render: (text, record, index) => (thietBis.current_page - 1) * thietBis.per_page + index + 1,
         },
@@ -154,14 +153,12 @@ const Index = ({ thietBis, phongs, coSos, filters }) => {
             dataIndex: 'ma_thiet_bi',
             key: 'ma_thiet_bi',
             width: 100,
-            fixed: 'left',
         },
         {
             title: 'Tên thiết bị',
             dataIndex: 'ten_thiet_bi',
             key: 'ten_thiet_bi',
             width: 200,
-            fixed: 'left',
             ellipsis: true,
             render: (text) => <strong>{text}</strong>,
         },
@@ -323,9 +320,9 @@ const Index = ({ thietBis, phongs, coSos, filters }) => {
                                 optionFilterProp="label"
                                 value={coSoFilter || undefined}
                                 onChange={handleCoSoFilter}
-                                options={coSos?.map(cs => ({ 
-                                    value: cs.id, 
-                                    label: cs.ten_co_so 
+                                options={coSos?.map(cs => ({
+                                    value: cs.id,
+                                    label: cs.ten_co_so
                                 })) || []}
                             />
                         </Col>
@@ -339,9 +336,9 @@ const Index = ({ thietBis, phongs, coSos, filters }) => {
                                 optionFilterProp="label"
                                 value={phongFilter || undefined}
                                 onChange={handlePhongFilter}
-                                options={phongs.map(p => ({ 
-                                    value: p.id, 
-                                    label: `${p.ten_phong} - ${p.khu_nha.ten_khu_nha}` 
+                                options={phongs.map(p => ({
+                                    value: p.id,
+                                    label: `${p.ten_phong} - ${p.khu_nha.ten_khu_nha}`
                                 }))}
                             />
                         </Col>
@@ -376,28 +373,28 @@ const Index = ({ thietBis, phongs, coSos, filters }) => {
                         <Table
                             columns={columns}
                             dataSource={thietBis.data}
-                        rowKey="id"
-                        scroll={{ x: 1500 }}
-                        pagination={{
-                            current: thietBis.current_page,
-                            pageSize: thietBis.per_page,
-                            total: thietBis.total,
-                            showSizeChanger: true,
-                            showTotal: (total) => `Tổng số ${total} thiết bị`,
-                            onChange: (page, pageSize) => {
-                                router.get('/thiet-bi', {
-                                    page,
-                                    per_page: pageSize,
-                                    search: searchText,
-                                    phong_id: phongFilter,
-                                    loai_thiet_bi: loaiFilter,
-                                    co_so_id: coSoFilter,
-                                }, {
-                                    preserveState: true,
-                                    replace: true,
-                                });
-                            },
-                        }}
+                            rowKey="id"
+                            scroll={{ x: 1500 }}
+                            pagination={{
+                                current: thietBis.current_page,
+                                pageSize: thietBis.per_page,
+                                total: thietBis.total,
+                                showSizeChanger: true,
+                                showTotal: (total) => `Tổng số ${total} thiết bị`,
+                                onChange: (page, pageSize) => {
+                                    router.get('/thiet-bi', {
+                                        page,
+                                        per_page: pageSize,
+                                        search: searchText,
+                                        phong_id: phongFilter,
+                                        loai_thiet_bi: loaiFilter,
+                                        co_so_id: coSoFilter,
+                                    }, {
+                                        preserveState: true,
+                                        replace: true,
+                                    });
+                                },
+                            }}
                         />
                     )}
                 </Card>
