@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { router, usePage, Head } from '@inertiajs/react';
 import MainLayout from '../Layout/MainLayout';
 import usePermission from '../../hooks/usePermission';
+import KpiCard from '../Common/KpiCard';
 import {
     Card, Table, Typography, Space, Tag, Button, Modal,
     Input, Select, Row, Col, Statistic, Badge, Tooltip, Popconfirm,
@@ -155,10 +156,12 @@ const BaoCaoSuCoIndex = ({ baoCaos, stats, filters }) => {
                 <Row gutter={16}>
                     {kpiCards.map((k, i) => (
                         <Col xs={24} sm={12} md={6} key={i}>
-                            <Card>
-                                <Statistic title={k.title} value={k.value} prefix={k.icon}
-                                    valueStyle={{ color: k.color }} />
-                            </Card>
+                            <KpiCard 
+                                title={k.title} 
+                                value={k.value} 
+                                icon={k.icon} 
+                                color={k.color} 
+                            />
                         </Col>
                     ))}
                 </Row>

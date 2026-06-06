@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import MainLayout from '../Layout/MainLayout';
 import { Head, router } from '@inertiajs/react';
+import KpiCard from '../Common/KpiCard';
 import {
     Badge,
     Button,
@@ -132,15 +133,30 @@ const DotKiemTraThietBiIndex = ({ dotKiemTras, filters, stats }) => {
         <MainLayout>
             <Head title="Đợt kiểm tra thiết bị" />
             <Space direction="vertical" size="large" style={{ width: '100%' }}>
-                <Row gutter={16}>
+                <Row gutter={[16, 16]}>
                     <Col xs={24} sm={8}>
-                        <Card><Statistic title="Tổng đợt" value={stats?.tong ?? 0} prefix={<CalendarOutlined />} /></Card>
+                        <KpiCard 
+                            title="Tổng đợt" 
+                            value={stats?.tong ?? 0} 
+                            icon={<CalendarOutlined />} 
+                            color="#1890ff" 
+                        />
                     </Col>
                     <Col xs={24} sm={8}>
-                        <Card><Statistic title="Đang active" value={stats?.dang_active ?? 0} valueStyle={{ color: '#52c41a' }} prefix={<CheckCircleOutlined />} /></Card>
+                        <KpiCard 
+                            title="Đang active" 
+                            value={stats?.dang_active ?? 0} 
+                            icon={<CheckCircleOutlined />} 
+                            color="#52c41a" 
+                        />
                     </Col>
                     <Col xs={24} sm={8}>
-                        <Card><Statistic title="Chưa active" value={stats?.chua_active ?? 0} valueStyle={{ color: '#fa8c16' }} prefix={<ToolOutlined />} /></Card>
+                        <KpiCard 
+                            title="Chưa active" 
+                            value={stats?.chua_active ?? 0} 
+                            icon={<ToolOutlined />} 
+                            color="#fa8c16" 
+                        />
                     </Col>
                 </Row>
 

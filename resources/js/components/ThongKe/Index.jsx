@@ -12,6 +12,7 @@ import {
     XAxis, YAxis, CartesianGrid, Tooltip as RTooltip,
     Legend, ResponsiveContainer, LineChart, Line, Area, AreaChart,
 } from 'recharts';
+import KpiCard from '../Common/KpiCard';
 
 const { Title, Text } = Typography;
 
@@ -180,10 +181,7 @@ const TabCoSo = ({ data }) => {
                     { title: 'Đang hoạt động',  value: tq?.co_so_hoat_dong,                                      icon: <BankOutlined />,       color: P.green },
                 ].map((item, i) => (
                     <Col xs={24} sm={12} lg={6} key={i}>
-                        <Card bordered={false} style={{ borderRadius: 10, boxShadow: '0 1px 6px rgba(0,0,0,.06)' }}>
-                            <Statistic title={item.title} value={item.value} prefix={item.icon}
-                                valueStyle={{ color: item.color, fontWeight: 700 }} />
-                        </Card>
+                        <KpiCard title={item.title} value={item.value} icon={item.icon} color={item.color} />
                     </Col>
                 ))}
             </Row>
@@ -334,10 +332,7 @@ const TabKhuNha = ({ data, danhSachCoSo }) => {
                     { title: 'Đang hoạt động', value: tq?.khu_nha_hoat_dong,                                       icon: <HomeOutlined />,       color: P.green },
                 ].map((item, i) => (
                     <Col xs={24} sm={12} lg={6} key={i}>
-                        <Card bordered={false} style={{ borderRadius: 10, boxShadow: '0 1px 6px rgba(0,0,0,.06)' }}>
-                            <Statistic title={item.title} value={item.value} prefix={item.icon}
-                                valueStyle={{ color: item.color, fontWeight: 700 }} />
-                        </Card>
+                        <KpiCard title={item.title} value={item.value} icon={item.icon} color={item.color} />
                     </Col>
                 ))}
             </Row>
@@ -516,10 +511,7 @@ const TabPhong = ({ data, danhSachCoSo, danhSachKhuNha }) => {
                     { title: 'Đang bảo trì',  value: tq?.phong_bao_tri,                         icon: <WarningOutlined />,  color: P.orange },
                 ].map((item, i) => (
                     <Col xs={24} sm={12} lg={6} key={i}>
-                        <Card bordered={false} style={{ borderRadius: 10, boxShadow: '0 1px 6px rgba(0,0,0,.06)' }}>
-                            <Statistic title={item.title} value={item.value} prefix={item.icon}
-                                valueStyle={{ color: item.color, fontWeight: 700 }} />
-                        </Card>
+                        <KpiCard title={item.title} value={item.value} icon={item.icon} color={item.color} />
                     </Col>
                 ))}
             </Row>
@@ -726,10 +718,7 @@ const TabThietBi = ({ data, danhSachCoSo, danhSachKhuNha, danhSachPhong }) => {
                     { title: 'Đang hoạt động', value: tq?.dang_hoat_dong,             icon: <ToolOutlined />,    color: P.green },
                 ].map((item, i) => (
                     <Col xs={24} sm={12} lg={6} key={i}>
-                        <Card bordered={false} style={{ borderRadius: 10, boxShadow: '0 1px 6px rgba(0,0,0,.06)' }}>
-                            <Statistic title={item.title} value={item.value} prefix={item.icon}
-                                valueStyle={{ color: item.color, fontWeight: 700, fontSize: i === 1 ? 18 : 24 }} />
-                        </Card>
+                        <KpiCard title={item.title} value={item.value} icon={item.icon} color={item.color} />
                     </Col>
                 ))}
             </Row>

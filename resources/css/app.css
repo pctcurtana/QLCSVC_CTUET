@@ -438,7 +438,7 @@
 }
 
 .ant-table-tbody>tr>td {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-bottom: 0.2px solid #dbe4ee !important;
 }
 
 .ant-table-tbody>tr:hover>td {
@@ -493,4 +493,38 @@
   border-radius: 6px !important;
   border: 1px solid rgba(255, 255, 255, 0.25) !important;
   backdrop-filter: blur(4px) !important;
+}
+
+/* Global Typography Standard - Ensures all fonts are uniform & Vietnamese accents render flawlessly */
+body,
+html,
+input,
+button,
+select,
+textarea,
+.ant-typography {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+}
+
+/* Login Page Specific Layout & Scanner Animation */
+.login-grid-bg {
+  background-image: linear-gradient(rgba(36, 67, 128, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(36, 67, 128, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+@keyframes laser-scan {
+
+  0%,
+  100% {
+    top: 10%;
+  }
+
+  50% {
+    top: 90%;
+  }
+}
+
+.animate-laser {
+  animation: laser-scan 4s linear infinite;
 }

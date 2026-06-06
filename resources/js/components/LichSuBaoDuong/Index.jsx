@@ -17,6 +17,7 @@ import {
 import { Link, router, Head } from '@inertiajs/react';
 import dayjs from 'dayjs';
 import usePermission from '../../hooks/usePermission';
+import KpiCard from '../Common/KpiCard';
 
 const { Text, Title } = Typography;
 
@@ -207,14 +208,12 @@ const Index = ({ lichSuBaoDuongs, thietBis, filters, stats }) => {
                 <Row gutter={16}>
                     {kpiCards.map((k, i) => (
                         <Col xs={24} sm={12} md={6} key={i}>
-                            <Card>
-                                <Statistic 
-                                    title={k.title} 
-                                    value={k.formatter ? k.formatter(k.value) : k.value} 
-                                    prefix={k.icon}
-                                    valueStyle={{ color: k.color, fontSize: k.formatter ? 18 : 24 }} 
-                                />
-                            </Card>
+                            <KpiCard 
+                                title={k.title} 
+                                value={k.formatter ? k.formatter(k.value) : k.value} 
+                                icon={k.icon} 
+                                color={k.color} 
+                            />
                         </Col>
                     ))}
                 </Row>

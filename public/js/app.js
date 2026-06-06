@@ -194390,6 +194390,7 @@ var map = {
 	"./CoSo/Create.jsx": "./resources/js/components/CoSo/Create.jsx",
 	"./CoSo/Edit.jsx": "./resources/js/components/CoSo/Edit.jsx",
 	"./CoSo/Index.jsx": "./resources/js/components/CoSo/Index.jsx",
+	"./Common/KpiCard.jsx": "./resources/js/components/Common/KpiCard.jsx",
 	"./Dashboard.jsx": "./resources/js/components/Dashboard.jsx",
 	"./DotKiemTraThietBi/Index.jsx": "./resources/js/components/DotKiemTraThietBi/Index.jsx",
 	"./KhuNha/Create.jsx": "./resources/js/components/KhuNha/Create.jsx",
@@ -194455,14 +194456,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inertiajs_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @inertiajs/react */ "./node_modules/@inertiajs/react/dist/index.esm.js");
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/alert/index.js");
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/button/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/card/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/checkbox/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/form/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/input/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/message/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/typography/index.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/LockOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/LoginOutlined.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/checkbox/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/form/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/input/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/message/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/typography/index.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/LockOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/LoginOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/QrcodeOutlined.js");
 /* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/UserOutlined.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
@@ -194476,8 +194477,7 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
 
 
-var Title = antd__WEBPACK_IMPORTED_MODULE_9__["default"].Title,
-  Text = antd__WEBPACK_IMPORTED_MODULE_9__["default"].Text;
+var Text = antd__WEBPACK_IMPORTED_MODULE_8__["default"].Text;
 var Login = function Login() {
   var _usePage$props = (0,_inertiajs_react__WEBPACK_IMPORTED_MODULE_1__.usePage)().props,
     errors = _usePage$props.errors,
@@ -194498,10 +194498,10 @@ var Login = function Login() {
     reset = _useForm.reset;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (flash !== null && flash !== void 0 && flash.success) {
-      antd__WEBPACK_IMPORTED_MODULE_8__["default"].success(flash.success);
+      antd__WEBPACK_IMPORTED_MODULE_7__["default"].success(flash.success);
     }
     if (flash !== null && flash !== void 0 && flash.error) {
-      antd__WEBPACK_IMPORTED_MODULE_8__["default"].error(flash.error);
+      antd__WEBPACK_IMPORTED_MODULE_7__["default"].error(flash.error);
     }
   }, [flash]);
   var handleSubmit = function handleSubmit() {
@@ -194515,220 +194515,206 @@ var Login = function Login() {
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_inertiajs_react__WEBPACK_IMPORTED_MODULE_1__.Head, {
-      title: "\u0110\u0103ng nh\u1EADp"
+      title: "\u0110\u0103ng nh\u1EADp - QLCSVC CTUET"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
-      style: {
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        background: 'radial-gradient(circle at center, #0f172a 0%, #020617 100%)',
-        padding: '20px',
-        position: 'relative',
-        overflow: 'hidden'
-      },
+      className: "min-h-screen md:h-screen flex flex-col md:flex-row w-full overflow-hidden text-[#0f172a] select-none relative",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
-        className: "glow-orb orb-1",
-        style: {
-          opacity: 0.25,
-          zIndex: 1
-        }
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
-        className: "glow-orb orb-2",
-        style: {
-          opacity: 0.2,
-          zIndex: 1
-        }
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        style: {
-          width: '100%',
-          maxWidth: 420,
-          background: 'rgba(255, 255, 255, 0.06)',
-          backdropFilter: 'blur(20px)',
-          WebkitBackdropFilter: 'blur(20px)',
-          border: '1px solid rgba(255, 255, 255, 0.12)',
-          boxShadow: '0 20px 50px rgba(0, 0, 0, 0.3)',
-          borderRadius: 24,
-          zIndex: 10,
-          position: 'relative'
-        },
-        bodyStyle: {
-          padding: '40px 32px'
-        },
+        className: "absolute inset-0 login-grid-bg opacity-80 z-0 pointer-events-none"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+        className: "hidden md:flex md:w-[45%] lg:w-[50%] flex-col justify-between p-16 relative z-10",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
-          style: {
-            textAlign: 'center',
-            marginBottom: 32
-          },
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
-            style: {
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginBottom: 16
-            },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("img", {
-              src: "/images/logoctuet.png",
-              alt: "Logo",
-              style: {
-                width: 100,
-                height: 100,
-                filter: 'drop-shadow(0 0 16px rgba(59, 130, 246, 0.4))'
-              },
-              onError: function onError(e) {
-                e.target.src = '/favicon.png';
-              }
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__["default"].Title, {
-            level: 3,
-            style: {
-              margin: 0,
-              color: '#ffffff',
-              fontSize: 20,
-              fontWeight: 700,
-              letterSpacing: '0.5px'
-            },
-            children: "H\u1EC6 TH\u1ED0NG QLCSVC"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(Text, {
-            style: {
-              fontSize: 13,
-              color: '#94a3b8',
-              marginTop: 4,
-              display: 'block'
-            },
-            children: "Tr\u01B0\u1EDDng \u0110\u1EA1i H\u1ECDc K\u1EF9 Thu\u1EADt C\xF4ng Ngh\u1EC7 C\u1EA7n Th\u01A1"
+          className: "flex items-center gap-3",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("img", {
+            src: "/images/logoctuet.png",
+            alt: "Logo CTUET",
+            className: "w-9 h-9 object-contain",
+            onError: function onError(e) {
+              e.target.src = '/favicon.png';
+            }
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+            className: "h-5 w-[1px] bg-[#244380]/15"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+            className: "text-xs font-bold text-[#244380]/70 uppercase tracking-widest block font-mono",
+            children: "Can Tho University of Technology"
           })]
-        }), errors.email && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
-          message: errors.email,
-          type: "error",
-          showIcon: true,
-          style: {
-            marginBottom: 24,
-            borderRadius: 10,
-            background: 'rgba(239, 68, 68, 0.15)',
-            border: '1px solid rgba(239, 68, 68, 0.25)',
-            color: '#fca5a5'
-          }
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
-          layout: "vertical",
-          onFinish: handleSubmit,
-          autoComplete: "off",
-          size: "large",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
-            label: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
-              style: {
-                fontWeight: 500,
-                color: '#e2e8f0'
-              },
-              children: "Email"
-            }),
-            validateStatus: errors.email ? 'error' : '',
-            style: {
-              marginBottom: 20
-            },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
-              prefix: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_12__["default"], {
-                style: {
-                  color: '#52a3ff'
-                }
-              }),
-              placeholder: "Nh\u1EADp email c\u1EE7a b\u1EA1n",
-              value: data.email,
-              onChange: function onChange(e) {
-                return setData('email', e.target.value);
-              },
-              style: {
-                height: 48,
-                borderRadius: 12,
-                fontSize: 15,
-                background: 'rgba(255, 255, 255, 0.05)',
-                border: '1px solid rgba(255, 255, 255, 0.15)',
-                color: '#fff'
-              }
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
-            label: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
-              style: {
-                fontWeight: 500,
-                color: '#e2e8f0'
-              },
-              children: "M\u1EADt kh\u1EA9u"
-            }),
-            validateStatus: errors.password ? 'error' : '',
-            help: errors.password,
-            style: {
-              marginBottom: 20
-            },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"].Password, {
-              prefix: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_10__["default"], {
-                style: {
-                  color: '#52a3ff'
-                }
-              }),
-              placeholder: "Nh\u1EADp m\u1EADt kh\u1EA9u",
-              value: data.password,
-              onChange: function onChange(e) {
-                return setData('password', e.target.value);
-              },
-              style: {
-                height: 48,
-                borderRadius: 12,
-                fontSize: 15,
-                background: 'rgba(255, 255, 255, 0.05)',
-                border: '1px solid rgba(255, 255, 255, 0.15)',
-                color: '#fff'
-              }
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
-            style: {
-              marginBottom: 24
-            },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
-              checked: data.remember,
-              onChange: function onChange(e) {
-                return setData('remember', e.target.checked);
-              },
-              style: {
-                color: '#cbd5e1'
-              },
-              children: "Ghi nh\u1EDB \u0111\u0103ng nh\u1EADp"
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
-            style: {
-              marginBottom: 0
-            },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
-              type: "primary",
-              htmlType: "submit",
-              loading: processing || loading,
-              block: true,
-              style: {
-                height: 50,
-                borderRadius: 12,
-                fontSize: 16,
-                fontWeight: 600,
-                background: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
-                border: 'none',
-                boxShadow: '0 8px 24px rgba(59, 130, 246, 0.45)'
-              },
-              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_11__["default"], {}),
-              children: "\u0110\u0103ng nh\u1EADp"
-            })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+          className: "my-auto max-w-[420px]",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("h1", {
+            className: "text-4xl lg:text-5xl font-extrabold tracking-tight leading-[1.15] text-[#0f172a] m-0",
+            children: ["H\u1EC7 th\u1ED1ng", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+              className: "bg-gradient-to-r from-[#244380] via-[#3b82f6] to-[#00c9a7] bg-clip-text text-transparent",
+              children: "Qu\u1EA3n l\xFD thi\u1EBFt b\u1ECB"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("br", {}), "th\u1EBF h\u1EC7 m\u1EDBi."]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
+            className: "text-xs text-slate-500 mt-5 leading-relaxed font-light m-0",
+            children: "S\u1ED1 h\xF3a t\xE0i s\u1EA3n, t\u1ED1i \u01B0u h\xF3a c\xF4ng t\xE1c ki\u1EC3m k\xEA v\xE0 b\u1EA3o tr\xEC \u0111\u1ECBnh k\u1EF3 th\xF4ng qua quy tr\xECnh QR Code th\xF4ng minh."
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+            className: "mt-10 relative w-40 h-40 border border-[#244380]/10 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center overflow-hidden group shadow-[0_8px_30px_rgba(36,67,128,0.02)]",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+              className: "absolute top-4 left-4 w-4 h-4 border-t-2 border-l-2 border-[#244380]/40 rounded-tl"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+              className: "absolute top-4 right-4 w-4 h-4 border-t-2 border-r-2 border-[#244380]/40 rounded-tr"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+              className: "absolute bottom-4 left-4 w-4 h-4 border-b-2 border-l-2 border-[#244380]/40 rounded-bl"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+              className: "absolute bottom-4 right-4 w-4 h-4 border-b-2 border-r-2 border-[#244380]/40 rounded-br"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_11__["default"], {
+              className: "text-[#244380]/10 text-6xl transition-all duration-700 group-hover:text-[#244380]/20 group-hover:scale-105"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+              className: "absolute left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-[#244380] to-transparent shadow-[0_0_6px_rgba(36,67,128,0.2)] animate-laser"
+            })]
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
-          style: {
-            textAlign: 'center',
-            marginTop: 24,
-            paddingTop: 24,
-            borderTop: '1px solid rgba(255, 255, 255, 0.1)'
-          },
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(Text, {
+          className: "text-[9px] text-[#244380]/50 tracking-wider uppercase font-mono",
+          children: "quanlycsvc.ctuet.edu.vn"
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+        className: "w-full md:w-[55%] lg:w-[50%] flex flex-col justify-between p-8 sm:p-16 relative z-10 border-l border-slate-200/40 bg-white/10 backdrop-blur-2xl",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+          className: "flex md:hidden items-center justify-center gap-3 mt-4",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("img", {
+            src: "/images/logoctuet.png",
+            alt: "Logo CTUET",
+            className: "w-8 h-8 object-contain",
+            onError: function onError(e) {
+              e.target.src = '/favicon.png';
+            }
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+            className: "text-xs font-bold tracking-widest text-[#244380] font-sans uppercase",
+            children: "Can Tho University of Technology"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+          className: "hidden md:block h-6"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+          className: "my-auto py-8 w-full max-w-[380px] mx-auto",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
             style: {
-              fontSize: 13,
-              color: '#64748b'
+              background: 'rgba(255, 255, 255, 0.45)',
+              backdropFilter: 'blur(24px)',
+              WebkitBackdropFilter: 'blur(24px)',
+              border: '1px solid rgba(255, 255, 255, 0.5)',
+              borderRadius: 20,
+              boxShadow: '0 20px 40px rgba(31, 38, 135, 0.05)',
+              padding: '36px 32px'
             },
-            children: "\xA9 Tr\u01B0\u1EDDng \u0110\u1EA1i H\u1ECDc K\u1EF9 Thu\u1EADt C\xF4ng Ngh\u1EC7 C\u1EA7n Th\u01A1"
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+              className: "mb-6 text-center md:text-left",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("h2", {
+                className: "text-xl font-black text-[#244380] tracking-tight uppercase mb-1.5",
+                children: "\u0110\u0103ng nh\u1EADp"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
+                className: "text-xs text-slate-500 m-0",
+                children: "Nh\u1EADp th\xF4ng tin \u0111\u1EC3 truy c\u1EADp h\u1EC7 th\u1ED1ng qu\u1EA3n l\xFD"
+              })]
+            }), errors.email && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
+              message: errors.email,
+              type: "error",
+              showIcon: true,
+              style: {
+                marginBottom: 20,
+                borderRadius: 8,
+                background: 'rgba(239, 68, 68, 0.06)',
+                border: '1px solid rgba(239, 68, 68, 0.12)'
+              }
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
+              layout: "vertical",
+              onFinish: handleSubmit,
+              autoComplete: "off",
+              size: "large",
+              requiredMark: false,
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"].Item, {
+                label: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+                  className: "font-bold text-slate-500 text-[10px] uppercase tracking-wider",
+                  children: "T\xEAn \u0111\u0103ng nh\u1EADp / Email"
+                }),
+                validateStatus: errors.email ? 'error' : '',
+                style: {
+                  marginBottom: 16
+                },
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                  prefix: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_12__["default"], {
+                    style: {
+                      color: '#244380',
+                      marginRight: 6
+                    }
+                  }),
+                  placeholder: "user@ctuet.edu.vn",
+                  value: data.email,
+                  onChange: function onChange(e) {
+                    return setData('email', e.target.value);
+                  },
+                  style: {
+                    height: 44,
+                    fontSize: 14
+                  }
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"].Item, {
+                label: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+                  className: "font-bold text-slate-500 text-[10px] uppercase tracking-wider",
+                  children: "M\u1EADt kh\u1EA9u"
+                }),
+                validateStatus: errors.password ? 'error' : '',
+                help: errors.password,
+                style: {
+                  marginBottom: 16
+                },
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Password, {
+                  prefix: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_9__["default"], {
+                    style: {
+                      color: '#244380',
+                      marginRight: 6
+                    }
+                  }),
+                  placeholder: "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022",
+                  value: data.password,
+                  onChange: function onChange(e) {
+                    return setData('password', e.target.value);
+                  },
+                  style: {
+                    height: 44,
+                    fontSize: 14
+                  }
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"].Item, {
+                style: {
+                  marginBottom: 20
+                },
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
+                  checked: data.remember,
+                  onChange: function onChange(e) {
+                    return setData('remember', e.target.checked);
+                  },
+                  style: {
+                    color: '#475569'
+                  },
+                  className: "text-slate-600 text-xs font-medium",
+                  children: "Ghi nh\u1EDB \u0111\u0103ng nh\u1EADp"
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"].Item, {
+                style: {
+                  marginBottom: 0
+                },
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
+                  type: "primary",
+                  htmlType: "submit",
+                  loading: processing || loading,
+                  block: true,
+                  icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_10__["default"], {}),
+                  style: {
+                    height: 46,
+                    fontSize: 14,
+                    background: '#244380',
+                    border: 'none',
+                    borderRadius: 8
+                  },
+                  children: "Ti\u1EBFp t\u1EE5c"
+                })
+              })]
+            })]
           })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+          className: "text-center md:text-left text-[10px] text-slate-400 font-sans mt-4",
+          children: ["\xA9 ", new Date().getFullYear(), " Tr\u01B0\u1EDDng \u0110\u1EA1i H\u1ECDc K\u1EF9 Thu\u1EADt - C\xF4ng Ngh\u1EC7 C\u1EA7n Th\u01A1. All rights reserved."]
         })]
       })]
     })]
@@ -195820,17 +195806,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inertiajs_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @inertiajs/react */ "./node_modules/@inertiajs/react/dist/index.esm.js");
 /* harmony import */ var _Layout_MainLayout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Layout/MainLayout */ "./resources/js/components/Layout/MainLayout.jsx");
 /* harmony import */ var _hooks_usePermission__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../hooks/usePermission */ "./resources/js/hooks/usePermission.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/badge/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/button/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/card/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/col/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/input/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/modal/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/popconfirm/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/row/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/select/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/space/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/statistic/index.js");
+/* harmony import */ var _Common_KpiCard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Common/KpiCard */ "./resources/js/components/Common/KpiCard.jsx");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/badge/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/button/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/card/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/col/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/input/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/modal/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/popconfirm/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/row/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/select/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/space/index.js");
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/table/index.js");
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/tag/index.js");
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/tooltip/index.js");
@@ -195856,6 +195842,7 @@ function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) 
 function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+
 
 
 
@@ -195968,7 +195955,7 @@ var BaoCaoSuCoIndex = function BaoCaoSuCoIndex(_ref) {
       var _phong$khu_nha;
       var phong = r.phong;
       var khuNha = (_phong$khu_nha = phong === null || phong === void 0 ? void 0 : phong.khu_nha) !== null && _phong$khu_nha !== void 0 ? _phong$khu_nha : phong === null || phong === void 0 ? void 0 : phong.khuNha;
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
         direction: "vertical",
         size: 2,
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(Text, {
@@ -195989,7 +195976,7 @@ var BaoCaoSuCoIndex = function BaoCaoSuCoIndex(_ref) {
   }, {
     title: 'Người báo',
     render: function render(_, r) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
         direction: "vertical",
         size: 2,
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(Text, {
@@ -196043,10 +196030,10 @@ var BaoCaoSuCoIndex = function BaoCaoSuCoIndex(_ref) {
         color: 'default',
         label: v
       };
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
         direction: "vertical",
         size: 2,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
           color: m.color,
           text: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(Text, {
             strong: true,
@@ -196055,7 +196042,7 @@ var BaoCaoSuCoIndex = function BaoCaoSuCoIndex(_ref) {
             },
             children: m.label
           })
-        }), ['dang_sua_chua', 'hoan_thanh_sua_chua'].includes(v) && r.nguoi_hoan_thanh && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
+        }), ['dang_sua_chua', 'hoan_thanh_sua_chua'].includes(v) && r.nguoi_hoan_thanh && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
           size: 4,
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_26__["default"], {
             style: {
@@ -196085,17 +196072,17 @@ var BaoCaoSuCoIndex = function BaoCaoSuCoIndex(_ref) {
     align: 'center',
     fixed: 'right',
     render: function render(_, r) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_17__["default"], {
           title: "Xem chi ti\u1EBFt",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
             size: "small",
             icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_23__["default"], {}),
             onClick: function onClick() {
               return setDetailModal(r);
             }
           })
-        }), perm.can_delete && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        }), perm.can_delete && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
           title: "X\xF3a b\xE1o c\xE1o n\xE0y?",
           okText: "X\xF3a",
           cancelText: "H\u1EE7y",
@@ -196103,7 +196090,7 @@ var BaoCaoSuCoIndex = function BaoCaoSuCoIndex(_ref) {
           onConfirm: function onConfirm() {
             return handleDelete(r.id);
           },
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
             size: "small",
             danger: true,
             icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_22__["default"], {})
@@ -196136,38 +196123,34 @@ var BaoCaoSuCoIndex = function BaoCaoSuCoIndex(_ref) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(_Layout_MainLayout__WEBPACK_IMPORTED_MODULE_2__["default"], {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_inertiajs_react__WEBPACK_IMPORTED_MODULE_1__.Head, {
       title: "B\xE1o c\xE1o S\u1EF1 c\u1ED1"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
       direction: "vertical",
       size: "large",
       style: {
         width: '100%'
       },
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
         gutter: 16,
         children: kpiCards.map(function (k, i) {
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
             xs: 24,
             sm: 12,
             md: 6,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
-                title: k.title,
-                value: k.value,
-                prefix: k.icon,
-                valueStyle: {
-                  color: k.color
-                }
-              })
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_Common_KpiCard__WEBPACK_IMPORTED_MODULE_4__["default"], {
+              title: k.title,
+              value: k.value,
+              icon: k.icon,
+              color: k.color
             })
           }, i);
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
           gutter: [16, 12],
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
             xs: 24,
             sm: 10,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__["default"], {
               placeholder: "T\xECm theo t\xEAn, S\u0110T, m\xF4 t\u1EA3...",
               prefix: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_25__["default"], {}),
               size: "large",
@@ -196180,10 +196163,10 @@ var BaoCaoSuCoIndex = function BaoCaoSuCoIndex(_ref) {
               },
               allowClear: true
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
             xs: 12,
             sm: 5,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
               placeholder: "M\u1EE9c \u0111\u1ED9",
               size: "large",
               style: {
@@ -196207,10 +196190,10 @@ var BaoCaoSuCoIndex = function BaoCaoSuCoIndex(_ref) {
                 };
               })
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
             xs: 12,
             sm: 5,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
               placeholder: "Tr\u1EA1ng th\xE1i",
               size: "large",
               style: {
@@ -196234,8 +196217,8 @@ var BaoCaoSuCoIndex = function BaoCaoSuCoIndex(_ref) {
                 };
               })
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
               icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_25__["default"], {}),
               size: "large",
               type: "primary",
@@ -196244,8 +196227,8 @@ var BaoCaoSuCoIndex = function BaoCaoSuCoIndex(_ref) {
               },
               children: "L\u1ECDc"
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
               icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_24__["default"], {}),
               size: "large",
               onClick: handleReset,
@@ -196253,8 +196236,8 @@ var BaoCaoSuCoIndex = function BaoCaoSuCoIndex(_ref) {
             })
           })]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
-        title: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        title: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_19__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(Title, {
             level: 4,
             style: {
@@ -196290,19 +196273,19 @@ var BaoCaoSuCoIndex = function BaoCaoSuCoIndex(_ref) {
             }
           }
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"], {
         title: "Chi ti\u1EBFt B\xE1o c\xE1o",
         open: !!detailModal,
         onCancel: function onCancel() {
           return setDetailModal(null);
         },
-        footer: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        footer: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
           onClick: function onClick() {
             return setDetailModal(null);
           },
           children: "\u0110\xF3ng"
         }),
-        children: detailModal && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
+        children: detailModal && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
           direction: "vertical",
           size: "small",
           style: {
@@ -196311,37 +196294,37 @@ var BaoCaoSuCoIndex = function BaoCaoSuCoIndex(_ref) {
           children: [[['Người báo', detailModal.ten_nguoi_bao], ['SĐT', detailModal.so_dien_thoai || '—'], ['Phòng', (_detailModal$phong = detailModal.phong) === null || _detailModal$phong === void 0 ? void 0 : _detailModal$phong.ten_phong], ['Thiết bị', ((_detailModal$thiet_bi = detailModal.thiet_bi) === null || _detailModal$thiet_bi === void 0 ? void 0 : _detailModal$thiet_bi.ten_thiet_bi) || '—'], ['Mức độ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_16__["default"], {
             color: (_MUC_DO_MAP$detailMod = MUC_DO_MAP[detailModal.muc_do]) === null || _MUC_DO_MAP$detailMod === void 0 ? void 0 : _MUC_DO_MAP$detailMod.color,
             children: (_MUC_DO_MAP$detailMod2 = MUC_DO_MAP[detailModal.muc_do]) === null || _MUC_DO_MAP$detailMod2 === void 0 ? void 0 : _MUC_DO_MAP$detailMod2.label
-          })], ['Trạng thái', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          })], ['Trạng thái', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
             color: (_TRANG_THAI_MAP$detai = TRANG_THAI_MAP[detailModal.trang_thai]) === null || _TRANG_THAI_MAP$detai === void 0 ? void 0 : _TRANG_THAI_MAP$detai.color,
             text: (_TRANG_THAI_MAP$detai2 = TRANG_THAI_MAP[detailModal.trang_thai]) === null || _TRANG_THAI_MAP$detai2 === void 0 ? void 0 : _TRANG_THAI_MAP$detai2.label
           })], ['Thời gian', formatDate(detailModal.created_at)]].map(function (_ref6) {
             var _ref7 = _slicedToArray(_ref6, 2),
               label = _ref7[0],
               value = _ref7[1];
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
                 span: 8,
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(Text, {
                   type: "secondary",
                   children: [label, ":"]
                 })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
                 span: 16,
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(Text, {
                   children: value
                 })
               })]
             }, label);
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
               span: 8,
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(Text, {
                 type: "secondary",
                 children: "M\xF4 t\u1EA3:"
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
               span: 16,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
                 size: "small",
                 style: {
                   background: '#fafafa',
@@ -196352,14 +196335,14 @@ var BaoCaoSuCoIndex = function BaoCaoSuCoIndex(_ref) {
                 })
               })
             })]
-          }), ['dang_sua_chua', 'hoan_thanh_sua_chua'].includes(detailModal.trang_thai) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
+          }), ['dang_sua_chua', 'hoan_thanh_sua_chua'].includes(detailModal.trang_thai) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
               span: 8,
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(Text, {
                 type: "secondary",
                 children: "Ng\u01B0\u1EDDi s\u1EEDa:"
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
               span: 16,
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(Text, {
                 children: detailModal.nguoi_hoan_thanh || '—'
@@ -197475,6 +197458,81 @@ var Index = function Index(_ref) {
 
 /***/ }),
 
+/***/ "./resources/js/components/Common/KpiCard.jsx":
+/*!****************************************************!*\
+  !*** ./resources/js/components/Common/KpiCard.jsx ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/card/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+var KpiCard = function KpiCard(_ref) {
+  var title = _ref.title,
+    value = _ref.value,
+    icon = _ref.icon,
+    color = _ref.color,
+    _ref$footerText = _ref.footerText,
+    footerText = _ref$footerText === void 0 ? 'Dữ liệu mới nhất' : _ref$footerText;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    bordered: false,
+    className: " relative overflow-hidden h-full rounded-[18px] border border-white/35 bg-white/55 backdrop-blur-xl shadow-[0_6px_20px_rgba(15,23,42,.04)] ",
+    styles: {
+      body: {
+        padding: 16
+      }
+    },
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+      className: "absolute -top-6 -right-6 h-20 w-20 rounded-full blur-3xl",
+      style: {
+        background: "".concat(color, "15")
+      }
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+      className: "mb-3 flex items-center justify-between",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+        className: "text-[10px] font-bold uppercase tracking-[0.12em] text-slate-500",
+        children: title
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+        className: "flex h-9 w-9 items-center justify-center rounded-xl",
+        style: {
+          background: "".concat(color, "15"),
+          color: color
+        },
+        children: icon
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+      className: "mb-2 text-[24px] font-extrabold leading-none tracking-[-0.05em] text-[#0f172a]",
+      style: {
+        fontFamily: "'Plus Jakarta Sans', sans-serif"
+      },
+      children: value
+    }), footerText && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+      className: "flex items-center gap-1.5",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+        className: "h-1.5 w-1.5 rounded-full",
+        style: {
+          background: color
+        }
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+        className: "text-[10px] font-semibold uppercase tracking-[0.05em] text-slate-400",
+        children: footerText
+      })]
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (KpiCard);
+
+/***/ }),
+
 /***/ "./resources/js/components/Dashboard.jsx":
 /*!***********************************************!*\
   !*** ./resources/js/components/Dashboard.jsx ***!
@@ -198217,18 +198275,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Layout_MainLayout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Layout/MainLayout */ "./resources/js/components/Layout/MainLayout.jsx");
 /* harmony import */ var _inertiajs_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @inertiajs/react */ "./node_modules/@inertiajs/react/dist/index.esm.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/badge/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/button/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/card/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/col/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/date-picker/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/form/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/input/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/modal/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/popconfirm/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/row/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/space/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/statistic/index.js");
+/* harmony import */ var _Common_KpiCard__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Common/KpiCard */ "./resources/js/components/Common/KpiCard.jsx");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/badge/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/button/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/card/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/col/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/date-picker/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/form/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/input/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/modal/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/popconfirm/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/row/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/space/index.js");
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/switch/index.js");
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/table/index.js");
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/typography/index.js");
@@ -198262,9 +198320,10 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
 
 
+
 var Title = antd__WEBPACK_IMPORTED_MODULE_17__["default"].Title,
   Text = antd__WEBPACK_IMPORTED_MODULE_17__["default"].Text;
-var TextArea = antd__WEBPACK_IMPORTED_MODULE_9__["default"].TextArea;
+var TextArea = antd__WEBPACK_IMPORTED_MODULE_10__["default"].TextArea;
 var DotKiemTraThietBiIndex = function DotKiemTraThietBiIndex(_ref) {
   var _stats$tong, _stats$dang_active, _stats$chua_active;
   var dotKiemTras = _ref.dotKiemTras,
@@ -198279,7 +198338,7 @@ var DotKiemTraThietBiIndex = function DotKiemTraThietBiIndex(_ref) {
     _useState4 = _slicedToArray(_useState3, 2),
     search = _useState4[0],
     setSearch = _useState4[1];
-  var _Form$useForm = antd__WEBPACK_IMPORTED_MODULE_8__["default"].useForm(),
+  var _Form$useForm = antd__WEBPACK_IMPORTED_MODULE_9__["default"].useForm(),
     _Form$useForm2 = _slicedToArray(_Form$useForm, 1),
     form = _Form$useForm2[0];
   var submitCreate = function submitCreate(values) {
@@ -198346,10 +198405,10 @@ var DotKiemTraThietBiIndex = function DotKiemTraThietBiIndex(_ref) {
     width: 160,
     align: 'center',
     render: function render(_, record) {
-      return record.is_active ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      return record.is_active ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
         status: "success",
         text: "Active"
-      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
         status: "default",
         text: "Kh\xF4ng active"
       });
@@ -198360,22 +198419,22 @@ var DotKiemTraThietBiIndex = function DotKiemTraThietBiIndex(_ref) {
     width: 220,
     align: 'center',
     render: function render(_, record) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
-        children: [perm.can_edit && !record.is_active && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
+        children: [perm.can_edit && !record.is_active && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
           type: "primary",
           ghost: true,
           onClick: function onClick() {
             return activateDot(record.id);
           },
           children: "K\xEDch ho\u1EA1t"
-        }), perm.can_delete && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        }), perm.can_delete && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
           title: "X\xF3a \u0111\u1EE3t ki\u1EC3m tra n\xE0y?",
           onConfirm: function onConfirm() {
             return deleteDot(record.id);
           },
           okText: "X\xF3a",
           cancelText: "H\u1EE7y",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
             danger: true,
             icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_20__["default"], {}),
             disabled: record.is_active
@@ -198387,58 +198446,49 @@ var DotKiemTraThietBiIndex = function DotKiemTraThietBiIndex(_ref) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)(_Layout_MainLayout__WEBPACK_IMPORTED_MODULE_1__["default"], {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(_inertiajs_react__WEBPACK_IMPORTED_MODULE_2__.Head, {
       title: "\u0110\u1EE3t ki\u1EC3m tra thi\u1EBFt b\u1ECB"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
       direction: "vertical",
       size: "large",
       style: {
         width: '100%'
       },
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
-        gutter: 16,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
+        gutter: [16, 16],
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
           xs: 24,
           sm: 8,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
-              title: "T\u1ED5ng \u0111\u1EE3t",
-              value: (_stats$tong = stats === null || stats === void 0 ? void 0 : stats.tong) !== null && _stats$tong !== void 0 ? _stats$tong : 0,
-              prefix: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_18__["default"], {})
-            })
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(_Common_KpiCard__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            title: "T\u1ED5ng \u0111\u1EE3t",
+            value: (_stats$tong = stats === null || stats === void 0 ? void 0 : stats.tong) !== null && _stats$tong !== void 0 ? _stats$tong : 0,
+            icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_18__["default"], {}),
+            color: "#1890ff"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
           xs: 24,
           sm: 8,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
-              title: "\u0110ang active",
-              value: (_stats$dang_active = stats === null || stats === void 0 ? void 0 : stats.dang_active) !== null && _stats$dang_active !== void 0 ? _stats$dang_active : 0,
-              valueStyle: {
-                color: '#52c41a'
-              },
-              prefix: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_19__["default"], {})
-            })
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(_Common_KpiCard__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            title: "\u0110ang active",
+            value: (_stats$dang_active = stats === null || stats === void 0 ? void 0 : stats.dang_active) !== null && _stats$dang_active !== void 0 ? _stats$dang_active : 0,
+            icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_19__["default"], {}),
+            color: "#52c41a"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
           xs: 24,
           sm: 8,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
-              title: "Ch\u01B0a active",
-              value: (_stats$chua_active = stats === null || stats === void 0 ? void 0 : stats.chua_active) !== null && _stats$chua_active !== void 0 ? _stats$chua_active : 0,
-              valueStyle: {
-                color: '#fa8c16'
-              },
-              prefix: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_23__["default"], {})
-            })
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(_Common_KpiCard__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            title: "Ch\u01B0a active",
+            value: (_stats$chua_active = stats === null || stats === void 0 ? void 0 : stats.chua_active) !== null && _stats$chua_active !== void 0 ? _stats$chua_active : 0,
+            icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_23__["default"], {}),
+            color: "#fa8c16"
           })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
           gutter: [16, 16],
           align: "middle",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
             flex: "auto",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_23__["default"], {
                 style: {
                   fontSize: 20
@@ -198451,9 +198501,9 @@ var DotKiemTraThietBiIndex = function DotKiemTraThietBiIndex(_ref) {
                 children: "\u0110\u1EE3t ki\u1EC3m tra thi\u1EBFt b\u1ECB"
               })]
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"], {
                 placeholder: "T\xECm theo t\xEAn \u0111\u1EE3t",
                 value: search,
                 onChange: function onChange(e) {
@@ -198464,15 +198514,15 @@ var DotKiemTraThietBiIndex = function DotKiemTraThietBiIndex(_ref) {
                 style: {
                   width: 280
                 }
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
                 type: "primary",
                 onClick: doSearch,
                 children: "L\u1ECDc"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
                 icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_22__["default"], {}),
                 onClick: resetFilters,
                 children: "L\xE0m m\u1EDBi"
-              }), perm.can_create && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
+              }), perm.can_create && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
                 type: "primary",
                 icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_21__["default"], {}),
                 onClick: function onClick() {
@@ -198483,7 +198533,7 @@ var DotKiemTraThietBiIndex = function DotKiemTraThietBiIndex(_ref) {
             })
           })]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_16__["default"], {
           rowKey: "id",
           columns: columns,
@@ -198506,7 +198556,7 @@ var DotKiemTraThietBiIndex = function DotKiemTraThietBiIndex(_ref) {
           }
         })
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
       title: "T\u1EA1o \u0111\u1EE3t ki\u1EC3m tra thi\u1EBFt b\u1ECB",
       open: openCreateModal,
       onCancel: function onCancel() {
@@ -198517,40 +198567,40 @@ var DotKiemTraThietBiIndex = function DotKiemTraThietBiIndex(_ref) {
       },
       okText: "L\u01B0u",
       cancelText: "H\u1EE7y",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_9__["default"], {
         layout: "vertical",
         form: form,
         onFinish: submitCreate,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Item, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__["default"].Item, {
           label: "T\xEAn \u0111\u1EE3t",
           name: "ten_dot",
           rules: [{
             required: true,
             message: 'Vui lòng nhập tên đợt'
           }],
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"], {
             placeholder: "V\xED d\u1EE5: \u0110\u1EE3t ki\u1EC3m tra qu\xFD 2/2026"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
           gutter: 12,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
             span: 12,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Item, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__["default"].Item, {
               label: "Ng\xE0y b\u1EAFt \u0111\u1EA7u",
               name: "ngay_bat_dau",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
                 style: {
                   width: '100%'
                 },
                 format: "DD/MM/YYYY"
               })
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
             span: 12,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Item, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__["default"].Item, {
               label: "Ng\xE0y k\u1EBFt th\xFAc",
               name: "ngay_ket_thuc",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
                 style: {
                   width: '100%'
                 },
@@ -198558,14 +198608,14 @@ var DotKiemTraThietBiIndex = function DotKiemTraThietBiIndex(_ref) {
               })
             })
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Item, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__["default"].Item, {
           label: "M\xF4 t\u1EA3",
           name: "mo_ta",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(TextArea, {
             rows: 3,
             placeholder: "M\xF4 t\u1EA3 th\xEAm (n\u1EBFu c\xF3)"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Item, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__["default"].Item, {
           label: "K\xEDch ho\u1EA1t ngay",
           name: "is_active",
           valuePropName: "checked",
@@ -200874,22 +200924,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/select/index.js");
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/skeleton/index.js");
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/space/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/statistic/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/table/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/tag/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/typography/index.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/CheckCircleOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/DollarOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/EyeOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/HistoryOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/PlusOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/ReloadOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/SyncOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/ToolOutlined.js");
-/* harmony import */ var _inertiajs_react__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @inertiajs/react */ "./node_modules/@inertiajs/react/dist/index.esm.js");
-/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! dayjs */ "./node_modules/dayjs/dayjs.min.js");
-/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(dayjs__WEBPACK_IMPORTED_MODULE_25__);
-/* harmony import */ var _hooks_usePermission__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ../../hooks/usePermission */ "./resources/js/hooks/usePermission.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/table/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/tag/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/typography/index.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/CheckCircleOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/DollarOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/EyeOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/HistoryOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/PlusOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/ReloadOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/SyncOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/ToolOutlined.js");
+/* harmony import */ var _inertiajs_react__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @inertiajs/react */ "./node_modules/@inertiajs/react/dist/index.esm.js");
+/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! dayjs */ "./node_modules/dayjs/dayjs.min.js");
+/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(dayjs__WEBPACK_IMPORTED_MODULE_24__);
+/* harmony import */ var _hooks_usePermission__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ../../hooks/usePermission */ "./resources/js/hooks/usePermission.js");
+/* harmony import */ var _Common_KpiCard__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ../Common/KpiCard */ "./resources/js/components/Common/KpiCard.jsx");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -200905,8 +200955,9 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
 
 
-var Text = antd__WEBPACK_IMPORTED_MODULE_15__["default"].Text,
-  Title = antd__WEBPACK_IMPORTED_MODULE_15__["default"].Title;
+
+var Text = antd__WEBPACK_IMPORTED_MODULE_14__["default"].Text,
+  Title = antd__WEBPACK_IMPORTED_MODULE_14__["default"].Title;
 var LOAI_BD_MAP = {
   'dinh_ky': {
     color: 'blue',
@@ -200925,19 +200976,19 @@ var TRANG_THAI_MAP = {
   'hoan_thanh': {
     color: 'green',
     label: 'Hoàn thành',
-    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_16__["default"], {})
+    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_15__["default"], {})
   },
   'dang_thuc_hien': {
     color: 'blue',
     label: 'Đang thực hiện',
-    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_22__["default"], {
+    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_21__["default"], {
       spin: true
     })
   },
   'chua_thuc_hien': {
     color: 'orange',
     label: 'Chưa thực hiện',
-    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_19__["default"], {})
+    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_18__["default"], {})
   }
 };
 var Index = function Index(_ref) {
@@ -200946,7 +200997,7 @@ var Index = function Index(_ref) {
     thietBis = _ref.thietBis,
     filters = _ref.filters,
     stats = _ref.stats;
-  var perm = (0,_hooks_usePermission__WEBPACK_IMPORTED_MODULE_26__["default"])('lich-su-bao-duong');
+  var perm = (0,_hooks_usePermission__WEBPACK_IMPORTED_MODULE_25__["default"])('lich-su-bao-duong');
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(filters.thiet_bi_id || ''),
     _useState2 = _slicedToArray(_useState, 2),
     thietBiFilter = _useState2[0],
@@ -200972,7 +201023,7 @@ var Index = function Index(_ref) {
   }, [lichSuBaoDuongs]);
   var handleThietBiFilter = function handleThietBiFilter(value) {
     setThietBiFilter(value);
-    _inertiajs_react__WEBPACK_IMPORTED_MODULE_24__.router.get('/lich-su-bao-duong', {
+    _inertiajs_react__WEBPACK_IMPORTED_MODULE_23__.router.get('/lich-su-bao-duong', {
       thiet_bi_id: value,
       loai_bao_duong: loaiFilter,
       trang_thai: trangThaiFilter
@@ -200983,7 +201034,7 @@ var Index = function Index(_ref) {
   };
   var handleLoaiFilter = function handleLoaiFilter(value) {
     setLoaiFilter(value);
-    _inertiajs_react__WEBPACK_IMPORTED_MODULE_24__.router.get('/lich-su-bao-duong', {
+    _inertiajs_react__WEBPACK_IMPORTED_MODULE_23__.router.get('/lich-su-bao-duong', {
       thiet_bi_id: thietBiFilter,
       loai_bao_duong: value,
       trang_thai: trangThaiFilter
@@ -200994,7 +201045,7 @@ var Index = function Index(_ref) {
   };
   var handleTrangThaiFilter = function handleTrangThaiFilter(value) {
     setTrangThaiFilter(value);
-    _inertiajs_react__WEBPACK_IMPORTED_MODULE_24__.router.get('/lich-su-bao-duong', {
+    _inertiajs_react__WEBPACK_IMPORTED_MODULE_23__.router.get('/lich-su-bao-duong', {
       thiet_bi_id: thietBiFilter,
       loai_bao_duong: loaiFilter,
       trang_thai: value
@@ -201007,7 +201058,7 @@ var Index = function Index(_ref) {
     setThietBiFilter('');
     setLoaiFilter('');
     setTrangThaiFilter('');
-    _inertiajs_react__WEBPACK_IMPORTED_MODULE_24__.router.get('/lich-su-bao-duong');
+    _inertiajs_react__WEBPACK_IMPORTED_MODULE_23__.router.get('/lich-su-bao-duong');
   };
   var formatCurrency = function formatCurrency(value) {
     if (!value) return '—';
@@ -201018,7 +201069,7 @@ var Index = function Index(_ref) {
   };
   var formatDate = function formatDate(date) {
     if (!date) return '—';
-    return dayjs__WEBPACK_IMPORTED_MODULE_25___default()(date).format('DD/MM/YYYY');
+    return dayjs__WEBPACK_IMPORTED_MODULE_24___default()(date).format('DD/MM/YYYY');
   };
   var columns = [{
     title: 'STT',
@@ -201067,7 +201118,7 @@ var Index = function Index(_ref) {
         color: 'default',
         label: loai
       };
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
         color: m.color,
         children: m.label
       });
@@ -201099,7 +201150,7 @@ var Index = function Index(_ref) {
         type: "primary",
         ghost: true,
         size: "small",
-        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_18__["default"], {}),
+        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_17__["default"], {}),
         onClick: function onClick() {
           return setDetailModal(record);
         },
@@ -201113,28 +201164,28 @@ var Index = function Index(_ref) {
     title: 'Tổng lịch sử',
     value: (_stats$tong = stats === null || stats === void 0 ? void 0 : stats.tong) !== null && _stats$tong !== void 0 ? _stats$tong : 0,
     color: '#244380',
-    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_19__["default"], {})
+    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_18__["default"], {})
   }, {
     title: 'Bảo dưỡng định kỳ',
     value: (_stats$dinh_ky = stats === null || stats === void 0 ? void 0 : stats.dinh_ky) !== null && _stats$dinh_ky !== void 0 ? _stats$dinh_ky : 0,
     color: '#1890ff',
-    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_22__["default"], {})
+    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_21__["default"], {})
   }, {
     title: 'Sửa chữa',
     value: (_stats$sua_chua = stats === null || stats === void 0 ? void 0 : stats.sua_chua) !== null && _stats$sua_chua !== void 0 ? _stats$sua_chua : 0,
     color: '#fa8c16',
-    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_23__["default"], {})
+    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_22__["default"], {})
   }, {
     title: 'Tổng chi phí',
     value: (_stats$tong_chi_phi = stats === null || stats === void 0 ? void 0 : stats.tong_chi_phi) !== null && _stats$tong_chi_phi !== void 0 ? _stats$tong_chi_phi : 0,
     color: '#52c41a',
-    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_17__["default"], {}),
+    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_16__["default"], {}),
     formatter: function formatter(val) {
       return formatCurrency(val);
     }
   }];
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(_Layout_MainLayout__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_inertiajs_react__WEBPACK_IMPORTED_MODULE_24__.Head, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_inertiajs_react__WEBPACK_IMPORTED_MODULE_23__.Head, {
       title: "L\u1ECBch s\u1EED B\u1EA3o d\u01B0\u1EE1ng"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
       direction: "vertical",
@@ -201149,16 +201200,11 @@ var Index = function Index(_ref) {
             xs: 24,
             sm: 12,
             md: 6,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
-                title: k.title,
-                value: k.formatter ? k.formatter(k.value) : k.value,
-                prefix: k.icon,
-                valueStyle: {
-                  color: k.color,
-                  fontSize: k.formatter ? 18 : 24
-                }
-              })
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_Common_KpiCard__WEBPACK_IMPORTED_MODULE_26__["default"], {
+              title: k.title,
+              value: k.formatter ? k.formatter(k.value) : k.value,
+              icon: k.icon,
+              color: k.color
             })
           }, i);
         })
@@ -201169,7 +201215,7 @@ var Index = function Index(_ref) {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
             flex: "auto",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_19__["default"], {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_18__["default"], {
                 style: {
                   fontSize: 20
                 }
@@ -201182,11 +201228,11 @@ var Index = function Index(_ref) {
               })]
             })
           }), perm.can_create && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_inertiajs_react__WEBPACK_IMPORTED_MODULE_24__.Link, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_inertiajs_react__WEBPACK_IMPORTED_MODULE_23__.Link, {
               href: "/lich-su-bao-duong/create",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
                 type: "primary",
-                icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_20__["default"], {}),
+                icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_19__["default"], {}),
                 size: "large",
                 children: "Th\xEAm l\u1ECBch s\u1EED"
               })
@@ -201266,7 +201312,7 @@ var Index = function Index(_ref) {
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
-              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_21__["default"], {}),
+              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_20__["default"], {}),
               size: "large",
               onClick: handleReset,
               children: "L\xE0m m\u1EDBi"
@@ -201279,7 +201325,7 @@ var Index = function Index(_ref) {
           paragraph: {
             rows: 10
           }
-        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
           columns: columns,
           dataSource: lichSuBaoDuongs.data,
           rowKey: "id",
@@ -201297,7 +201343,7 @@ var Index = function Index(_ref) {
               return "T\u1ED5ng s\u1ED1 ".concat(total, " l\u1ECBch s\u1EED");
             },
             onChange: function onChange(page, pageSize) {
-              _inertiajs_react__WEBPACK_IMPORTED_MODULE_24__.router.get('/lich-su-bao-duong', {
+              _inertiajs_react__WEBPACK_IMPORTED_MODULE_23__.router.get('/lich-su-bao-duong', {
                 page: page,
                 per_page: pageSize,
                 thiet_bi_id: thietBiFilter,
@@ -201312,7 +201358,7 @@ var Index = function Index(_ref) {
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
         title: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_19__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)("span", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_18__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)("span", {
             children: "Chi ti\u1EBFt l\u1ECBch s\u1EED b\u1EA3o d\u01B0\u1EE1ng"
           })]
         }),
@@ -201341,7 +201387,7 @@ var Index = function Index(_ref) {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
             label: "Lo\u1EA1i b\u1EA3o d\u01B0\u1EE1ng",
             span: 1,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
               color: (_LOAI_BD_MAP$detailMo = LOAI_BD_MAP[detailModal.loai_bao_duong]) === null || _LOAI_BD_MAP$detailMo === void 0 ? void 0 : _LOAI_BD_MAP$detailMo.color,
               children: (_LOAI_BD_MAP$detailMo2 = LOAI_BD_MAP[detailModal.loai_bao_duong]) === null || _LOAI_BD_MAP$detailMo2 === void 0 ? void 0 : _LOAI_BD_MAP$detailMo2.label
             })
@@ -201407,8 +201453,8 @@ var Index = function Index(_ref) {
             children: function (_ref6, _detailModal$dot_kiem) {
               var dot = (_ref6 = (_detailModal$dot_kiem = detailModal.dot_kiem_tra_thiet_bi) !== null && _detailModal$dot_kiem !== void 0 ? _detailModal$dot_kiem : detailModal.dotKiemTraThietBi) !== null && _ref6 !== void 0 ? _ref6 : null;
               if (!dot) return '—';
-              var from = dot.ngay_bat_dau ? dayjs__WEBPACK_IMPORTED_MODULE_25___default()(dot.ngay_bat_dau).format('DD/MM/YYYY') : null;
-              var to = dot.ngay_ket_thuc ? dayjs__WEBPACK_IMPORTED_MODULE_25___default()(dot.ngay_ket_thuc).format('DD/MM/YYYY') : null;
+              var from = dot.ngay_bat_dau ? dayjs__WEBPACK_IMPORTED_MODULE_24___default()(dot.ngay_bat_dau).format('DD/MM/YYYY') : null;
+              var to = dot.ngay_ket_thuc ? dayjs__WEBPACK_IMPORTED_MODULE_24___default()(dot.ngay_ket_thuc).format('DD/MM/YYYY') : null;
               return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
                 direction: "vertical",
                 size: 0,
@@ -201439,11 +201485,11 @@ var Index = function Index(_ref) {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
             label: "Ng\xE0y t\u1EA1o",
             span: 1,
-            children: detailModal.created_at ? dayjs__WEBPACK_IMPORTED_MODULE_25___default()(detailModal.created_at).format('DD/MM/YYYY HH:mm') : '—'
+            children: detailModal.created_at ? dayjs__WEBPACK_IMPORTED_MODULE_24___default()(detailModal.created_at).format('DD/MM/YYYY HH:mm') : '—'
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
             label: "C\u1EADp nh\u1EADt l\u1EA7n cu\u1ED1i",
             span: 1,
-            children: detailModal.updated_at ? dayjs__WEBPACK_IMPORTED_MODULE_25___default()(detailModal.updated_at).format('DD/MM/YYYY HH:mm') : '—'
+            children: detailModal.updated_at ? dayjs__WEBPACK_IMPORTED_MODULE_24___default()(detailModal.updated_at).format('DD/MM/YYYY HH:mm') : '—'
           })]
         })
       })]
@@ -206855,16 +206901,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/tooltip/index.js");
 /* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/AppstoreOutlined.js");
 /* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/DeleteOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/EditOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/HomeOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/PlusOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/ReloadOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/SearchOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/ToolOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/UnorderedListOutlined.js");
-/* harmony import */ var _inertiajs_react__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @inertiajs/react */ "./node_modules/@inertiajs/react/dist/index.esm.js");
-/* harmony import */ var _hooks_usePermission__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ../../hooks/usePermission */ "./resources/js/hooks/usePermission.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/DollarOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/EditOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/HomeOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/PlusOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/ReloadOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/SearchOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/ToolOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/UnorderedListOutlined.js");
+/* harmony import */ var _inertiajs_react__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! @inertiajs/react */ "./node_modules/@inertiajs/react/dist/index.esm.js");
+/* harmony import */ var _hooks_usePermission__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ../../hooks/usePermission */ "./resources/js/hooks/usePermission.js");
+/* harmony import */ var _Common_KpiCard__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ../Common/KpiCard */ "./resources/js/components/Common/KpiCard.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
@@ -206882,13 +206930,14 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
 
 
+
 var Search = antd__WEBPACK_IMPORTED_MODULE_8__["default"].Search;
 var Panel = antd__WEBPACK_IMPORTED_MODULE_6__["default"].Panel;
 var IndexByPhong = function IndexByPhong(_ref) {
   var groupedThietBis = _ref.groupedThietBis,
     phongs = _ref.phongs,
     filters = _ref.filters;
-  var perm = (0,_hooks_usePermission__WEBPACK_IMPORTED_MODULE_29__["default"])('thiet-bi');
+  var perm = (0,_hooks_usePermission__WEBPACK_IMPORTED_MODULE_30__["default"])('thiet-bi');
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(filters.search || ''),
     _useState2 = _slicedToArray(_useState, 2),
     searchText = _useState2[0],
@@ -206919,7 +206968,7 @@ var IndexByPhong = function IndexByPhong(_ref) {
     }
   }, [groupedThietBis]);
   var handleSearch = function handleSearch(value) {
-    _inertiajs_react__WEBPACK_IMPORTED_MODULE_28__.router.get('/thiet-bi-theo-phong', {
+    _inertiajs_react__WEBPACK_IMPORTED_MODULE_29__.router.get('/thiet-bi-theo-phong', {
       search: value,
       loai_thiet_bi: loaiFilter,
       trang_thai: trangThaiFilter
@@ -206930,7 +206979,7 @@ var IndexByPhong = function IndexByPhong(_ref) {
   };
   var handleLoaiFilter = function handleLoaiFilter(value) {
     setLoaiFilter(value);
-    _inertiajs_react__WEBPACK_IMPORTED_MODULE_28__.router.get('/thiet-bi-theo-phong', {
+    _inertiajs_react__WEBPACK_IMPORTED_MODULE_29__.router.get('/thiet-bi-theo-phong', {
       search: searchText,
       loai_thiet_bi: value,
       trang_thai: trangThaiFilter
@@ -206941,7 +206990,7 @@ var IndexByPhong = function IndexByPhong(_ref) {
   };
   var handleTrangThaiFilter = function handleTrangThaiFilter(value) {
     setTrangThaiFilter(value);
-    _inertiajs_react__WEBPACK_IMPORTED_MODULE_28__.router.get('/thiet-bi-theo-phong', {
+    _inertiajs_react__WEBPACK_IMPORTED_MODULE_29__.router.get('/thiet-bi-theo-phong', {
       search: searchText,
       loai_thiet_bi: loaiFilter,
       trang_thai: value
@@ -206951,7 +207000,7 @@ var IndexByPhong = function IndexByPhong(_ref) {
     });
   };
   var handleDelete = function handleDelete(id) {
-    _inertiajs_react__WEBPACK_IMPORTED_MODULE_28__.router["delete"]("/thiet-bi/".concat(id), {
+    _inertiajs_react__WEBPACK_IMPORTED_MODULE_29__.router["delete"]("/thiet-bi/".concat(id), {
       onSuccess: function onSuccess() {
         // success toast hiển thị qua flash ở MainLayout
       },
@@ -206964,7 +207013,7 @@ var IndexByPhong = function IndexByPhong(_ref) {
     setSearchText('');
     setLoaiFilter('');
     setTrangThaiFilter('');
-    _inertiajs_react__WEBPACK_IMPORTED_MODULE_28__.router.get('/thiet-bi-theo-phong');
+    _inertiajs_react__WEBPACK_IMPORTED_MODULE_29__.router.get('/thiet-bi-theo-phong');
   };
   var formatCurrency = function formatCurrency(value) {
     return new Intl.NumberFormat('vi-VN', {
@@ -207026,7 +207075,7 @@ var IndexByPhong = function IndexByPhong(_ref) {
     width: 200,
     ellipsis: true,
     render: function render(text) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)("strong", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)("strong", {
         children: text
       });
     }
@@ -207036,7 +207085,7 @@ var IndexByPhong = function IndexByPhong(_ref) {
     key: 'loai_thiet_bi',
     width: 110,
     render: function render(loai) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_17__["default"], {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_17__["default"], {
         color: getLoaiThietBiColor(loai),
         children: getLoaiThietBiLabel(loai)
       });
@@ -207060,7 +207109,7 @@ var IndexByPhong = function IndexByPhong(_ref) {
     width: 140,
     ellipsis: true,
     render: function render(text) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_17__["default"], {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_17__["default"], {
         color: "blue",
         children: text
       });
@@ -207087,7 +207136,7 @@ var IndexByPhong = function IndexByPhong(_ref) {
     width: 120,
     align: 'center',
     render: function render(trangThai) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_17__["default"], {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_17__["default"], {
         color: getTrangThaiColor(trangThai),
         children: getTrangThaiLabel(trangThai)
       });
@@ -207098,17 +207147,17 @@ var IndexByPhong = function IndexByPhong(_ref) {
     fixed: 'right',
     width: 150,
     render: function render(_, record) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
         size: "small",
-        children: [perm.can_edit && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(_inertiajs_react__WEBPACK_IMPORTED_MODULE_28__.Link, {
+        children: [perm.can_edit && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(_inertiajs_react__WEBPACK_IMPORTED_MODULE_29__.Link, {
           href: "/thiet-bi/".concat(record.id, "/edit"),
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
             type: "primary",
             size: "small",
-            icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_21__["default"], {}),
+            icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_22__["default"], {}),
             children: "S\u1EEDa"
           })
-        }), perm.can_delete && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        }), perm.can_delete && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"], {
           title: "X\xE1c nh\u1EADn x\xF3a",
           description: "B\u1EA1n c\xF3 ch\u1EAFc ch\u1EAFn mu\u1ED1n x\xF3a thi\u1EBFt b\u1ECB n\xE0y?",
           onConfirm: function onConfirm() {
@@ -207119,10 +207168,10 @@ var IndexByPhong = function IndexByPhong(_ref) {
           okButtonProps: {
             danger: true
           },
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
             danger: true,
             size: "small",
-            icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_20__["default"], {}),
+            icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_20__["default"], {}),
             children: "X\xF3a"
           })
         })]
@@ -207158,28 +207207,28 @@ var IndexByPhong = function IndexByPhong(_ref) {
     var phong = group.phong;
     var khuNha = phong === null || phong === void 0 ? void 0 : phong.khu_nha;
     var coSo = khuNha === null || khuNha === void 0 ? void 0 : khuNha.co_so;
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
       gutter: 16,
       align: "middle",
       style: {
         width: '100%'
       },
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
         flex: "auto",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
           size: "middle",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_22__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_23__["default"], {
             style: {
               fontSize: '18px',
               color: '#1890ff'
             }
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsxs)("div", {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)("strong", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)("strong", {
               style: {
                 fontSize: '16px'
               },
               children: (phong === null || phong === void 0 ? void 0 : phong.ten_phong) || 'N/A'
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsxs)("div", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsxs)("div", {
               style: {
                 fontSize: '12px',
                 color: '#666'
@@ -207188,29 +207237,29 @@ var IndexByPhong = function IndexByPhong(_ref) {
             })]
           })]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
           size: "large",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_18__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_18__["default"], {
             title: "S\u1ED1 lo\u1EA1i thi\u1EBFt b\u1ECB",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
               count: group.so_thiet_bi,
               showZero: true,
               color: "blue",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_26__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_27__["default"], {
                 style: {
                   fontSize: '18px'
                 }
               })
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_15__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_15__["default"], {
             title: "S\u1ED1 thi\u1EBFt b\u1ECB",
             value: group.tong_so_luong,
             valueStyle: {
               fontSize: '16px',
               color: '#3f8600'
             }
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_15__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_15__["default"], {
             title: "T\u1ED5ng gi\xE1 tr\u1ECB",
             value: group.tong_gia_tri,
             formatter: function formatter(value) {
@@ -207225,39 +207274,39 @@ var IndexByPhong = function IndexByPhong(_ref) {
       })]
     });
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(_Layout_MainLayout__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(_Layout_MainLayout__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
       direction: "vertical",
       size: "large",
       style: {
         width: '100%'
       },
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
           gutter: [16, 16],
           align: "middle",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
             flex: "auto",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)("h2", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)("h2", {
               style: {
                 margin: 0
               },
               children: "Qu\u1EA3n l\xFD thi\u1EBFt b\u1ECB theo ph\xF2ng"
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(_inertiajs_react__WEBPACK_IMPORTED_MODULE_28__.Link, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(_inertiajs_react__WEBPACK_IMPORTED_MODULE_29__.Link, {
                 href: "/thiet-bi",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
-                  icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_27__["default"], {}),
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
+                  icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_28__["default"], {}),
                   size: "large",
                   children: "Xem d\u1EA1ng danh s\xE1ch"
                 })
-              }), perm.can_create && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(_inertiajs_react__WEBPACK_IMPORTED_MODULE_28__.Link, {
+              }), perm.can_create && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(_inertiajs_react__WEBPACK_IMPORTED_MODULE_29__.Link, {
                 href: "/thiet-bi/create",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
                   type: "primary",
-                  icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_23__["default"], {}),
+                  icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_24__["default"], {}),
                   size: "large",
                   children: "Th\xEAm thi\u1EBFt b\u1ECB"
                 })
@@ -207265,96 +207314,60 @@ var IndexByPhong = function IndexByPhong(_ref) {
             })
           })]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
-          gutter: 16,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
-            xs: 24,
-            sm: 12,
-            md: 6,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
-              bordered: false,
-              style: {
-                background: '#f0f5ff'
-              },
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_15__["default"], {
-                title: "T\u1ED5ng s\u1ED1 ph\xF2ng",
-                value: totalStats.tongSoPhong,
-                prefix: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_22__["default"], {}),
-                valueStyle: {
-                  color: '#1890ff'
-                }
-              })
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
-            xs: 24,
-            sm: 12,
-            md: 6,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
-              bordered: false,
-              style: {
-                background: '#f6ffed'
-              },
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_15__["default"], {
-                title: "T\u1ED5ng lo\u1EA1i thi\u1EBFt b\u1ECB",
-                value: totalStats.tongSoThietBi,
-                prefix: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_19__["default"], {}),
-                valueStyle: {
-                  color: '#52c41a'
-                }
-              })
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
-            xs: 24,
-            sm: 12,
-            md: 6,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
-              bordered: false,
-              style: {
-                background: '#fff7e6'
-              },
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_15__["default"], {
-                title: "T\u1ED5ng thi\u1EBFt b\u1ECB",
-                value: totalStats.tongSoLuong,
-                prefix: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_26__["default"], {}),
-                valueStyle: {
-                  color: '#fa8c16'
-                }
-              })
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
-            xs: 24,
-            sm: 12,
-            md: 6,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
-              bordered: false,
-              style: {
-                background: '#fff1f0'
-              },
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_15__["default"], {
-                title: "T\u1ED5ng gi\xE1 tr\u1ECB",
-                value: totalStats.tongGiaTri,
-                formatter: function formatter(value) {
-                  return formatCurrency(value);
-                },
-                valueStyle: {
-                  color: '#cf1322'
-                }
-              })
-            })
-          })]
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        gutter: [16, 16],
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          xs: 24,
+          sm: 12,
+          md: 6,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(_Common_KpiCard__WEBPACK_IMPORTED_MODULE_31__["default"], {
+            title: "T\u1ED5ng s\u1ED1 ph\xF2ng",
+            value: totalStats.tongSoPhong,
+            icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_23__["default"], {}),
+            color: "#1890ff"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          xs: 24,
+          sm: 12,
+          md: 6,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(_Common_KpiCard__WEBPACK_IMPORTED_MODULE_31__["default"], {
+            title: "T\u1ED5ng lo\u1EA1i thi\u1EBFt b\u1ECB",
+            value: totalStats.tongSoThietBi,
+            icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_19__["default"], {}),
+            color: "#52c41a"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          xs: 24,
+          sm: 12,
+          md: 6,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(_Common_KpiCard__WEBPACK_IMPORTED_MODULE_31__["default"], {
+            title: "T\u1ED5ng thi\u1EBFt b\u1ECB",
+            value: totalStats.tongSoLuong,
+            icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_27__["default"], {}),
+            color: "#fa8c16"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          xs: 24,
+          sm: 12,
+          md: 6,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(_Common_KpiCard__WEBPACK_IMPORTED_MODULE_31__["default"], {
+            title: "T\u1ED5ng gi\xE1 tr\u1ECB",
+            value: formatCurrency(totalStats.tongGiaTri),
+            icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_21__["default"], {}),
+            color: "#cf1322"
+          })
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
           gutter: [16, 16],
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
             xs: 24,
             sm: 12,
             md: 8,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(Search, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(Search, {
               placeholder: "T\xECm ki\u1EBFm theo m\xE3, t\xEAn, h\xE3ng...",
               allowClear: true,
-              enterButton: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_25__["default"], {}),
+              enterButton: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_26__["default"], {}),
               size: "large",
               value: searchText,
               onChange: function onChange(e) {
@@ -207362,11 +207375,11 @@ var IndexByPhong = function IndexByPhong(_ref) {
               },
               onSearch: handleSearch
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
             xs: 24,
             sm: 12,
             md: 6,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
               placeholder: "L\u1ECDc theo lo\u1EA1i",
               size: "large",
               style: {
@@ -207389,11 +207402,11 @@ var IndexByPhong = function IndexByPhong(_ref) {
                 label: 'Thực hành'
               }]
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
             xs: 24,
             sm: 12,
             md: 6,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
               placeholder: "L\u1ECDc theo tr\u1EA1ng th\xE1i",
               size: "large",
               style: {
@@ -207413,32 +207426,32 @@ var IndexByPhong = function IndexByPhong(_ref) {
                 label: 'Hư hỏng'
               }]
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
-              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_24__["default"], {}),
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
+              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_25__["default"], {}),
               size: "large",
               onClick: handleReset,
               children: "L\xE0m m\u1EDBi"
             })
           })]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        children: loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        children: loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
           active: true,
           paragraph: {
             rows: 10
           }
-        }) : groupedThietBis && groupedThietBis.length > 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        }) : groupedThietBis && groupedThietBis.length > 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
           activeKey: activeKeys,
           onChange: setActiveKeys,
           expandIconPosition: "end",
           children: groupedThietBis.map(function (group) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(Panel, {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(Panel, {
               header: getPanelHeader(group),
               style: {
                 marginBottom: '8px'
               },
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_16__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_16__["default"], {
                 columns: columns,
                 dataSource: group.thiet_bis,
                 rowKey: "id",
@@ -207450,7 +207463,7 @@ var IndexByPhong = function IndexByPhong(_ref) {
               })
             }, group.phong_id.toString());
           })
-        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
           description: "Kh\xF4ng c\xF3 thi\u1EBFt b\u1ECB n\xE0o",
           image: antd__WEBPACK_IMPORTED_MODULE_7__["default"].PRESENTED_IMAGE_SIMPLE
         })
@@ -207489,20 +207502,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/select/index.js");
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/skeleton/index.js");
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/space/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/statistic/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/table/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/tag/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/typography/index.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/CalendarOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/EyeOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/HistoryOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/LaptopOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/ReloadOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/SearchOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/SwapOutlined.js");
-/* harmony import */ var _inertiajs_react__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @inertiajs/react */ "./node_modules/@inertiajs/react/dist/index.esm.js");
-/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! dayjs */ "./node_modules/dayjs/dayjs.min.js");
-/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_27___default = /*#__PURE__*/__webpack_require__.n(dayjs__WEBPACK_IMPORTED_MODULE_27__);
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/table/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/tag/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/typography/index.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/CalendarOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/EyeOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/HistoryOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/LaptopOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/ReloadOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/SearchOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/SwapOutlined.js");
+/* harmony import */ var _inertiajs_react__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @inertiajs/react */ "./node_modules/@inertiajs/react/dist/index.esm.js");
+/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! dayjs */ "./node_modules/dayjs/dayjs.min.js");
+/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_26___default = /*#__PURE__*/__webpack_require__.n(dayjs__WEBPACK_IMPORTED_MODULE_26__);
+/* harmony import */ var _Common_KpiCard__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ../Common/KpiCard */ "./resources/js/components/Common/KpiCard.jsx");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
@@ -207523,10 +207536,11 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
 
 
+
 var RangePicker = antd__WEBPACK_IMPORTED_MODULE_6__["default"].RangePicker;
 var Search = antd__WEBPACK_IMPORTED_MODULE_9__["default"].Search;
-var Text = antd__WEBPACK_IMPORTED_MODULE_18__["default"].Text,
-  Title = antd__WEBPACK_IMPORTED_MODULE_18__["default"].Title;
+var Text = antd__WEBPACK_IMPORTED_MODULE_17__["default"].Text,
+  Title = antd__WEBPACK_IMPORTED_MODULE_17__["default"].Title;
 var LOAI_TB_MAP = {
   van_phong: {
     color: 'blue',
@@ -207559,7 +207573,7 @@ var Kho = function Kho(_ref) {
     _useState4 = _slicedToArray(_useState3, 2),
     phongFilter = _useState4[0],
     setPhongFilter = _useState4[1];
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(filters.ngay_vao_kho_tu && filters.ngay_vao_kho_den ? [dayjs__WEBPACK_IMPORTED_MODULE_27___default()(filters.ngay_vao_kho_tu), dayjs__WEBPACK_IMPORTED_MODULE_27___default()(filters.ngay_vao_kho_den)] : null),
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(filters.ngay_vao_kho_tu && filters.ngay_vao_kho_den ? [dayjs__WEBPACK_IMPORTED_MODULE_26___default()(filters.ngay_vao_kho_tu), dayjs__WEBPACK_IMPORTED_MODULE_26___default()(filters.ngay_vao_kho_den)] : null),
     _useState6 = _slicedToArray(_useState5, 2),
     dateRange = _useState6[0],
     setDateRange = _useState6[1];
@@ -207577,7 +207591,7 @@ var Kho = function Kho(_ref) {
   var doFilter = function doFilter() {
     var _dateRange$, _dateRange$2;
     var overrides = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    _inertiajs_react__WEBPACK_IMPORTED_MODULE_26__.router.get('/kho', _objectSpread({
+    _inertiajs_react__WEBPACK_IMPORTED_MODULE_25__.router.get('/kho', _objectSpread({
       search: searchText,
       phong_id: phongFilter,
       ngay_vao_kho_tu: (dateRange === null || dateRange === void 0 || (_dateRange$ = dateRange[0]) === null || _dateRange$ === void 0 ? void 0 : _dateRange$.format('YYYY-MM-DD')) || '',
@@ -207610,7 +207624,7 @@ var Kho = function Kho(_ref) {
     setSearchText('');
     setPhongFilter('');
     setDateRange(null);
-    _inertiajs_react__WEBPACK_IMPORTED_MODULE_26__.router.get('/kho');
+    _inertiajs_react__WEBPACK_IMPORTED_MODULE_25__.router.get('/kho');
   };
   var formatCurrency = function formatCurrency(value) {
     if (!value) return '—';
@@ -207621,7 +207635,7 @@ var Kho = function Kho(_ref) {
   };
   var formatDate = function formatDate(dateStr) {
     if (!dateStr) return '—';
-    return dayjs__WEBPACK_IMPORTED_MODULE_27___default()(dateStr).format('DD/MM/YYYY');
+    return dayjs__WEBPACK_IMPORTED_MODULE_26___default()(dateStr).format('DD/MM/YYYY');
   };
   var columns = [{
     title: 'STT',
@@ -207670,7 +207684,7 @@ var Kho = function Kho(_ref) {
         color: 'default',
         label: loai
       };
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_17__["default"], {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_16__["default"], {
         color: m.color,
         children: m.label
       });
@@ -207688,7 +207702,7 @@ var Kho = function Kho(_ref) {
       });
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
         size: 4,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_25__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_24__["default"], {
           style: {
             color: '#52c41a'
           }
@@ -207710,7 +207724,7 @@ var Kho = function Kho(_ref) {
         type: "primary",
         ghost: true,
         size: "small",
-        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_20__["default"], {}),
+        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_19__["default"], {}),
         onClick: function onClick() {
           return setDetailModal(record);
         },
@@ -207724,30 +207738,30 @@ var Kho = function Kho(_ref) {
     title: 'Tổng thiết bị cũ',
     value: (_stats$tong = stats === null || stats === void 0 ? void 0 : stats.tong) !== null && _stats$tong !== void 0 ? _stats$tong : 0,
     color: '#722ed1',
-    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_21__["default"], {}),
+    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_20__["default"], {}),
     bg: '#f9f0ff'
   }, {
     title: 'Đã thay thế',
     value: (_ref2 = (_stats$da_thay_the = stats === null || stats === void 0 ? void 0 : stats.da_thay_the) !== null && _stats$da_thay_the !== void 0 ? _stats$da_thay_the : stats === null || stats === void 0 ? void 0 : stats.tong) !== null && _ref2 !== void 0 ? _ref2 : 0,
     color: '#52c41a',
-    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_25__["default"], {}),
+    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_24__["default"], {}),
     bg: '#f6ffed'
   }, {
     title: 'Tháng này',
     value: (_stats$thang_nay = stats === null || stats === void 0 ? void 0 : stats.thang_nay) !== null && _stats$thang_nay !== void 0 ? _stats$thang_nay : 0,
     color: '#1890ff',
-    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_19__["default"], {}),
+    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_18__["default"], {}),
     bg: '#e6f7ff'
   }, {
     title: 'Tổng giá trị',
     value: (_stats$tong_gia_tri = stats === null || stats === void 0 ? void 0 : stats.tong_gia_tri) !== null && _stats$tong_gia_tri !== void 0 ? _stats$tong_gia_tri : 0,
     color: '#fa8c16',
-    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_22__["default"], {}),
+    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_21__["default"], {}),
     bg: '#fff7e6',
     formatter: formatCurrency
   }];
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(_Layout_MainLayout__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_inertiajs_react__WEBPACK_IMPORTED_MODULE_26__.Head, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_inertiajs_react__WEBPACK_IMPORTED_MODULE_25__.Head, {
       title: "L\u1ECBch s\u1EED Thi\u1EBFt b\u1ECB"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
       direction: "vertical",
@@ -207762,19 +207776,11 @@ var Kho = function Kho(_ref) {
             xs: 24,
             sm: 12,
             md: 6,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
-              style: {
-                background: k.bg
-              },
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_15__["default"], {
-                title: k.title,
-                value: k.formatter ? k.formatter(k.value) : k.value,
-                prefix: k.icon,
-                valueStyle: {
-                  color: k.color,
-                  fontSize: k.formatter ? 18 : 24
-                }
-              })
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_Common_KpiCard__WEBPACK_IMPORTED_MODULE_27__["default"], {
+              title: k.title,
+              value: k.formatter ? k.formatter(k.value) : k.value,
+              icon: k.icon,
+              color: k.color
             })
           }, i);
         })
@@ -207785,7 +207791,7 @@ var Kho = function Kho(_ref) {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
             flex: "auto",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_21__["default"], {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_20__["default"], {
                 style: {
                   fontSize: 20
                 }
@@ -207816,7 +207822,7 @@ var Kho = function Kho(_ref) {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(Search, {
               placeholder: "T\xECm theo m\xE3, t\xEAn, serial...",
               allowClear: true,
-              enterButton: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_24__["default"], {}),
+              enterButton: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_23__["default"], {}),
               size: "large",
               value: searchText,
               onChange: function onChange(e) {
@@ -207863,7 +207869,7 @@ var Kho = function Kho(_ref) {
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
-              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_23__["default"], {}),
+              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_22__["default"], {}),
               size: "large",
               onClick: handleReset,
               children: "L\xE0m m\u1EDBi"
@@ -207876,7 +207882,7 @@ var Kho = function Kho(_ref) {
           paragraph: {
             rows: 10
           }
-        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_16__["default"], {
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_15__["default"], {
           columns: columns,
           dataSource: thietBis.data,
           rowKey: "id",
@@ -207902,7 +207908,7 @@ var Kho = function Kho(_ref) {
             onChange: function onChange(page, pageSize) {
               var _dateRange$3, _dateRange$4;
               setLoading(true);
-              _inertiajs_react__WEBPACK_IMPORTED_MODULE_26__.router.get('/kho', {
+              _inertiajs_react__WEBPACK_IMPORTED_MODULE_25__.router.get('/kho', {
                 page: page,
                 per_page: pageSize,
                 search: searchText,
@@ -207918,7 +207924,7 @@ var Kho = function Kho(_ref) {
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"], {
         title: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_21__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)("span", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_20__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)("span", {
             children: "Chi ti\u1EBFt thi\u1EBFt b\u1ECB (phi\xEAn b\u1EA3n c\u0169)"
           })]
         }),
@@ -207940,14 +207946,14 @@ var Kho = function Kho(_ref) {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"].Item, {
             label: "M\xE3 thi\u1EBFt b\u1ECB",
             span: 1,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_17__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_16__["default"], {
               color: "blue",
               children: detailModal.ma_thiet_bi
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"].Item, {
             label: "Lo\u1EA1i thi\u1EBFt b\u1ECB",
             span: 1,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_17__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_16__["default"], {
               color: (_LOAI_TB_MAP$detailMo = LOAI_TB_MAP[detailModal.loai_thiet_bi]) === null || _LOAI_TB_MAP$detailMo === void 0 ? void 0 : _LOAI_TB_MAP$detailMo.color,
               children: (_LOAI_TB_MAP$detailMo2 = LOAI_TB_MAP[detailModal.loai_thiet_bi]) === null || _LOAI_TB_MAP$detailMo2 === void 0 ? void 0 : _LOAI_TB_MAP$detailMo2.label
             })
@@ -207981,7 +207987,7 @@ var Kho = function Kho(_ref) {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"].Item, {
             label: "Serial Number",
             span: 1,
-            children: detailModal.serial_number ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_17__["default"], {
+            children: detailModal.serial_number ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_16__["default"], {
               color: "cyan",
               children: detailModal.serial_number
             }) : '—'
@@ -208025,7 +208031,7 @@ var Kho = function Kho(_ref) {
                 borderColor: '#b7eb8f'
               },
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_25__["default"], {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_24__["default"], {
                   style: {
                     color: '#52c41a'
                   }
@@ -208081,31 +208087,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/segmented/index.js");
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/select/index.js");
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/space/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/statistic/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/table/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/tag/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/tooltip/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/typography/index.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/AppstoreOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/AreaChartOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/BankOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/DollarOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/HomeOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/ToolOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/WarningOutlined.js");
-/* harmony import */ var recharts__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! recharts */ "./node_modules/recharts/es6/component/Legend.js");
-/* harmony import */ var recharts__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! recharts */ "./node_modules/recharts/es6/component/Tooltip.js");
-/* harmony import */ var recharts__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! recharts */ "./node_modules/recharts/es6/component/ResponsiveContainer.js");
-/* harmony import */ var recharts__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! recharts */ "./node_modules/recharts/es6/component/Cell.js");
-/* harmony import */ var recharts__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! recharts */ "./node_modules/recharts/es6/polar/Pie.js");
-/* harmony import */ var recharts__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! recharts */ "./node_modules/recharts/es6/cartesian/CartesianGrid.js");
-/* harmony import */ var recharts__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! recharts */ "./node_modules/recharts/es6/cartesian/Area.js");
-/* harmony import */ var recharts__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! recharts */ "./node_modules/recharts/es6/cartesian/Bar.js");
-/* harmony import */ var recharts__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! recharts */ "./node_modules/recharts/es6/cartesian/XAxis.js");
-/* harmony import */ var recharts__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! recharts */ "./node_modules/recharts/es6/cartesian/YAxis.js");
-/* harmony import */ var recharts__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! recharts */ "./node_modules/recharts/es6/chart/BarChart.js");
-/* harmony import */ var recharts__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! recharts */ "./node_modules/recharts/es6/chart/PieChart.js");
-/* harmony import */ var recharts__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! recharts */ "./node_modules/recharts/es6/chart/AreaChart.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/table/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/tag/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/tooltip/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/typography/index.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/AppstoreOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/AreaChartOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/BankOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/DollarOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/HomeOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/ToolOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/WarningOutlined.js");
+/* harmony import */ var recharts__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! recharts */ "./node_modules/recharts/es6/component/Legend.js");
+/* harmony import */ var recharts__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! recharts */ "./node_modules/recharts/es6/component/Tooltip.js");
+/* harmony import */ var recharts__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! recharts */ "./node_modules/recharts/es6/component/ResponsiveContainer.js");
+/* harmony import */ var recharts__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! recharts */ "./node_modules/recharts/es6/component/Cell.js");
+/* harmony import */ var recharts__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! recharts */ "./node_modules/recharts/es6/polar/Pie.js");
+/* harmony import */ var recharts__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! recharts */ "./node_modules/recharts/es6/cartesian/CartesianGrid.js");
+/* harmony import */ var recharts__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! recharts */ "./node_modules/recharts/es6/cartesian/Area.js");
+/* harmony import */ var recharts__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! recharts */ "./node_modules/recharts/es6/cartesian/Bar.js");
+/* harmony import */ var recharts__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! recharts */ "./node_modules/recharts/es6/cartesian/XAxis.js");
+/* harmony import */ var recharts__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! recharts */ "./node_modules/recharts/es6/cartesian/YAxis.js");
+/* harmony import */ var recharts__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! recharts */ "./node_modules/recharts/es6/chart/BarChart.js");
+/* harmony import */ var recharts__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! recharts */ "./node_modules/recharts/es6/chart/PieChart.js");
+/* harmony import */ var recharts__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! recharts */ "./node_modules/recharts/es6/chart/AreaChart.js");
+/* harmony import */ var _Common_KpiCard__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ../Common/KpiCard */ "./resources/js/components/Common/KpiCard.jsx");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
@@ -208125,8 +208131,9 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 
 
 
-var Title = antd__WEBPACK_IMPORTED_MODULE_12__["default"].Title,
-  Text = antd__WEBPACK_IMPORTED_MODULE_12__["default"].Text;
+
+var Title = antd__WEBPACK_IMPORTED_MODULE_11__["default"].Title,
+  Text = antd__WEBPACK_IMPORTED_MODULE_11__["default"].Text;
 
 // ─── Palette đồng bộ toàn trang ──────────────────────────────────────────────
 var P = {
@@ -208186,7 +208193,7 @@ var trangThaiTag = function trangThaiTag(tt) {
     color: 'default',
     label: tt
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__["default"], {
     color: m.color,
     children: m.label
   });
@@ -208257,11 +208264,11 @@ var DonutChart = function DonutChart(_ref) {
   var total = data.reduce(function (s, d) {
     return s + (d.value || 0);
   }, 0);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_22__.ResponsiveContainer, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_21__.ResponsiveContainer, {
     width: "100%",
     height: height,
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsxs)(recharts__WEBPACK_IMPORTED_MODULE_31__.PieChart, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_24__.Pie, {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsxs)(recharts__WEBPACK_IMPORTED_MODULE_30__.PieChart, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_23__.Pie, {
         data: data,
         cx: "50%",
         cy: "50%",
@@ -208270,16 +208277,16 @@ var DonutChart = function DonutChart(_ref) {
         paddingAngle: 3,
         dataKey: "value",
         children: data.map(function (_, i) {
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_23__.Cell, {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_22__.Cell, {
             fill: PIE_COLORS[i % PIE_COLORS.length],
             stroke: "none"
           }, i);
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_21__.Tooltip, _objectSpread(_objectSpread({}, tooltipStyle), {}, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_20__.Tooltip, _objectSpread(_objectSpread({}, tooltipStyle), {}, {
         formatter: function formatter(v, name) {
           return ["".concat(formatNumber(v), " (").concat(total ? (v / total * 100).toFixed(1) : 0, "%)"), name];
         }
-      })), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_20__.Legend, {
+      })), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_19__.Legend, {
         iconType: "circle",
         iconSize: 8,
         formatter: function formatter(value) {
@@ -208324,10 +208331,10 @@ var StyledBarChart = function StyledBarChart(_ref2) {
     margin = _ref2.margin,
     layout = _ref2.layout,
     children = _ref2.children;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_22__.ResponsiveContainer, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_21__.ResponsiveContainer, {
     width: "100%",
     height: height,
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsxs)(recharts__WEBPACK_IMPORTED_MODULE_30__.BarChart, {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsxs)(recharts__WEBPACK_IMPORTED_MODULE_29__.BarChart, {
       data: data,
       margin: margin || {
         top: 4,
@@ -208336,7 +208343,7 @@ var StyledBarChart = function StyledBarChart(_ref2) {
         left: 0
       },
       layout: layout,
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_25__.CartesianGrid, _objectSpread({}, gridStyle)), children, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_21__.Tooltip, _objectSpread({}, tooltipStyle)), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_20__.Legend, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_24__.CartesianGrid, _objectSpread({}, gridStyle)), children, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_20__.Tooltip, _objectSpread({}, tooltipStyle)), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_19__.Legend, {
         iconType: "circle",
         iconSize: 8,
         wrapperStyle: {
@@ -208352,7 +208359,7 @@ var StyledBarChart = function StyledBarChart(_ref2) {
           });
         }
       }), bars.map(function (b, i) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_27__.Bar, {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_26__.Bar, {
           yAxisId: b.yAxisId,
           dataKey: b.dataKey,
           name: b.name,
@@ -208434,43 +208441,33 @@ var TabCoSo = function TabCoSo(_ref3) {
       children: [{
         title: 'Tổng số cơ sở',
         value: tq === null || tq === void 0 ? void 0 : tq.tong_co_so,
-        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_15__["default"], {}),
+        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_14__["default"], {}),
         color: P.blue
       }, {
         title: 'Tổng DT đất',
         value: "".concat(formatNumber(tq === null || tq === void 0 ? void 0 : tq.tong_dien_tich_dat), " m\xB2"),
-        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_14__["default"], {}),
+        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_13__["default"], {}),
         color: P.green
       }, {
         title: 'Tổng DT quy đổi',
         value: "".concat(formatNumber(Math.round(tq === null || tq === void 0 ? void 0 : tq.tong_dien_tich_quy_doi)), " m\xB2"),
-        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_14__["default"], {}),
+        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_13__["default"], {}),
         color: P.teal
       }, {
         title: 'Đang hoạt động',
         value: tq === null || tq === void 0 ? void 0 : tq.co_so_hoat_dong,
-        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_15__["default"], {}),
+        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_14__["default"], {}),
         color: P.green
       }].map(function (item, i) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
           xs: 24,
           sm: 12,
           lg: 6,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
-            bordered: false,
-            style: {
-              borderRadius: 10,
-              boxShadow: '0 1px 6px rgba(0,0,0,.06)'
-            },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
-              title: item.title,
-              value: item.value,
-              prefix: item.icon,
-              valueStyle: {
-                color: item.color,
-                fontWeight: 700
-              }
-            })
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_Common_KpiCard__WEBPACK_IMPORTED_MODULE_32__["default"], {
+            title: item.title,
+            value: item.value,
+            icon: item.icon,
+            color: item.color
           })
         }, i);
       })
@@ -208503,13 +208500,13 @@ var TabCoSo = function TabCoSo(_ref3) {
               fill: P.teal,
               barSize: 24
             }],
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_28__.XAxis, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_27__.XAxis, {
               dataKey: "name",
               angle: -12,
               textAnchor: "end",
               interval: 0,
               tick: axisStyle
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_29__.YAxis, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_28__.YAxis, {
               tickFormatter: function tickFormatter(v) {
                 return "".concat(Math.round(v / 1000), "k");
               },
@@ -208561,13 +208558,13 @@ var TabCoSo = function TabCoSo(_ref3) {
           fill: P.orange,
           barSize: 18
         }],
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_28__.XAxis, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_27__.XAxis, {
           dataKey: "name",
           angle: -12,
           textAnchor: "end",
           interval: 0,
           tick: axisStyle
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_29__.YAxis, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_28__.YAxis, {
           tick: axisStyle
         })]
       })
@@ -208578,7 +208575,7 @@ var TabCoSo = function TabCoSo(_ref3) {
         borderRadius: 10,
         boxShadow: '0 1px 6px rgba(0,0,0,.06)'
       },
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
         dataSource: chi_tiet,
         columns: columns,
         rowKey: "id",
@@ -208787,43 +208784,33 @@ var TabKhuNha = function TabKhuNha(_ref4) {
       children: [{
         title: 'Tổng khu nhà',
         value: tq === null || tq === void 0 ? void 0 : tq.tong_khu_nha,
-        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_17__["default"], {}),
+        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_16__["default"], {}),
         color: P.blue
       }, {
         title: 'Tổng DT sàn XD',
         value: "".concat(formatNumber(tq === null || tq === void 0 ? void 0 : tq.tong_dien_tich_san), " m\xB2"),
-        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_14__["default"], {}),
+        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_13__["default"], {}),
         color: P.green
       }, {
         title: 'Tổng DT đào tạo',
         value: "".concat(formatNumber(Math.round((tq === null || tq === void 0 ? void 0 : tq.tong_dt_dao_tao) || 0)), " m\xB2"),
-        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_14__["default"], {}),
+        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_13__["default"], {}),
         color: P.teal
       }, {
         title: 'Đang hoạt động',
         value: tq === null || tq === void 0 ? void 0 : tq.khu_nha_hoat_dong,
-        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_17__["default"], {}),
+        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_16__["default"], {}),
         color: P.green
       }].map(function (item, i) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
           xs: 24,
           sm: 12,
           lg: 6,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
-            bordered: false,
-            style: {
-              borderRadius: 10,
-              boxShadow: '0 1px 6px rgba(0,0,0,.06)'
-            },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
-              title: item.title,
-              value: item.value,
-              prefix: item.icon,
-              valueStyle: {
-                color: item.color,
-                fontWeight: 700
-              }
-            })
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_Common_KpiCard__WEBPACK_IMPORTED_MODULE_32__["default"], {
+            title: item.title,
+            value: item.value,
+            icon: item.icon,
+            color: item.color
           })
         }, i);
       })
@@ -208847,10 +208834,10 @@ var TabKhuNha = function TabKhuNha(_ref4) {
               fill: P.blue,
               barSize: 40
             }],
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_28__.XAxis, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_27__.XAxis, {
               dataKey: "name",
               tick: axisStyle
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_29__.YAxis, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_28__.YAxis, {
               tick: axisStyle
             })]
           })
@@ -208895,7 +208882,7 @@ var TabKhuNha = function TabKhuNha(_ref4) {
           fill: P.green,
           barSize: 16
         }],
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_28__.XAxis, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_27__.XAxis, {
           dataKey: "name",
           angle: -12,
           textAnchor: "end",
@@ -208903,7 +208890,7 @@ var TabKhuNha = function TabKhuNha(_ref4) {
           tick: _objectSpread(_objectSpread({}, axisStyle), {}, {
             fontSize: 11
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_29__.YAxis, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_28__.YAxis, {
           tickFormatter: function tickFormatter(v) {
             return "".concat(Math.round(v / 1000), "k");
           },
@@ -208917,7 +208904,7 @@ var TabKhuNha = function TabKhuNha(_ref4) {
         borderRadius: 10,
         boxShadow: '0 1px 6px rgba(0,0,0,.06)'
       },
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
         dataSource: filteredData.chi_tiet,
         columns: columns,
         rowKey: "id",
@@ -209176,43 +209163,33 @@ var TabPhong = function TabPhong(_ref9) {
       children: [{
         title: 'Tổng số phòng',
         value: tq === null || tq === void 0 ? void 0 : tq.tong_phong,
-        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_13__["default"], {}),
+        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_12__["default"], {}),
         color: P.blue
       }, {
         title: 'Tổng diện tích',
         value: "".concat(formatNumber(tq === null || tq === void 0 ? void 0 : tq.tong_dien_tich), " m\xB2"),
-        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_14__["default"], {}),
+        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_13__["default"], {}),
         color: P.green
       }, {
         title: 'Tổng sức chứa',
         value: formatNumber(tq === null || tq === void 0 ? void 0 : tq.tong_suc_chua),
-        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_13__["default"], {}),
+        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_12__["default"], {}),
         color: P.teal
       }, {
         title: 'Đang bảo trì',
         value: tq === null || tq === void 0 ? void 0 : tq.phong_bao_tri,
-        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_19__["default"], {}),
+        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_18__["default"], {}),
         color: P.orange
       }].map(function (item, i) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
           xs: 24,
           sm: 12,
           lg: 6,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
-            bordered: false,
-            style: {
-              borderRadius: 10,
-              boxShadow: '0 1px 6px rgba(0,0,0,.06)'
-            },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
-              title: item.title,
-              value: item.value,
-              prefix: item.icon,
-              valueStyle: {
-                color: item.color,
-                fontWeight: 700
-              }
-            })
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_Common_KpiCard__WEBPACK_IMPORTED_MODULE_32__["default"], {
+            title: item.title,
+            value: item.value,
+            icon: item.icon,
+            color: item.color
           })
         }, i);
       })
@@ -209241,10 +209218,10 @@ var TabPhong = function TabPhong(_ref9) {
               fill: P.purple,
               barSize: 28
             }],
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_28__.XAxis, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_27__.XAxis, {
               dataKey: "name",
               tick: axisStyle
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_29__.YAxis, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_28__.YAxis, {
               tick: axisStyle
             })]
           })
@@ -209280,10 +209257,10 @@ var TabPhong = function TabPhong(_ref9) {
           fill: P.teal,
           barSize: 32
         }],
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_28__.XAxis, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_27__.XAxis, {
           dataKey: "name",
           tick: axisStyle
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_29__.YAxis, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_28__.YAxis, {
           tick: axisStyle
         })]
       })
@@ -209294,7 +209271,7 @@ var TabPhong = function TabPhong(_ref9) {
         borderRadius: 10,
         boxShadow: '0 1px 6px rgba(0,0,0,.06)'
       },
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
         dataSource: filteredData.chi_tiet,
         columns: columns,
         rowKey: "id",
@@ -209536,9 +209513,9 @@ var TabThietBi = function TabThietBi(_ref14) {
     dataIndex: 'qua_han_bao_duong',
     align: 'center',
     render: function render(v) {
-      return v ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+      return v ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"], {
         title: "Qu\xE1 h\u1EA1n b\u1EA3o d\u01B0\u1EE1ng",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__["default"], {
           color: "red",
           children: "Qu\xE1 h\u1EA1n"
         })
@@ -209617,44 +209594,33 @@ var TabThietBi = function TabThietBi(_ref14) {
       children: [{
         title: 'Tổng thiết bị',
         value: tq === null || tq === void 0 ? void 0 : tq.tong_thiet_bi,
-        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_18__["default"], {}),
+        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_17__["default"], {}),
         color: P.blue
       }, {
         title: 'Tổng giá trị',
         value: formatCurrency(tq === null || tq === void 0 ? void 0 : tq.tong_gia_tri),
-        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_16__["default"], {}),
+        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_15__["default"], {}),
         color: P.purple
       }, {
         title: 'Cần bảo dưỡng',
         value: tq === null || tq === void 0 ? void 0 : tq.can_bao_duong,
-        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_19__["default"], {}),
+        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_18__["default"], {}),
         color: P.red
       }, {
         title: 'Đang hoạt động',
         value: tq === null || tq === void 0 ? void 0 : tq.dang_hoat_dong,
-        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_18__["default"], {}),
+        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_17__["default"], {}),
         color: P.green
       }].map(function (item, i) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
           xs: 24,
           sm: 12,
           lg: 6,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
-            bordered: false,
-            style: {
-              borderRadius: 10,
-              boxShadow: '0 1px 6px rgba(0,0,0,.06)'
-            },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
-              title: item.title,
-              value: item.value,
-              prefix: item.icon,
-              valueStyle: {
-                color: item.color,
-                fontWeight: 700,
-                fontSize: i === 1 ? 18 : 24
-              }
-            })
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_Common_KpiCard__WEBPACK_IMPORTED_MODULE_32__["default"], {
+            title: item.title,
+            value: item.value,
+            icon: item.icon,
+            color: item.color
           })
         }, i);
       })
@@ -209685,13 +209651,13 @@ var TabThietBi = function TabThietBi(_ref14) {
               barSize: 28,
               yAxisId: 'right'
             }],
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_28__.XAxis, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_27__.XAxis, {
               dataKey: "name",
               tick: axisStyle
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_29__.YAxis, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_28__.YAxis, {
               yAxisId: "left",
               tick: axisStyle
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_29__.YAxis, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_28__.YAxis, {
               yAxisId: "right",
               orientation: "right",
               tickFormatter: function tickFormatter(v) {
@@ -209728,10 +209694,10 @@ var TabThietBi = function TabThietBi(_ref14) {
             borderRadius: 10,
             boxShadow: '0 1px 6px rgba(0,0,0,.06)'
           },
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_22__.ResponsiveContainer, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_21__.ResponsiveContainer, {
             width: "100%",
             height: 260,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsxs)(recharts__WEBPACK_IMPORTED_MODULE_32__.AreaChart, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsxs)(recharts__WEBPACK_IMPORTED_MODULE_31__.AreaChart, {
               data: bieu_do_nam_mua,
               margin: {
                 top: 8,
@@ -209771,24 +209737,24 @@ var TabThietBi = function TabThietBi(_ref14) {
                     stopOpacity: 0
                   })]
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_25__.CartesianGrid, _objectSpread({}, gridStyle)), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_28__.XAxis, {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_24__.CartesianGrid, _objectSpread({}, gridStyle)), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_27__.XAxis, {
                 dataKey: "name",
                 tick: axisStyle
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_29__.YAxis, {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_28__.YAxis, {
                 yAxisId: "left",
                 tick: axisStyle
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_29__.YAxis, {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_28__.YAxis, {
                 yAxisId: "right",
                 orientation: "right",
                 tickFormatter: function tickFormatter(v) {
                   return "".concat(Math.round(v / 1e6), "M");
                 },
                 tick: axisStyle
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_21__.Tooltip, _objectSpread(_objectSpread({}, tooltipStyle), {}, {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_20__.Tooltip, _objectSpread(_objectSpread({}, tooltipStyle), {}, {
                 formatter: function formatter(v, name) {
                   return name === 'Giá trị' ? formatCurrency(v) : v;
                 }
-              })), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_20__.Legend, {
+              })), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_19__.Legend, {
                 iconType: "circle",
                 iconSize: 8,
                 formatter: function formatter(value) {
@@ -209800,7 +209766,7 @@ var TabThietBi = function TabThietBi(_ref14) {
                     children: value
                   });
                 }
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_26__.Area, {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_25__.Area, {
                 yAxisId: "left",
                 type: "monotone",
                 dataKey: "soLuong",
@@ -209816,7 +209782,7 @@ var TabThietBi = function TabThietBi(_ref14) {
                 activeDot: {
                   r: 6
                 }
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_26__.Area, {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_25__.Area, {
                 yAxisId: "right",
                 type: "monotone",
                 dataKey: "tongGiaTri",
@@ -209846,10 +209812,10 @@ var TabThietBi = function TabThietBi(_ref14) {
             borderRadius: 10,
             boxShadow: '0 1px 6px rgba(0,0,0,.06)'
           },
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_22__.ResponsiveContainer, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_21__.ResponsiveContainer, {
             width: "100%",
             height: 260,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsxs)(recharts__WEBPACK_IMPORTED_MODULE_30__.BarChart, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsxs)(recharts__WEBPACK_IMPORTED_MODULE_29__.BarChart, {
               data: bieu_do_hang,
               layout: "vertical",
               margin: {
@@ -209858,22 +209824,22 @@ var TabThietBi = function TabThietBi(_ref14) {
                 left: 8,
                 bottom: 4
               },
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_25__.CartesianGrid, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_24__.CartesianGrid, {
                 strokeDasharray: "0",
                 stroke: "#f0f0f0",
                 strokeWidth: 1,
                 horizontal: false
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_28__.XAxis, {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_27__.XAxis, {
                 type: "number",
                 tick: axisStyle
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_29__.YAxis, {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_28__.YAxis, {
                 type: "category",
                 dataKey: "name",
                 width: 85,
                 tick: _objectSpread(_objectSpread({}, axisStyle), {}, {
                   fontSize: 11
                 })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_21__.Tooltip, _objectSpread({}, tooltipStyle)), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_27__.Bar, {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_20__.Tooltip, _objectSpread({}, tooltipStyle)), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_26__.Bar, {
                 dataKey: "soLuong",
                 name: "S\u1ED1 l\u01B0\u1EE3ng",
                 fill: P.teal,
@@ -209895,7 +209861,7 @@ var TabThietBi = function TabThietBi(_ref14) {
         borderRadius: 10,
         boxShadow: '0 1px 6px rgba(0,0,0,.06)'
       },
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
         dataSource: filteredData.chi_tiet,
         columns: columns,
         rowKey: "id",
@@ -209933,22 +209899,22 @@ var ThongKeIndex = function ThongKeIndex(_ref23) {
     setTab = _useState12[1];
   var options = [{
     label: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_15__["default"], {}), "C\u01A1 s\u1EDF"]
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_14__["default"], {}), "C\u01A1 s\u1EDF"]
     }),
     value: 'co-so'
   }, {
     label: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_17__["default"], {}), "Khu nh\xE0"]
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_16__["default"], {}), "Khu nh\xE0"]
     }),
     value: 'khu-nha'
   }, {
     label: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_13__["default"], {}), "Ph\xF2ng"]
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_12__["default"], {}), "Ph\xF2ng"]
     }),
     value: 'phong'
   }, {
     label: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_18__["default"], {}), "Thi\u1EBFt b\u1ECB"]
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_17__["default"], {}), "Thi\u1EBFt b\u1ECB"]
     }),
     value: 'thiet-bi'
   }];
@@ -209972,7 +209938,7 @@ var ThongKeIndex = function ThongKeIndex(_ref23) {
           style: {
             margin: 0
           },
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_14__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_13__["default"], {
             style: {
               marginRight: 8,
               color: P.blue

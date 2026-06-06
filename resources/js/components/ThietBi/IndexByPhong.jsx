@@ -30,9 +30,11 @@ import {
     UnorderedListOutlined,
     HomeOutlined,
     ToolOutlined,
+    DollarOutlined,
 } from '@ant-design/icons';
 import { Link, router } from '@inertiajs/react';
 import usePermission from '../../hooks/usePermission';
+import KpiCard from '../Common/KpiCard';
 
 const { Search } = Input;
 const { Panel } = Collapse;
@@ -352,50 +354,40 @@ const IndexByPhong = ({ groupedThietBis, phongs, filters }) => {
                 </Card>
 
                 {/* Thống kê tổng quan */}
-                <Card>
-                    <Row gutter={16}>
-                        <Col xs={24} sm={12} md={6}>
-                            <Card bordered={false} style={{ background: '#f0f5ff' }}>
-                                <Statistic
-                                    title="Tổng số phòng"
-                                    value={totalStats.tongSoPhong}
-                                    prefix={<HomeOutlined />}
-                                    valueStyle={{ color: '#1890ff' }}
-                                />
-                            </Card>
-                        </Col>
-                        <Col xs={24} sm={12} md={6}>
-                            <Card bordered={false} style={{ background: '#f6ffed' }}>
-                                <Statistic
-                                    title="Tổng loại thiết bị"
-                                    value={totalStats.tongSoThietBi}
-                                    prefix={<AppstoreOutlined />}
-                                    valueStyle={{ color: '#52c41a' }}
-                                />
-                            </Card>
-                        </Col>
-                        <Col xs={24} sm={12} md={6}>
-                            <Card bordered={false} style={{ background: '#fff7e6' }}>
-                                <Statistic
-                                    title="Tổng thiết bị"
-                                    value={totalStats.tongSoLuong}
-                                    prefix={<ToolOutlined />}
-                                    valueStyle={{ color: '#fa8c16' }}
-                                />
-                            </Card>
-                        </Col>
-                        <Col xs={24} sm={12} md={6}>
-                            <Card bordered={false} style={{ background: '#fff1f0' }}>
-                                <Statistic
-                                    title="Tổng giá trị"
-                                    value={totalStats.tongGiaTri}
-                                    formatter={(value) => formatCurrency(value)}
-                                    valueStyle={{ color: '#cf1322' }}
-                                />
-                            </Card>
-                        </Col>
-                    </Row>
-                </Card>
+                <Row gutter={[16, 16]}>
+                    <Col xs={24} sm={12} md={6}>
+                        <KpiCard
+                            title="Tổng số phòng"
+                            value={totalStats.tongSoPhong}
+                            icon={<HomeOutlined />}
+                            color="#1890ff"
+                        />
+                    </Col>
+                    <Col xs={24} sm={12} md={6}>
+                        <KpiCard
+                            title="Tổng loại thiết bị"
+                            value={totalStats.tongSoThietBi}
+                            icon={<AppstoreOutlined />}
+                            color="#52c41a"
+                        />
+                    </Col>
+                    <Col xs={24} sm={12} md={6}>
+                        <KpiCard
+                            title="Tổng thiết bị"
+                            value={totalStats.tongSoLuong}
+                            icon={<ToolOutlined />}
+                            color="#fa8c16"
+                        />
+                    </Col>
+                    <Col xs={24} sm={12} md={6}>
+                        <KpiCard
+                            title="Tổng giá trị"
+                            value={formatCurrency(totalStats.tongGiaTri)}
+                            icon={<DollarOutlined />}
+                            color="#cf1322"
+                        />
+                    </Col>
+                </Row>
 
                 {/* Bộ lọc */}
                 <Card>
