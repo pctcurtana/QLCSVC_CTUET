@@ -233,11 +233,6 @@ const MainLayout = ({ children }) => {
         return path;
     };
 
-    // Role badge color
-    // const getRoleBadgeColor = () => {
-    //     return user?.role === 'admin' ? '#f5222d' : '#1890ff';
-    // };
-
     return (
         <Layout style={{ minHeight: '100vh', backgroundColor: 'transparent' }}>
             <Sider

@@ -197869,6 +197869,13 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+
 
 
 
@@ -197880,6 +197887,16 @@ var Title = antd__WEBPACK_IMPORTED_MODULE_6__["default"].Title,
 
 // ─── Màu sắc ──────────────────────────────────────────────────────────────
 var C = ['#3b82f6', '#0f766e', '#f59e0b', '#8b5cf6', '#ef4444', '#22c55e'];
+var DONUT_COLORS = [{
+  solid: "#10b981",
+  grad: ["#34d399", "#10b981"]
+}, {
+  solid: "#f59e0b",
+  grad: ["#fbbf24", "#f59e0b"]
+}, {
+  solid: "#ef4444",
+  grad: ["#fb7185", "#ef4444"]
+}];
 var tooltipStyle = {
   contentStyle: {
     background: 'rgba(255,255,255,0.75)',
@@ -197910,6 +197927,31 @@ var tooltipStyle = {
   cursor: {
     fill: 'rgba(36,67,128,.04)'
   }
+};
+var useCountUp = function useCountUp(target) {
+  var duration = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1200;
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+    _useState2 = _slicedToArray(_useState, 2),
+    value = _useState2[0],
+    setValue = _useState2[1];
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var raf;
+    var start;
+    var _animate = function animate(timestamp) {
+      if (!start) start = timestamp;
+      var progress = Math.min((timestamp - start) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 4);
+      setValue(Math.round(target * eased));
+      if (progress < 1) {
+        raf = requestAnimationFrame(_animate);
+      }
+    };
+    raf = requestAnimationFrame(_animate);
+    return function () {
+      return cancelAnimationFrame(raf);
+    };
+  }, [target, duration]);
+  return value;
 };
 
 // ─── Helpers ──────────────────────────────────────────────────────────────
@@ -198042,105 +198084,129 @@ var DonutChart = function DonutChart(_ref3) {
   var total = data.reduce(function (s, d) {
     return s + (d.value || 0);
   }, 0);
+  var displayTotal = useCountUp(total);
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState4 = _slicedToArray(_useState3, 2),
+    activeIndex = _useState4[0],
+    setActiveIndex = _useState4[1];
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
-    style: {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center'
-    },
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
-      style: {
-        position: 'relative',
-        width: '100%'
-      },
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_14__.ResponsiveContainer, {
+    className: "flex items-center gap-5",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
+      className: "relative w-[220px] shrink-0",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_14__.ResponsiveContainer, {
         width: "100%",
-        height: 200,
+        height: 280,
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(recharts__WEBPACK_IMPORTED_MODULE_23__.PieChart, {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_17__.Pie, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("defs", {
+            children: DONUT_COLORS.map(function (c, i) {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("linearGradient", {
+                id: "donutGradient".concat(i),
+                x1: "0%",
+                y1: "0%",
+                x2: "100%",
+                y2: "100%",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("stop", {
+                  offset: "0%",
+                  stopColor: c.grad[0]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("stop", {
+                  offset: "100%",
+                  stopColor: c.grad[1]
+                })]
+              }, i);
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_17__.Pie, {
             data: data,
             cx: "50%",
             cy: "50%",
-            innerRadius: 72,
-            outerRadius: 96,
-            paddingAngle: 4,
+            innerRadius: 60,
+            outerRadius: 82,
+            paddingAngle: 5,
             dataKey: "value",
             startAngle: 90,
             endAngle: -270,
-            children: data.map(function (_, i) {
+            animationDuration: 1800,
+            animationBegin: 200,
+            onMouseEnter: function onMouseEnter(_, index) {
+              return setActiveIndex(index);
+            },
+            onMouseLeave: function onMouseLeave() {
+              return setActiveIndex(null);
+            },
+            children: data.map(function (item, i) {
+              var active = activeIndex === i;
               return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_15__.Cell, {
-                fill: C[i % C.length],
-                stroke: "none"
+                fill: "url(#donutGradient".concat(i, ")"),
+                stroke: "rgba(255,255,255,.8)",
+                strokeWidth: 2,
+                style: {
+                  filter: active ? "drop-shadow(0 0 10px ".concat(DONUT_COLORS[i].solid, "55)") : "none",
+                  transition: "all .25s ease"
+                }
               }, i);
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_13__.Tooltip, _objectSpread(_objectSpread({}, tooltipStyle), {}, {
+            offset: 100,
             formatter: function formatter(v) {
               return ["".concat(fmt(v), " ph\xF2ng (").concat(total ? (v / total * 100).toFixed(1) : 0, "%)")];
             }
-          })), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("text", {
-            x: "50%",
-            y: "46%",
-            textAnchor: "middle",
-            dominantBaseline: "middle",
-            fontSize: 36,
-            fontWeight: 900,
-            fill: "#111",
-            children: fmt(total)
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("text", {
-            x: "50%",
-            y: "57%",
-            textAnchor: "middle",
-            dominantBaseline: "middle",
-            fontSize: 12,
-            fill: "#bbb",
+          }))]
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+        className: "absolute inset-0 flex items-center justify-center pointer-events-none",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
+          className: "flex flex-col items-center justify-center w-[88px] h-[88px] rounded-full border border-white/30 bg-white/40 backdrop-blur-xl",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+            className: "text-[24px] font-black text-slate-900 leading-none",
+            style: {
+              fontFamily: "'Plus Jakarta Sans', sans-serif"
+            },
+            children: displayTotal
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+            className: "mt-1 text-[10px] uppercase tracking-[0.12em] text-slate-400 font-bold",
             children: "T\u1ED5ng ph\xF2ng"
           })]
         })
-      })
+      })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
-      style: {
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 12,
-        marginTop: 4
-      },
+      className: "flex-1 flex flex-col gap-2",
       children: data.map(function (item, i) {
-        var pct = total ? (item.value / total * 100).toFixed(0) : 0;
+        var pct = total ? Math.round(item.value / total * 100) : 0;
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
-          style: {
-            display: 'flex',
-            alignItems: 'center',
-            gap: 10
+          className: "rounded-xl px-3 py-2 transition-all duration-300 hover:bg-[#244380]/[0.06] hover:backdrop-blur-xl hover:shadow-[0_8px_20px_rgba(36,67,128,.08)] hover:border hover:border-[#244380]/10 hover:-translate-y-[1px]",
+          onMouseEnter: function onMouseEnter() {
+            return setActiveIndex(i);
           },
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
-            style: {
-              width: 10,
-              height: 10,
-              borderRadius: '50%',
-              background: C[i % C.length],
-              flexShrink: 0
-            }
+          onMouseLeave: function onMouseLeave() {
+            return setActiveIndex(null);
+          },
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
+            className: "flex items-center justify-between mb-1.5",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
+              className: "flex items-center gap-2",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+                className: "w-2.5 h-2.5 rounded-full",
+                style: {
+                  background: DONUT_COLORS[i].solid
+                }
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
+                className: "text-[12px] font-semibold text-slate-700",
+                children: item.name
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+              className: "text-[13px] font-bold text-slate-900",
+              children: fmt(item.value)
+            })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
-            style: {
-              flex: 1,
-              fontSize: 13,
-              color: '#555'
-            },
-            children: item.name
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(Text, {
-            strong: true,
-            style: {
-              fontSize: 14
-            },
-            children: fmt(item.value)
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(Text, {
-            type: "secondary",
-            style: {
-              fontSize: 12,
-              width: 36,
-              textAlign: 'right'
-            },
+            className: "h-1 rounded-full bg-slate-100 overflow-hidden",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+              className: "h-full rounded-full transition-all duration-700",
+              style: {
+                width: "".concat(pct, "%"),
+                background: "linear-gradient(90deg, ".concat(DONUT_COLORS[i].grad[0], ", ").concat(DONUT_COLORS[i].grad[1], ")")
+              }
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
+            className: "mt-1 text-right text-[11px] font-semibold text-slate-400",
             children: [pct, "%"]
           })]
         }, i);
@@ -198182,6 +198248,10 @@ var Dashboard = function Dashboard(_ref4) {
       value: d.so_luong
     };
   });
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState6 = _slicedToArray(_useState5, 2),
+    activeBar = _useState6[0],
+    setActiveBar = _useState6[1];
   var kpis = [{
     title: 'Tổng số cơ sở',
     value: fmt(statistics.tong_co_so),
@@ -198247,11 +198317,13 @@ var Dashboard = function Dashboard(_ref4) {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
           xs: 24,
           lg: 14,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(ChartCard, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(ChartCard, {
             title: "Ph\xE2n b\u1ED1 theo lo\u1EA1i ph\xF2ng",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_14__.ResponsiveContainer, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+              className: "h-px bg-slate-200/70 mb-6"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_14__.ResponsiveContainer, {
               width: "100%",
-              height: 280,
+              height: 200,
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(recharts__WEBPACK_IMPORTED_MODULE_22__.BarChart, {
                 data: loaiPhongData,
                 margin: {
@@ -198260,8 +198332,8 @@ var Dashboard = function Dashboard(_ref4) {
                   left: -10,
                   bottom: 6
                 },
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("defs", {
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("linearGradient", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("defs", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("linearGradient", {
                     id: "roomGradient",
                     x1: "0",
                     y1: "0",
@@ -198269,24 +198341,40 @@ var Dashboard = function Dashboard(_ref4) {
                     y2: "1",
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("stop", {
                       offset: "0%",
+                      stopColor: "#6ea8ff"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("stop", {
+                      offset: "55%",
                       stopColor: "#4f8cff"
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("stop", {
                       offset: "100%",
                       stopColor: "#244380"
                     })]
-                  })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("filter", {
+                    id: "roomGlow",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("feDropShadow", {
+                      dx: "0",
+                      dy: "6",
+                      stdDeviation: "8",
+                      floodColor: "#4f8cff",
+                      floodOpacity: "0.15"
+                    })
+                  })]
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_18__.CartesianGrid, {
                   vertical: false,
-                  stroke: "#f1f5f9",
-                  strokeDasharray: "3 6"
+                  stroke: "rgba(148,163,184,.12)",
+                  strokeDasharray: "2 8"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_20__.XAxis, {
                   dataKey: "name",
+                  axisLine: false,
+                  tickLine: false,
                   tick: {
                     fill: "#64748b",
                     fontSize: 12,
                     fontWeight: 600
                   }
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_21__.YAxis, {
+                  axisLine: false,
+                  tickLine: false,
                   tick: {
                     fill: "#94a3b8",
                     fontSize: 11,
@@ -198294,39 +198382,67 @@ var Dashboard = function Dashboard(_ref4) {
                   }
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_13__.Tooltip, _objectSpread(_objectSpread({}, tooltipStyle), {}, {
                   formatter: function formatter(v) {
-                    return ["".concat(fmt(v), " ph\xF2ng"), 'Số lượng'];
+                    return ["".concat(fmt(v), " ph\xF2ng"), "Số lượng"];
                   }
                 })), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_19__.Bar, {
                   dataKey: "soLuong",
-                  name: "S\u1ED1 ph\xF2ng",
-                  fill: "url(#roomGradient)",
-                  radius: [999, 999, 0, 0],
-                  maxBarSize: 32,
+                  radius: [12, 12, 4, 4],
+                  maxBarSize: 38,
+                  filter: "url(#roomGlow)",
                   background: {
-                    fill: "#f8fafc",
-                    radius: 999
+                    fill: "rgba(148,163,184,.06)",
+                    radius: 12
                   },
-                  isAnimationActive: true,
-                  animationDuration: 1000,
+                  animationDuration: 1200,
+                  animationBegin: 100,
                   animationEasing: "ease-out",
-                  activeBar: {
-                    fill: "#1d4ed8",
-                    stroke: "#93c5fd",
-                    strokeWidth: 1
-                  },
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_16__.LabelList, {
-                    dataKey: "soLuong",
-                    position: "top",
-                    style: {
-                      fontWeight: 800,
-                      fill: "#0f172a",
-                      fontSize: 13,
-                      fontFamily: "'Plus Jakarta Sans', sans-serif"
-                    }
+                  children: loaiPhongData.map(function (entry, index) {
+                    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_15__.Cell, {
+                      fill: activeBar === null ? "#5B8FF9" : activeBar === index ? "#244380" : "#CBD5E1",
+                      style: {
+                        filter: activeBar === index ? "drop-shadow(0 6px 12px rgba(36,67,128,.25))" : "none",
+                        transition: "all .35s ease"
+                      }
+                    }, index);
                   })
                 })]
               })
-            })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+              className: "mt-6 pt-2 border-t border-slate-200/60 grid grid-cols-4",
+              children: loaiPhongData.map(function (item, index) {
+                var total = loaiPhongData.reduce(function (s, i) {
+                  return s + i.soLuong;
+                }, 0);
+                var pct = Math.round(item.soLuong / total * 100);
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
+                  onMouseEnter: function onMouseEnter() {
+                    return setActiveBar(index);
+                  },
+                  onMouseLeave: function onMouseLeave() {
+                    return setActiveBar(null);
+                  },
+                  className: "\n                                            relative\n                                            px-4\n                                            py-2\n                                            rounded-xl\n                                            cursor-pointer\n                                            transition-all duration-500 ease-in-out\n\n                                            ".concat(activeBar === index ? "bg-[#244380]/[0.08]" : "", "\n                                        "),
+                  style: {
+                    opacity: activeBar === null ? 1 : activeBar === index ? 1 : 0.35
+                  },
+                  children: [index !== loaiPhongData.length - 1 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+                    className: " absolute right-0 top-1/2 -translate-y-1/2 w-px h-10 bg-gradient-to-b from-transparent via-slate-200 to-transparent "
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
+                    className: "flex items-baseline gap-1",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
+                      className: "\n                                                    text-sm\n                                                    font-black\n                                                    transition-all\n                                                    duration-300\n\n                                                    ".concat(activeBar === index ? "text-[#244380]" : "text-slate-800", "\n                                                "),
+                      children: item.soLuong
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("span", {
+                      className: "\n                                                    text-xs\n                                                    font-semibold\n                                                    transition-all\n                                                    duration-300\n\n                                                    ".concat(activeBar === index ? "text-[#4f8cff]" : "text-slate-400", "\n                                                "),
+                      children: [pct, "%"]
+                    })]
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+                    className: "\n                                                mt-1\n                                                text-[11px]\n                                                uppercase\n                                                tracking-[0.12em]\n                                                font-semibold\n                                                transition-all\n                                                duration-300\n\n                                                ".concat(activeBar === index ? "text-[#244380]" : "text-slate-400", "\n                                            "),
+                    children: item.name
+                  })]
+                }, item.name);
+              })
+            })]
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
           xs: 24,
@@ -198388,7 +198504,6 @@ var Dashboard = function Dashboard(_ref4) {
                 })), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_19__.Bar, {
                   dataKey: "soLuong",
                   name: "S\u1ED1 thi\u1EBFt b\u1ECB",
-                  fill: "url(#deviceGradient)",
                   radius: [0, 10, 10, 0],
                   maxBarSize: 24,
                   background: {
@@ -198399,8 +198514,9 @@ var Dashboard = function Dashboard(_ref4) {
                   animationDuration: 1000,
                   animationBegin: 220,
                   animationEasing: "ease-out",
+                  fill: "#5B8FF9",
                   activeBar: {
-                    fill: '#0d9488'
+                    fill: "#7EA6FF"
                   },
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_16__.LabelList, {
                     dataKey: "soLuong",
@@ -198464,16 +198580,13 @@ var Dashboard = function Dashboard(_ref4) {
                   formatter: function formatter(v) {
                     return ["".concat(fmt(v), " khu nh\xE0")];
                   }
-                })), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(recharts__WEBPACK_IMPORTED_MODULE_19__.Bar, {
+                })), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_19__.Bar, {
                   dataKey: "soKhuNha",
                   name: "S\u1ED1 khu nh\xE0",
                   barSize: 52,
                   radius: [10, 10, 0, 0],
-                  children: [coSoData.map(function (_, i) {
-                    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_15__.Cell, {
-                      fill: "url(#g".concat(i, ")")
-                    }, i);
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_16__.LabelList, {
+                  fill: "#34d399",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_16__.LabelList, {
                     dataKey: "soKhuNha",
                     position: "top",
                     style: {
@@ -198481,7 +198594,7 @@ var Dashboard = function Dashboard(_ref4) {
                       fontSize: 18,
                       fill: '#333'
                     }
-                  })]
+                  })
                 })]
               })
             })
@@ -200541,12 +200654,6 @@ var MainLayout = function MainLayout(_ref) {
     }
     return path;
   };
-
-  // Role badge color
-  // const getRoleBadgeColor = () => {
-  //     return user?.role === 'admin' ? '#f5222d' : '#1890ff';
-  // };
-
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
     style: {
       minHeight: '100vh',
