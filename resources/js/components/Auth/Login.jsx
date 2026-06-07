@@ -65,7 +65,7 @@ const Login = () => {
                         <img
                             src="/images/logoctuet.png"
                             alt="Logo CTUET"
-                            className="w-9 h-9 object-contain"
+                            className="w-16 h-16 object-contain"
                             onError={(e) => { e.target.src = '/favicon.png'; }}
                         />
                         <div className="h-5 w-[1px] bg-[#244380]/15" />
@@ -118,7 +118,7 @@ const Login = () => {
                         <img
                             src="/images/logoctuet.png"
                             alt="Logo CTUET"
-                            className="w-8 h-8 object-contain"
+                            className="w-12 h-12 object-contain"
                             onError={(e) => { e.target.src = '/favicon.png'; }}
                         />
                         <span className="text-xs font-bold tracking-widest text-[#244380] font-sans uppercase">

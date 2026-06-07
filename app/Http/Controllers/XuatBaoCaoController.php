@@ -4,21 +4,29 @@ namespace App\Http\Controllers;
 
 use App\Models\DotBaoCao;
 use App\Services\BaoCaoBgdService;
+use App\Services\BaoCaoDataService;
 use App\Exports\BaoCaoBgdExport;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Maatwebsite\Excel\Facades\Excel;
 
 class XuatBaoCaoController extends Controller
 {
+    /** @var BaoCaoBgdService */
     protected $baoCaoService;
 
-    public function __construct(BaoCaoBgdService $baoCaoService)
+    /** @var BaoCaoDataService */
+    protected $baoCaoDataService;
+
+    public function __construct(BaoCaoBgdService $baoCaoService, BaoCaoDataService $baoCaoDataService)
     {
-        $this->baoCaoService = $baoCaoService;
+        $this->baoCaoService     = $baoCaoService;
+        $this->baoCaoDataService = $baoCaoDataService;
     }
 
     /**
-     * Hiển thị trang quản lý đợt báo cáo
+     * Hiển thị trang quản lý đợt báo cáo.
+     * Preview data được lấy qua BaoCaoDataService (dùng chung với export).
      */
     public function index(Request $request)
     {
@@ -27,70 +35,55 @@ class XuatBaoCaoController extends Controller
             ->get()
             ->map(function ($dot) {
                 return [
-                    'id' => $dot->id,
-                    'ten_dot' => $dot->ten_dot,
-                    'nam_hoc' => $dot->nam_hoc,
-                    'mo_ta' => $dot->mo_ta,
+                    'id'            => $dot->id,
+                    'ten_dot'       => $dot->ten_dot,
+                    'nam_hoc'       => $dot->nam_hoc,
+                    'mo_ta'         => $dot->mo_ta,
                     'ngay_tong_hop' => $dot->ngay_tong_hop ? $dot->ngay_tong_hop->format('d/m/Y') : null,
-                    'nguoi_tao' => $dot->nguoiTao ? $dot->nguoiTao->name : null,
-                    'trang_thai' => $dot->trang_thai,
-                    'created_at' => $dot->created_at->format('d/m/Y H:i'),
+                    'nguoi_tao'     => $dot->nguoiTao ? $dot->nguoiTao->name : null,
+                    'trang_thai'    => $dot->trang_thai,
+                    'created_at'    => $dot->created_at->format('d/m/Y H:i'),
                 ];
             });
 
-        // Nếu có chọn đợt báo cáo để preview
         $previewData = null;
-        $selectedId = $request->get('preview');
-        if ($selectedId) {
-            $dot = DotBaoCao::with([
-                'bcLoaiPhongs',
-                'bcTieuChuanCsvcs',
-                'bcKhuonViens',
-                'bcCongTrinhDaoTaos',
-                'bcHaTangCntts',
-            ])->find($selectedId);
+        $selectedId  = $request->get('preview');
 
+        if ($selectedId) {
+            $dot = DotBaoCao::find($selectedId);
             if ($dot) {
-                $previewData = [
-                    'id' => $dot->id,
-                    'ten_dot' => $dot->ten_dot,
-                    'bcLoaiPhongs' => $dot->bcLoaiPhongs,
-                    'bcTieuChuanCsvcs' => $dot->bcTieuChuanCsvcs,
-                    'bcKhuonViens' => $dot->bcKhuonViens,
-                    'bcCongTrinhDaoTaos' => $dot->bcCongTrinhDaoTaos,
-                    'bcHaTangCntts' => $dot->bcHaTangCntts,
-                ];
+                $previewData = $this->baoCaoDataService->getPreviewData($dot);
             }
         }
 
         return Inertia::render('XuatBaoCao/Index', [
-            'dotBaoCaos' => $dotBaoCaos,
+            'dotBaoCaos'  => $dotBaoCaos,
             'previewData' => $previewData,
-            'selectedId' => $selectedId ? (int) $selectedId : null,
+            'selectedId'  => $selectedId ? (int) $selectedId : null,
         ]);
     }
 
     /**
-     * Tạo đợt báo cáo mới
+     * Tạo đợt báo cáo mới.
      */
     public function store(Request $request)
     {
         $validated = $request->validate([
             'ten_dot' => 'required|string|max:255',
             'nam_hoc' => 'nullable|string|max:20',
-            'mo_ta' => 'nullable|string|max:1000',
+            'mo_ta'   => 'nullable|string|max:1000',
         ]);
 
-        $dotBaoCao = DotBaoCao::create(array_merge($validated, [
+        DotBaoCao::create(array_merge($validated, [
             'nguoi_tao_id' => auth()->id(),
-            'trang_thai' => 'draft',
+            'trang_thai'   => 'draft',
         ]));
 
         return back()->with('success', 'Đã tạo đợt báo cáo mới!');
     }
 
     /**
-     * Xóa đợt báo cáo
+     * Xóa đợt báo cáo.
      */
     public function destroy(DotBaoCao $dotBaoCao)
     {
@@ -99,7 +92,7 @@ class XuatBaoCaoController extends Controller
     }
 
     /**
-     * Tổng hợp dữ liệu cho đợt báo cáo
+     * Tổng hợp dữ liệu cho đợt báo cáo.
      */
     public function tongHop(DotBaoCao $dotBaoCao)
     {
@@ -108,7 +101,7 @@ class XuatBaoCaoController extends Controller
     }
 
     /**
-     * Xem chi tiết/preview đợt báo cáo - redirect về index với preview
+     * Xem chi tiết / preview – redirect về index với query param.
      */
     public function show(DotBaoCao $dotBaoCao)
     {
@@ -116,23 +109,20 @@ class XuatBaoCaoController extends Controller
     }
 
     /**
-     * Xuất file Excel
+     * Xuất file Excel – dùng Laravel Excel facade.
+     * Data loading được ủy quyền cho BaoCaoDataService.
      */
     public function export(DotBaoCao $dotBaoCao, Request $request)
     {
         $loaiBaoCao = $request->get('loai', 'all');
 
-        $dotBaoCao->load([
-            'bcLoaiPhongs',
-            'bcTieuChuanCsvcs',
-            'bcKhuonViens',
-            'bcCongTrinhDaoTaos',
-            'bcHaTangCntts',
-        ]);
+        // Load tất cả relations một lần (dùng chung logic với preview)
+        $this->baoCaoDataService->getReportData($dotBaoCao);
 
-        $export = new BaoCaoBgdExport($dotBaoCao, $loaiBaoCao);
-        $filename = 'BaoCao_BGD_' . str_replace([' ', '/'], '_', $dotBaoCao->ten_dot) . '_' . date('Ymd') . '.xlsx';
+        $filename = 'BaoCao_BGD_'
+            . str_replace([' ', '/'], '_', $dotBaoCao->ten_dot)
+            . '_' . date('Ymd') . '.xlsx';
 
-        return $export->download($filename);
+        return Excel::download(new BaoCaoBgdExport($dotBaoCao, $loaiBaoCao), $filename);
     }
 }

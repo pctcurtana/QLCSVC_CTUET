@@ -245,7 +245,7 @@ const Dashboard = ({ statistics, thongKeLoaiPhong, thongKeLoaiThietBi, thongKeCo
 
                 <Title level={2} style={{ margin: 0 }}>
                     <AreaChartOutlined style={{ marginRight: 10, color: '#4096ff' }} />
-                    Tổng quan QLCSVC
+                    Tổng quan cơ sở vật chất
                 </Title>
 
                 {/* ── KPI ── */}

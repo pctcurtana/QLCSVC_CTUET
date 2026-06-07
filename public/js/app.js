@@ -194527,7 +194527,7 @@ var Login = function Login() {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("img", {
             src: "/images/logoctuet.png",
             alt: "Logo CTUET",
-            className: "w-9 h-9 object-contain",
+            className: "w-16 h-16 object-contain",
             onError: function onError(e) {
               e.target.src = '/favicon.png';
             }
@@ -194575,7 +194575,7 @@ var Login = function Login() {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("img", {
             src: "/images/logoctuet.png",
             alt: "Logo CTUET",
-            className: "w-8 h-8 object-contain",
+            className: "w-12 h-12 object-contain",
             onError: function onError(e) {
               e.target.src = '/favicon.png';
             }
@@ -197937,7 +197937,7 @@ var Dashboard = function Dashboard(_ref4) {
             marginRight: 10,
             color: '#4096ff'
           }
-        }), "T\u1ED5ng quan QLCSVC"]
+        }), "T\u1ED5ng quan c\u01A1 s\u1EDF v\u1EADt ch\u1EA5t"]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
         gutter: [16, 16],
         children: kpis.map(function (k, i) {
