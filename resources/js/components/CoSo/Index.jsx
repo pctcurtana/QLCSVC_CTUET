@@ -8,13 +8,16 @@ import {
     SearchOutlined,
     ReloadOutlined,
 } from '@ant-design/icons';
-import { Link, router } from '@inertiajs/react';
+import { Link, router, usePage } from '@inertiajs/react';
 import usePermission from '../../hooks/usePermission';
+import { ImportButton, ImportResult } from '../Common/ImportButton';
 
 const { Search } = Input;
 
 const Index = ({ coSos, filters }) => {
     const perm = usePermission('co-so');
+    const { props } = usePage();
+    const importResult = props.flash?.import_result ?? null;
     const [searchText, setSearchText] = useState(filters.search || '');
     const [statusFilter, setStatusFilter] = useState(filters.trang_thai || '');
     const [loading, setLoading] = useState(true);
@@ -183,7 +186,19 @@ const Index = ({ coSos, filters }) => {
                                 </Link>
                             </Col>
                         )}
+                        {perm.can_import && (
+                            <Col>
+                                <ImportButton
+                                    importUrl="/co-so/import"
+                                    templateUrl="/co-so/template"
+                                    label="Cơ sở"
+                                />
+                            </Col>
+                        )}
                     </Row>
+                    {importResult && (
+                        <ImportResult result={importResult} />
+                    )}
                 </Card>
 
                 <Card>

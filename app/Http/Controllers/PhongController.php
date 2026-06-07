@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Services\KhuNhaService;
 use App\Services\PhongService;
+use App\Services\ImportService;
 use App\Http\Requests\Phong\StorePhongRequest;
 use App\Http\Requests\Phong\UpdatePhongRequest;
 use App\Http\Requests\Phong\VersionUpdatePhongRequest;
+use App\Http\Requests\ImportRequest;
+use App\Exports\Templates\PhongTemplate;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PhongController extends Controller
 {
@@ -23,17 +27,21 @@ class PhongController extends Controller
     protected $khuNhaService;
 
     /**
+     * @var ImportService
+     */
+    protected $importService;
+
+    /**
      * PhongController constructor.
-     *
-     * @param PhongServiceInterface $phongService
-     * @param KhuNhaServiceInterface $khuNhaService
      */
     public function __construct(
         PhongService $phongService,
-        KhuNhaService $khuNhaService
+        KhuNhaService $khuNhaService,
+        ImportService $importService
     ) {
-        $this->phongService = $phongService;
-        $this->khuNhaService = $khuNhaService;
+        $this->phongService   = $phongService;
+        $this->khuNhaService  = $khuNhaService;
+        $this->importService  = $importService;
     }
 
     /**
@@ -150,5 +158,26 @@ class PhongController extends Controller
         } catch (\Throwable $e) {
             return redirect()->back()->withInput()->with('error', 'Lỗi khi lưu phiên bản mới: ' . $e->getMessage());
         }
+    }
+
+    /**
+     * Xử lý import Excel cho Phòng.
+     */
+    public function import(ImportRequest $request)
+    {
+        try {
+            $result = $this->importService->importPhong($request->file('file'));
+            return redirect()->route('phong.index')->with('import_result', $result);
+        } catch (\Throwable $e) {
+            return redirect()->back()->with('error', 'Lỗi khi import: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Tải xuống file Excel template mẫu cho Phòng.
+     */
+    public function downloadTemplate()
+    {
+        return Excel::download(new PhongTemplate(), 'phong_import_template.xlsx');
     }
 }

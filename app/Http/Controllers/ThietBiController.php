@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Services\PhongService;
 use App\Services\ThietBiService;
+use App\Services\ImportService;
 use App\Http\Requests\ThietBi\StoreThietBiRequest;
 use App\Http\Requests\ThietBi\UpdateThietBiRequest;
 use App\Http\Requests\ThietBi\VersionUpdateThietBiRequest;
+use App\Http\Requests\ImportRequest;
+use App\Exports\Templates\ThietBiTemplate;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ThietBiController extends Controller
 {
@@ -23,17 +27,21 @@ class ThietBiController extends Controller
     protected $phongService;
 
     /**
+     * @var ImportService
+     */
+    protected $importService;
+
+    /**
      * ThietBiController constructor.
-     *
-     * @param ThietBiServiceInterface $thietBiService
-     * @param PhongServiceInterface $phongService
      */
     public function __construct(
         ThietBiService $thietBiService,
-        PhongService $phongService
+        PhongService $phongService,
+        ImportService $importService
     ) {
         $this->thietBiService = $thietBiService;
-        $this->phongService = $phongService;
+        $this->phongService   = $phongService;
+        $this->importService  = $importService;
     }
 
     /**
@@ -209,5 +217,26 @@ class ThietBiController extends Controller
         } catch (\Throwable $e) {
             return redirect()->route('thiet-bi.index')->with('error', 'Không tìm thấy thiết bị: ' . $e->getMessage());
         }
+    }
+
+    /**
+     * Xử lý import Excel cho Thiết bị.
+     */
+    public function import(ImportRequest $request)
+    {
+        try {
+            $result = $this->importService->importThietBi($request->file('file'));
+            return redirect()->route('thiet-bi.index')->with('import_result', $result);
+        } catch (\Throwable $e) {
+            return redirect()->back()->with('error', 'Lỗi khi import: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Tải xuống file Excel template mẫu cho Thiết bị.
+     */
+    public function downloadTemplate()
+    {
+        return Excel::download(new ThietBiTemplate(), 'thiet_bi_import_template.xlsx');
     }
 }

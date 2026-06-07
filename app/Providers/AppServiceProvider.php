@@ -32,6 +32,7 @@ use App\Services\DashboardService;
 use App\Services\PermissionService;
 use App\Services\AuthService;
 use App\Services\BaoCaoSuCoService;
+use App\Services\ImportService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -61,6 +62,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(PermissionService::class, PermissionService::class);
         $this->app->bind(AuthService::class, AuthService::class);
         $this->app->bind(BaoCaoSuCoService::class, BaoCaoSuCoService::class);
+        $this->app->bind(ImportService::class, ImportService::class);
     }
 
     /**

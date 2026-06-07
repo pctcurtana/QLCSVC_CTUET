@@ -134,12 +134,17 @@ const Login = () => {
                         {/* Mirror Glass Card styling */}
                         <div
                             style={{
-                                background: 'rgba(255, 255, 255, 0.45)',
-                                backdropFilter: 'blur(24px)',
-                                WebkitBackdropFilter: 'blur(24px)',
-                                border: '1px solid rgba(255, 255, 255, 0.5)',
-                                borderRadius: 20,
-                                boxShadow: '0 20px 40px rgba(31, 38, 135, 0.05)',
+                                position: 'relative',
+                                overflow: 'hidden',
+                                background: 'rgba(255,255,255,0.06)',
+                                backdropFilter: 'blur(50px) saturate(180%)',
+                                WebkitBackdropFilter: 'blur(50px) saturate(180%)',
+                                border: '1px solid rgba(255,255,255,0.18)',
+                                borderRadius: 28,
+                                boxShadow: `
+                                    0 8px 32px rgba(15, 23, 42, 0.05),
+                                    inset 0 1px 0 rgba(255, 255, 255, 0.25)
+                                `,
                                 padding: '36px 32px',
                             }}
                         >

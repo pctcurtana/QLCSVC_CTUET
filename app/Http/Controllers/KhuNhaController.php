@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Services\CoSoService;
 use App\Services\KhuNhaService;
+use App\Services\ImportService;
 use App\Http\Requests\KhuNha\StoreKhuNhaRequest;
 use App\Http\Requests\KhuNha\UpdateKhuNhaRequest;
 use App\Http\Requests\KhuNha\VersionUpdateKhuNhaRequest;
+use App\Http\Requests\ImportRequest;
+use App\Exports\Templates\KhuNhaTemplate;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Maatwebsite\Excel\Facades\Excel;
 
 class KhuNhaController extends Controller
 {
@@ -23,17 +27,18 @@ class KhuNhaController extends Controller
     protected $coSoService;
 
     /**
-     * KhuNhaController constructor.
-     *
-     * @param KhuNhaServiceInterface $khuNhaService
-     * @param CoSoServiceInterface $coSoService
+     * @var ImportService
      */
+    protected $importService;
+
     public function __construct(
         KhuNhaService $khuNhaService,
-        CoSoService $coSoService
+        CoSoService $coSoService,
+        ImportService $importService
     ) {
-        $this->khuNhaService = $khuNhaService;
-        $this->coSoService = $coSoService;
+        $this->khuNhaService  = $khuNhaService;
+        $this->coSoService    = $coSoService;
+        $this->importService  = $importService;
     }
 
     /**
@@ -140,5 +145,26 @@ class KhuNhaController extends Controller
         } catch (\Throwable $e) {
             return redirect()->back()->withInput()->with('error', 'Lỗi khi lưu phiên bản mới: ' . $e->getMessage());
         }
+    }
+
+    /**
+     * Xử lý import Excel cho Khu nhà.
+     */
+    public function import(ImportRequest $request)
+    {
+        try {
+            $result = $this->importService->importKhuNha($request->file('file'));
+            return redirect()->route('khu-nha.index')->with('import_result', $result);
+        } catch (\Throwable $e) {
+            return redirect()->back()->with('error', 'Lỗi khi import: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Tải xuống file Excel template mẫu cho Khu nhà.
+     */
+    public function downloadTemplate()
+    {
+        return Excel::download(new KhuNhaTemplate(), 'khu_nha_import_template.xlsx');
     }
 }

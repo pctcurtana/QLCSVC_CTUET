@@ -49,7 +49,7 @@ const SkeletonLoader = () => (
     <div className="space-y-6 animate-pulse p-6">
         {/* Title skeleton */}
         <div className="h-9 bg-white/20 rounded-xl w-64 border border-white/10 mb-8"></div>
-        
+
         {/* KPI grid skeleton */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             {[1, 2, 3].map((i) => (
@@ -62,7 +62,7 @@ const SkeletonLoader = () => (
                 </div>
             ))}
         </div>
-        
+
         {/* Main table area skeleton */}
         <div className="bg-white/20 rounded-2xl border border-white/15 p-6 space-y-5">
             <div className="flex justify-between items-center mb-4">
@@ -87,7 +87,7 @@ const MainLayout = ({ children }) => {
     const {
         token: { colorBgContainer, borderRadiusLG },
     } = theme.useToken();
-    
+
     const { url, props } = usePage();
     const { auth, menuScreens, userPermissions } = props;
     const user = auth?.user;
@@ -158,7 +158,7 @@ const MainLayout = ({ children }) => {
                 let itemIcon = icon;
                 if (screen.route === '/nguoi-dung') itemIcon = <UserOutlined />;
                 if (screen.route === '/phan-quyen') itemIcon = <KeyOutlined />;
-                
+
                 return {
                     key: screen.route,
                     icon: itemIcon,
@@ -190,9 +190,8 @@ const MainLayout = ({ children }) => {
                 <div className="py-2">
                     <div className="font-semibold text-[#1a365d]">{user?.name}</div>
                     <div className="text-xs text-gray-500">{user?.email}</div>
-                    <div className={`text-[11px] text-white px-2 py-0.5 rounded mt-1 inline-block ${
-                        user?.role === 'admin' ? 'bg-[#f5222d]' : 'bg-[#1890ff]'
-                    }`}>
+                    <div className={`text-[11px] text-white px-2 py-0.5 rounded mt-1 inline-block ${user?.role === 'admin' ? 'bg-[#f5222d]' : 'bg-[#1890ff]'
+                        }`}>
                         {user?.role === 'admin' ? 'Quản trị viên' : 'Người dùng'}
                     </div>
                 </div>
@@ -214,37 +213,37 @@ const MainLayout = ({ children }) => {
     const getSelectedKey = () => {
         // Tìm key phù hợp nhất với URL hiện tại
         const path = url.split('?')[0]; // Bỏ query string
-        
+
         // Kiểm tra exact match trước
         if (path === '/') return '/';
-        
+
         // Kiểm tra các route cụ thể
         const routes = [
             '/co-so', '/khu-nha', '/phong', '/thiet-bi',
             '/lich-su-bao-duong', '/kho', '/nguoi-dung', '/phan-quyen', '/thong-ke',
             '/bao-cao-su-co', '/quan-ly-qr', '/dot-kiem-tra-thiet-bi', '/qr/thiet-bi',
         ];
-        
+
         for (const route of routes) {
             if (path.startsWith(route)) {
                 return route;
             }
         }
-        
+
         return path;
     };
 
     // Role badge color
-    const getRoleBadgeColor = () => {
-        return user?.role === 'admin' ? '#f5222d' : '#1890ff';
-    };
+    // const getRoleBadgeColor = () => {
+    //     return user?.role === 'admin' ? '#f5222d' : '#1890ff';
+    // };
 
     return (
         <Layout style={{ minHeight: '100vh', backgroundColor: 'transparent' }}>
-            <Sider 
-                trigger={null} 
+            <Sider
+                trigger={null}
                 theme="light"
-                collapsible 
+                collapsible
                 collapsed={collapsed}
                 className="custom-sidebar overflow-auto h-screen fixed left-0 top-0 bottom-0 transition-[width] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]"
                 style={{
@@ -278,9 +277,9 @@ const MainLayout = ({ children }) => {
                     }}
                 />
             </Sider>
-            <Layout 
+            <Layout
                 className="transition-[margin-left] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]"
-                style={{ 
+                style={{
                     marginLeft: collapsed ? 80 : 200,
                     backgroundColor: 'transparent',
                 }}
@@ -297,7 +296,7 @@ const MainLayout = ({ children }) => {
                         boxShadow: '0 8px 32px rgba(31, 38, 135, 0.04)',
                     }}
                 >
-                    <div 
+                    <div
                         className="text-lg cursor-pointer text-[#244380] transition-all duration-[180ms] ease-in-out p-[8px_12px] rounded-lg flex items-center justify-center w-10 h-10 hover:bg-[#244380]/[0.08] hover:scale-105"
                         onClick={() => setCollapsed(!collapsed)}
                     >
@@ -305,15 +304,13 @@ const MainLayout = ({ children }) => {
                     </div>
                     <Space size="large" className="m-0">
                         <Dropdown menu={{ items: userMenuItems }} placement="bottomRight" trigger={['click']}>
-                            <Space 
+                            <Space
                                 className="cursor-pointer p-[6px_12px] rounded-lg transition-all duration-[180ms] ease-in-out hover:bg-[#244380]/[0.08]"
                             >
-                                <Badge dot color={getRoleBadgeColor()} offset={[-4, 4]}>
-                                    <Avatar 
-                                        className={user?.role === 'admin' ? 'bg-[#f5222d] cursor-pointer' : 'bg-[#1890ff] cursor-pointer'} 
-                                        icon={<UserOutlined />} 
-                                    />
-                                </Badge>
+                                <Avatar
+                                    className={user?.role === 'admin' ? 'bg-[#f5222d] cursor-pointer' : 'bg-[#1890ff] cursor-pointer'}
+                                    icon={<UserOutlined />}
+                                />
                                 <span className="font-medium text-[#0f1c3f] text-sm">{user?.name || 'Người dùng'}</span>
                             </Space>
                         </Dropdown>

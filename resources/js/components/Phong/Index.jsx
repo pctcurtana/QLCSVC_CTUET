@@ -8,13 +8,16 @@ import {
     SearchOutlined,
     ReloadOutlined,
 } from '@ant-design/icons';
-import { Link, router } from '@inertiajs/react';
+import { Link, router, usePage } from '@inertiajs/react';
 import usePermission from '../../hooks/usePermission';
+import { ImportButton, ImportResult } from '../Common/ImportButton';
 
 const { Search } = Input;
 
 const Index = ({ phongs, khuNhas, danhSachTang, filters }) => {
     const perm = usePermission('phong');
+    const { props } = usePage();
+    const importResult = props.flash?.import_result ?? null;
     const [searchText, setSearchText] = useState(filters.search || '');
     const [khuNhaFilter, setKhuNhaFilter] = useState(filters.khu_nha_id || '');
     const [loaiFilter, setLoaiFilter] = useState(filters.loai_phong || '');
@@ -281,7 +284,19 @@ const Index = ({ phongs, khuNhas, danhSachTang, filters }) => {
                                 </Link>
                             </Col>
                         )}
+                        {perm.can_import && (
+                            <Col>
+                                <ImportButton
+                                    importUrl="/phong/import"
+                                    templateUrl="/phong/template"
+                                    label="Phòng"
+                                />
+                            </Col>
+                        )}
                     </Row>
+                    {importResult && (
+                        <ImportResult result={importResult} />
+                    )}
                 </Card>
 
                 <Card>

@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Services\CoSoService;
+use App\Services\ImportService;
 use App\Http\Requests\CoSo\StoreCoSoRequest;
 use App\Http\Requests\CoSo\UpdateCoSoRequest;
 use App\Http\Requests\CoSo\VersionUpdateCoSoRequest;
+use App\Http\Requests\ImportRequest;
+use App\Exports\Templates\CoSoTemplate;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CoSoController extends Controller
 {
@@ -17,13 +21,17 @@ class CoSoController extends Controller
     protected $coSoService;
 
     /**
-     * CoSoController constructor.
-     *
-     * @param CoSoService $coSoService
+     * @var ImportService
      */
-    public function __construct(CoSoService $coSoService)
+    protected $importService;
+
+    /**
+     * CoSoController constructor.
+     */
+    public function __construct(CoSoService $coSoService, ImportService $importService)
     {
-        $this->coSoService = $coSoService;
+        $this->coSoService   = $coSoService;
+        $this->importService = $importService;
     }
 
     /**
@@ -118,6 +126,27 @@ class CoSoController extends Controller
         } catch (\Throwable $e) {
             return redirect()->back()->withInput()->with('error', 'Lỗi khi lưu phiên bản mới: ' . $e->getMessage());
         }
+    }
+
+    /**
+     * Xử lý import Excel cho Cơ sở.
+     */
+    public function import(ImportRequest $request)
+    {
+        try {
+            $result = $this->importService->importCoSo($request->file('file'));
+            return redirect()->route('co-so.index')->with('import_result', $result);
+        } catch (\Throwable $e) {
+            return redirect()->back()->with('error', 'Lỗi khi import: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Tải xuống file Excel template mẫu cho Cơ sở.
+     */
+    public function downloadTemplate()
+    {
+        return Excel::download(new CoSoTemplate(), 'co_so_import_template.xlsx');
     }
 }
 

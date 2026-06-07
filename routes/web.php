@@ -50,6 +50,10 @@ Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('/co-so/create', [CoSoController::class, 'create'])->name('co-so.create');
         Route::post('/co-so', [CoSoController::class, 'store'])->name('co-so.store');
     });
+    Route::middleware('permission:co-so,can_import')->group(function () {
+        Route::post('/co-so/import', [CoSoController::class, 'import'])->name('co-so.import');
+        Route::get('/co-so/template', [CoSoController::class, 'downloadTemplate'])->name('co-so.template');
+    });
     Route::middleware('permission:co-so,can_view')->group(function () {
         Route::get('/co-so', [CoSoController::class, 'index'])->name('co-so.index');
     });
@@ -66,6 +70,10 @@ Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::middleware('permission:khu-nha,can_create')->group(function () {
         Route::get('/khu-nha/create', [KhuNhaController::class, 'create'])->name('khu-nha.create');
         Route::post('/khu-nha', [KhuNhaController::class, 'store'])->name('khu-nha.store');
+    });
+    Route::middleware('permission:khu-nha,can_import')->group(function () {
+        Route::post('/khu-nha/import', [KhuNhaController::class, 'import'])->name('khu-nha.import');
+        Route::get('/khu-nha/template', [KhuNhaController::class, 'downloadTemplate'])->name('khu-nha.template');
     });
     Route::middleware('permission:khu-nha,can_view')->group(function () {
         Route::get('/khu-nha', [KhuNhaController::class, 'index'])->name('khu-nha.index');
@@ -84,6 +92,10 @@ Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('/phong/create', [PhongController::class, 'create'])->name('phong.create');
         Route::post('/phong', [PhongController::class, 'store'])->name('phong.store');
     });
+    Route::middleware('permission:phong,can_import')->group(function () {
+        Route::post('/phong/import', [PhongController::class, 'import'])->name('phong.import');
+        Route::get('/phong/template', [PhongController::class, 'downloadTemplate'])->name('phong.template');
+    });
     Route::middleware('permission:phong,can_view')->group(function () {
         Route::get('/phong', [PhongController::class, 'index'])->name('phong.index');
     });
@@ -101,6 +113,10 @@ Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('/thiet-bi/create', [ThietBiController::class, 'create'])->name('thiet-bi.create');
         Route::post('/thiet-bi', [ThietBiController::class, 'store'])->name('thiet-bi.store');
         Route::get('/thiet-bi/{thiet_bi}/duplicate', [ThietBiController::class, 'duplicate'])->name('thiet-bi.duplicate');
+    });
+    Route::middleware('permission:thiet-bi,can_import')->group(function () {
+        Route::post('/thiet-bi/import', [ThietBiController::class, 'import'])->name('thiet-bi.import');
+        Route::get('/thiet-bi/template', [ThietBiController::class, 'downloadTemplate'])->name('thiet-bi.template');
     });
     Route::middleware('permission:thiet-bi,can_view')->group(function () {
         Route::get('/thiet-bi', [ThietBiController::class, 'index'])->name('thiet-bi.index');
