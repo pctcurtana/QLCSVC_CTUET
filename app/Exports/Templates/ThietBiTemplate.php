@@ -61,7 +61,7 @@ class ThietBiTemplate implements FromArray, WithTitle, ShouldAutoSize, WithEvent
                 'Tùy chọn | Giá trị (VNĐ)',
                 'Tùy chọn | Thông số kỹ thuật',
                 'Tùy chọn | Mô tả',
-                'BẮT BUỘC | active | maintenance | inactive | broken',
+                'BẮT BUỘC | tot | can_sua_chua | hu_hong',
             ],
             // Dữ liệu mẫu
             [
@@ -79,7 +79,7 @@ class ThietBiTemplate implements FromArray, WithTitle, ShouldAutoSize, WithEvent
                 12500000,
                 'CPU: i5-12500, RAM: 8GB, SSD: 256GB',
                 'Dùng cho giảng dạy',
-                'active',
+                'tot',
             ],
             [
                 'TB00002',
@@ -96,7 +96,7 @@ class ThietBiTemplate implements FromArray, WithTitle, ShouldAutoSize, WithEvent
                 8900000,
                 'Độ phân giải: XGA (1024x768), Độ sáng: 3600 lumens',
                 '',
-                'active',
+                'tot',
             ],
         ];
     }

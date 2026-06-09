@@ -66,7 +66,7 @@ class ThietBiImport extends BaseImport
             'gia_tri'            => 'nullable|numeric|min:0',
             'thong_so_ky_thuat'  => 'nullable|string',
             'mo_ta'              => 'nullable|string',
-            'trang_thai'         => 'required|in:active,maintenance,inactive,broken',
+            'trang_thai'         => 'required|in:tot,can_sua_chua,hu_hong',
         ];
     }
 
@@ -84,7 +84,7 @@ class ThietBiImport extends BaseImport
             'gia_tri.numeric'       => 'Giá trị phải là số.',
             'gia_tri.min'           => 'Giá trị phải >= 0.',
             'trang_thai.required'   => 'Trạng thái không được để trống.',
-            'trang_thai.in'         => 'Trạng thái phải là: active, maintenance, inactive hoặc broken.',
+            'trang_thai.in'         => 'Trạng thái phải là: tot, can_sua_chua hoặc hu_hong.',
         ];
     }
 
