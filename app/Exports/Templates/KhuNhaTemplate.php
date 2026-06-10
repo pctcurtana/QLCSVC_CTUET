@@ -43,7 +43,7 @@ class KhuNhaTemplate implements FromArray, WithTitle, ShouldAutoSize, WithEvents
                 'BẮT BUỘC | Mã khu nhà (duy nhất)',
                 'BẮT BUỘC | Mã cơ sở đã tồn tại',
                 'BẮT BUỘC | Tên khu nhà',
-                'BẮT BUỘC | Loại (VD: Nhà học, Ký túc xá...)',
+                'BẮT BUỘC | Bắt buộc phải là (phong_hoc, phong_lam_viec, phong_chuc_nang)',
                 'BẮT BUỘC | Số tầng (>= 1)',
                 'BẮT BUỘC | Tổng DT sàn (m²)',
                 'BẮT BUỘC | Hệ số 0-1 (VD: 0.7)',

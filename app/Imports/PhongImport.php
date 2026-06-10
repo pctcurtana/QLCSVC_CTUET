@@ -53,7 +53,7 @@ class PhongImport extends BaseImport
             'loai_phong'     => 'required|in:phong_hoc,phong_thi_nghiem,phong_thuc_hanh,phong_lam_viec,phong_chuc_nang',
             'tang'           => 'required|integer|min:0',
             'dien_tich'      => 'required|numeric|min:0',
-            'suc_chua'       => 'nullable|integer|min:0',
+            'suc_chua'       => 'required|integer|min:0',
             'trang_thiet_bi' => 'nullable|string',
             'mo_ta'          => 'nullable|string',
             'trang_thai'     => 'required|in:active,maintenance,inactive',
@@ -75,6 +75,7 @@ class PhongImport extends BaseImport
             'dien_tich.numeric'   => 'Diện tích phải là số.',
             'dien_tich.min'       => 'Diện tích phải >= 0.',
             'suc_chua.integer'    => 'Sức chứa phải là số nguyên.',
+            'suc_chua.required'   => 'Sức chứa không được trống.',
             'trang_thai.required' => 'Trạng thái không được để trống.',
             'trang_thai.in'       => 'Trạng thái phải là active, maintenance hoặc inactive.',
         ];

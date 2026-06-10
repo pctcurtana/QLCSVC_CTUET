@@ -47,7 +47,7 @@ class PhongTemplate implements FromArray, WithTitle, ShouldAutoSize, WithEvents
                 'BẮT BUỘC | phong_hoc | phong_thi_nghiem | phong_thuc_hanh | phong_lam_viec | phong_chuc_nang',
                 'BẮT BUỘC | Số tầng (0=trệt)',
                 'BẮT BUỘC | Diện tích (m²)',
-                'Tùy chọn | Sức chứa (người)',
+                'BẮT BUỘC | Sức chứa (người)',
                 'Tùy chọn | Trang thiết bị có sẵn',
                 'Tùy chọn | Mô tả',
                 'BẮT BUỘC | active | maintenance | inactive',
