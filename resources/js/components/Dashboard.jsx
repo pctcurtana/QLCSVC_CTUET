@@ -7,7 +7,7 @@ import {
     DollarOutlined, AreaChartOutlined,
 } from '@ant-design/icons';
 import {
-    PieChart, Pie, Cell,
+    PieChart, Pie, Cell, RadialBar, RadialBarChart, Legend,
     BarChart, Bar, XAxis, YAxis, CartesianGrid,
     Tooltip, ResponsiveContainer, LabelList,
 } from 'recharts';
@@ -65,9 +65,7 @@ const tooltipStyle = {
         fontWeight: 700,
     },
 
-    cursor: {
-        fill: 'rgba(36,67,128,.04)',
-    },
+    cursor: false,
 };
 
 const useCountUp = (target, duration = 1200) => {
@@ -79,33 +77,19 @@ const useCountUp = (target, duration = 1200) => {
 
         const animate = (timestamp) => {
             if (!start) start = timestamp;
-
-            const progress = Math.min(
-                (timestamp - start) / duration,
-                1
-            );
-
-            const eased =
-                1 - Math.pow(1 - progress, 4);
-
-            setValue(
-                Math.round(target * eased)
-            );
-
-            if (progress < 1) {
-                raf = requestAnimationFrame(animate);
-            }
+            const progress = Math.min((timestamp - start) / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 4);
+            setValue(Math.round(target * eased));
+            if (progress < 1) raf = requestAnimationFrame(animate);
         };
 
         raf = requestAnimationFrame(animate);
-
         return () =>
             cancelAnimationFrame(raf);
     }, [target, duration]);
 
     return value;
 };
-
 
 // ─── Helpers ──────────────────────────────────────────────────────────────
 const fmt = (v) => new Intl.NumberFormat('vi-VN').format(v || 0);
@@ -211,14 +195,6 @@ const ChartCard = ({ title, children }) => (
                 <h3 className="text-[15px] font-semibold tracking-[-0.03em] text-slate-900">
                     {title}
                 </h3>
-                <p className="mt-1 text-[11px] text-slate-500">
-                    Dữ liệu trực quan
-                </p>
-            </div>
-
-            <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-emerald-500" />
-                <span className="text-[10px] font-bold uppercase tracking-[0.08em] text-slate-400">Live</span>
             </div>
         </div>
 
@@ -265,18 +241,11 @@ const DonutChart = ({ data }) => {
                             endAngle={-270}
                             animationDuration={1800}
                             animationBegin={200}
-                            onMouseEnter={(_, index) =>
-                                setActiveIndex(index)
-                            }
-                            onMouseLeave={() =>
-                                setActiveIndex(null)
-                            }
+                            onMouseEnter={(_, index) => setActiveIndex(index)}
+                            onMouseLeave={() => setActiveIndex(null)}
                         >
                             {data.map((item, i) => {
-
-                                const active =
-                                    activeIndex === i;
-
+                                const active = activeIndex === i;
                                 return (
                                     <Cell
                                         key={i}
@@ -284,11 +253,8 @@ const DonutChart = ({ data }) => {
                                         stroke="rgba(255,255,255,.8)"
                                         strokeWidth={2}
                                         style={{
-                                            filter: active
-                                                ? `drop-shadow(0 0 10px ${DONUT_COLORS[i].solid}55)`
-                                                : "none",
-                                            transition:
-                                                "all .25s ease",
+                                            filter: active ? `drop-shadow(0 0 10px ${DONUT_COLORS[i].solid}55)` : "none",
+                                            transition: "all .25s ease",
                                         }}
                                     />
                                 );
@@ -314,7 +280,6 @@ const DonutChart = ({ data }) => {
                             style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
                             {displayTotal}
                         </div>
-
                         <div
                             className="mt-1 text-[10px] uppercase tracking-[0.12em] text-slate-400 font-bold">
                             Tổng phòng
@@ -325,15 +290,8 @@ const DonutChart = ({ data }) => {
 
             {/* Legend */}
             <div className="flex-1 flex flex-col gap-2">
-
                 {data.map((item, i) => {
-
-                    const pct = total
-                        ? Math.round(
-                            (item.value / total) * 100
-                        )
-                        : 0;
-
+                    const pct = total ? Math.round((item.value / total) * 100) : 0;
                     return (
                         <div
                             key={i}
@@ -345,17 +303,14 @@ const DonutChart = ({ data }) => {
                                     <div className="w-2.5 h-2.5 rounded-full" style={{
                                         background: DONUT_COLORS[i].solid,
                                     }} />
-
                                     <span className="text-[12px] font-semibold text-slate-700">
                                         {item.name}
                                     </span>
                                 </div>
-
                                 <div className="text-[13px] font-bold text-slate-900">
                                     {fmt(item.value)}
                                 </div>
                             </div>
-
                             <div className="h-1 rounded-full bg-slate-100 overflow-hidden">
                                 <div
                                     className="h-full rounded-full transition-all duration-700"
@@ -365,7 +320,6 @@ const DonutChart = ({ data }) => {
                                     }}
                                 />
                             </div>
-
                             <div className="mt-1 text-right text-[11px] font-semibold text-slate-400">
                                 {pct}%
                             </div>
@@ -389,6 +343,7 @@ const Dashboard = ({ statistics, thongKeLoaiPhong, thongKeLoaiThietBi, thongKeCo
     const coSoData = thongKeCoSo.map(d => ({ name: d.ten_co_so, soKhuNha: d.so_khu_nha }));
     const trangThaiPhongData = thongKeTrangThaiPhong.map(d => ({ name: trangThaiLabel(d.trang_thai), value: d.so_luong }));
     const [activeBar, setActiveBar] = useState(null);
+    const [activeDeviceBar, setActiveDeviceBar] = useState(null);
 
     const kpis = [
         { title: 'Tổng số cơ sở', value: fmt(statistics.tong_co_so), icon: <BankOutlined />, color: '#4096ff' },
@@ -407,7 +362,6 @@ const Dashboard = ({ statistics, thongKeLoaiPhong, thongKeLoaiThietBi, thongKeCo
                     <AreaChartOutlined style={{ marginRight: 10, color: '#4096ff' }} />
                     Tổng quan cơ sở vật chất
                 </Title>
-
                 {/* ── KPI ── */}
                 <Row gutter={[16, 16]}>
                     {kpis.map((k, i) => (
@@ -416,93 +370,43 @@ const Dashboard = ({ statistics, thongKeLoaiPhong, thongKeLoaiThietBi, thongKeCo
                         </Col>
                     ))}
                 </Row>
-
                 {/* ── Hàng 1 ── */}
                 <Row gutter={[16, 16]} align="stretch">
-
                     {/* BarChart: loại phòng — so sánh theo nhóm */}
                     <Col xs={24} lg={14}>
                         <ChartCard title="Phân bố theo loại phòng">
-                            <div className="h-px bg-slate-200/70 mb-6" />
-
-                            <ResponsiveContainer width="100%" height={200}>
-                                <BarChart
-                                    data={loaiPhongData}
-                                    margin={{
-                                        top: 16,
-                                        right: 12,
-                                        left: -10,
-                                        bottom: 6,
-                                    }}
-                                >
+                            <ResponsiveContainer width="100%" height={240}>
+                                <BarChart data={loaiPhongData} margin={{ top: 16, right: 12, left: -10, bottom: 6 }}>
                                     <defs>
-                                        <linearGradient
-                                            id="roomGradient"
-                                            x1="0"
-                                            y1="0"
-                                            x2="0"
-                                            y2="1"
-                                        >
+                                        <linearGradient id="roomGradient" x1="0" y1="0" x2="0" y2="1">
                                             <stop offset="0%" stopColor="#6ea8ff" />
                                             <stop offset="55%" stopColor="#4f8cff" />
                                             <stop offset="100%" stopColor="#244380" />
                                         </linearGradient>
-
                                         <filter id="roomGlow">
-                                            <feDropShadow
-                                                dx="0"
-                                                dy="6"
-                                                stdDeviation="8"
-                                                floodColor="#4f8cff"
-                                                floodOpacity="0.15"
-                                            />
+                                            <feDropShadow dx="0" dy="6" stdDeviation="8" floodColor="#4f8cff" floodOpacity="0.15" />
                                         </filter>
                                     </defs>
-
-                                    <CartesianGrid
-                                        vertical={false}
-                                        stroke="rgba(148,163,184,.12)"
-                                        strokeDasharray="2 8"
-                                    />
-
+                                    <CartesianGrid vertical={false} stroke="rgba(148,163,184,.20)" />
                                     <XAxis
                                         dataKey="name"
                                         axisLine={false}
                                         tickLine={false}
-                                        tick={{
-                                            fill: "#64748b",
-                                            fontSize: 12,
-                                            fontWeight: 600,
-                                        }}
-                                    />
+                                        tick={{ fill: "#64748b", fontSize: 12, fontWeight: 600 }}
 
+                                    />
                                     <YAxis
                                         axisLine={false}
                                         tickLine={false}
-                                        tick={{
-                                            fill: "#94a3b8",
-                                            fontSize: 11,
-                                            fontWeight: 500,
-                                        }}
-                                    />
+                                        tick={{ fill: "#94a3b8", fontSize: 11, fontWeight: 500 }}
 
-                                    <Tooltip
-                                        {...tooltipStyle}
-                                        formatter={(v) => [
-                                            `${fmt(v)} phòng`,
-                                            "Số lượng",
-                                        ]}
                                     />
-
+                                    <Tooltip {...tooltipStyle} formatter={(v) => [`${fmt(v)} phòng`, "Số lượng"]} />
                                     <Bar
                                         dataKey="soLuong"
-                                        radius={[12, 12, 4, 4]}
+                                        radius={[8, 8, 2, 2]}
                                         maxBarSize={38}
                                         filter="url(#roomGlow)"
-                                        background={{
-                                            fill: "rgba(148,163,184,.06)",
-                                            radius: 12,
-                                        }}
                                         animationDuration={1200}
                                         animationBegin={100}
                                         animationEasing="ease-out"
@@ -510,20 +414,14 @@ const Dashboard = ({ statistics, thongKeLoaiPhong, thongKeLoaiThietBi, thongKeCo
                                         {loaiPhongData.map((entry, index) => (
                                             <Cell
                                                 key={index}
-                                                fill={
-                                                    activeBar === null
-                                                        ? "#5B8FF9"
-                                                        : activeBar === index
-                                                            ? "#244380"
-                                                            : "#CBD5E1"
-                                                }
+                                                fill={activeBar === null ? "#7EA6FF" : activeBar === index ? "#4F8CFF" : "#DCE7FF"}
                                                 style={{
-                                                    filter:
-                                                        activeBar === index
-                                                            ? "drop-shadow(0 6px 12px rgba(36,67,128,.25))"
-                                                            : "none",
-                                                    transition: "all .35s ease",
+                                                    filter: activeBar === index ? "drop-shadow(0 8px 18px rgba(79,140,255,.22))" : "none",
+                                                    opacity: activeBar === null ? 1 : activeBar === index ? 1 : 0.55,
+                                                    transition: "fill .25s, fill-opacity .25s",
                                                 }}
+                                                onMouseEnter={() => setActiveBar(index)}
+                                                onMouseLeave={() => setActiveBar(null)}
                                             />
                                         ))}
                                     </Bar>
@@ -531,117 +429,28 @@ const Dashboard = ({ statistics, thongKeLoaiPhong, thongKeLoaiThietBi, thongKeCo
                             </ResponsiveContainer>
 
                             {/* Stats Row */}
-                            <div className="mt-6 pt-2 border-t border-slate-200/60 grid grid-cols-4">
+                            <div className="pt-2 border-t border-slate-200/60 grid grid-cols-4">
                                 {loaiPhongData.map((item, index) => {
-                                    const total = loaiPhongData.reduce(
-                                        (s, i) => s + i.soLuong,
-                                        0
-                                    );
-
-                                    const pct = Math.round(
-                                        (item.soLuong / total) * 100
-                                    );
-
+                                    const total = loaiPhongData.reduce((s, i) => s + i.soLuong, 0);
                                     return (
                                         <div
                                             key={item.name}
-                                            onMouseEnter={() =>
-                                                setActiveBar(index)
-                                            }
-                                            onMouseLeave={() =>
-                                                setActiveBar(null)
-                                            }
-                                            className={`
-                                            relative
-                                            px-4
-                                            py-2
-                                            rounded-xl
-                                            cursor-pointer
-                                            transition-all duration-500 ease-in-out
-
-                                            ${activeBar === index
-                                                    ? "bg-[#244380]/[0.08]"
-                                                    : ""
-                                                }
-                                        `}
-                                            style={{
-                                                opacity:
-                                                    activeBar === null
-                                                        ? 1
-                                                        : activeBar === index
-                                                            ? 1
-                                                            : 0.35,
-                                            }}
-                                        >
-                                            {index !==
-                                                loaiPhongData.length - 1 && (
-                                                    <div
-                                                        className="
-                                                    absolute
-                                                    right-0
-                                                    top-1/2
-                                                    -translate-y-1/2
-                                                    w-px
-                                                    h-10
-                                                    bg-gradient-to-b
-                                                    from-transparent
-                                                    via-slate-200
-                                                    to-transparent
-                                                "
-                                                    />
-                                                )}
-
-                                            <div className="flex items-baseline gap-1">
+                                            onMouseEnter={() => setActiveBar(index)}
+                                            onMouseLeave={() => setActiveBar(null)}
+                                            className={`relative px-4 py-1 cursor-pointer transition-all duration-500 ease-in-out
+                                                ${activeBar === index ? "bg-slate-300" : ""}
+                                                ${index !== loaiPhongData.length - 1 ? " border-r border-slate-200" : ""}`}
+                                            style={{ opacity: activeBar === null ? 1 : activeBar === index ? 1 : 0.35, }}>
+                                            <div className="flex items-center justify-center gap-2">
                                                 <span
-                                                    className={`
-                                                    text-sm
-                                                    font-black
-                                                    transition-all
-                                                    duration-300
-
-                                                    ${activeBar === index
-                                                            ? "text-[#244380]"
-                                                            : "text-slate-800"
-                                                        }
-                                                `}
-                                                >
+                                                    className={`text-base font-black ${activeBar === index ? "text-[#244380]" : "text-slate-800"}`}>
                                                     {item.soLuong}
                                                 </span>
-
+                                                <span className="h-1 w-1 rounded-full bg-slate-300" />
                                                 <span
-                                                    className={`
-                                                    text-xs
-                                                    font-semibold
-                                                    transition-all
-                                                    duration-300
-
-                                                    ${activeBar === index
-                                                            ? "text-[#4f8cff]"
-                                                            : "text-slate-400"
-                                                        }
-                                                `}
-                                                >
-                                                    {pct}%
+                                                    className={`text-[11px] uppercase tracking-[0.1em] font-semibold ${activeBar === index ? "text-[#244380]" : "text-slate-400"}`}>
+                                                    {item.name}
                                                 </span>
-                                            </div>
-
-                                            <div
-                                                className={`
-                                                mt-1
-                                                text-[11px]
-                                                uppercase
-                                                tracking-[0.12em]
-                                                font-semibold
-                                                transition-all
-                                                duration-300
-
-                                                ${activeBar === index
-                                                        ? "text-[#244380]"
-                                                        : "text-slate-400"
-                                                    }
-                                            `}
-                                            >
-                                                {item.name}
                                             </div>
                                         </div>
                                     );
@@ -649,83 +458,132 @@ const Dashboard = ({ statistics, thongKeLoaiPhong, thongKeLoaiThietBi, thongKeCo
                             </div>
                         </ChartCard>
                     </Col>
-
                     {/* Donut: trạng thái */}
                     <Col xs={24} lg={10}>
                         <ChartCard title="Trạng thái phòng">
                             <DonutChart data={trangThaiPhongData} />
                         </ChartCard>
                     </Col>
-
                 </Row>
-
                 {/* ── Hàng 2 ── */}
                 <Row gutter={[16, 16]} align="stretch">
-
                     {/* Horizontal Bar: thiết bị theo loại */}
-                    <Col xs={24} lg={12}>
-                        <ChartCard title="Thiết bị theo loại">
-                            <ResponsiveContainer width="100%" height={280}>
-                                <BarChart
-                                    data={loaiThietBiData}
-                                    layout="vertical"
-                                    margin={{ top: 8, right: 30, left: 24, bottom: 8 }}
-                                >
-                                    <CartesianGrid strokeDasharray="2 4" stroke="#eef2f7" horizontal={false} />
-                                    <XAxis type="number" allowDecimals={false} tick={{ fill: '#94a3b8', fontSize: 11 }} axisLine={false} tickLine={false} />
-                                    <YAxis type="category" dataKey="name" tick={{ fill: '#64748b', fontSize: 12 }} axisLine={false} tickLine={false} width={90} />
-                                    <Tooltip {...tooltipStyle} formatter={(v) => [`${fmt(v)} thiết bị`, 'Số lượng']} />
-                                    <Bar
-                                        dataKey="soLuong"
-                                        name="Số thiết bị"
-                                        radius={[0, 10, 10, 0]}
-                                        maxBarSize={24}
-                                        background={{ fill: '#ecfeff', radius: 10 }}
-                                        isAnimationActive
-                                        animationDuration={1000}
-                                        animationBegin={220}
-                                        animationEasing="ease-out"
-                                        fill="#5B8FF9"
-                                        activeBar={{
-                                            fill: "#7EA6FF"
-                                        }}
-                                    >
-                                        <LabelList dataKey="soLuong" position="right" style={{ fontWeight: 700, fill: '#334155', fontSize: 12 }} />
-                                    </Bar>
-                                </BarChart>
-                            </ResponsiveContainer>
-                        </ChartCard>
-                    </Col>
-
-                    {/* BarChart: khu nhà theo cơ sở — bar dọc gradient */}
                     <Col xs={24} lg={12}>
                         <ChartCard title="Khu nhà theo cơ sở">
                             <ResponsiveContainer width="100%" height={280}>
-                                <BarChart data={coSoData}
-                                    margin={{ top: 32, right: 12, left: -16, bottom: 4 }}>
-                                    <defs>
-                                        <linearGradient id="roomGradient" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="0%" stopColor="#5b8cff" />
-                                            <stop offset="100%" stopColor="#244380" />
-                                        </linearGradient>
-                                    </defs>
-                                    <CartesianGrid strokeDasharray="0" stroke="#f0f0f0" vertical={false} />
-                                    <XAxis dataKey="name"
-                                        tick={{ fill: '#888', fontSize: 12 }} axisLine={false} tickLine={false} />
-                                    <YAxis hide />
-                                    <Tooltip {...tooltipStyle} formatter={(v) => [`${fmt(v)} khu nhà`]} />
-                                    <Bar dataKey="soKhuNha" name="Số khu nhà" barSize={52} radius={[10, 10, 0, 0]} fill="#34d399" >
-
-                                        <LabelList dataKey="soKhuNha" position="top"
-                                            style={{ fontWeight: 800, fontSize: 18, fill: '#333' }} />
-                                    </Bar>
-                                </BarChart>
+                                <RadialBarChart
+                                    cx="35%"
+                                    cy="50%"
+                                    innerRadius="15%"
+                                    outerRadius="85%"
+                                    barSize={16}
+                                    data={coSoData.map((item, index) => ({
+                                        ...item,
+                                        fill: [
+                                            "#244380",
+                                            "#10B981",
+                                            "#F59E0B",
+                                            "#8B5CF6",
+                                            "#EF4444",
+                                        ][index % 5],
+                                    }))}
+                                >
+                                    <RadialBar background clockWise dataKey="soKhuNha" cornerRadius={12} label={false} />
+                                    <Legend iconSize={10} layout="vertical" verticalAlign="middle" align="right"
+                                        wrapperStyle={{
+                                            right: 0,
+                                            top: "50%",
+                                            transform: "translateY(-50%)",
+                                            lineHeight: "26px",
+                                            fontSize: "12px",
+                                            fontWeight: 600,
+                                        }}
+                                    />
+                                    <Tooltip
+                                        {...tooltipStyle}
+                                        formatter={(value) => [`${fmt(value)} khu nhà`, "Số lượng"]}
+                                        labelFormatter={(_, payload) => payload?.[0]?.payload?.name || ""}
+                                    />
+                                </RadialBarChart>
                             </ResponsiveContainer>
                         </ChartCard>
                     </Col>
-
+                    {/* BarChart: khu nhà theo cơ sở — bar dọc gradient */}
+                    <Col xs={24} lg={12}>
+                        <ChartCard title="Thiết bị theo loại">
+                            <ResponsiveContainer width="100%" height={260}>
+                                <BarChart
+                                    data={loaiThietBiData}
+                                    layout="vertical"
+                                    margin={{ top: 12, right: 20, left: 12, bottom: 12, }}
+                                >
+                                    <defs>
+                                        <filter id="deviceGlow">
+                                            <feDropShadow dx="0" dy="4" stdDeviation="6" floodColor="#4f8cff" floodOpacity="0.18" />
+                                        </filter>
+                                    </defs>
+                                    <CartesianGrid horizontal={false} stroke="rgba(148,163,184,.15)" />
+                                    <XAxis type="number" allowDecimals={false} axisLine={false} tickLine={false}
+                                        tick={{ fill: "#94a3b8", fontSize: 11, fontWeight: 500, }}
+                                    />
+                                    <YAxis type="category" dataKey="name" width={100} axisLine={false} tickLine={false}
+                                        tick={({ x, y, payload, index }) => (
+                                            <text
+                                                x={x} y={y} dy={4} textAnchor="end"
+                                                fill={activeDeviceBar === index ? "#10B981" : "#64748b"}
+                                                fontSize="12"
+                                                fontWeight={activeDeviceBar === index ? 800 : 600}
+                                            >
+                                                {payload.value}
+                                            </text>
+                                        )}
+                                    />
+                                    <Tooltip {...tooltipStyle} cursor={false} formatter={(v) => [`${fmt(v)} thiết bị`, "Số lượng"]} />
+                                    <Bar
+                                        dataKey="soLuong"
+                                        radius={[2, 8, 8, 2]}
+                                        maxBarSize={26}
+                                        isAnimationActive={false}
+                                    >
+                                        <LabelList
+                                            content={({ x, y, width, height, value }) => (
+                                                <text
+                                                    x={Number(x) + Number(width) + 12}
+                                                    y={Number(y) + Number(height) / 2}
+                                                    dominantBaseline="middle"
+                                                    fill="#64748b"
+                                                    fontSize="11"
+                                                    fontWeight="700"
+                                                >
+                                                    {value}
+                                                </text>
+                                            )}
+                                        />
+                                        {loaiThietBiData.map((item, index) => (
+                                            <Cell
+                                                key={index}
+                                                fill={activeDeviceBar === null ? "#7DD3C7" : activeDeviceBar === index ? "#34D399" : "#D1FAE5"}
+                                                style={{
+                                                    opacity: activeDeviceBar === null ? 1 : activeDeviceBar === index ? 1 : 0.35,
+                                                    transition: "all .3s ease",
+                                                }}
+                                                onMouseEnter={() => setActiveDeviceBar(index)}
+                                                onMouseLeave={() => setActiveDeviceBar(null)}
+                                            />
+                                        ))}
+                                    </Bar>
+                                </BarChart>
+                            </ResponsiveContainer>
+                            <div className="h-4 text-center">
+                                {activeDeviceBar !== null && (
+                                    <span className="text-xs font-semibold uppercase tracking-[0.12em] text-[#244380]">
+                                        {loaiThietBiData[activeDeviceBar].name}
+                                    </span>
+                                )}
+                            </div>
+                        </ChartCard>
+                    </Col>
                 </Row>
-
                 {/* ── Diện tích ── */}
                 <Card bordered={false} style={{ borderRadius: 14, boxShadow: '0 2px 12px rgba(0,0,0,.08)' }}>
                     <Row>
@@ -745,7 +603,6 @@ const Dashboard = ({ statistics, thongKeLoaiPhong, thongKeLoaiThietBi, thongKeCo
                         ))}
                     </Row>
                 </Card>
-
             </Space>
         </MainLayout>
     );
