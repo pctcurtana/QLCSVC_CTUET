@@ -607,3 +607,55 @@ textarea,
   font-weight: 600 !important;
   border-color: rgba(148, 163, 184, .45) !important;
 }
+
+/* --- Tối ưu hiệu năng trên trình duyệt mobile --- */
+@media (max-width: 768px) {
+
+  /* Stop glowing orbs float animations and reduce blur to save GPU */
+  .glow-orb {
+    animation: none !important;
+    filter: blur(40px) !important;
+  }
+
+  /* Disable backdrop-filter inside cards/tables to prevent expensive Safari render passes */
+  .custom-sidebar,
+  .ant-card,
+  .ant-input,
+  .ant-input-password,
+  .ant-input-affix-wrapper,
+  .ant-select-selector,
+  .ant-picker,
+  .ant-modal-content,
+  .ant-dropdown-menu,
+  .ant-select-dropdown,
+  .ant-popover-content,
+  .ant-message-notice-content,
+  .ant-table-cell-fix-right {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  /* Fallback to clean, slightly solid colors on mobile for performance and readability */
+  .ant-card {
+    background: rgba(255, 255, 255, 0.92) !important;
+  }
+
+  .ant-input,
+  .ant-input-password,
+  .ant-input-affix-wrapper,
+  .ant-select-selector,
+  .ant-picker {
+    background: rgba(255, 255, 255, 0.95) !important;
+  }
+
+  .ant-modal-content,
+  .ant-dropdown-menu,
+  .ant-select-dropdown,
+  .ant-popover-content {
+    background: #ffffff !important;
+  }
+
+  .custom-sidebar {
+    background: #f8fafd !important;
+  }
+}
