@@ -153,7 +153,7 @@ const BaoCaoSuCoIndex = ({ baoCaos, stats, filters }) => {
             <Space direction="vertical" size="large" style={{ width: '100%' }}>
 
                 {/* KPIs */}
-                <Row gutter={16}>
+                <Row gutter={[16, 16]}>
                     {kpiCards.map((k, i) => (
                         <Col xs={24} sm={12} md={6} key={i}>
                             <KpiCard 

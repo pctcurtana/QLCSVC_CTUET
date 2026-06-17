@@ -217,7 +217,7 @@ const DonutChart = ({ data }) => {
     return (
         <div className="flex items-center gap-5">
             <div className="relative w-[220px] shrink-0">
-                <ResponsiveContainer width="100%" height={280}>
+                <ResponsiveContainer width="100%" height={320}>
                     <PieChart>
                         <defs>
                             {DONUT_COLORS.map(
@@ -375,7 +375,7 @@ const Dashboard = ({ statistics, thongKeLoaiPhong, thongKeLoaiThietBi, thongKeCo
                     {/* BarChart: loại phòng — so sánh theo nhóm */}
                     <Col xs={24} lg={14}>
                         <ChartCard title="Phân bố theo loại phòng">
-                            <ResponsiveContainer width="100%" height={240}>
+                            <ResponsiveContainer width="100%" height={280}>
                                 <BarChart data={loaiPhongData} margin={{ top: 16, right: 12, left: -10, bottom: 6 }}>
                                     <defs>
                                         <linearGradient id="roomGradient" x1="0" y1="0" x2="0" y2="1">
@@ -470,11 +470,11 @@ const Dashboard = ({ statistics, thongKeLoaiPhong, thongKeLoaiThietBi, thongKeCo
                     {/* Horizontal Bar: thiết bị theo loại */}
                     <Col xs={24} lg={12}>
                         <ChartCard title="Khu nhà theo cơ sở">
-                            <ResponsiveContainer width="100%" height={280}>
+                            <ResponsiveContainer width="100%" height={260}>
                                 <RadialBarChart
-                                    cx="35%"
+                                    cx="50%"
                                     cy="50%"
-                                    innerRadius="15%"
+                                    innerRadius="25%"
                                     outerRadius="85%"
                                     barSize={16}
                                     data={coSoData.map((item, index) => ({
@@ -489,16 +489,6 @@ const Dashboard = ({ statistics, thongKeLoaiPhong, thongKeLoaiThietBi, thongKeCo
                                     }))}
                                 >
                                     <RadialBar background clockWise dataKey="soKhuNha" cornerRadius={12} label={false} />
-                                    <Legend iconSize={10} layout="vertical" verticalAlign="middle" align="right"
-                                        wrapperStyle={{
-                                            right: 0,
-                                            top: "50%",
-                                            transform: "translateY(-50%)",
-                                            lineHeight: "26px",
-                                            fontSize: "12px",
-                                            fontWeight: 600,
-                                        }}
-                                    />
                                     <Tooltip
                                         {...tooltipStyle}
                                         formatter={(value) => [`${fmt(value)} khu nhà`, "Số lượng"]}
@@ -506,12 +496,43 @@ const Dashboard = ({ statistics, thongKeLoaiPhong, thongKeLoaiThietBi, thongKeCo
                                     />
                                 </RadialBarChart>
                             </ResponsiveContainer>
+                            <div className="space-y-2">
+                                {coSoData.map((item, index) => (
+                                    <div
+                                        key={item.name}
+                                        className="flex items-center justify-between text-sm"
+                                    >
+                                        <div className="flex items-center gap-2">
+                                            <div
+                                                className="w-3 h-3 rounded-full"
+                                                style={{
+                                                    background: [
+                                                        "#244380",
+                                                        "#10B981",
+                                                        "#F59E0B",
+                                                        "#8B5CF6",
+                                                        "#EF4444",
+                                                    ][index % 5],
+                                                }}
+                                            />
+
+                                            <span className="font-medium text-slate-700">
+                                                {item.name}
+                                            </span>
+                                        </div>
+
+                                        <span className="font-bold text-slate-900">
+                                            {String(item.soKhuNha).padStart(2, "0")}
+                                        </span>
+                                    </div>
+                                ))}
+                            </div>
                         </ChartCard>
                     </Col>
                     {/* BarChart: khu nhà theo cơ sở — bar dọc gradient */}
                     <Col xs={24} lg={12}>
                         <ChartCard title="Thiết bị theo loại">
-                            <ResponsiveContainer width="100%" height={260}>
+                            <ResponsiveContainer width="100%" height={320}>
                                 <BarChart
                                     data={loaiThietBiData}
                                     layout="vertical"

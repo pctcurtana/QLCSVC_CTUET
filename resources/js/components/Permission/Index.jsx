@@ -37,7 +37,7 @@ const PermissionIndex = ({ users, screens }) => {
     // Chuyển screens tree thành data cho table với expandable
     const tableData = useMemo(() => {
         const result = [];
-        
+
         screens.forEach((screen) => {
             const item = {
                 key: screen.id,
@@ -134,7 +134,7 @@ const PermissionIndex = ({ users, screens }) => {
         setPermissions((prev) => {
             const newPermissions = { ...prev };
             const screen = findScreen(screenId);
-            
+
             // Hàm helper để set permission cho 1 screen
             const setPermission = (id, type, value) => {
                 if (!newPermissions[id]) {
@@ -149,7 +149,7 @@ const PermissionIndex = ({ users, screens }) => {
                     };
                 }
                 newPermissions[id][type] = value;
-                
+
                 // Nếu bỏ tích can_view, tự động bỏ các quyền khác
                 if (type === 'can_view' && !value) {
                     newPermissions[id].can_create = false;
@@ -159,7 +159,7 @@ const PermissionIndex = ({ users, screens }) => {
                     newPermissions[id].can_import = false;
                     newPermissions[id].can_export = false;
                 }
-                
+
                 // Nếu tích quyền khác, tự động tích can_view
                 if (type !== 'can_view' && value) {
                     newPermissions[id].can_view = true;
@@ -205,7 +205,7 @@ const PermissionIndex = ({ users, screens }) => {
     const handleRowCheckAll = (screenId, checked, record) => {
         setPermissions((prev) => {
             const newPermissions = { ...prev };
-            
+
             // Hàm helper để set tất cả permission cho 1 screen
             const setAllPermissions = (id, value) => {
                 newPermissions[id] = {
@@ -271,7 +271,7 @@ const PermissionIndex = ({ users, screens }) => {
                         can_export: false,
                     };
                 }
-                
+
                 if (permissionType === 'can_view') {
                     newPermissions[screenId].can_view = checked;
                     if (!checked) {
@@ -341,44 +341,44 @@ const PermissionIndex = ({ users, screens }) => {
 
     // Kiểm tra row có tích hết không (bao gồm children nếu là parent)
     const isRowAllChecked = (record) => {
-        const checkAllPerms = (perms) => 
-            perms.can_view && perms.can_create && perms.can_edit && perms.can_delete 
+        const checkAllPerms = (perms) =>
+            perms.can_view && perms.can_create && perms.can_edit && perms.can_delete
             && perms.can_regenerate_qr && perms.can_import && perms.can_export;
-        
+
         // Nếu là parent, chỉ kiểm tra children
         if (record.isParent && record.childIds && record.childIds.length > 0) {
             return record.childIds.every((id) => checkAllPerms(permissions[id] || {}));
         }
-        
+
         // Nếu không phải parent, kiểm tra chính nó
         return checkAllPerms(permissions[record.id] || {});
     };
 
     const isRowIndeterminate = (record) => {
-        const checkAllPerms = (perms) => 
-            perms.can_view && perms.can_create && perms.can_edit && perms.can_delete 
+        const checkAllPerms = (perms) =>
+            perms.can_view && perms.can_create && perms.can_edit && perms.can_delete
             && perms.can_regenerate_qr && perms.can_import && perms.can_export;
-        const checkNoPerms = (perms) => 
-            !perms.can_view && !perms.can_create && !perms.can_edit && !perms.can_delete 
+        const checkNoPerms = (perms) =>
+            !perms.can_view && !perms.can_create && !perms.can_edit && !perms.can_delete
             && !perms.can_regenerate_qr && !perms.can_import && !perms.can_export;
-        
+
         // Nếu là parent, kiểm tra children
         if (record.isParent && record.childIds && record.childIds.length > 0) {
             let totalChecked = 0;
             let totalUnchecked = 0;
             let totalPartial = 0;
-            
+
             record.childIds.forEach((id) => {
                 const perms = permissions[id] || {};
                 if (checkAllPerms(perms)) totalChecked++;
                 else if (checkNoPerms(perms)) totalUnchecked++;
                 else totalPartial++;
             });
-            
+
             // Indeterminate khi có mix hoặc có partial
             return totalPartial > 0 || (totalChecked > 0 && totalUnchecked > 0);
         }
-        
+
         // Nếu không phải parent, kiểm tra chính nó có partial không
         const perms = permissions[record.id] || {};
         return !checkAllPerms(perms) && !checkNoPerms(perms);
@@ -396,11 +396,11 @@ const PermissionIndex = ({ users, screens }) => {
     // Kiểm tra cell có indeterminate không (chỉ cho parent)
     const isCellIndeterminate = (record, permissionType) => {
         if (!record.isParent || !record.childIds || record.childIds.length === 0) return false;
-        
+
         const childrenCheckedCount = record.childIds.filter(
             (id) => permissions[id]?.[permissionType]
         ).length;
-        
+
         // Indeterminate khi một số (không phải tất cả, không phải 0) children được tích
         return childrenCheckedCount > 0 && childrenCheckedCount < record.childIds.length;
     };
@@ -684,15 +684,15 @@ const PermissionIndex = ({ users, screens }) => {
                         {/* Nút mở rộng/thu gọn */}
                         {selectedUserId && (
                             <Space>
-                                <Button 
-                                    size="small" 
+                                <Button
+                                    size="small"
                                     icon={<PlusOutlined />}
                                     onClick={handleExpandAll}
                                 >
                                     Mở rộng tất cả
                                 </Button>
-                                <Button 
-                                    size="small" 
+                                <Button
+                                    size="small"
                                     icon={<MinusOutlined />}
                                     onClick={handleCollapseAll}
                                 >
@@ -715,7 +715,7 @@ const PermissionIndex = ({ users, screens }) => {
                                         onExpandedRowsChange: (keys) => setExpandedRowKeys(keys),
                                         rowExpandable: (record) => record.children && record.children.length > 0,
                                     }}
-                                    rowClassName={(record) => 
+                                    rowClassName={(record) =>
                                         record.isParent ? 'parent-row' : ''
                                     }
                                 />
@@ -751,10 +751,10 @@ const PermissionIndex = ({ users, screens }) => {
                                         <Text><strong>Tạo QR:</strong> Cho phép tạo lại mã QR cho phòng/thiết bị</Text>
                                     </li>
                                     <li>
-                                        <Text><strong>Import:</strong> Cho phép nhập dữ liệu từ file (tính năng sẽ phát triển)</Text>
+                                        <Text><strong>Import:</strong> Cho phép nhập dữ liệu từ file</Text>
                                     </li>
                                     <li>
-                                        <Text><strong>Export:</strong> Cho phép xuất báo cáo, xuất dữ liệu (tính năng sẽ phát triển)</Text>
+                                        <Text><strong>Export:</strong> Cho phép xuất báo cáo, xuất dữ liệu</Text>
                                     </li>
                                     <li>
                                         <Text type="secondary">Admin có tất cả quyền mặc định, không cần phân quyền</Text>
@@ -767,13 +767,6 @@ const PermissionIndex = ({ users, screens }) => {
             </Space>
 
             <style>{`
-                .parent-row {
-                    background-color: #fafafa;
-                    font-weight: 500;
-                }
-                .parent-row:hover > td {
-                    background-color: #f0f0f0 !important;
-                }
                 .ant-table-row-expand-icon {
                     margin-right: 8px;
                 }

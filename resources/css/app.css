@@ -48,7 +48,7 @@
 
   .custom-sidebar .ant-menu-item-selected::before {
     content: '' !important;
-    @apply absolute left-0 w-[3px] h-6 top-1/2 -translate-y-1/2 bg-gradient-to-b from-[#244380] to-[#00c9a7] rounded-r-[2px] !important;
+    @apply absolute left-1 w-[3px] h-6 top-1/2 -translate-y-1/2 bg-[#244380] rounded-full !important;
   }
 
   .custom-sidebar .ant-menu-submenu-title {
@@ -439,10 +439,24 @@
 
 .ant-table-tbody>tr>td {
   border-bottom: 0.2px solid #dbe4ee !important;
+  transition: background-color 0.15s ease !important;
 }
 
 .ant-table-tbody>tr:hover>td {
-  background: rgba(36, 67, 128, 0.05) !important;
+  background: #f0f4fa !important;
+  /* Solid light blue-gray hover (fixes Chrome black-row bug) */
+}
+
+/* Parent row styles in permission matrix */
+.ant-table-tbody>tr.parent-row>td {
+  background: #f8fafc !important;
+  /* Solid light slate for parent rows */
+  font-weight: 600 !important;
+}
+
+.ant-table-tbody>tr.parent-row:hover>td {
+  background: #eaf0f8 !important;
+  /* Slightly darker hover for parent rows */
 }
 
 /* fix cột edit bị ghi đè */
@@ -550,4 +564,46 @@ textarea,
   font-family: 'Plus Jakarta Sans', sans-serif !important;
 
   padding: 12px 18px !important;
+}
+
+/* --- Ant Design Skeleton Overrides --- */
+@keyframes custom-skeleton-loading {
+  0% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0 50%;
+  }
+}
+
+.ant-skeleton .ant-skeleton-title,
+.ant-skeleton .ant-skeleton-paragraph>li,
+.ant-skeleton-element .ant-skeleton-avatar,
+.ant-skeleton-element .ant-skeleton-button,
+.ant-skeleton-element .ant-skeleton-input,
+.ant-skeleton-element .ant-skeleton-image {
+  background: rgba(36, 67, 128, 0.08) !important;
+  border-radius: 8px !important;
+}
+
+.ant-skeleton.ant-skeleton-active .ant-skeleton-title,
+.ant-skeleton.ant-skeleton-active .ant-skeleton-paragraph>li,
+.ant-skeleton-element.ant-skeleton-active .ant-skeleton-avatar,
+.ant-skeleton-element.ant-skeleton-active .ant-skeleton-button,
+.ant-skeleton-element.ant-skeleton-active .ant-skeleton-input,
+.ant-skeleton-element.ant-skeleton-active .ant-skeleton-image {
+  background: linear-gradient(90deg,
+      rgba(36, 67, 128, 0.06) 25%,
+      rgba(36, 67, 128, 0.16) 37%,
+      rgba(36, 67, 128, 0.06) 63%) !important;
+  background-size: 400% 100% !important;
+  animation: custom-skeleton-loading 1.4s ease infinite !important;
+}
+
+/* ant tag */
+.ant-tag {
+  border-width: 1px !important;
+  font-weight: 600 !important;
+  border-color: rgba(148, 163, 184, .45) !important;
 }

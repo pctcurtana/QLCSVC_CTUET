@@ -173,7 +173,7 @@ const TabCoSo = ({ data }) => {
 
     return (
         <Space direction="vertical" size="large" style={{ width: '100%' }}>
-            <Row gutter={16}>
+            <Row gutter={[16, 16]}>
                 {[
                     { title: 'Tổng số cơ sở',   value: tq?.tong_co_so,                                           icon: <BankOutlined />,      color: P.blue },
                     { title: 'Tổng DT đất',      value: `${formatNumber(tq?.tong_dien_tich_dat)} m²`,            icon: <AreaChartOutlined />,  color: P.green },
@@ -186,7 +186,7 @@ const TabCoSo = ({ data }) => {
                 ))}
             </Row>
 
-            <Row gutter={16}>
+            <Row gutter={[16, 16]}>
                 <Col xs={24} lg={14}>
                     <Card title="Diện tích đất & quy đổi theo cơ sở (m²)" bordered={false}
                         style={{ borderRadius: 10, boxShadow: '0 1px 6px rgba(0,0,0,.06)' }}>
@@ -324,7 +324,7 @@ const TabKhuNha = ({ data, danhSachCoSo }) => {
                 </Space>
             </Card>
 
-            <Row gutter={16}>
+            <Row gutter={[16, 16]}>
                 {[
                     { title: 'Tổng khu nhà',    value: tq?.tong_khu_nha,                                          icon: <HomeOutlined />,      color: P.blue },
                     { title: 'Tổng DT sàn XD', value: `${formatNumber(tq?.tong_dien_tich_san)} m²`,              icon: <AreaChartOutlined />,  color: P.green },
@@ -337,7 +337,7 @@ const TabKhuNha = ({ data, danhSachCoSo }) => {
                 ))}
             </Row>
 
-            <Row gutter={16}>
+            <Row gutter={[16, 16]}>
                 <Col xs={24} lg={12}>
                     <Card title="Phân bố theo loại khu nhà" bordered={false}
                         style={{ borderRadius: 10, boxShadow: '0 1px 6px rgba(0,0,0,.06)' }}>
@@ -503,7 +503,7 @@ const TabPhong = ({ data, danhSachCoSo, danhSachKhuNha }) => {
                 </Space>
             </Card>
 
-            <Row gutter={16}>
+            <Row gutter={[16, 16]}>
                 {[
                     { title: 'Tổng số phòng',  value: tq?.tong_phong,                          icon: <AppstoreOutlined />, color: P.blue },
                     { title: 'Tổng diện tích', value: `${formatNumber(tq?.tong_dien_tich)} m²`, icon: <AreaChartOutlined />, color: P.green },
@@ -516,7 +516,7 @@ const TabPhong = ({ data, danhSachCoSo, danhSachKhuNha }) => {
                 ))}
             </Row>
 
-            <Row gutter={16}>
+            <Row gutter={[16, 16]}>
                 <Col xs={24} lg={14}>
                     <Card title="Phân bố theo loại phòng" bordered={false}
                         style={{ borderRadius: 10, boxShadow: '0 1px 6px rgba(0,0,0,.06)' }}>
@@ -710,7 +710,7 @@ const TabThietBi = ({ data, danhSachCoSo, danhSachKhuNha, danhSachPhong }) => {
                 </Space>
             </Card>
 
-            <Row gutter={16}>
+            <Row gutter={[16, 16]}>
                 {[
                     { title: 'Tổng thiết bị', value: tq?.tong_thiet_bi,              icon: <ToolOutlined />,    color: P.blue },
                     { title: 'Tổng giá trị',  value: formatCurrency(tq?.tong_gia_tri), icon: <DollarOutlined />, color: P.purple },
@@ -723,7 +723,7 @@ const TabThietBi = ({ data, danhSachCoSo, danhSachKhuNha, danhSachPhong }) => {
                 ))}
             </Row>
 
-            <Row gutter={16}>
+            <Row gutter={[16, 16]}>
                 <Col xs={24} lg={14}>
                     <Card title="Số lượng & giá trị theo loại thiết bị" bordered={false}
                         style={{ borderRadius: 10, boxShadow: '0 1px 6px rgba(0,0,0,.06)' }}>
@@ -748,7 +748,7 @@ const TabThietBi = ({ data, danhSachCoSo, danhSachKhuNha, danhSachPhong }) => {
                 </Col>
             </Row>
 
-            <Row gutter={16}>
+            <Row gutter={[16, 16]}>
                 <Col xs={24} lg={14}>
                     <Card title="Xu hướng mua sắm theo năm" bordered={false}
                         style={{ borderRadius: 10, boxShadow: '0 1px 6px rgba(0,0,0,.06)' }}>

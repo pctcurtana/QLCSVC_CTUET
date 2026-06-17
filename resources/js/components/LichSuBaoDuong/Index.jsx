@@ -205,7 +205,7 @@ const Index = ({ lichSuBaoDuongs, thietBis, filters, stats }) => {
             <Space direction="vertical" size="large" style={{ width: '100%' }}>
 
                 {/* KPI Cards */}
-                <Row gutter={16}>
+                <Row gutter={[16, 16]}>
                     {kpiCards.map((k, i) => (
                         <Col xs={24} sm={12} md={6} key={i}>
                             <KpiCard 
