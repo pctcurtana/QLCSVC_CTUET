@@ -30,26 +30,28 @@ class ThietBiRepository implements ThietBiRepositoryInterface
     public function paginate(array $filters = [], int $perPage = 10): LengthAwarePaginator
     {
         $query = $this->model->query()
+            ->select('thiet_bis.*')
+            ->leftJoin('phongs', 'thiet_bis.phong_id', '=', 'phongs.id')
             ->with(['phong.khuNha.coSo'])
             ->withCount('lichSuBaoDuongs')
-            ->where('trang_thai_du_lieu', 'hien_hanh');
+            ->where('thiet_bis.trang_thai_du_lieu', 'hien_hanh');
 
         if (isset($filters['search']) && !empty($filters['search'])) {
             $search = $filters['search'];
             $query->where(function($q) use ($search) {
-                $q->where('ma_thiet_bi', 'like', "%{$search}%")
-                  ->orWhere('ten_thiet_bi', 'like', "%{$search}%")
-                  ->orWhere('serial_number', 'like', "%{$search}%")
-                  ->orWhere('hang_san_xuat', 'like', "%{$search}%");
+                $q->where('thiet_bis.ma_thiet_bi', 'like', "%{$search}%")
+                  ->orWhere('thiet_bis.ten_thiet_bi', 'like', "%{$search}%")
+                  ->orWhere('thiet_bis.serial_number', 'like', "%{$search}%")
+                  ->orWhere('thiet_bis.hang_san_xuat', 'like', "%{$search}%");
             });
         }
 
         if (isset($filters['phong_id']) && !empty($filters['phong_id'])) {
-            $query->where('phong_id', $filters['phong_id']);
+            $query->where('thiet_bis.phong_id', $filters['phong_id']);
         }
 
         if (isset($filters['loai_thiet_bi']) && !empty($filters['loai_thiet_bi'])) {
-            $query->where('loai_thiet_bi', $filters['loai_thiet_bi']);
+            $query->where('thiet_bis.loai_thiet_bi', $filters['loai_thiet_bi']);
         }
 
         if (isset($filters['co_so_id']) && !empty($filters['co_so_id'])) {
@@ -57,13 +59,14 @@ class ThietBiRepository implements ThietBiRepositoryInterface
                 $q->where('co_so_id', $filters['co_so_id']);
             });
         }
-
         if (isset($filters['can_bao_duong']) && $filters['can_bao_duong'] === 'true') {
-            $query->whereNotNull('ngay_bao_duong_tiep_theo')
-                  ->whereDate('ngay_bao_duong_tiep_theo', '<=', now());
+            $query->whereNotNull('thiet_bis.ngay_bao_duong_tiep_theo')
+                  ->whereDate('thiet_bis.ngay_bao_duong_tiep_theo', '<=', now());
         }
 
-        return $query->latest()->paginate($perPage);
+        return $query->orderBy('phongs.ten_phong', 'asc')
+            ->orderBy('thiet_bis.ma_thiet_bi', 'asc')
+            ->paginate($perPage);
     }
 
     /**
@@ -118,6 +121,7 @@ class ThietBiRepository implements ThietBiRepositoryInterface
             ->with('phong.khuNha')
             ->where('trang_thai', 'tot')
             ->where('trang_thai_du_lieu', 'hien_hanh')
+            ->orderBy('ma_thiet_bi', 'asc')
             ->get($columns);
     }
 
@@ -145,6 +149,7 @@ class ThietBiRepository implements ThietBiRepositoryInterface
         return $this->model
             ->where('phong_id', $phongId)
             ->where('trang_thai_du_lieu', 'hien_hanh')
+            ->orderBy('ma_thiet_bi', 'asc')
             ->get();
     }
 

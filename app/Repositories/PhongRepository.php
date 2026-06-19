@@ -49,12 +49,11 @@ class PhongRepository implements PhongRepositoryInterface
         if (isset($filters['loai_phong']) && !empty($filters['loai_phong'])) {
             $query->where('loai_phong', $filters['loai_phong']);
         }
-
         if (isset($filters['tang']) && $filters['tang'] !== '') {
             $query->where('tang', $filters['tang']);
         }
 
-        return $query->latest()->paginate($perPage);
+        return $query->orderBy('ma_phong', 'asc')->paginate($perPage);
     }
 
     /**
@@ -109,6 +108,7 @@ class PhongRepository implements PhongRepositoryInterface
             ->with('khuNha.coSo')
             ->where('trang_thai', 'active')
             ->where('trang_thai_du_lieu', 'hien_hanh')
+            ->orderBy('ma_phong', 'asc')
             ->get($columns);
     }
 
@@ -129,6 +129,7 @@ class PhongRepository implements PhongRepositoryInterface
             ->where('khu_nha_id', $khuNhaId)
             ->where('trang_thai', 'active')
             ->where('trang_thai_du_lieu', 'hien_hanh')
+            ->orderBy('ma_phong', 'asc')
             ->get();
     }
 

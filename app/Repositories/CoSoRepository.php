@@ -46,7 +46,7 @@ class CoSoRepository implements CoSoRepositoryInterface
             $query->where('trang_thai', $filters['trang_thai']);
         }
 
-        return $query->latest()->paginate($perPage);
+        return $query->orderBy('ma_co_so', 'asc')->paginate($perPage);
     }
 
     /**
@@ -100,6 +100,7 @@ class CoSoRepository implements CoSoRepositoryInterface
         return $this->model
             ->where('trang_thai', 'active')
             ->where('trang_thai_du_lieu', 'hien_hanh')
+            ->orderBy('ten_co_so', 'asc')
             ->get($columns);
     }
 
