@@ -107,15 +107,31 @@ const Kho = ({ thietBis, stats, phongs, filters }) => {
         {
             title: 'Thiết bị',
             key: 'thiet_bi',
-            width: 280,
+            width: 200,
             render: (_, record) => (
                 <Space direction="vertical" size={0}>
                     <Text strong>{record.ten_thiet_bi}</Text>
                     <Text type="secondary" style={{ fontSize: 11 }}>
-                        {record.ma_thiet_bi} • {record.phong?.ten_phong || 'Chưa phân bổ'}
+                        {record.ma_thiet_bi}
                     </Text>
                 </Space>
             ),
+        },
+        {
+            title: 'Mã phòng',
+            dataIndex: ['phong', 'ma_phong'],
+            key: 'ma_phong',
+            width: 120,
+            ellipsis: true,
+            render: (text) => text || <Tag>Chưa phân bổ</Tag>,
+        },
+        {
+            title: 'Tên phòng',
+            dataIndex: ['phong', 'ten_phong'],
+            key: 'ten_phong',
+            width: 150,
+            ellipsis: true,
+            render: (text) => text || <Tag>Chưa phân bổ</Tag>,
         },
         {
             title: 'Loại',

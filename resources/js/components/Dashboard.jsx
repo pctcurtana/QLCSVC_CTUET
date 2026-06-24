@@ -215,7 +215,7 @@ const DonutChart = ({ data }) => {
         useState(null);
 
     return (
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-1">
             <div className="relative w-[220px] shrink-0">
                 <ResponsiveContainer width="100%" height={300}>
                     <PieChart>
@@ -396,6 +396,7 @@ const Dashboard = ({ statistics, thongKeLoaiPhong, thongKeLoaiThietBi, thongKeCo
 
                                     />
                                     <YAxis
+                                        width={35}
                                         axisLine={false}
                                         tickLine={false}
                                         tick={{ fill: "#94a3b8", fontSize: 11, fontWeight: 500 }}
@@ -429,7 +430,7 @@ const Dashboard = ({ statistics, thongKeLoaiPhong, thongKeLoaiThietBi, thongKeCo
                             </ResponsiveContainer>
 
                             {/* Stats Row */}
-                            <div className="pt-2 border-t border-slate-200/60 grid grid-cols-4">
+                            <div className="pt-2 border-t border-slate-200/60 grid grid-cols-5">
                                 {loaiPhongData.map((item, index) => {
                                     const total = loaiPhongData.reduce((s, i) => s + i.soLuong, 0);
                                     return (
@@ -547,7 +548,7 @@ const Dashboard = ({ statistics, thongKeLoaiPhong, thongKeLoaiThietBi, thongKeCo
                                     <XAxis type="number" allowDecimals={false} axisLine={false} tickLine={false}
                                         tick={{ fill: "#94a3b8", fontSize: 11, fontWeight: 500, }}
                                     />
-                                    <YAxis type="category" dataKey="name" width={100} axisLine={false} tickLine={false}
+                                    <YAxis type="category" dataKey="name" width={70} axisLine={false} tickLine={false}
                                         tick={({ x, y, payload, index }) => (
                                             <text
                                                 x={x} y={y} dy={4} textAnchor="end"

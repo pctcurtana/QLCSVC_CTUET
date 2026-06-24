@@ -14,12 +14,12 @@
   }
 
   .custom-sidebar .ant-menu {
-    @apply !bg-transparent !border-none p-[12px_8px] !important;
+    @apply !bg-transparent !border-none;
   }
 
   .custom-sidebar .ant-menu-item,
   .custom-sidebar .ant-menu-submenu-title {
-    @apply !text-[#7b90b8] !text-[13px] !font-medium !rounded-lg my-1 mx-0 px-3 py-0 !h-9 !leading-9 transition-all relative;
+    @apply !text-[#7b90b8] !text-[13px] !font-medium !rounded-lg my-1 ml-1 px-2 !h-9 !leading-9 transition-all relative;
 
     transition-duration: 180ms;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -48,15 +48,11 @@
 
   .custom-sidebar .ant-menu-item-selected::before {
     content: '' !important;
-    @apply absolute left-1 w-[3px] h-6 top-1/2 -translate-y-1/2 bg-[#244380] rounded-full !important;
+    @apply absolute left-2 w-[3px] h-6 top-1/2 -translate-y-1/2 bg-[#244380] rounded-full !important;
   }
 
   .custom-sidebar .ant-menu-submenu-title {
     @apply flex items-center !important;
-  }
-
-  .custom-sidebar .ant-menu-submenu-title .ant-menu-item-icon {
-    @apply !mr-2 !important;
   }
 
   .custom-sidebar .ant-menu-sub {
@@ -96,6 +92,10 @@
     @apply h-16 my-4 mx-3 flex items-center transition-all duration-300 select-none cursor-default !important;
   }
 
+  .custom-sidebar.ant-layout-sider-collapsed .custom-sidebar-logo-container {
+    @apply !mx-0 !justify-center !important;
+  }
+
   .logo-text-expanded {
     @apply font-bold text-lg tracking-wider text-[#244380] uppercase;
   }
@@ -106,7 +106,7 @@
 
   /* Collapsed Sidebar Item Styles */
   .custom-sidebar .ant-menu-inline-collapsed {
-    @apply !p-0 !w-20 !important;
+    @apply !p-0 !w-[50px] !important;
     padding: 0px !important;
     padding-inline: 0px !important;
   }
@@ -135,7 +135,7 @@
     display: inline-block !important;
     vertical-align: middle !important;
     line-height: 40px !important;
-    margin-left: 2px !important;
+    margin-left: 0px !important;
     /* Adjust visual centering as requested */
   }
 

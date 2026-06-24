@@ -174,11 +174,12 @@ const Index = ({ thietBis, phongs, coSos, filters }) => {
             render: (text) => text || <Tag>Chưa phân bổ</Tag>,
         },
         {
-            title: 'Toà nhà',
-            dataIndex: ['phong', 'khu_nha', 'ten_khu_nha'],
-            key: 'khu_nha',
-            width: 150,
+            title: 'Mã phòng',
+            dataIndex: ['phong', 'ma_phong'],
+            key: 'ma_phong',
+            width: 120,
             ellipsis: true,
+            render: (text) => text || <Tag>Chưa phân bổ</Tag>,
         },
         {
             title: 'Loại TB',

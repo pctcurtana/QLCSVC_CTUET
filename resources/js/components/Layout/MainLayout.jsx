@@ -236,13 +236,14 @@ const MainLayout = ({ children }) => {
     return (
         <Layout style={{ minHeight: '100vh', backgroundColor: 'transparent' }}>
             <Sider
+                width={210}
+                collapsedWidth={50}
                 trigger={null}
                 theme="light"
                 collapsible
                 collapsed={collapsed}
                 className="custom-sidebar overflow-auto h-screen fixed left-0 top-0 bottom-0 transition-[width] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]"
                 style={{
-                    width: collapsed ? 80 : 200,
                     backgroundColor: 'rgba(255, 255, 255, 0.25)',
                     backdropFilter: 'blur(24px)',
                     WebkitBackdropFilter: 'blur(24px)',
@@ -275,7 +276,7 @@ const MainLayout = ({ children }) => {
             <Layout
                 className="transition-[margin-left] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]"
                 style={{
-                    marginLeft: collapsed ? 80 : 200,
+                    marginLeft: collapsed ? 50 : 210,
                     backgroundColor: 'transparent',
                 }}
             >

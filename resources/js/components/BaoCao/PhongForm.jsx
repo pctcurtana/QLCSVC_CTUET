@@ -183,7 +183,7 @@ const PhongForm = ({ phong, token }) => {
                                 name="mo_ta_su_co"
                                 rules={[
                                     { required: true, message: 'Vui lòng mô tả sự cố' },
-                                    { min: 10, message: 'Mô tả quá ngắn (ít nhất 10 ký tự)' },
+                                    { min: 3, message: 'Mô tả quá ngắn (ít nhất 3 ký tự)' },
                                 ]}
                             >
                                 <TextArea

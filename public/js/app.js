@@ -195977,8 +195977,8 @@ var PhongForm = function PhongForm(_ref) {
                 required: true,
                 message: 'Vui lòng mô tả sự cố'
               }, {
-                min: 10,
-                message: 'Mô tả quá ngắn (ít nhất 10 ký tự)'
+                min: 3,
+                message: 'Mô tả quá ngắn (ít nhất 3 ký tự)'
               }],
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(TextArea, {
                 rows: 4,
@@ -198952,7 +198952,7 @@ var DonutChart = function DonutChart(_ref3) {
     activeIndex = _useState4[0],
     setActiveIndex = _useState4[1];
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)("div", {
-    className: "flex items-center gap-5",
+    className: "flex items-center gap-1",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)("div", {
       className: "relative w-[220px] shrink-0",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_14__.ResponsiveContainer, {
@@ -199236,6 +199236,7 @@ var Dashboard = function Dashboard(_ref4) {
                     fontWeight: 600
                   }
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_22__.YAxis, {
+                  width: 35,
                   axisLine: false,
                   tickLine: false,
                   tick: {
@@ -199274,7 +199275,7 @@ var Dashboard = function Dashboard(_ref4) {
                 })]
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("div", {
-              className: "pt-2 border-t border-slate-200/60 grid grid-cols-4",
+              className: "pt-2 border-t border-slate-200/60 grid grid-cols-5",
               children: loaiPhongData.map(function (item, index) {
                 var total = loaiPhongData.reduce(function (s, i) {
                   return s + i.soLuong;
@@ -199422,7 +199423,7 @@ var Dashboard = function Dashboard(_ref4) {
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_22__.YAxis, {
                   type: "category",
                   dataKey: "name",
-                  width: 100,
+                  width: 70,
                   axisLine: false,
                   tickLine: false,
                   tick: function tick(_ref5) {
@@ -201581,13 +201582,14 @@ var MainLayout = function MainLayout(_ref) {
       backgroundColor: 'transparent'
     },
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)(Sider, {
+      width: 210,
+      collapsedWidth: 50,
       trigger: null,
       theme: "light",
       collapsible: true,
       collapsed: collapsed,
       className: "custom-sidebar overflow-auto h-screen fixed left-0 top-0 bottom-0 transition-[width] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]",
       style: {
-        width: collapsed ? 80 : 200,
         backgroundColor: 'rgba(255, 255, 255, 0.25)',
         backdropFilter: 'blur(24px)',
         WebkitBackdropFilter: 'blur(24px)'
@@ -201625,7 +201627,7 @@ var MainLayout = function MainLayout(_ref) {
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
       className: "transition-[margin-left] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]",
       style: {
-        marginLeft: collapsed ? 80 : 200,
+        marginLeft: collapsed ? 50 : 210,
         backgroundColor: 'transparent'
       },
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)(Header, {
@@ -202418,22 +202420,44 @@ var Index = function Index(_ref) {
   }, {
     title: 'Thiết bị',
     key: 'thiet_bi',
-    width: 280,
+    width: 200,
     render: function render(_, record) {
-      var _record$thiet_bi, _record$thiet_bi2, _record$thiet_bi3;
+      var _record$thiet_bi, _record$thiet_bi2;
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
         direction: "vertical",
         size: 0,
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(Text, {
           strong: true,
           children: (_record$thiet_bi = record.thiet_bi) === null || _record$thiet_bi === void 0 ? void 0 : _record$thiet_bi.ten_thiet_bi
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(Text, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(Text, {
           type: "secondary",
           style: {
             fontSize: 11
           },
-          children: [(_record$thiet_bi2 = record.thiet_bi) === null || _record$thiet_bi2 === void 0 ? void 0 : _record$thiet_bi2.ma_thiet_bi, " \u2022 ", ((_record$thiet_bi3 = record.thiet_bi) === null || _record$thiet_bi3 === void 0 || (_record$thiet_bi3 = _record$thiet_bi3.phong) === null || _record$thiet_bi3 === void 0 ? void 0 : _record$thiet_bi3.ten_phong) || 'Chưa phân bổ']
+          children: (_record$thiet_bi2 = record.thiet_bi) === null || _record$thiet_bi2 === void 0 ? void 0 : _record$thiet_bi2.ma_thiet_bi
         })]
+      });
+    }
+  }, {
+    title: 'Mã phòng',
+    dataIndex: ['thiet_bi', 'phong', 'ma_phong'],
+    key: 'ma_phong',
+    width: 120,
+    ellipsis: true,
+    render: function render(text) {
+      return text || /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
+        children: "Ch\u01B0a ph\xE2n b\u1ED5"
+      });
+    }
+  }, {
+    title: 'Tên phòng',
+    dataIndex: ['thiet_bi', 'phong', 'ten_phong'],
+    key: 'ten_phong',
+    width: 150,
+    ellipsis: true,
+    render: function render(text) {
+      return text || /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
+        children: "Ch\u01B0a ph\xE2n b\u1ED5"
       });
     }
   }, {
@@ -207931,11 +207955,16 @@ var Index = function Index(_ref) {
       });
     }
   }, {
-    title: 'Toà nhà',
-    dataIndex: ['phong', 'khu_nha', 'ten_khu_nha'],
-    key: 'khu_nha',
-    width: 150,
-    ellipsis: true
+    title: 'Mã phòng',
+    dataIndex: ['phong', 'ma_phong'],
+    key: 'ma_phong',
+    width: 120,
+    ellipsis: true,
+    render: function render(text) {
+      return text || /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
+        children: "Ch\u01B0a ph\xE2n b\u1ED5"
+      });
+    }
   }, {
     title: 'Loại TB',
     dataIndex: 'loai_thiet_bi',
@@ -209009,22 +209038,43 @@ var Kho = function Kho(_ref) {
   }, {
     title: 'Thiết bị',
     key: 'thiet_bi',
-    width: 280,
+    width: 200,
     render: function render(_, record) {
-      var _record$phong;
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
         direction: "vertical",
         size: 0,
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(Text, {
           strong: true,
           children: record.ten_thiet_bi
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(Text, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(Text, {
           type: "secondary",
           style: {
             fontSize: 11
           },
-          children: [record.ma_thiet_bi, " \u2022 ", ((_record$phong = record.phong) === null || _record$phong === void 0 ? void 0 : _record$phong.ten_phong) || 'Chưa phân bổ']
+          children: record.ma_thiet_bi
         })]
+      });
+    }
+  }, {
+    title: 'Mã phòng',
+    dataIndex: ['phong', 'ma_phong'],
+    key: 'ma_phong',
+    width: 120,
+    ellipsis: true,
+    render: function render(text) {
+      return text || /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_16__["default"], {
+        children: "Ch\u01B0a ph\xE2n b\u1ED5"
+      });
+    }
+  }, {
+    title: 'Tên phòng',
+    dataIndex: ['phong', 'ten_phong'],
+    key: 'ten_phong',
+    width: 150,
+    ellipsis: true,
+    render: function render(text) {
+      return text || /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_16__["default"], {
+        children: "Ch\u01B0a ph\xE2n b\u1ED5"
       });
     }
   }, {

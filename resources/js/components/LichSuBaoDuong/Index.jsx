@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import MainLayout from '../Layout/MainLayout';
-import { 
+import {
     Table, Button, Space, Card, Row, Col, message, Select, Tag, Skeleton,
     Modal, Typography, Statistic, Badge, Tooltip, Descriptions
 } from 'antd';
@@ -22,15 +22,15 @@ import KpiCard from '../Common/KpiCard';
 const { Text, Title } = Typography;
 
 const LOAI_BD_MAP = {
-    'dinh_ky':  { color: 'blue',   label: 'Định kỳ' },
+    'dinh_ky': { color: 'blue', label: 'Định kỳ' },
     'sua_chua': { color: 'orange', label: 'Sửa chữa' },
-    'thay_the': { color: 'red',    label: 'Thay thế' },
+    'thay_the': { color: 'red', label: 'Thay thế' },
 };
 
 const TRANG_THAI_MAP = {
-    'hoan_thanh':      { color: 'green',  label: 'Hoàn thành', icon: <CheckCircleOutlined /> },
-    'dang_thuc_hien':  { color: 'blue',   label: 'Đang thực hiện', icon: <SyncOutlined spin /> },
-    'chua_thuc_hien':  { color: 'orange', label: 'Chưa thực hiện', icon: <HistoryOutlined /> },
+    'hoan_thanh': { color: 'green', label: 'Hoàn thành', icon: <CheckCircleOutlined /> },
+    'dang_thuc_hien': { color: 'blue', label: 'Đang thực hiện', icon: <SyncOutlined spin /> },
+    'chua_thuc_hien': { color: 'orange', label: 'Chưa thực hiện', icon: <HistoryOutlined /> },
 };
 
 const Index = ({ lichSuBaoDuongs, thietBis, filters, stats }) => {
@@ -47,10 +47,10 @@ const Index = ({ lichSuBaoDuongs, thietBis, filters, stats }) => {
 
     const handleThietBiFilter = (value) => {
         setThietBiFilter(value);
-        router.get('/lich-su-bao-duong', { 
+        router.get('/lich-su-bao-duong', {
             thiet_bi_id: value,
             loai_bao_duong: loaiFilter,
-            trang_thai: trangThaiFilter 
+            trang_thai: trangThaiFilter
         }, {
             preserveState: true,
             replace: true,
@@ -59,10 +59,10 @@ const Index = ({ lichSuBaoDuongs, thietBis, filters, stats }) => {
 
     const handleLoaiFilter = (value) => {
         setLoaiFilter(value);
-        router.get('/lich-su-bao-duong', { 
+        router.get('/lich-su-bao-duong', {
             thiet_bi_id: thietBiFilter,
             loai_bao_duong: value,
-            trang_thai: trangThaiFilter 
+            trang_thai: trangThaiFilter
         }, {
             preserveState: true,
             replace: true,
@@ -71,10 +71,10 @@ const Index = ({ lichSuBaoDuongs, thietBis, filters, stats }) => {
 
     const handleTrangThaiFilter = (value) => {
         setTrangThaiFilter(value);
-        router.get('/lich-su-bao-duong', { 
+        router.get('/lich-su-bao-duong', {
             thiet_bi_id: thietBiFilter,
             loai_bao_duong: loaiFilter,
-            trang_thai: value 
+            trang_thai: value
         }, {
             preserveState: true,
             replace: true,
@@ -119,15 +119,31 @@ const Index = ({ lichSuBaoDuongs, thietBis, filters, stats }) => {
         {
             title: 'Thiết bị',
             key: 'thiet_bi',
-            width: 280,
+            width: 200,
             render: (_, record) => (
                 <Space direction="vertical" size={0}>
                     <Text strong>{record.thiet_bi?.ten_thiet_bi}</Text>
                     <Text type="secondary" style={{ fontSize: 11 }}>
-                        {record.thiet_bi?.ma_thiet_bi} • {record.thiet_bi?.phong?.ten_phong || 'Chưa phân bổ'}
+                        {record.thiet_bi?.ma_thiet_bi}
                     </Text>
                 </Space>
             ),
+        },
+        {
+            title: 'Mã phòng',
+            dataIndex: ['thiet_bi', 'phong', 'ma_phong'],
+            key: 'ma_phong',
+            width: 120,
+            ellipsis: true,
+            render: (text) => text || <Tag>Chưa phân bổ</Tag>,
+        },
+        {
+            title: 'Tên phòng',
+            dataIndex: ['thiet_bi', 'phong', 'ten_phong'],
+            key: 'ten_phong',
+            width: 150,
+            ellipsis: true,
+            render: (text) => text || <Tag>Chưa phân bổ</Tag>,
         },
         {
             title: 'Loại',
@@ -157,10 +173,10 @@ const Index = ({ lichSuBaoDuongs, thietBis, filters, stats }) => {
             width: 100,
             align: 'center',
             render: (_, record) => (
-                <Button 
+                <Button
                     type="primary"
                     ghost
-                    size="small" 
+                    size="small"
                     icon={<EyeOutlined />}
                     onClick={() => setDetailModal(record)}
                 >
@@ -172,28 +188,28 @@ const Index = ({ lichSuBaoDuongs, thietBis, filters, stats }) => {
 
     // KPI cards config
     const kpiCards = [
-        { 
-            title: 'Tổng lịch sử', 
-            value: stats?.tong ?? 0, 
-            color: '#244380', 
-            icon: <HistoryOutlined /> 
+        {
+            title: 'Tổng lịch sử',
+            value: stats?.tong ?? 0,
+            color: '#244380',
+            icon: <HistoryOutlined />
         },
-        { 
-            title: 'Bảo dưỡng định kỳ', 
-            value: stats?.dinh_ky ?? 0, 
-            color: '#1890ff', 
-            icon: <SyncOutlined /> 
+        {
+            title: 'Bảo dưỡng định kỳ',
+            value: stats?.dinh_ky ?? 0,
+            color: '#1890ff',
+            icon: <SyncOutlined />
         },
-        { 
-            title: 'Sửa chữa', 
-            value: stats?.sua_chua ?? 0, 
-            color: '#fa8c16', 
-            icon: <ToolOutlined /> 
+        {
+            title: 'Sửa chữa',
+            value: stats?.sua_chua ?? 0,
+            color: '#fa8c16',
+            icon: <ToolOutlined />
         },
-        { 
-            title: 'Tổng chi phí', 
-            value: stats?.tong_chi_phi ?? 0, 
-            color: '#52c41a', 
+        {
+            title: 'Tổng chi phí',
+            value: stats?.tong_chi_phi ?? 0,
+            color: '#52c41a',
             icon: <DollarOutlined />,
             formatter: (val) => formatCurrency(val),
         },
@@ -208,11 +224,11 @@ const Index = ({ lichSuBaoDuongs, thietBis, filters, stats }) => {
                 <Row gutter={[16, 16]}>
                     {kpiCards.map((k, i) => (
                         <Col xs={24} sm={12} md={6} key={i}>
-                            <KpiCard 
-                                title={k.title} 
-                                value={k.formatter ? k.formatter(k.value) : k.value} 
-                                icon={k.icon} 
-                                color={k.color} 
+                            <KpiCard
+                                title={k.title}
+                                value={k.formatter ? k.formatter(k.value) : k.value}
+                                icon={k.icon}
+                                color={k.color}
                             />
                         </Col>
                     ))}
@@ -252,9 +268,9 @@ const Index = ({ lichSuBaoDuongs, thietBis, filters, stats }) => {
                                 optionFilterProp="label"
                                 value={thietBiFilter || undefined}
                                 onChange={handleThietBiFilter}
-                                options={thietBis.map(tb => ({ 
-                                    value: tb.id, 
-                                    label: `${tb.ma_thiet_bi} - ${tb.ten_thiet_bi}` 
+                                options={thietBis.map(tb => ({
+                                    value: tb.id,
+                                    label: `${tb.ma_thiet_bi} - ${tb.ten_thiet_bi}`
                                 }))}
                             />
                         </Col>
@@ -369,9 +385,9 @@ const Index = ({ lichSuBaoDuongs, thietBis, filters, stats }) => {
                                 </Text>
                             </Descriptions.Item>
                             <Descriptions.Item label="Trạng thái" span={1}>
-                                <Badge 
-                                    color={TRANG_THAI_MAP[detailModal.trang_thai]?.color} 
-                                    text={TRANG_THAI_MAP[detailModal.trang_thai]?.label} 
+                                <Badge
+                                    color={TRANG_THAI_MAP[detailModal.trang_thai]?.color}
+                                    text={TRANG_THAI_MAP[detailModal.trang_thai]?.label}
                                 />
                             </Descriptions.Item>
                             <Descriptions.Item label="Người thực hiện" span={1}>
