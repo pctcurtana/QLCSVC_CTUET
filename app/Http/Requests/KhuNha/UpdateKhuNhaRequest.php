@@ -55,9 +55,9 @@ class UpdateKhuNhaRequest extends FormRequest
     {
         return [
             'co_so_id' => 'Cơ sở',
-            'ma_khu_nha' => 'Mã khu nhà',
-            'ten_khu_nha' => 'Tên khu nhà',
-            'loai_khu_nha' => 'Loại khu nhà',
+            'ma_khu_nha' => 'Mã toà nhà',
+            'ten_khu_nha' => 'Tên toà nhà',
+            'loai_khu_nha' => 'Loại toà nhà',
             'so_tang' => 'Số tầng',
             'dien_tich_xay_dung' => 'Diện tích xây dựng',
             'he_so_su_dung_dao_tao' => 'Hệ số DT sử dụng cho đào tạo',
@@ -76,7 +76,7 @@ class UpdateKhuNhaRequest extends FormRequest
     {
         return [
             'co_so_id.exists' => 'Cơ sở không tồn tại trong hệ thống.',
-            'ma_khu_nha.unique' => 'Mã khu nhà đã tồn tại trong hệ thống.',
+            'ma_khu_nha.unique' => 'Mã toà nhà đã tồn tại trong hệ thống.',
             'so_tang.min' => 'Số tầng phải lớn hơn hoặc bằng 1.',
             'he_so_su_dung_dao_tao.max' => 'Hệ số sử dụng phải nhỏ hơn hoặc bằng 1.',
         ];

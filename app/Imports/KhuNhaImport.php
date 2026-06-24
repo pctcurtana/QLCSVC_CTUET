@@ -7,7 +7,7 @@ use App\Models\KhuNha;
 use App\Services\KhuNhaService;
 
 /**
- * Import Excel cho module Khu nhà.
+ * Import Excel cho module Toà nhà.
  *
  * Cột Excel bắt buộc:
  *   ma_khu_nha, ma_co_so, ten_khu_nha, loai_khu_nha, so_tang,
@@ -69,11 +69,11 @@ class KhuNhaImport extends BaseImport
     protected function validationMessages(): array
     {
         return [
-            'ma_khu_nha.required'              => 'Mã khu nhà không được để trống.',
+            'ma_khu_nha.required'              => 'Mã toà nhà không được để trống.',
             'ma_co_so.required'                => 'Mã cơ sở không được để trống.',
-            'ten_khu_nha.required'             => 'Tên khu nhà không được để trống.',
-            'loai_khu_nha.required'            => 'Loại khu nhà không được để trống.',
-            'loai_khu_nha.in'                  => 'Loại khu nhà phải là phong_hoc, phong_lam_viec, phong_chuc_nang.',
+            'ten_khu_nha.required'             => 'Tên toà nhà không được để trống.',
+            'loai_khu_nha.required'            => 'Loại toà nhà không được để trống.',
+            'loai_khu_nha.in'                  => 'Loại toà nhà phải là phong_hoc, phong_lam_viec, phong_chuc_nang.',
             'so_tang.required'                 => 'Số tầng không được để trống.',
             'so_tang.integer'                  => 'Số tầng phải là số nguyên.',
             'so_tang.min'                      => 'Số tầng phải >= 1.',
@@ -92,10 +92,10 @@ class KhuNhaImport extends BaseImport
     protected function validationAttributes(): array
     {
         return [
-            'ma_khu_nha'              => 'Mã khu nhà',
+            'ma_khu_nha'              => 'Mã toà nhà',
             'ma_co_so'                => 'Mã cơ sở',
-            'ten_khu_nha'             => 'Tên khu nhà',
-            'loai_khu_nha'            => 'Loại khu nhà',
+            'ten_khu_nha'             => 'Tên toà nhà',
+            'loai_khu_nha'            => 'Loại toà nhà',
             'so_tang'                 => 'Số tầng',
             'dien_tich_xay_dung'      => 'Diện tích xây dựng',
             'he_so_su_dung_dao_tao'   => 'Hệ số sử dụng đào tạo',

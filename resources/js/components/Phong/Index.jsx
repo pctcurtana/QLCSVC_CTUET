@@ -167,7 +167,7 @@ const Index = ({ phongs, khuNhas, danhSachTang, filters }) => {
             render: (text) => <strong>{text}</strong>,
         },
         {
-            title: 'Khu nhà',
+            title: 'Toà nhà',
             dataIndex: ['khu_nha', 'ten_khu_nha'],
             key: 'khu_nha',
             width: 140,
@@ -273,7 +273,7 @@ const Index = ({ phongs, khuNhas, danhSachTang, filters }) => {
                 <Card>
                     <Row gutter={[16, 16]} align="middle">
                         <Col flex="auto">
-                            <h2 style={{ margin: 0 }}>Quản lý phòng</h2>
+                            <h2 style={{ margin: 0 }}>Phòng</h2>
                         </Col>
                         {perm.can_create && (
                             <Col>
@@ -314,7 +314,7 @@ const Index = ({ phongs, khuNhas, danhSachTang, filters }) => {
                         </Col>
                         <Col xs={24} sm={12} md={5}>
                             <Select
-                                placeholder="Lọc theo khu nhà"
+                                placeholder="Lọc theo toà nhà"
                                 size="large"
                                 style={{ width: '100%' }}
                                 allowClear

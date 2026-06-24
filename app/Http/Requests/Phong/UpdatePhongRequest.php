@@ -53,7 +53,7 @@ class UpdatePhongRequest extends FormRequest
     public function attributes()
     {
         return [
-            'khu_nha_id' => 'Khu nhà',
+            'khu_nha_id' => 'Toà nhà',
             'ma_phong' => 'Mã phòng',
             'ten_phong' => 'Tên phòng',
             'loai_phong' => 'Loại phòng',
@@ -74,7 +74,7 @@ class UpdatePhongRequest extends FormRequest
     public function messages()
     {
         return [
-            'khu_nha_id.exists' => 'Khu nhà không tồn tại trong hệ thống.',
+            'khu_nha_id.exists' => 'Toà nhà không tồn tại trong hệ thống.',
             'ma_phong.unique' => 'Mã phòng đã tồn tại trong hệ thống.',
             'tang.min' => 'Tầng phải lớn hơn hoặc bằng 1.',
             'suc_chua.min' => 'Sức chứa phải lớn hơn hoặc bằng 0.',

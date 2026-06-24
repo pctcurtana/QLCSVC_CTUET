@@ -5,7 +5,7 @@ namespace App\Http\Requests\KhuNha;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Request cho "Lưu phiên bản mới" của khu nhà.
+ * Request cho "Lưu phiên bản mới" của toà nhà.
  * Không validate ma_khu_nha (lấy tự động từ bản ghi gốc, không thay đổi).
  */
 class VersionUpdateKhuNhaRequest extends FormRequest
@@ -34,8 +34,8 @@ class VersionUpdateKhuNhaRequest extends FormRequest
     {
         return [
             'co_so_id'              => 'Cơ sở',
-            'ten_khu_nha'           => 'Tên khu nhà',
-            'loai_khu_nha'          => 'Loại khu nhà',
+            'ten_khu_nha'           => 'Tên toà nhà',
+            'loai_khu_nha'          => 'Loại toà nhà',
             'so_tang'               => 'Số tầng',
             'dien_tich_xay_dung'    => 'Diện tích xây dựng',
             'he_so_su_dung_dao_tao' => 'Hệ số DT sử dụng cho đào tạo',

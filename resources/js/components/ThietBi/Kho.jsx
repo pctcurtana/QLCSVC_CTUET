@@ -350,7 +350,7 @@ const Kho = ({ thietBis, stats, phongs, filters }) => {
                             <Descriptions.Item label="Phòng (lúc kết thúc)" span={1}>
                                 {detailModal.phong?.ten_phong || '—'}
                             </Descriptions.Item>
-                            <Descriptions.Item label="Khu nhà" span={1}>
+                            <Descriptions.Item label="Toà nhà" span={1}>
                                 {detailModal.phong?.khu_nha?.ten_khu_nha || detailModal.phong?.khuNha?.ten_khu_nha || '—'}
                             </Descriptions.Item>
                             <Descriptions.Item label="Cơ sở" span={2}>

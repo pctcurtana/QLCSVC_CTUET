@@ -199124,7 +199124,7 @@ var Dashboard = function Dashboard(_ref4) {
     icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_9__["default"], {}),
     color: '#4096ff'
   }, {
-    title: 'Tổng số khu nhà',
+    title: 'Tổng số toà nhà',
     value: fmt(statistics.tong_khu_nha),
     icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_11__["default"], {}),
     color: '#52c41a'
@@ -199323,7 +199323,7 @@ var Dashboard = function Dashboard(_ref4) {
           xs: 24,
           lg: 12,
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)(ChartCard, {
-            title: "Khu nh\xE0 theo c\u01A1 s\u1EDF",
+            title: "To\xE0 nh\xE0 theo c\u01A1 s\u1EDF",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_14__.ResponsiveContainer, {
               width: "100%",
               height: 240,
@@ -199346,7 +199346,7 @@ var Dashboard = function Dashboard(_ref4) {
                   label: false
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_13__.Tooltip, _objectSpread(_objectSpread({}, tooltipStyle), {}, {
                   formatter: function formatter(value) {
-                    return ["".concat(fmt(value), " khu nh\xE0"), "Số lượng"];
+                    return ["".concat(fmt(value), " to\xE0 nh\xE0"), "Số lượng"];
                   },
                   labelFormatter: function labelFormatter(_, payload) {
                     var _payload$;
@@ -199956,7 +199956,7 @@ var Create = function Create(_ref) {
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_Layout_MainLayout__WEBPACK_IMPORTED_MODULE_1__["default"], {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
-      title: "Th\xEAm khu nh\xE0 m\u1EDBi",
+      title: "Th\xEAm to\xE0 nh\xE0 m\u1EDBi",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
         message: "C\xF4ng th\u1EE9c t\xEDnh di\u1EC7n t\xEDch",
         description: "T\u1ED5ng DT s\xE0n XD = DT x\xE2y d\u1EF1ng \xD7 S\u1ED1 t\u1EA7ng. DT s\xE0n \u0111\xE0o t\u1EA1o = T\u1ED5ng DT s\xE0n XD \xD7 H\u1EC7 s\u1ED1 s\u1EED d\u1EE5ng cho \u0111\xE0o t\u1EA1o. H\u1EC7 s\u1ED1 m\u1EB7c \u0111\u1ECBnh l\xE0 0.7 (70%).",
@@ -199994,37 +199994,37 @@ var Create = function Create(_ref) {
             })
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
-          label: "M\xE3 khu nh\xE0",
+          label: "M\xE3 to\xE0 nh\xE0",
           name: "ma_khu_nha",
           rules: [{
             required: true,
-            message: 'Vui lòng nhập mã khu nhà!'
+            message: 'Vui lòng nhập mã toà nhà!'
           }],
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
             placeholder: "V\xED d\u1EE5: KN001",
             size: "large"
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
-          label: "T\xEAn khu nh\xE0",
+          label: "T\xEAn to\xE0 nh\xE0",
           name: "ten_khu_nha",
           rules: [{
             required: true,
-            message: 'Vui lòng nhập tên khu nhà!'
+            message: 'Vui lòng nhập tên toà nhà!'
           }],
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
-            placeholder: "Nh\u1EADp t\xEAn khu nh\xE0",
+            placeholder: "Nh\u1EADp t\xEAn to\xE0 nh\xE0",
             size: "large"
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
-          label: "Lo\u1EA1i khu nh\xE0",
+          label: "Lo\u1EA1i to\xE0 nh\xE0",
           name: "loai_khu_nha",
           rules: [{
             required: true,
-            message: 'Vui lòng chọn loại khu nhà!'
+            message: 'Vui lòng chọn loại toà nhà!'
           }],
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
             size: "large",
-            placeholder: "Ch\u1ECDn lo\u1EA1i khu nh\xE0",
+            placeholder: "Ch\u1ECDn lo\u1EA1i to\xE0 nh\xE0",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"].Option, {
               value: "phong_hoc",
               children: "Ph\xF2ng h\u1ECDc"
@@ -200064,7 +200064,7 @@ var Create = function Create(_ref) {
                 required: true,
                 message: 'Vui lòng nhập diện tích xây dựng!'
               }],
-              tooltip: "Di\u1EC7n t\xEDch x\xE2y d\u1EF1ng 1 t\u1EA7ng c\u1EE7a khu nh\xE0",
+              tooltip: "Di\u1EC7n t\xEDch x\xE2y d\u1EF1ng 1 t\u1EA7ng c\u1EE7a to\xE0 nh\xE0",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
                 style: {
                   width: '100%'
@@ -200176,7 +200176,7 @@ var Create = function Create(_ref) {
           name: "mo_ta",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(TextArea, {
             rows: 4,
-            placeholder: "Nh\u1EADp m\xF4 t\u1EA3 v\u1EC1 khu nh\xE0"
+            placeholder: "Nh\u1EADp m\xF4 t\u1EA3 v\u1EC1 to\xE0 nh\xE0"
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
           label: "Tr\u1EA1ng th\xE1i",
@@ -200432,14 +200432,14 @@ var Edit = function Edit(_ref) {
       var maChanged = String((_values$ma_khu_nha = values.ma_khu_nha) !== null && _values$ma_khu_nha !== void 0 ? _values$ma_khu_nha : '').trim() !== String((_khuNha$ma_khu_nha = khuNha.ma_khu_nha) !== null && _khuNha$ma_khu_nha !== void 0 ? _khuNha$ma_khu_nha : '').trim();
       if (!checkHasChanges(values)) {
         if (maChanged) {
-          antd__WEBPACK_IMPORTED_MODULE_9__["default"].warning('Mã khu nhà chỉ thay đổi được bằng "Cập nhật trực tiếp". Phiên bản mới không ghi nhận thay đổi mã.');
+          antd__WEBPACK_IMPORTED_MODULE_9__["default"].warning('Mã toà nhà chỉ thay đổi được bằng "Cập nhật trực tiếp". Phiên bản mới không ghi nhận thay đổi mã.');
         } else {
           antd__WEBPACK_IMPORTED_MODULE_9__["default"].warning('Không có thay đổi nào để lưu phiên bản mới.');
         }
         return;
       }
       if (maChanged) {
-        antd__WEBPACK_IMPORTED_MODULE_9__["default"].info('Lưu ý: Mã khu nhà sẽ không thay đổi khi lưu phiên bản mới. Nếu muốn đổi mã, hãy dùng "Cập nhật trực tiếp".');
+        antd__WEBPACK_IMPORTED_MODULE_9__["default"].info('Lưu ý: Mã toà nhà sẽ không thay đổi khi lưu phiên bản mới. Nếu muốn đổi mã, hãy dùng "Cập nhật trực tiếp".');
       }
       setPendingValues(values);
       setVersionModalVisible(true);
@@ -200471,7 +200471,7 @@ var Edit = function Edit(_ref) {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
       title: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("span", {
-          children: ["Ch\u1EC9nh s\u1EEDa khu nh\xE0: ", khuNha.ten_khu_nha]
+          children: ["Ch\u1EC9nh s\u1EEDa to\xE0 nh\xE0: ", khuNha.ten_khu_nha]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_15__["default"], {
           color: "blue",
           children: ["Phi\xEAn b\u1EA3n ", (_khuNha$phien_ban = khuNha.phien_ban) !== null && _khuNha$phien_ban !== void 0 ? _khuNha$phien_ban : 1]
@@ -200522,13 +200522,13 @@ var Edit = function Edit(_ref) {
           he_so_su_dung_dao_tao: khuNha.he_so_su_dung_dao_tao || 0.7
         }),
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
-          label: "M\xE3 khu nh\xE0",
+          label: "M\xE3 to\xE0 nh\xE0",
           name: "ma_khu_nha",
           rules: [{
             required: true,
-            message: 'Vui lòng nhập mã khu nhà!'
+            message: 'Vui lòng nhập mã toà nhà!'
           }],
-          tooltip: "Khi l\u01B0u phi\xEAn b\u1EA3n m\u1EDBi, m\xE3 khu nh\xE0 \u0111\u01B0\u1EE3c gi\u1EEF nguy\xEAn t\u1EEB b\u1EA3n g\u1ED1c d\xF9 c\xF3 thay \u0111\u1ED5i \u1EDF \u0111\xE2y",
+          tooltip: "Khi l\u01B0u phi\xEAn b\u1EA3n m\u1EDBi, m\xE3 to\xE0 nh\xE0 \u0111\u01B0\u1EE3c gi\u1EEF nguy\xEAn t\u1EEB b\u1EA3n g\u1ED1c d\xF9 c\xF3 thay \u0111\u1ED5i \u1EDF \u0111\xE2y",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
             placeholder: "V\xED d\u1EE5: KNA",
             size: "large"
@@ -200551,26 +200551,26 @@ var Edit = function Edit(_ref) {
             })
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
-          label: "T\xEAn khu nh\xE0",
+          label: "T\xEAn to\xE0 nh\xE0",
           name: "ten_khu_nha",
           rules: [{
             required: true,
-            message: 'Vui lòng nhập tên khu nhà!'
+            message: 'Vui lòng nhập tên toà nhà!'
           }],
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
-            placeholder: "Nh\u1EADp t\xEAn khu nh\xE0",
+            placeholder: "Nh\u1EADp t\xEAn to\xE0 nh\xE0",
             size: "large"
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
-          label: "Lo\u1EA1i khu nh\xE0",
+          label: "Lo\u1EA1i to\xE0 nh\xE0",
           name: "loai_khu_nha",
           rules: [{
             required: true,
-            message: 'Vui lòng chọn loại khu nhà!'
+            message: 'Vui lòng chọn loại toà nhà!'
           }],
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
             size: "large",
-            placeholder: "Ch\u1ECDn lo\u1EA1i khu nh\xE0",
+            placeholder: "Ch\u1ECDn lo\u1EA1i to\xE0 nh\xE0",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_12__["default"].Option, {
               value: "phong_hoc",
               children: "Ph\xF2ng h\u1ECDc"
@@ -200610,7 +200610,7 @@ var Edit = function Edit(_ref) {
                 required: true,
                 message: 'Vui lòng nhập diện tích xây dựng!'
               }],
-              tooltip: "Di\u1EC7n t\xEDch x\xE2y d\u1EF1ng 1 t\u1EA7ng c\u1EE7a khu nh\xE0",
+              tooltip: "Di\u1EC7n t\xEDch x\xE2y d\u1EF1ng 1 t\u1EA7ng c\u1EE7a to\xE0 nh\xE0",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
                 style: {
                   width: '100%'
@@ -200722,7 +200722,7 @@ var Edit = function Edit(_ref) {
           name: "mo_ta",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(TextArea, {
             rows: 4,
-            placeholder: "Nh\u1EADp m\xF4 t\u1EA3 v\u1EC1 khu nh\xE0"
+            placeholder: "Nh\u1EADp m\xF4 t\u1EA3 v\u1EC1 to\xE0 nh\xE0"
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
           label: "Tr\u1EA1ng th\xE1i",
@@ -200799,7 +200799,7 @@ var Edit = function Edit(_ref) {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("p", {
         children: ["H\u1EC7 th\u1ED1ng s\u1EBD ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("strong", {
           children: "l\u01B0u tr\u1EEF d\u1EEF li\u1EC7u hi\u1EC7n t\u1EA1i"
-        }), " c\u1EE7a khu nh\xE0 ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("strong", {
+        }), " c\u1EE7a to\xE0 nh\xE0 ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("strong", {
           children: khuNha.ten_khu_nha
         }), " v\xE0o l\u1ECBch s\u1EED v\xE0 t\u1EA1o ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("strong", {
           children: ["phi\xEAn b\u1EA3n ", ((_khuNha$phien_ban2 = khuNha.phien_ban) !== null && _khuNha$phien_ban2 !== void 0 ? _khuNha$phien_ban2 : 1) + 1]
@@ -200812,7 +200812,7 @@ var Edit = function Edit(_ref) {
           marginTop: 12
         }
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        message: "T\u1EA5t c\u1EA3 ph\xF2ng \u0111ang ho\u1EA1t \u0111\u1ED9ng thu\u1ED9c khu nh\xE0 n\xE0y s\u1EBD t\u1EF1 \u0111\u1ED9ng li\xEAn k\u1EBFt sang phi\xEAn b\u1EA3n m\u1EDBi.",
+        message: "T\u1EA5t c\u1EA3 ph\xF2ng \u0111ang ho\u1EA1t \u0111\u1ED9ng thu\u1ED9c to\xE0 nh\xE0 n\xE0y s\u1EBD t\u1EF1 \u0111\u1ED9ng li\xEAn k\u1EBFt sang phi\xEAn b\u1EA3n m\u1EDBi.",
         type: "info",
         showIcon: true,
         style: {
@@ -200946,7 +200946,7 @@ var Index = function Index(_ref) {
         // success toast hiển thị qua flash ở MainLayout
       },
       onError: function onError() {
-        antd__WEBPACK_IMPORTED_MODULE_6__["default"].error('Có lỗi xảy ra khi xóa khu nhà!');
+        antd__WEBPACK_IMPORTED_MODULE_6__["default"].error('Có lỗi xảy ra khi xóa toà nhà!');
       }
     });
   };
@@ -200983,12 +200983,12 @@ var Index = function Index(_ref) {
       return (khuNhas.current_page - 1) * khuNhas.per_page + index + 1;
     }
   }, {
-    title: 'Mã khu nhà',
+    title: 'Mã toà nhà',
     dataIndex: 'ma_khu_nha',
     key: 'ma_khu_nha',
     width: 120
   }, {
-    title: 'Tên khu nhà',
+    title: 'Tên toà nhà',
     dataIndex: 'ten_khu_nha',
     key: 'ten_khu_nha',
     width: 150,
@@ -201005,7 +201005,7 @@ var Index = function Index(_ref) {
     width: 200,
     ellipsis: true
   }, {
-    title: 'Loại khu nhà',
+    title: 'Loại toà nhà',
     dataIndex: 'loai_khu_nha',
     key: 'loai_khu_nha',
     width: 150,
@@ -201110,7 +201110,7 @@ var Index = function Index(_ref) {
           })
         }), perm.can_delete && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
           title: "X\xE1c nh\u1EADn x\xF3a",
-          description: "B\u1EA1n c\xF3 ch\u1EAFc ch\u1EAFn mu\u1ED1n x\xF3a khu nh\xE0 n\xE0y?",
+          description: "B\u1EA1n c\xF3 ch\u1EAFc ch\u1EAFn mu\u1ED1n x\xF3a to\xE0 nh\xE0 n\xE0y?",
           onConfirm: function onConfirm() {
             return handleDelete(record.id);
           },
@@ -201146,7 +201146,7 @@ var Index = function Index(_ref) {
               style: {
                 margin: 0
               },
-              children: "Qu\u1EA3n l\xFD khu nh\xE0 h\u1ECDc, ch\u1EE9c n\u0103ng"
+              children: "To\xE0 nh\xE0 h\u1ECDc, ch\u1EE9c n\u0103ng"
             })
           }), perm.can_create && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(_inertiajs_react__WEBPACK_IMPORTED_MODULE_19__.Link, {
@@ -201155,14 +201155,14 @@ var Index = function Index(_ref) {
                 type: "primary",
                 icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_16__["default"], {}),
                 size: "large",
-                children: "Th\xEAm khu nh\xE0"
+                children: "Th\xEAm to\xE0 nh\xE0"
               })
             })
           }), perm.can_import && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(_Common_ImportButton__WEBPACK_IMPORTED_MODULE_21__.ImportButton, {
               importUrl: "/khu-nha/import",
               templateUrl: "/khu-nha/template",
-              label: "Khu nh\xE0"
+              label: "To\xE0 nh\xE0"
             })
           })]
         }), importResult && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(_Common_ImportButton__WEBPACK_IMPORTED_MODULE_21__.ImportResult, {
@@ -201258,7 +201258,7 @@ var Index = function Index(_ref) {
             total: khuNhas.total,
             showSizeChanger: true,
             showTotal: function showTotal(total) {
-              return "T\u1ED5ng s\u1ED1 ".concat(total, " khu nh\xE0");
+              return "T\u1ED5ng s\u1ED1 ".concat(total, " to\xE0 nh\xE0");
             },
             onChange: function onChange(page, pageSize) {
               _inertiajs_react__WEBPACK_IMPORTED_MODULE_19__.router.get('/khu-nha', {
@@ -202740,7 +202740,7 @@ var Index = function Index(_ref) {
             span: 1,
             children: ((_detailModal$thiet_bi3 = detailModal.thiet_bi) === null || _detailModal$thiet_bi3 === void 0 || (_detailModal$thiet_bi3 = _detailModal$thiet_bi3.phong) === null || _detailModal$thiet_bi3 === void 0 ? void 0 : _detailModal$thiet_bi3.ten_phong) || '—'
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
-            label: "Khu nh\xE0",
+            label: "To\xE0 nh\xE0",
             span: 1,
             children: ((_detailModal$thiet_bi4 = detailModal.thiet_bi) === null || _detailModal$thiet_bi4 === void 0 || (_detailModal$thiet_bi4 = _detailModal$thiet_bi4.phong) === null || _detailModal$thiet_bi4 === void 0 || (_detailModal$thiet_bi4 = _detailModal$thiet_bi4.khu_nha) === null || _detailModal$thiet_bi4 === void 0 ? void 0 : _detailModal$thiet_bi4.ten_khu_nha) || '—'
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
@@ -203866,15 +203866,15 @@ var Create = function Create(_ref) {
           suc_chua: 0
         },
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"].Item, {
-          label: "Khu nh\xE0",
+          label: "To\xE0 nh\xE0",
           name: "khu_nha_id",
           rules: [{
             required: true,
-            message: 'Vui lòng chọn khu nhà!'
+            message: 'Vui lòng chọn toà nhà!'
           }],
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
             size: "large",
-            placeholder: "Ch\u1ECDn khu nh\xE0",
+            placeholder: "Ch\u1ECDn to\xE0 nh\xE0",
             showSearch: true,
             optionFilterProp: "label",
             options: khuNhas.map(function (kn) {
@@ -204314,15 +204314,15 @@ var Edit = function Edit(_ref) {
             size: "large"
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"].Item, {
-          label: "Khu nh\xE0",
+          label: "To\xE0 nh\xE0",
           name: "khu_nha_id",
           rules: [{
             required: true,
-            message: 'Vui lòng chọn khu nhà!'
+            message: 'Vui lòng chọn toà nhà!'
           }],
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"], {
             size: "large",
-            placeholder: "Ch\u1ECDn khu nh\xE0",
+            placeholder: "Ch\u1ECDn to\xE0 nh\xE0",
             showSearch: true,
             optionFilterProp: "label",
             options: khuNhas.map(function (kn) {
@@ -204757,7 +204757,7 @@ var Index = function Index(_ref) {
       });
     }
   }, {
-    title: 'Khu nhà',
+    title: 'Toà nhà',
     dataIndex: ['khu_nha', 'ten_khu_nha'],
     key: 'khu_nha',
     width: 140,
@@ -204881,7 +204881,7 @@ var Index = function Index(_ref) {
               style: {
                 margin: 0
               },
-              children: "Qu\u1EA3n l\xFD ph\xF2ng"
+              children: "Ph\xF2ng"
             })
           }), perm.can_create && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(_inertiajs_react__WEBPACK_IMPORTED_MODULE_19__.Link, {
@@ -204926,7 +204926,7 @@ var Index = function Index(_ref) {
             sm: 12,
             md: 5,
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__["default"], {
-              placeholder: "L\u1ECDc theo khu nh\xE0",
+              placeholder: "L\u1ECDc theo to\xE0 nh\xE0",
               size: "large",
               style: {
                 width: '100%'
@@ -205482,7 +205482,7 @@ var TabPhong = function TabPhong(_ref3) {
         sm: 12,
         md: 5,
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
-          placeholder: "L\u1ECDc theo khu nh\xE0",
+          placeholder: "L\u1ECDc theo to\xE0 nh\xE0",
           size: "large",
           allowClear: true,
           value: khuNhaFilter,
@@ -205843,7 +205843,7 @@ var TabThietBi = function TabThietBi(_ref4) {
         sm: 12,
         md: 4,
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
-          placeholder: "Khu nh\xE0",
+          placeholder: "To\xE0 nh\xE0",
           size: "large",
           allowClear: true,
           value: khuNhaFilter,
@@ -207931,7 +207931,7 @@ var Index = function Index(_ref) {
       });
     }
   }, {
-    title: 'Khu nhà',
+    title: 'Toà nhà',
     dataIndex: ['phong', 'khu_nha', 'ten_khu_nha'],
     key: 'khu_nha',
     width: 150,
@@ -208052,7 +208052,7 @@ var Index = function Index(_ref) {
               style: {
                 margin: 0
               },
-              children: "Qu\u1EA3n l\xFD thi\u1EBFt b\u1ECB"
+              children: "Thi\u1EBFt b\u1ECB"
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
@@ -209324,7 +209324,7 @@ var Kho = function Kho(_ref) {
             span: 1,
             children: ((_detailModal$phong = detailModal.phong) === null || _detailModal$phong === void 0 ? void 0 : _detailModal$phong.ten_phong) || '—'
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"].Item, {
-            label: "Khu nh\xE0",
+            label: "To\xE0 nh\xE0",
             span: 1,
             children: ((_detailModal$phong2 = detailModal.phong) === null || _detailModal$phong2 === void 0 || (_detailModal$phong2 = _detailModal$phong2.khu_nha) === null || _detailModal$phong2 === void 0 ? void 0 : _detailModal$phong2.ten_khu_nha) || ((_detailModal$phong3 = detailModal.phong) === null || _detailModal$phong3 === void 0 || (_detailModal$phong3 = _detailModal$phong3.khuNha) === null || _detailModal$phong3 === void 0 ? void 0 : _detailModal$phong3.ten_khu_nha) || '—'
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"].Item, {
@@ -209769,7 +209769,7 @@ var TabCoSo = function TabCoSo(_ref3) {
       return formatNumber(parseFloat(v));
     }
   }, {
-    title: 'Khu nhà',
+    title: 'Toà nhà',
     dataIndex: 'so_khu_nha',
     align: 'center'
   }, {
@@ -209885,7 +209885,7 @@ var TabCoSo = function TabCoSo(_ref3) {
         })
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
-      title: "S\u1ED1 khu nh\xE0 \xB7 Ph\xF2ng \xB7 Thi\u1EBFt b\u1ECB theo c\u01A1 s\u1EDF",
+      title: "S\u1ED1 to\xE0 nh\xE0 \xB7 Ph\xF2ng \xB7 Thi\u1EBFt b\u1ECB theo c\u01A1 s\u1EDF",
       bordered: false,
       style: {
         borderRadius: 10,
@@ -209899,7 +209899,7 @@ var TabCoSo = function TabCoSo(_ref3) {
         },
         bars: [{
           dataKey: 'soKhuNha',
-          name: 'Khu nhà',
+          name: 'Toà nhà',
           fill: P.blue,
           barSize: 18
         }, {
@@ -209947,7 +209947,7 @@ var TabCoSo = function TabCoSo(_ref3) {
 };
 
 // ─────────────────────────────────────────────────────
-// TAB: KHU NHÀ
+// TAB: TOÀ NHÀ
 // ─────────────────────────────────────────────────────
 var TabKhuNha = function TabKhuNha(_ref4) {
   var _filteredData$chi_tie;
@@ -210053,7 +210053,7 @@ var TabKhuNha = function TabKhuNha(_ref4) {
     width: 100,
     fixed: 'left'
   }, {
-    title: 'Tên khu nhà',
+    title: 'Tên toà nhà',
     dataIndex: 'ten_khu_nha',
     ellipsis: true
   }, {
@@ -210137,7 +210137,7 @@ var TabKhuNha = function TabKhuNha(_ref4) {
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
       gutter: [16, 16],
       children: [{
-        title: 'Tổng khu nhà',
+        title: 'Tổng toà nhà',
         value: tq === null || tq === void 0 ? void 0 : tq.tong_khu_nha,
         icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_16__["default"], {}),
         color: P.blue
@@ -210175,7 +210175,7 @@ var TabKhuNha = function TabKhuNha(_ref4) {
         xs: 24,
         lg: 12,
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
-          title: "Ph\xE2n b\u1ED1 theo lo\u1EA1i khu nh\xE0",
+          title: "Ph\xE2n b\u1ED1 theo lo\u1EA1i to\xE0 nh\xE0",
           bordered: false,
           style: {
             borderRadius: 10,
@@ -210201,7 +210201,7 @@ var TabKhuNha = function TabKhuNha(_ref4) {
         xs: 24,
         lg: 12,
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
-          title: "Tr\u1EA1ng th\xE1i khu nh\xE0",
+          title: "Tr\u1EA1ng th\xE1i to\xE0 nh\xE0",
           bordered: false,
           style: {
             borderRadius: 10,
@@ -210213,7 +210213,7 @@ var TabKhuNha = function TabKhuNha(_ref4) {
         })
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
-      title: "Di\u1EC7n t\xEDch s\xE0n & \u0111\xE0o t\u1EA1o theo khu nh\xE0 (m\xB2)",
+      title: "Di\u1EC7n t\xEDch s\xE0n & \u0111\xE0o t\u1EA1o theo to\xE0 nh\xE0 (m\xB2)",
       bordered: false,
       style: {
         borderRadius: 10,
@@ -210253,7 +210253,7 @@ var TabKhuNha = function TabKhuNha(_ref4) {
         })]
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
-      title: "Chi ti\u1EBFt (".concat(((_filteredData$chi_tie = filteredData.chi_tiet) === null || _filteredData$chi_tie === void 0 ? void 0 : _filteredData$chi_tie.length) || 0, " khu nh\xE0)"),
+      title: "Chi ti\u1EBFt (".concat(((_filteredData$chi_tie = filteredData.chi_tiet) === null || _filteredData$chi_tie === void 0 ? void 0 : _filteredData$chi_tie.length) || 0, " to\xE0 nh\xE0)"),
       bordered: false,
       style: {
         borderRadius: 10,
@@ -210428,7 +210428,7 @@ var TabPhong = function TabPhong(_ref9) {
     dataIndex: 'ten_phong',
     ellipsis: true
   }, {
-    title: 'Khu nhà',
+    title: 'Toà nhà',
     dataIndex: 'ten_khu_nha',
     ellipsis: true
   }, {
@@ -210497,7 +210497,7 @@ var TabPhong = function TabPhong(_ref9) {
             };
           })) || []
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
-          placeholder: "T\u1EA5t c\u1EA3 khu nh\xE0",
+          placeholder: "T\u1EA5t c\u1EA3 to\xE0 nh\xE0",
           allowClear: true,
           style: {
             width: 220
@@ -210849,7 +210849,7 @@ var TabThietBi = function TabThietBi(_ref14) {
     dataIndex: 'ten_phong',
     ellipsis: true
   }, {
-    title: 'Khu nhà',
+    title: 'Toà nhà',
     dataIndex: 'ten_khu_nha',
     ellipsis: true
   }, {
@@ -210915,7 +210915,7 @@ var TabThietBi = function TabThietBi(_ref14) {
             };
           })) || []
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
-          placeholder: "T\u1EA5t c\u1EA3 khu nh\xE0",
+          placeholder: "T\u1EA5t c\u1EA3 to\xE0 nh\xE0",
           allowClear: true,
           style: {
             width: 200
@@ -211259,7 +211259,7 @@ var ThongKeIndex = function ThongKeIndex(_ref23) {
     value: 'co-so'
   }, {
     label: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_16__["default"], {}), "Khu nh\xE0"]
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_33__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_16__["default"], {}), "To\xE0 nh\xE0"]
     }),
     value: 'khu-nha'
   }, {

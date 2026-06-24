@@ -68,7 +68,7 @@ const Index = ({ khuNhas, coSos, filters }) => {
                 // success toast hiển thị qua flash ở MainLayout
             },
             onError: () => {
-                message.error('Có lỗi xảy ra khi xóa khu nhà!');
+                message.error('Có lỗi xảy ra khi xóa toà nhà!');
             },
         });
     };
@@ -110,13 +110,13 @@ const Index = ({ khuNhas, coSos, filters }) => {
             render: (text, record, index) => (khuNhas.current_page - 1) * khuNhas.per_page + index + 1,
         },
         {
-            title: 'Mã khu nhà',
+            title: 'Mã toà nhà',
             dataIndex: 'ma_khu_nha',
             key: 'ma_khu_nha',
             width: 120,
         },
         {
-            title: 'Tên khu nhà',
+            title: 'Tên toà nhà',
             dataIndex: 'ten_khu_nha',
             key: 'ten_khu_nha',
             width: 150,
@@ -131,7 +131,7 @@ const Index = ({ khuNhas, coSos, filters }) => {
             ellipsis: true,
         },
         {
-            title: 'Loại khu nhà',
+            title: 'Loại toà nhà',
             dataIndex: 'loai_khu_nha',
             key: 'loai_khu_nha',
             width: 150,
@@ -226,7 +226,7 @@ const Index = ({ khuNhas, coSos, filters }) => {
                     {perm.can_delete && (
                         <Popconfirm
                             title="Xác nhận xóa"
-                            description="Bạn có chắc chắn muốn xóa khu nhà này?"
+                            description="Bạn có chắc chắn muốn xóa toà nhà này?"
                             onConfirm={() => handleDelete(record.id)}
                             okText="Xóa"
                             cancelText="Hủy"
@@ -248,13 +248,13 @@ const Index = ({ khuNhas, coSos, filters }) => {
                 <Card>
                     <Row gutter={[16, 16]} align="middle">
                         <Col flex="auto">
-                            <h2 style={{ margin: 0 }}>Quản lý khu nhà học, chức năng</h2>
+                            <h2 style={{ margin: 0 }}>Toà nhà học, chức năng</h2>
                         </Col>
                         {perm.can_create && (
                             <Col>
                                 <Link href="/khu-nha/create">
                                     <Button type="primary" icon={<PlusOutlined />} size="large">
-                                        Thêm khu nhà
+                                        Thêm toà nhà
                                     </Button>
                                 </Link>
                             </Col>
@@ -264,7 +264,7 @@ const Index = ({ khuNhas, coSos, filters }) => {
                                 <ImportButton
                                     importUrl="/khu-nha/import"
                                     templateUrl="/khu-nha/template"
-                                    label="Khu nhà"
+                                    label="Toà nhà"
                                 />
                             </Col>
                         )}
@@ -335,7 +335,7 @@ const Index = ({ khuNhas, coSos, filters }) => {
                             pageSize: khuNhas.per_page,
                             total: khuNhas.total,
                             showSizeChanger: true,
-                            showTotal: (total) => `Tổng số ${total} khu nhà`,
+                            showTotal: (total) => `Tổng số ${total} toà nhà`,
                             onChange: (page, pageSize) => {
                                 router.get('/khu-nha', {
                                     page,

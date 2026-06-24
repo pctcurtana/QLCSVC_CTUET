@@ -38,7 +38,7 @@ const Create = ({ coSos }) => {
 
     return (
         <MainLayout>
-            <Card title="Thêm khu nhà mới">
+            <Card title="Thêm toà nhà mới">
                 <Alert
                     message="Công thức tính diện tích"
                     description="Tổng DT sàn XD = DT xây dựng × Số tầng. DT sàn đào tạo = Tổng DT sàn XD × Hệ số sử dụng cho đào tạo. Hệ số mặc định là 0.7 (70%)."
@@ -73,33 +73,33 @@ const Create = ({ coSos }) => {
                     </Form.Item>
 
                     <Form.Item
-                        label="Mã khu nhà"
+                        label="Mã toà nhà"
                         name="ma_khu_nha"
                         rules={[
-                            { required: true, message: 'Vui lòng nhập mã khu nhà!' },
+                            { required: true, message: 'Vui lòng nhập mã toà nhà!' },
                         ]}
                     >
                         <Input placeholder="Ví dụ: KN001" size="large" />
                     </Form.Item>
 
                     <Form.Item
-                        label="Tên khu nhà"
+                        label="Tên toà nhà"
                         name="ten_khu_nha"
                         rules={[
-                            { required: true, message: 'Vui lòng nhập tên khu nhà!' },
+                            { required: true, message: 'Vui lòng nhập tên toà nhà!' },
                         ]}
                     >
-                        <Input placeholder="Nhập tên khu nhà" size="large" />
+                        <Input placeholder="Nhập tên toà nhà" size="large" />
                     </Form.Item>
 
                     <Form.Item
-                        label="Loại khu nhà"
+                        label="Loại toà nhà"
                         name="loai_khu_nha"
                         rules={[
-                            { required: true, message: 'Vui lòng chọn loại khu nhà!' },
+                            { required: true, message: 'Vui lòng chọn loại toà nhà!' },
                         ]}
                     >
-                        <Select size="large" placeholder="Chọn loại khu nhà">
+                        <Select size="large" placeholder="Chọn loại toà nhà">
                             <Select.Option value="phong_hoc">Phòng học</Select.Option>
                             <Select.Option value="phong_lam_viec">Phòng làm việc</Select.Option>
                             <Select.Option value="phong_chuc_nang">Phòng chức năng</Select.Option>
@@ -130,7 +130,7 @@ const Create = ({ coSos }) => {
                                 rules={[
                                     { required: true, message: 'Vui lòng nhập diện tích xây dựng!' },
                                 ]}
-                                tooltip="Diện tích xây dựng 1 tầng của khu nhà"
+                                tooltip="Diện tích xây dựng 1 tầng của toà nhà"
                             >
                                 <InputNumber
                                     style={{ width: '100%' }}
@@ -211,7 +211,7 @@ const Create = ({ coSos }) => {
                         label="Mô tả"
                         name="mo_ta"
                     >
-                        <TextArea rows={4} placeholder="Nhập mô tả về khu nhà" />
+                        <TextArea rows={4} placeholder="Nhập mô tả về toà nhà" />
                     </Form.Item>
 
                     <Form.Item

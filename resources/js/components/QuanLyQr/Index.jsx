@@ -319,7 +319,7 @@ const TabPhong = ({ phongs, baseUrl, perm, coSos, khuNhas }) => {
                 </Col>
                 <Col xs={24} sm={12} md={5}>
                     <Select
-                        placeholder="Lọc theo khu nhà"
+                        placeholder="Lọc theo toà nhà"
                         size="large"
                         allowClear
                         value={khuNhaFilter}
@@ -567,7 +567,7 @@ const TabThietBi = ({ thietBis, baseUrl, perm, coSos, khuNhas, phongsList }) => 
                 </Col>
                 <Col xs={24} sm={12} md={4}>
                     <Select
-                        placeholder="Khu nhà"
+                        placeholder="Toà nhà"
                         size="large"
                         allowClear
                         value={khuNhaFilter}

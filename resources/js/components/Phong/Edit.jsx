@@ -158,13 +158,13 @@ const Edit = ({ phong, khuNhas }) => {
                     </Form.Item>
 
                     <Form.Item
-                        label="Khu nhà"
+                        label="Toà nhà"
                         name="khu_nha_id"
-                        rules={[{ required: true, message: 'Vui lòng chọn khu nhà!' }]}
+                        rules={[{ required: true, message: 'Vui lòng chọn toà nhà!' }]}
                     >
                         <Select
                             size="large"
-                            placeholder="Chọn khu nhà"
+                            placeholder="Chọn toà nhà"
                             showSearch
                             optionFilterProp="label"
                             options={khuNhas.map(kn => ({

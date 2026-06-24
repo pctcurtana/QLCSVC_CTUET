@@ -39,7 +39,7 @@ class ScreenSeeder extends Seeder
 
         // 2. Quản lý Cơ sở hạ tầng (standalone)
         Screen::create([
-            'name' => 'QL Cơ sở hạ tầng',
+            'name' => 'Cơ sở hạ tầng',
             'code' => 'co-so',
             'route' => '/co-so',
             'icon' => 'BankOutlined',
@@ -51,7 +51,7 @@ class ScreenSeeder extends Seeder
 
         // 3. Quản lý Khu nhà (standalone)
         Screen::create([
-            'name' => 'QL Khu nhà, Chức năng',
+            'name' => 'Toà nhà, Chức năng',
             'code' => 'khu-nha',
             'route' => '/khu-nha',
             'icon' => 'HomeOutlined',
@@ -63,7 +63,7 @@ class ScreenSeeder extends Seeder
 
         // 4. Quản lý Phòng (standalone)
         Screen::create([
-            'name' => 'QL Phòng',
+            'name' => 'Phòng',
             'code' => 'phong',
             'route' => '/phong',
             'icon' => 'AppstoreOutlined',
@@ -87,7 +87,7 @@ class ScreenSeeder extends Seeder
 
         // 6. Quản lý Thiết bị
         $thietBiGroup = Screen::create([
-            'name' => 'QL Thiết bị',
+            'name' => 'Thiết bị',
             'code' => 'thiet-bi-group',
             'route' => null,
             'icon' => 'ToolOutlined',

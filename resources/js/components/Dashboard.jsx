@@ -347,7 +347,7 @@ const Dashboard = ({ statistics, thongKeLoaiPhong, thongKeLoaiThietBi, thongKeCo
 
     const kpis = [
         { title: 'Tổng số cơ sở', value: fmt(statistics.tong_co_so), icon: <BankOutlined />, color: '#4096ff' },
-        { title: 'Tổng số khu nhà', value: fmt(statistics.tong_khu_nha), icon: <HomeOutlined />, color: '#52c41a' },
+        { title: 'Tổng số toà nhà', value: fmt(statistics.tong_khu_nha), icon: <HomeOutlined />, color: '#52c41a' },
         { title: 'Tổng số phòng', value: fmt(statistics.tong_phong), icon: <AppstoreOutlined />, color: '#13c2c2' },
         { title: 'Tổng số thiết bị', value: fmt(statistics.tong_thiet_bi), icon: <ToolOutlined />, color: '#fa8c16' },
         { title: 'Tổng giá trị thiết bị', value: fmtCr(statistics.tong_gia_tri_thiet_bi), icon: <DollarOutlined />, color: '#7c3aed' },
@@ -469,7 +469,7 @@ const Dashboard = ({ statistics, thongKeLoaiPhong, thongKeLoaiThietBi, thongKeCo
                 <Row gutter={[16, 16]} align="stretch">
                     {/* Horizontal Bar: thiết bị theo loại */}
                     <Col xs={24} lg={12}>
-                        <ChartCard title="Khu nhà theo cơ sở">
+                        <ChartCard title="Toà nhà theo cơ sở">
                             <ResponsiveContainer width="100%" height={240}>
                                 <RadialBarChart
                                     cx="50%"
@@ -491,7 +491,7 @@ const Dashboard = ({ statistics, thongKeLoaiPhong, thongKeLoaiThietBi, thongKeCo
                                     <RadialBar background clockWise dataKey="soKhuNha" cornerRadius={12} label={false} />
                                     <Tooltip
                                         {...tooltipStyle}
-                                        formatter={(value) => [`${fmt(value)} khu nhà`, "Số lượng"]}
+                                        formatter={(value) => [`${fmt(value)} toà nhà`, "Số lượng"]}
                                         labelFormatter={(_, payload) => payload?.[0]?.payload?.name || ""}
                                     />
                                 </RadialBarChart>

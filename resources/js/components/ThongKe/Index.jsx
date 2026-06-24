@@ -165,7 +165,7 @@ const TabCoSo = ({ data }) => {
         { title: 'Địa chỉ', dataIndex: 'dia_chi', ellipsis: true },
         { title: 'DT đất (m²)', dataIndex: 'dien_tich_dat', align: 'right', render: v => formatNumber(v) },
         { title: 'DT quy đổi (m²)', dataIndex: 'dien_tich_quy_doi', align: 'right', render: v => formatNumber(parseFloat(v)) },
-        { title: 'Khu nhà', dataIndex: 'so_khu_nha', align: 'center' },
+        { title: 'Toà nhà', dataIndex: 'so_khu_nha', align: 'center' },
         { title: 'Phòng', dataIndex: 'so_phong', align: 'center' },
         { title: 'Thiết bị', dataIndex: 'so_thiet_bi', align: 'center' },
         { title: 'Trạng thái', dataIndex: 'trang_thai', render: trangThaiTag },
@@ -211,13 +211,13 @@ const TabCoSo = ({ data }) => {
                 </Col>
             </Row>
 
-            <Card title="Số khu nhà · Phòng · Thiết bị theo cơ sở" bordered={false}
+            <Card title="Số toà nhà · Phòng · Thiết bị theo cơ sở" bordered={false}
                 style={{ borderRadius: 10, boxShadow: '0 1px 6px rgba(0,0,0,.06)' }}>
                 <StyledBarChart
                     data={bieu_do_so_luong}
                     margin={{ bottom: 40, left: 0 }}
                     bars={[
-                        { dataKey: 'soKhuNha',  name: 'Khu nhà',  fill: P.blue,   barSize: 18 },
+                        { dataKey: 'soKhuNha',  name: 'Toà nhà',  fill: P.blue,   barSize: 18 },
                         { dataKey: 'soPhong',   name: 'Phòng',    fill: P.green,  barSize: 18 },
                         { dataKey: 'soThietBi', name: 'Thiết bị', fill: P.orange, barSize: 18 },
                     ]}
@@ -237,7 +237,7 @@ const TabCoSo = ({ data }) => {
 };
 
 // ─────────────────────────────────────────────────────
-// TAB: KHU NHÀ
+// TAB: TOÀ NHÀ
 // ─────────────────────────────────────────────────────
 const TabKhuNha = ({ data, danhSachCoSo }) => {
     const [filterCoSo, setFilterCoSo] = useState(null);
@@ -295,7 +295,7 @@ const TabKhuNha = ({ data, danhSachCoSo }) => {
 
     const columns = [
         { title: 'Mã', dataIndex: 'ma_khu_nha', width: 100, fixed: 'left' },
-        { title: 'Tên khu nhà', dataIndex: 'ten_khu_nha', ellipsis: true },
+        { title: 'Tên toà nhà', dataIndex: 'ten_khu_nha', ellipsis: true },
         { title: 'Cơ sở', dataIndex: 'ten_co_so', ellipsis: true },
         { title: 'Loại', dataIndex: 'loai_khu_nha', render: loaiKhuNhaLabel },
         { title: 'Số tầng', dataIndex: 'so_tang', align: 'center' },
@@ -326,7 +326,7 @@ const TabKhuNha = ({ data, danhSachCoSo }) => {
 
             <Row gutter={[16, 16]}>
                 {[
-                    { title: 'Tổng khu nhà',    value: tq?.tong_khu_nha,                                          icon: <HomeOutlined />,      color: P.blue },
+                    { title: 'Tổng toà nhà',    value: tq?.tong_khu_nha,                                          icon: <HomeOutlined />,      color: P.blue },
                     { title: 'Tổng DT sàn XD', value: `${formatNumber(tq?.tong_dien_tich_san)} m²`,              icon: <AreaChartOutlined />,  color: P.green },
                     { title: 'Tổng DT đào tạo', value: `${formatNumber(Math.round(tq?.tong_dt_dao_tao || 0))} m²`,    icon: <AreaChartOutlined />,  color: P.teal },
                     { title: 'Đang hoạt động', value: tq?.khu_nha_hoat_dong,                                       icon: <HomeOutlined />,       color: P.green },
@@ -339,7 +339,7 @@ const TabKhuNha = ({ data, danhSachCoSo }) => {
 
             <Row gutter={[16, 16]}>
                 <Col xs={24} lg={12}>
-                    <Card title="Phân bố theo loại khu nhà" bordered={false}
+                    <Card title="Phân bố theo loại toà nhà" bordered={false}
                         style={{ borderRadius: 10, boxShadow: '0 1px 6px rgba(0,0,0,.06)' }}>
                         <StyledBarChart
                             data={bieu_do_loai}
@@ -351,14 +351,14 @@ const TabKhuNha = ({ data, danhSachCoSo }) => {
                     </Card>
                 </Col>
                 <Col xs={24} lg={12}>
-                    <Card title="Trạng thái khu nhà" bordered={false}
+                    <Card title="Trạng thái toà nhà" bordered={false}
                         style={{ borderRadius: 10, boxShadow: '0 1px 6px rgba(0,0,0,.06)' }}>
                         <DonutChart data={bieu_do_trang_thai} />
                     </Card>
                 </Col>
             </Row>
 
-            <Card title="Diện tích sàn & đào tạo theo khu nhà (m²)" bordered={false}
+            <Card title="Diện tích sàn & đào tạo theo toà nhà (m²)" bordered={false}
                 style={{ borderRadius: 10, boxShadow: '0 1px 6px rgba(0,0,0,.06)' }}>
                 <StyledBarChart
                     data={bieu_do_dien_tich}
@@ -374,7 +374,7 @@ const TabKhuNha = ({ data, danhSachCoSo }) => {
                 </StyledBarChart>
             </Card>
 
-            <Card title={`Chi tiết (${filteredData.chi_tiet?.length || 0} khu nhà)`} bordered={false}
+            <Card title={`Chi tiết (${filteredData.chi_tiet?.length || 0} toà nhà)`} bordered={false}
                 style={{ borderRadius: 10, boxShadow: '0 1px 6px rgba(0,0,0,.06)' }}>
                 <Table dataSource={filteredData.chi_tiet} columns={columns} rowKey="id"
                     pagination={{ pageSize: 10 }} scroll={{ x: 1000 }} size="small" />
@@ -467,7 +467,7 @@ const TabPhong = ({ data, danhSachCoSo, danhSachKhuNha }) => {
     const columns = [
         { title: 'Mã', dataIndex: 'ma_phong', width: 90, fixed: 'left' },
         { title: 'Tên phòng', dataIndex: 'ten_phong', ellipsis: true },
-        { title: 'Khu nhà', dataIndex: 'ten_khu_nha', ellipsis: true },
+        { title: 'Toà nhà', dataIndex: 'ten_khu_nha', ellipsis: true },
         { title: 'Cơ sở', dataIndex: 'ten_co_so', ellipsis: true },
         { title: 'Loại', dataIndex: 'loai_phong', render: loaiPhongLabel },
         { title: 'Tầng', dataIndex: 'tang', align: 'center' },
@@ -492,7 +492,7 @@ const TabPhong = ({ data, danhSachCoSo, danhSachKhuNha }) => {
                         options={danhSachCoSo?.map(cs => ({ value: cs.id, label: cs.ten_co_so })) || []}
                     />
                     <Select
-                        placeholder="Tất cả khu nhà"
+                        placeholder="Tất cả toà nhà"
                         allowClear
                         style={{ width: 220 }}
                         value={filterKhuNha}
@@ -667,7 +667,7 @@ const TabThietBi = ({ data, danhSachCoSo, danhSachKhuNha, danhSachPhong }) => {
         { title: 'Hãng', dataIndex: 'hang_san_xuat', ellipsis: true },
         { title: 'Model', dataIndex: 'model', ellipsis: true },
         { title: 'Phòng', dataIndex: 'ten_phong', ellipsis: true },
-        { title: 'Khu nhà', dataIndex: 'ten_khu_nha', ellipsis: true },
+        { title: 'Toà nhà', dataIndex: 'ten_khu_nha', ellipsis: true },
         { title: 'Năm mua', dataIndex: 'nam_mua', align: 'center' },
         { title: 'Giá trị', dataIndex: 'gia_tri', align: 'right', render: v => formatCurrency(v) },
         {
@@ -692,7 +692,7 @@ const TabThietBi = ({ data, danhSachCoSo, danhSachKhuNha, danhSachPhong }) => {
                         options={danhSachCoSo?.map(cs => ({ value: cs.id, label: cs.ten_co_so })) || []}
                     />
                     <Select
-                        placeholder="Tất cả khu nhà"
+                        placeholder="Tất cả toà nhà"
                         allowClear
                         style={{ width: 200 }}
                         value={filterKhuNha}
@@ -822,7 +822,7 @@ const ThongKeIndex = ({ thongKeCoSo, thongKeKhuNha, thongKePhong, thongKeThietBi
 
     const options = [
         { label: <Space><BankOutlined />Cơ sở</Space>,      value: 'co-so'    },
-        { label: <Space><HomeOutlined />Khu nhà</Space>,    value: 'khu-nha'  },
+        { label: <Space><HomeOutlined />Toà nhà</Space>,    value: 'khu-nha'  },
         { label: <Space><AppstoreOutlined />Phòng</Space>,  value: 'phong'    },
         { label: <Space><ToolOutlined />Thiết bị</Space>,   value: 'thiet-bi' },
     ];

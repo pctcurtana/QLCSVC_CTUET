@@ -355,7 +355,7 @@ const Index = ({ lichSuBaoDuongs, thietBis, filters, stats }) => {
                             <Descriptions.Item label="Phòng" span={1}>
                                 {detailModal.thiet_bi?.phong?.ten_phong || '—'}
                             </Descriptions.Item>
-                            <Descriptions.Item label="Khu nhà" span={1}>
+                            <Descriptions.Item label="Toà nhà" span={1}>
                                 {detailModal.thiet_bi?.phong?.khu_nha?.ten_khu_nha || '—'}
                             </Descriptions.Item>
                             <Descriptions.Item label="Nội dung bảo dưỡng" span={2}>

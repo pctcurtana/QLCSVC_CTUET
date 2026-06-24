@@ -12,7 +12,7 @@ use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 
 /**
- * Template Excel mẫu để import Khu nhà.
+ * Template Excel mẫu để import Toà nhà.
  * Cột ma_co_so phải khớp với mã cơ sở đã tồn tại trong hệ thống.
  * Cột dien_tich_xay_dung: diện tích xây dựng 1 tầng (m²).
  * Backend tự tính: tong_dien_tich_san = dien_tich_xay_dung × so_tang
@@ -21,7 +21,7 @@ class KhuNhaTemplate implements FromArray, WithTitle, ShouldAutoSize, WithEvents
 {
     public function title(): string
     {
-        return 'KhuNha_Import_Template';
+        return 'ToaNha_Import_Template';
     }
 
     public function array(): array
@@ -42,9 +42,9 @@ class KhuNhaTemplate implements FromArray, WithTitle, ShouldAutoSize, WithEvents
             ],
             // Ghi chú
             [
-                'BẮT BUỘC | Mã khu nhà (duy nhất)',
+                'BẮT BUỘC | Mã toà nhà (duy nhất)',
                 'BẮT BUỘC | Mã cơ sở đã tồn tại',
-                'BẮT BUỘC | Tên khu nhà',
+                'BẮT BUỘC | Tên toà nhà',
                 'BẮT BUỘC | Bắt buộc phải là (phong_hoc, phong_lam_viec, phong_chuc_nang)',
                 'BẮT BUỘC | Số tầng (>= 1)',
                 'BẮT BUỘC | DT xây dựng 1 tầng (m²)',

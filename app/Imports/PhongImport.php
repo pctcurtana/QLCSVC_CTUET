@@ -46,7 +46,7 @@ class PhongImport extends BaseImport
             'ma_phong'       => 'required|string|max:50',
             'ma_khu_nha'     => ['required', 'string', function ($attribute, $value, $fail) {
                 if (!isset($this->referenceMaps['khu_nha_map'][$value])) {
-                    $fail("Mã khu nhà '{$value}' không tồn tại hoặc không còn hiệu lực trong hệ thống.");
+                    $fail("Mã toà nhà '{$value}' không tồn tại hoặc không còn hiệu lực trong hệ thống.");
                 }
             }],
             'ten_phong'      => 'required|string|max:255',
@@ -64,7 +64,7 @@ class PhongImport extends BaseImport
     {
         return [
             'ma_phong.required'   => 'Mã phòng không được để trống.',
-            'ma_khu_nha.required' => 'Mã khu nhà không được để trống.',
+            'ma_khu_nha.required' => 'Mã toà nhà không được để trống.',
             'ten_phong.required'  => 'Tên phòng không được để trống.',
             'loai_phong.required' => 'Loại phòng không được để trống.',
             'loai_phong.in'       => 'Loại phòng không hợp lệ. Các giá trị cho phép: phong_hoc, phong_thi_nghiem, phong_thuc_hanh, phong_lam_viec, phong_chuc_nang.',
@@ -85,7 +85,7 @@ class PhongImport extends BaseImport
     {
         return [
             'ma_phong'       => 'Mã phòng',
-            'ma_khu_nha'     => 'Mã khu nhà',
+            'ma_khu_nha'     => 'Mã toà nhà',
             'ten_phong'      => 'Tên phòng',
             'loai_phong'     => 'Loại phòng',
             'tang'           => 'Tầng',

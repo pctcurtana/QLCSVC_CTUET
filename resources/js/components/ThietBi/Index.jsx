@@ -174,7 +174,7 @@ const Index = ({ thietBis, phongs, coSos, filters }) => {
             render: (text) => text || <Tag>Chưa phân bổ</Tag>,
         },
         {
-            title: 'Khu nhà',
+            title: 'Toà nhà',
             dataIndex: ['phong', 'khu_nha', 'ten_khu_nha'],
             key: 'khu_nha',
             width: 150,
@@ -279,7 +279,7 @@ const Index = ({ thietBis, phongs, coSos, filters }) => {
                 <Card>
                     <Row gutter={[16, 16]} align="middle">
                         <Col flex="auto">
-                            <h2 style={{ margin: 0 }}>Quản lý thiết bị</h2>
+                            <h2 style={{ margin: 0 }}>Thiết bị</h2>
                         </Col>
                         <Col>
                             <Space>

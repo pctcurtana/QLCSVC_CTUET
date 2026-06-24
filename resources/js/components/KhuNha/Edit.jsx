@@ -100,14 +100,14 @@ const Edit = ({ khuNha, coSos }) => {
             const maChanged = String(values.ma_khu_nha ?? '').trim() !== String(khuNha.ma_khu_nha ?? '').trim();
             if (!checkHasChanges(values)) {
                 if (maChanged) {
-                    message.warning('Mã khu nhà chỉ thay đổi được bằng "Cập nhật trực tiếp". Phiên bản mới không ghi nhận thay đổi mã.');
+                    message.warning('Mã toà nhà chỉ thay đổi được bằng "Cập nhật trực tiếp". Phiên bản mới không ghi nhận thay đổi mã.');
                 } else {
                     message.warning('Không có thay đổi nào để lưu phiên bản mới.');
                 }
                 return;
             }
             if (maChanged) {
-                message.info('Lưu ý: Mã khu nhà sẽ không thay đổi khi lưu phiên bản mới. Nếu muốn đổi mã, hãy dùng "Cập nhật trực tiếp".');
+                message.info('Lưu ý: Mã toà nhà sẽ không thay đổi khi lưu phiên bản mới. Nếu muốn đổi mã, hãy dùng "Cập nhật trực tiếp".');
             }
             setPendingValues(values);
             setVersionModalVisible(true);
@@ -137,7 +137,7 @@ const Edit = ({ khuNha, coSos }) => {
             <Card
                 title={
                     <Space>
-                        <span>Chỉnh sửa khu nhà: {khuNha.ten_khu_nha}</span>
+                        <span>Chỉnh sửa toà nhà: {khuNha.ten_khu_nha}</span>
                         <Tag color="blue">Phiên bản {khuNha.phien_ban ?? 1}</Tag>
                         {khuNha.hieu_luc_tu && (
                             <Tooltip title="Ngày bắt đầu hiệu lực">
@@ -175,10 +175,10 @@ const Edit = ({ khuNha, coSos }) => {
                     initialValues={{ ...khuNha, he_so_su_dung_dao_tao: khuNha.he_so_su_dung_dao_tao || 0.7 }}
                 >
                     <Form.Item
-                        label="Mã khu nhà"
+                        label="Mã toà nhà"
                         name="ma_khu_nha"
-                        rules={[{ required: true, message: 'Vui lòng nhập mã khu nhà!' }]}
-                        tooltip="Khi lưu phiên bản mới, mã khu nhà được giữ nguyên từ bản gốc dù có thay đổi ở đây"
+                        rules={[{ required: true, message: 'Vui lòng nhập mã toà nhà!' }]}
+                        tooltip="Khi lưu phiên bản mới, mã toà nhà được giữ nguyên từ bản gốc dù có thay đổi ở đây"
                     >
                         <Input placeholder="Ví dụ: KNA" size="large" />
                     </Form.Item>
@@ -196,19 +196,19 @@ const Edit = ({ khuNha, coSos }) => {
                     </Form.Item>
 
                     <Form.Item
-                        label="Tên khu nhà"
+                        label="Tên toà nhà"
                         name="ten_khu_nha"
-                        rules={[{ required: true, message: 'Vui lòng nhập tên khu nhà!' }]}
+                        rules={[{ required: true, message: 'Vui lòng nhập tên toà nhà!' }]}
                     >
-                        <Input placeholder="Nhập tên khu nhà" size="large" />
+                        <Input placeholder="Nhập tên toà nhà" size="large" />
                     </Form.Item>
 
                     <Form.Item
-                        label="Loại khu nhà"
+                        label="Loại toà nhà"
                         name="loai_khu_nha"
-                        rules={[{ required: true, message: 'Vui lòng chọn loại khu nhà!' }]}
+                        rules={[{ required: true, message: 'Vui lòng chọn loại toà nhà!' }]}
                     >
-                        <Select size="large" placeholder="Chọn loại khu nhà">
+                        <Select size="large" placeholder="Chọn loại toà nhà">
                             <Select.Option value="phong_hoc">Phòng học</Select.Option>
                             <Select.Option value="phong_lam_viec">Phòng làm việc</Select.Option>
                             <Select.Option value="phong_chuc_nang">Phòng chức năng</Select.Option>
@@ -229,7 +229,7 @@ const Edit = ({ khuNha, coSos }) => {
                                 label="Diện tích xây dựng (m²)"
                                 name="dien_tich_xay_dung"
                                 rules={[{ required: true, message: 'Vui lòng nhập diện tích xây dựng!' }]}
-                                tooltip="Diện tích xây dựng 1 tầng của khu nhà"
+                                tooltip="Diện tích xây dựng 1 tầng của toà nhà"
                             >
                                 <InputNumber
                                     style={{ width: '100%' }}
@@ -299,7 +299,7 @@ const Edit = ({ khuNha, coSos }) => {
                     </Form.Item>
 
                     <Form.Item label="Mô tả" name="mo_ta">
-                        <TextArea rows={4} placeholder="Nhập mô tả về khu nhà" />
+                        <TextArea rows={4} placeholder="Nhập mô tả về toà nhà" />
                     </Form.Item>
 
                     <Form.Item
@@ -357,7 +357,7 @@ const Edit = ({ khuNha, coSos }) => {
                 okButtonProps={{ style: { background: '#fa8c16', borderColor: '#fa8c16' } }}
             >
                 <p>
-                    Hệ thống sẽ <strong>lưu trữ dữ liệu hiện tại</strong> của khu nhà <strong>{khuNha.ten_khu_nha}</strong> vào lịch sử và tạo <strong>phiên bản {(khuNha.phien_ban ?? 1) + 1}</strong> với các thay đổi bạn vừa nhập.
+                    Hệ thống sẽ <strong>lưu trữ dữ liệu hiện tại</strong> của toà nhà <strong>{khuNha.ten_khu_nha}</strong> vào lịch sử và tạo <strong>phiên bản {(khuNha.phien_ban ?? 1) + 1}</strong> với các thay đổi bạn vừa nhập.
                 </p>
                 <Alert
                     message="Dữ liệu cũ sẽ được giữ lại để xuất báo cáo theo mốc thời gian."
@@ -366,7 +366,7 @@ const Edit = ({ khuNha, coSos }) => {
                     style={{ marginTop: 12 }}
                 />
                 <Alert
-                    message="Tất cả phòng đang hoạt động thuộc khu nhà này sẽ tự động liên kết sang phiên bản mới."
+                    message="Tất cả phòng đang hoạt động thuộc toà nhà này sẽ tự động liên kết sang phiên bản mới."
                     type="info"
                     showIcon
                     style={{ marginTop: 8 }}
