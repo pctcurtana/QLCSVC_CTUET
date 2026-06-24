@@ -12,14 +12,24 @@ const Edit = ({ khuNha, coSos }) => {
     const [submitting, setSubmitting] = useState(false);
     const [versionModalVisible, setVersionModalVisible] = useState(false);
     const [pendingValues, setPendingValues] = useState(null);
-    const [dienTichSanDaoTao, setDienTichSanDaoTao] = useState(
-        (khuNha.tong_dien_tich_san || 0) * (khuNha.he_so_su_dung_dao_tao || 0.7)
-    );
+
+    const initDienTichXayDung = khuNha.dien_tich_xay_dung || 0;
+    const initSoTang = khuNha.so_tang || 1;
+    const initHeSo = khuNha.he_so_su_dung_dao_tao || 0.7;
+    const initTongDTSan = initDienTichXayDung * initSoTang;
+    const initDTDaoTao = initTongDTSan * initHeSo;
+
+    const [tongDienTichSan, setTongDienTichSan] = useState(initTongDTSan);
+    const [dienTichSanDaoTao, setDienTichSanDaoTao] = useState(initDTDaoTao);
 
     const handleDienTichChange = () => {
-        const tongDienTichSan = form.getFieldValue('tong_dien_tich_san') || 0;
+        const dienTichXayDung = form.getFieldValue('dien_tich_xay_dung') || 0;
+        const soTang = form.getFieldValue('so_tang') || 1;
         const heSoSuDung = form.getFieldValue('he_so_su_dung_dao_tao') || 0.7;
-        setDienTichSanDaoTao(tongDienTichSan * heSoSuDung);
+        const tongDTSan = dienTichXayDung * soTang;
+        const dtDaoTao = tongDTSan * heSoSuDung;
+        setTongDienTichSan(tongDTSan);
+        setDienTichSanDaoTao(dtDaoTao);
     };
 
     // Kiểm tra thay đổi cho version update (không tính ma_khu_nha vì backend luôn giữ gốc)
@@ -29,7 +39,7 @@ const Edit = ({ khuNha, coSos }) => {
             ten_khu_nha: (v) => String(v ?? '').trim(),
             loai_khu_nha: (v) => String(v ?? ''),
             so_tang: (v) => Number(v),
-            tong_dien_tich_san: (v) => parseFloat(v) || 0,
+            dien_tich_xay_dung: (v) => parseFloat(v) || 0,
             he_so_su_dung_dao_tao: (v) => parseFloat(v) || 0,
             nam_xay_dung: (v) => v ? Number(v) : null,
             mo_ta: (v) => String(v ?? '').trim(),
@@ -64,7 +74,7 @@ const Edit = ({ khuNha, coSos }) => {
                 ten_khu_nha: (v) => String(v ?? '').trim(),
                 loai_khu_nha: (v) => String(v ?? ''),
                 so_tang: (v) => Number(v),
-                tong_dien_tich_san: (v) => parseFloat(v) || 0,
+                dien_tich_xay_dung: (v) => parseFloat(v) || 0,
                 he_so_su_dung_dao_tao: (v) => parseFloat(v) || 0,
                 nam_xay_dung: (v) => v ? Number(v) : null,
                 mo_ta: (v) => String(v ?? '').trim(),
@@ -150,8 +160,8 @@ const Edit = ({ khuNha, coSos }) => {
                     style={{ marginBottom: 12 }}
                 />
                 <Alert
-                    message="Công thức tính diện tích sàn đào tạo"
-                    description="DT sàn đào tạo = Tổng DT sàn xây dựng × Hệ số sử dụng cho đào tạo. Hệ số mặc định là 0.7 (70%)."
+                    message="Công thức tính diện tích"
+                    description="Tổng DT sàn XD = DT xây dựng × Số tầng. DT sàn đào tạo = Tổng DT sàn XD × Hệ số sử dụng cho đào tạo. Hệ số mặc định là 0.7 (70%)."
                     type="warning"
                     icon={<InfoCircleOutlined />}
                     showIcon
@@ -210,29 +220,42 @@ const Edit = ({ khuNha, coSos }) => {
                         name="so_tang"
                         rules={[{ required: true, message: 'Vui lòng nhập số tầng!' }]}
                     >
-                        <InputNumber style={{ width: '100%' }} size="large" min={1} placeholder="Nhập số tầng" />
+                        <InputNumber style={{ width: '100%' }} size="large" min={1} placeholder="Nhập số tầng" onChange={handleDienTichChange} />
                     </Form.Item>
 
                     <Row gutter={16}>
-                        <Col xs={24} md={8}>
+                        <Col xs={24} md={6}>
                             <Form.Item
-                                label="Tổng diện tích sàn XD (m²)"
-                                name="tong_dien_tich_san"
-                                rules={[{ required: true, message: 'Vui lòng nhập tổng diện tích sàn!' }]}
-                                tooltip="Tổng diện tích sàn xây dựng của khu nhà"
+                                label="Diện tích xây dựng (m²)"
+                                name="dien_tich_xay_dung"
+                                rules={[{ required: true, message: 'Vui lòng nhập diện tích xây dựng!' }]}
+                                tooltip="Diện tích xây dựng 1 tầng của khu nhà"
                             >
                                 <InputNumber
                                     style={{ width: '100%' }}
                                     size="large"
                                     min={0}
-                                    placeholder="Nhập tổng DT sàn"
+                                    placeholder="Nhập DT xây dựng"
                                     formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                                     parser={value => value.replace(/\$\s?|(,*)/g, '')}
                                     onChange={handleDienTichChange}
                                 />
                             </Form.Item>
                         </Col>
-                        <Col xs={24} md={8}>
+                        <Col xs={24} md={6}>
+                            <Form.Item label="Tổng DT sàn XD (m²)">
+                                <Card size="small" style={{ background: '#e6f7ff', border: '1px solid #91d5ff' }}>
+                                    <Statistic
+                                        value={tongDienTichSan}
+                                        precision={2}
+                                        suffix="m²"
+                                        valueStyle={{ color: '#1890ff', fontSize: '20px' }}
+                                    />
+                                    <small style={{ color: '#666' }}>= DT xây dựng × Số tầng</small>
+                                </Card>
+                            </Form.Item>
+                        </Col>
+                        <Col xs={24} md={6}>
                             <Form.Item
                                 label="Hệ số sử dụng cho đào tạo"
                                 name="he_so_su_dung_dao_tao"
@@ -250,7 +273,7 @@ const Edit = ({ khuNha, coSos }) => {
                                 />
                             </Form.Item>
                         </Col>
-                        <Col xs={24} md={8}>
+                        <Col xs={24} md={6}>
                             <Form.Item label="DT sàn sử dụng cho đào tạo (m²)">
                                 <Card size="small" style={{ background: '#f6ffed', border: '1px solid #b7eb8f' }}>
                                     <Statistic

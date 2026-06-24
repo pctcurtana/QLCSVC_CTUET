@@ -14,6 +14,8 @@ use PhpOffice\PhpSpreadsheet\Style\Border;
 /**
  * Template Excel mẫu để import Khu nhà.
  * Cột ma_co_so phải khớp với mã cơ sở đã tồn tại trong hệ thống.
+ * Cột dien_tich_xay_dung: diện tích xây dựng 1 tầng (m²).
+ * Backend tự tính: tong_dien_tich_san = dien_tich_xay_dung × so_tang
  */
 class KhuNhaTemplate implements FromArray, WithTitle, ShouldAutoSize, WithEvents
 {
@@ -32,7 +34,7 @@ class KhuNhaTemplate implements FromArray, WithTitle, ShouldAutoSize, WithEvents
                 'ten_khu_nha',
                 'loai_khu_nha',
                 'so_tang',
-                'tong_dien_tich_san',
+                'dien_tich_xay_dung',
                 'he_so_su_dung_dao_tao',
                 'nam_xay_dung',
                 'mo_ta',
@@ -45,7 +47,7 @@ class KhuNhaTemplate implements FromArray, WithTitle, ShouldAutoSize, WithEvents
                 'BẮT BUỘC | Tên khu nhà',
                 'BẮT BUỘC | Bắt buộc phải là (phong_hoc, phong_lam_viec, phong_chuc_nang)',
                 'BẮT BUỘC | Số tầng (>= 1)',
-                'BẮT BUỘC | Tổng DT sàn (m²)',
+                'BẮT BUỘC | DT xây dựng 1 tầng (m²)',
                 'BẮT BUỘC | Hệ số 0-1 (VD: 0.7)',
                 'Tùy chọn | Năm xây dựng (VD: 2010)',
                 'Tùy chọn | Mô tả',
@@ -56,24 +58,24 @@ class KhuNhaTemplate implements FromArray, WithTitle, ShouldAutoSize, WithEvents
                 'KN001',
                 'CS001',
                 'Nhà A',
-                'Nhà học',
+                'phong_hoc',
                 6,
-                4500,
+                750,
                 0.8,
                 2005,
-                'Tòa nhà học chính',
+                'Tòa nhà học chính (DT sàn XD = 750 × 6 = 4500 m²)',
                 'active',
             ],
             [
                 'KN002',
                 'CS001',
                 'Nhà B - Thực hành',
-                'Nhà thực hành',
+                'phong_chuc_nang',
                 4,
-                3200,
+                800,
                 0.9,
                 2012,
-                '',
+                'DT sàn XD = 800 × 4 = 3200 m²',
                 'active',
             ],
         ];

@@ -195929,7 +195929,7 @@ var PhongForm = function PhongForm(_ref) {
               }],
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
                 prefix: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_19__["default"], {}),
-                placeholder: "Nguy\u1EC5n V\u0103n A",
+                placeholder: "Nguy\u1EC5n V\u0103n A (\u0110\u1EA1i di\u1EC7n)",
                 style: styles.input
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
@@ -196111,7 +196111,7 @@ var styles = {
   },
   input: {
     borderRadius: 10,
-    fontSize: 15
+    fontSize: 16
   },
   submitBtn: {
     height: 52,
@@ -198957,7 +198957,7 @@ var DonutChart = function DonutChart(_ref3) {
       className: "relative w-[220px] shrink-0",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_14__.ResponsiveContainer, {
         width: "100%",
-        height: 320,
+        height: 300,
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)(recharts__WEBPACK_IMPORTED_MODULE_24__.PieChart, {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("defs", {
             children: DONUT_COLORS.map(function (c, i) {
@@ -199187,7 +199187,7 @@ var Dashboard = function Dashboard(_ref4) {
             title: "Ph\xE2n b\u1ED1 theo lo\u1EA1i ph\xF2ng",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_14__.ResponsiveContainer, {
               width: "100%",
-              height: 280,
+              height: 260,
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)(recharts__WEBPACK_IMPORTED_MODULE_23__.BarChart, {
                 data: loaiPhongData,
                 margin: {
@@ -199326,7 +199326,7 @@ var Dashboard = function Dashboard(_ref4) {
             title: "Khu nh\xE0 theo c\u01A1 s\u1EDF",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_14__.ResponsiveContainer, {
               width: "100%",
-              height: 260,
+              height: 240,
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)(recharts__WEBPACK_IMPORTED_MODULE_25__.RadialBarChart, {
                 cx: "50%",
                 cy: "50%",
@@ -199385,7 +199385,7 @@ var Dashboard = function Dashboard(_ref4) {
             title: "Thi\u1EBFt b\u1ECB theo lo\u1EA1i",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(recharts__WEBPACK_IMPORTED_MODULE_14__.ResponsiveContainer, {
               width: "100%",
-              height: 320,
+              height: 300,
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)(recharts__WEBPACK_IMPORTED_MODULE_23__.BarChart, {
                 data: loaiThietBiData,
                 layout: "vertical",
@@ -199494,64 +199494,6 @@ var Dashboard = function Dashboard(_ref4) {
             })]
           })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        bordered: false,
-        style: {
-          borderRadius: 14,
-          boxShadow: '0 2px 12px rgba(0,0,0,.08)'
-        },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
-          children: [{
-            label: 'Tổng diện tích đất',
-            value: fmt(statistics.dien_tich_dat),
-            unit: 'm²',
-            color: '#4096ff'
-          }, {
-            label: 'Vị trí khuôn viên (TB)',
-            value: statistics.vi_tri_khuon_vien_tb ? Number(statistics.vi_tri_khuon_vien_tb).toFixed(2) : '—',
-            unit: '',
-            color: '#13c2c2'
-          }, {
-            label: 'Diện tích quy đổi',
-            value: fmt(statistics.dien_tich_quy_doi),
-            unit: 'm²',
-            color: '#52c41a'
-          }].map(function (item, i) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
-              xs: 24,
-              sm: 8,
-              style: {
-                padding: '16px 24px',
-                borderRight: i < 2 ? '1px solid #f0f0f0' : 'none',
-                textAlign: 'center'
-              },
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("div", {
-                style: {
-                  fontSize: 13,
-                  color: '#999',
-                  marginBottom: 6
-                },
-                children: item.label
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)("div", {
-                style: {
-                  fontSize: 30,
-                  fontWeight: 800,
-                  color: item.color,
-                  lineHeight: 1
-                },
-                children: [item.value, item.unit && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("span", {
-                  style: {
-                    fontSize: 14,
-                    fontWeight: 400,
-                    marginLeft: 6,
-                    color: '#bbb'
-                  },
-                  children: item.unit
-                })]
-              })]
-            }, i);
-          })
-        })
       })]
     })
   });
@@ -199984,8 +199926,12 @@ var Create = function Create(_ref) {
     form = _Form$useForm2[0];
   var _React$useState = react__WEBPACK_IMPORTED_MODULE_0___default().useState(0),
     _React$useState2 = _slicedToArray(_React$useState, 2),
-    dienTichSanDaoTao = _React$useState2[0],
-    setDienTichSanDaoTao = _React$useState2[1];
+    tongDienTichSan = _React$useState2[0],
+    setTongDienTichSan = _React$useState2[1];
+  var _React$useState3 = react__WEBPACK_IMPORTED_MODULE_0___default().useState(0),
+    _React$useState4 = _slicedToArray(_React$useState3, 2),
+    dienTichSanDaoTao = _React$useState4[0],
+    setDienTichSanDaoTao = _React$useState4[1];
   var handleSubmit = function handleSubmit(values) {
     _inertiajs_react__WEBPACK_IMPORTED_MODULE_17__.router.post('/khu-nha', values, {
       // success toast hiển thị qua flash ở MainLayout
@@ -199997,10 +199943,13 @@ var Create = function Create(_ref) {
     });
   };
   var handleDienTichChange = function handleDienTichChange() {
-    var tongDienTichSan = form.getFieldValue('tong_dien_tich_san') || 0;
+    var dienTichXayDung = form.getFieldValue('dien_tich_xay_dung') || 0;
+    var soTang = form.getFieldValue('so_tang') || 1;
     var heSoSuDung = form.getFieldValue('he_so_su_dung_dao_tao') || 0.7;
-    var dienTichSanDaoTaoMoi = tongDienTichSan * heSoSuDung;
-    setDienTichSanDaoTao(dienTichSanDaoTaoMoi);
+    var tongDTSan = dienTichXayDung * soTang;
+    var dtDaoTao = tongDTSan * heSoSuDung;
+    setTongDienTichSan(tongDTSan);
+    setDienTichSanDaoTao(dtDaoTao);
   };
   var formatNumber = function formatNumber(value) {
     return new Intl.NumberFormat('vi-VN').format(value);
@@ -200009,8 +199958,8 @@ var Create = function Create(_ref) {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
       title: "Th\xEAm khu nh\xE0 m\u1EDBi",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        message: "C\xF4ng th\u1EE9c t\xEDnh di\u1EC7n t\xEDch s\xE0n \u0111\xE0o t\u1EA1o",
-        description: "DT s\xE0n \u0111\xE0o t\u1EA1o = T\u1ED5ng DT s\xE0n x\xE2y d\u1EF1ng \xD7 H\u1EC7 s\u1ED1 s\u1EED d\u1EE5ng cho \u0111\xE0o t\u1EA1o. H\u1EC7 s\u1ED1 m\u1EB7c \u0111\u1ECBnh l\xE0 0.7 (70%).",
+        message: "C\xF4ng th\u1EE9c t\xEDnh di\u1EC7n t\xEDch",
+        description: "T\u1ED5ng DT s\xE0n XD = DT x\xE2y d\u1EF1ng \xD7 S\u1ED1 t\u1EA7ng. DT s\xE0n \u0111\xE0o t\u1EA1o = T\u1ED5ng DT s\xE0n XD \xD7 H\u1EC7 s\u1ED1 s\u1EED d\u1EE5ng cho \u0111\xE0o t\u1EA1o. H\u1EC7 s\u1ED1 m\u1EB7c \u0111\u1ECBnh l\xE0 0.7 (70%).",
         type: "info",
         icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_14__["default"], {}),
         showIcon: true,
@@ -200100,28 +200049,29 @@ var Create = function Create(_ref) {
             },
             size: "large",
             min: 1,
-            placeholder: "Nh\u1EADp s\u1ED1 t\u1EA7ng"
+            placeholder: "Nh\u1EADp s\u1ED1 t\u1EA7ng",
+            onChange: handleDienTichChange
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_10__["default"], {
           gutter: 16,
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
             xs: 24,
-            md: 8,
+            md: 6,
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
-              label: "T\u1ED5ng di\u1EC7n t\xEDch s\xE0n XD (m\xB2)",
-              name: "tong_dien_tich_san",
+              label: "Di\u1EC7n t\xEDch x\xE2y d\u1EF1ng (m\xB2)",
+              name: "dien_tich_xay_dung",
               rules: [{
                 required: true,
-                message: 'Vui lòng nhập tổng diện tích sàn!'
+                message: 'Vui lòng nhập diện tích xây dựng!'
               }],
-              tooltip: "T\u1ED5ng di\u1EC7n t\xEDch s\xE0n x\xE2y d\u1EF1ng c\u1EE7a khu nh\xE0",
+              tooltip: "Di\u1EC7n t\xEDch x\xE2y d\u1EF1ng 1 t\u1EA7ng c\u1EE7a khu nh\xE0",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
                 style: {
                   width: '100%'
                 },
                 size: "large",
                 min: 0,
-                placeholder: "Nh\u1EADp t\u1ED5ng DT s\xE0n",
+                placeholder: "Nh\u1EADp DT x\xE2y d\u1EF1ng",
                 formatter: function formatter(value) {
                   return "".concat(value).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
                 },
@@ -200133,7 +200083,34 @@ var Create = function Create(_ref) {
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
             xs: 24,
-            md: 8,
+            md: 6,
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
+              label: "T\u1ED5ng DT s\xE0n XD (m\xB2)",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
+                size: "small",
+                style: {
+                  background: '#e6f7ff',
+                  border: '1px solid #91d5ff'
+                },
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
+                  value: tongDienTichSan,
+                  precision: 2,
+                  suffix: "m\xB2",
+                  valueStyle: {
+                    color: '#1890ff',
+                    fontSize: '20px'
+                  }
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("small", {
+                  style: {
+                    color: '#666'
+                  },
+                  children: "= DT x\xE2y d\u1EF1ng \xD7 S\u1ED1 t\u1EA7ng"
+                })]
+              })
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
+            xs: 24,
+            md: 6,
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
               label: "H\u1EC7 s\u1ED1 s\u1EED d\u1EE5ng cho \u0111\xE0o t\u1EA1o",
               name: "he_so_su_dung_dao_tao",
@@ -200156,7 +200133,7 @@ var Create = function Create(_ref) {
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
             xs: 24,
-            md: 8,
+            md: 6,
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
               label: "DT s\xE0n s\u1EED d\u1EE5ng cho \u0111\xE0o t\u1EA1o (m\xB2)",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
@@ -200321,14 +200298,27 @@ var Edit = function Edit(_ref) {
     _useState6 = _slicedToArray(_useState5, 2),
     pendingValues = _useState6[0],
     setPendingValues = _useState6[1];
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)((khuNha.tong_dien_tich_san || 0) * (khuNha.he_so_su_dung_dao_tao || 0.7)),
+  var initDienTichXayDung = khuNha.dien_tich_xay_dung || 0;
+  var initSoTang = khuNha.so_tang || 1;
+  var initHeSo = khuNha.he_so_su_dung_dao_tao || 0.7;
+  var initTongDTSan = initDienTichXayDung * initSoTang;
+  var initDTDaoTao = initTongDTSan * initHeSo;
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(initTongDTSan),
     _useState8 = _slicedToArray(_useState7, 2),
-    dienTichSanDaoTao = _useState8[0],
-    setDienTichSanDaoTao = _useState8[1];
+    tongDienTichSan = _useState8[0],
+    setTongDienTichSan = _useState8[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(initDTDaoTao),
+    _useState0 = _slicedToArray(_useState9, 2),
+    dienTichSanDaoTao = _useState0[0],
+    setDienTichSanDaoTao = _useState0[1];
   var handleDienTichChange = function handleDienTichChange() {
-    var tongDienTichSan = form.getFieldValue('tong_dien_tich_san') || 0;
+    var dienTichXayDung = form.getFieldValue('dien_tich_xay_dung') || 0;
+    var soTang = form.getFieldValue('so_tang') || 1;
     var heSoSuDung = form.getFieldValue('he_so_su_dung_dao_tao') || 0.7;
-    setDienTichSanDaoTao(tongDienTichSan * heSoSuDung);
+    var tongDTSan = dienTichXayDung * soTang;
+    var dtDaoTao = tongDTSan * heSoSuDung;
+    setTongDienTichSan(tongDTSan);
+    setDienTichSanDaoTao(dtDaoTao);
   };
 
   // Kiểm tra thay đổi cho version update (không tính ma_khu_nha vì backend luôn giữ gốc)
@@ -200346,7 +200336,7 @@ var Edit = function Edit(_ref) {
       so_tang: function so_tang(v) {
         return Number(v);
       },
-      tong_dien_tich_san: function tong_dien_tich_san(v) {
+      dien_tich_xay_dung: function dien_tich_xay_dung(v) {
         return parseFloat(v) || 0;
       },
       he_so_su_dung_dao_tao: function he_so_su_dung_dao_tao(v) {
@@ -200405,7 +200395,7 @@ var Edit = function Edit(_ref) {
         so_tang: function so_tang(v) {
           return Number(v);
         },
-        tong_dien_tich_san: function tong_dien_tich_san(v) {
+        dien_tich_xay_dung: function dien_tich_xay_dung(v) {
           return parseFloat(v) || 0;
         },
         he_so_su_dung_dao_tao: function he_so_su_dung_dao_tao(v) {
@@ -200516,8 +200506,8 @@ var Edit = function Edit(_ref) {
           marginBottom: 12
         }
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        message: "C\xF4ng th\u1EE9c t\xEDnh di\u1EC7n t\xEDch s\xE0n \u0111\xE0o t\u1EA1o",
-        description: "DT s\xE0n \u0111\xE0o t\u1EA1o = T\u1ED5ng DT s\xE0n x\xE2y d\u1EF1ng \xD7 H\u1EC7 s\u1ED1 s\u1EED d\u1EE5ng cho \u0111\xE0o t\u1EA1o. H\u1EC7 s\u1ED1 m\u1EB7c \u0111\u1ECBnh l\xE0 0.7 (70%).",
+        message: "C\xF4ng th\u1EE9c t\xEDnh di\u1EC7n t\xEDch",
+        description: "T\u1ED5ng DT s\xE0n XD = DT x\xE2y d\u1EF1ng \xD7 S\u1ED1 t\u1EA7ng. DT s\xE0n \u0111\xE0o t\u1EA1o = T\u1ED5ng DT s\xE0n XD \xD7 H\u1EC7 s\u1ED1 s\u1EED d\u1EE5ng cho \u0111\xE0o t\u1EA1o. H\u1EC7 s\u1ED1 m\u1EB7c \u0111\u1ECBnh l\xE0 0.7 (70%).",
         type: "warning",
         icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_19__["default"], {}),
         showIcon: true,
@@ -200605,28 +200595,29 @@ var Edit = function Edit(_ref) {
             },
             size: "large",
             min: 1,
-            placeholder: "Nh\u1EADp s\u1ED1 t\u1EA7ng"
+            placeholder: "Nh\u1EADp s\u1ED1 t\u1EA7ng",
+            onChange: handleDienTichChange
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
           gutter: 16,
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
             xs: 24,
-            md: 8,
+            md: 6,
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
-              label: "T\u1ED5ng di\u1EC7n t\xEDch s\xE0n XD (m\xB2)",
-              name: "tong_dien_tich_san",
+              label: "Di\u1EC7n t\xEDch x\xE2y d\u1EF1ng (m\xB2)",
+              name: "dien_tich_xay_dung",
               rules: [{
                 required: true,
-                message: 'Vui lòng nhập tổng diện tích sàn!'
+                message: 'Vui lòng nhập diện tích xây dựng!'
               }],
-              tooltip: "T\u1ED5ng di\u1EC7n t\xEDch s\xE0n x\xE2y d\u1EF1ng c\u1EE7a khu nh\xE0",
+              tooltip: "Di\u1EC7n t\xEDch x\xE2y d\u1EF1ng 1 t\u1EA7ng c\u1EE7a khu nh\xE0",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
                 style: {
                   width: '100%'
                 },
                 size: "large",
                 min: 0,
-                placeholder: "Nh\u1EADp t\u1ED5ng DT s\xE0n",
+                placeholder: "Nh\u1EADp DT x\xE2y d\u1EF1ng",
                 formatter: function formatter(value) {
                   return "".concat(value).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
                 },
@@ -200638,7 +200629,34 @@ var Edit = function Edit(_ref) {
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
             xs: 24,
-            md: 8,
+            md: 6,
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
+              label: "T\u1ED5ng DT s\xE0n XD (m\xB2)",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
+                size: "small",
+                style: {
+                  background: '#e6f7ff',
+                  border: '1px solid #91d5ff'
+                },
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
+                  value: tongDienTichSan,
+                  precision: 2,
+                  suffix: "m\xB2",
+                  valueStyle: {
+                    color: '#1890ff',
+                    fontSize: '20px'
+                  }
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("small", {
+                  style: {
+                    color: '#666'
+                  },
+                  children: "= DT x\xE2y d\u1EF1ng \xD7 S\u1ED1 t\u1EA7ng"
+                })]
+              })
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
+            xs: 24,
+            md: 6,
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
               label: "H\u1EC7 s\u1ED1 s\u1EED d\u1EE5ng cho \u0111\xE0o t\u1EA1o",
               name: "he_so_su_dung_dao_tao",
@@ -200661,7 +200679,7 @@ var Edit = function Edit(_ref) {
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
             xs: 24,
-            md: 8,
+            md: 6,
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
               label: "DT s\xE0n s\u1EED d\u1EE5ng cho \u0111\xE0o t\u1EA1o (m\xB2)",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
@@ -201003,6 +201021,15 @@ var Index = function Index(_ref) {
     key: 'so_tang',
     align: 'center',
     width: 80
+  }, {
+    title: 'DT xây dựng (m²)',
+    dataIndex: 'dien_tich_xay_dung',
+    key: 'dien_tich_xay_dung',
+    align: 'right',
+    width: 120,
+    render: function render(value) {
+      return formatNumber(value);
+    }
   }, {
     title: 'Tổng DT sàn XD (m²)',
     dataIndex: 'tong_dien_tich_san',

@@ -217,7 +217,7 @@ const DonutChart = ({ data }) => {
     return (
         <div className="flex items-center gap-5">
             <div className="relative w-[220px] shrink-0">
-                <ResponsiveContainer width="100%" height={320}>
+                <ResponsiveContainer width="100%" height={300}>
                     <PieChart>
                         <defs>
                             {DONUT_COLORS.map(
@@ -375,7 +375,7 @@ const Dashboard = ({ statistics, thongKeLoaiPhong, thongKeLoaiThietBi, thongKeCo
                     {/* BarChart: loại phòng — so sánh theo nhóm */}
                     <Col xs={24} lg={14}>
                         <ChartCard title="Phân bố theo loại phòng">
-                            <ResponsiveContainer width="100%" height={280}>
+                            <ResponsiveContainer width="100%" height={260}>
                                 <BarChart data={loaiPhongData} margin={{ top: 16, right: 12, left: -10, bottom: 6 }}>
                                     <defs>
                                         <linearGradient id="roomGradient" x1="0" y1="0" x2="0" y2="1">
@@ -470,7 +470,7 @@ const Dashboard = ({ statistics, thongKeLoaiPhong, thongKeLoaiThietBi, thongKeCo
                     {/* Horizontal Bar: thiết bị theo loại */}
                     <Col xs={24} lg={12}>
                         <ChartCard title="Khu nhà theo cơ sở">
-                            <ResponsiveContainer width="100%" height={260}>
+                            <ResponsiveContainer width="100%" height={240}>
                                 <RadialBarChart
                                     cx="50%"
                                     cy="50%"
@@ -532,7 +532,7 @@ const Dashboard = ({ statistics, thongKeLoaiPhong, thongKeLoaiThietBi, thongKeCo
                     {/* BarChart: khu nhà theo cơ sở — bar dọc gradient */}
                     <Col xs={24} lg={12}>
                         <ChartCard title="Thiết bị theo loại">
-                            <ResponsiveContainer width="100%" height={320}>
+                            <ResponsiveContainer width="100%" height={300}>
                                 <BarChart
                                     data={loaiThietBiData}
                                     layout="vertical"
@@ -605,25 +605,6 @@ const Dashboard = ({ statistics, thongKeLoaiPhong, thongKeLoaiThietBi, thongKeCo
                         </ChartCard>
                     </Col>
                 </Row>
-                {/* ── Diện tích ── */}
-                <Card bordered={false} style={{ borderRadius: 14, boxShadow: '0 2px 12px rgba(0,0,0,.08)' }}>
-                    <Row>
-                        {[
-                            { label: 'Tổng diện tích đất', value: fmt(statistics.dien_tich_dat), unit: 'm²', color: '#4096ff' },
-                            { label: 'Vị trí khuôn viên (TB)', value: statistics.vi_tri_khuon_vien_tb ? Number(statistics.vi_tri_khuon_vien_tb).toFixed(2) : '—', unit: '', color: '#13c2c2' },
-                            { label: 'Diện tích quy đổi', value: fmt(statistics.dien_tich_quy_doi), unit: 'm²', color: '#52c41a' },
-                        ].map((item, i) => (
-                            <Col xs={24} sm={8} key={i}
-                                style={{ padding: '16px 24px', borderRight: i < 2 ? '1px solid #f0f0f0' : 'none', textAlign: 'center' }}>
-                                <div style={{ fontSize: 13, color: '#999', marginBottom: 6 }}>{item.label}</div>
-                                <div style={{ fontSize: 30, fontWeight: 800, color: item.color, lineHeight: 1 }}>
-                                    {item.value}
-                                    {item.unit && <span style={{ fontSize: 14, fontWeight: 400, marginLeft: 6, color: '#bbb' }}>{item.unit}</span>}
-                                </div>
-                            </Col>
-                        ))}
-                    </Row>
-                </Card>
             </Space>
         </MainLayout>
     );

@@ -13,10 +13,10 @@ const { Title, Text, Paragraph } = Typography;
 const { TextArea } = Input;
 
 const MUC_DO_OPTIONS = [
-    { value: 'thap',       label: 'Thấp',       color: 'green',  desc: 'Vẫn có thể hoạt động' },
-    { value: 'trung_binh', label: 'Trung bình',  color: 'orange', desc: 'Ảnh hưởng một phần' },
-    { value: 'cao',        label: 'Cao',         color: 'red',    desc: 'Không thể sử dụng' },
-    { value: 'khan_cap',   label: 'Khẩn cấp',   color: 'purple', desc: 'Cần xử lý ngay' },
+    { value: 'thap', label: 'Thấp', color: 'green', desc: 'Vẫn có thể hoạt động' },
+    { value: 'trung_binh', label: 'Trung bình', color: 'orange', desc: 'Ảnh hưởng một phần' },
+    { value: 'cao', label: 'Cao', color: 'red', desc: 'Không thể sử dụng' },
+    { value: 'khan_cap', label: 'Khẩn cấp', color: 'purple', desc: 'Cần xử lý ngay' },
 ];
 
 const PhongForm = ({ phong, token }) => {
@@ -46,7 +46,7 @@ const PhongForm = ({ phong, token }) => {
     };
 
     const khuNha = phong?.khu_nha ?? phong?.khuNha;
-    const coSo   = khuNha?.co_so  ?? khuNha?.coSo;
+    const coSo = khuNha?.co_so ?? khuNha?.coSo;
 
     if (submitted) {
         return (
@@ -143,7 +143,7 @@ const PhongForm = ({ phong, token }) => {
                             >
                                 <Input
                                     prefix={<UserOutlined />}
-                                    placeholder="Nguyễn Văn A"
+                                    placeholder="Nguyễn Văn A (Đại diện)"
                                     style={styles.input}
                                 />
                             </Form.Item>
@@ -284,7 +284,7 @@ const styles = {
     },
     input: {
         borderRadius: 10,
-        fontSize: 15,
+        fontSize: 16,
     },
     submitBtn: {
         height: 52,

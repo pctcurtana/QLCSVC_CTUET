@@ -151,6 +151,14 @@ const Index = ({ khuNhas, coSos, filters }) => {
 
         },
         {
+            title: 'DT xây dựng (m²)',
+            dataIndex: 'dien_tich_xay_dung',
+            key: 'dien_tich_xay_dung',
+            align: 'right',
+            width: 120,
+            render: (value) => formatNumber(value),
+        },
+        {
             title: 'Tổng DT sàn XD (m²)',
             dataIndex: 'tong_dien_tich_san',
             key: 'tong_dien_tich_san',

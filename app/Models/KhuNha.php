@@ -17,6 +17,7 @@ class KhuNha extends Model
         'ten_khu_nha',
         'loai_khu_nha',
         'so_tang',
+        'dien_tich_xay_dung',
         'tong_dien_tich_san',
         'he_so_su_dung_dao_tao',
         'dien_tich_san_dao_tao',
@@ -34,6 +35,7 @@ class KhuNha extends Model
     protected $casts = [
         'so_tang' => 'integer',
         'nam_xay_dung' => 'integer',
+        'dien_tich_xay_dung' => 'decimal:2',
         'tong_dien_tich_san' => 'decimal:2',
         'he_so_su_dung_dao_tao' => 'decimal:1',
         'dien_tich_san_dao_tao' => 'decimal:2',

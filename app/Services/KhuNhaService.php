@@ -65,11 +65,8 @@ class KhuNhaService
      */
     public function create(array $data): KhuNha
     {
-        // Tự động tính diện tích sàn sử dụng cho đào tạo
-        $data['dien_tich_san_dao_tao'] = $this->calculateDienTichSanDaoTao(
-            $data['tong_dien_tich_san'],
-            $data['he_so_su_dung_dao_tao']
-        );
+        // Tự động tính các diện tích
+        $data = $this->calculateDienTich($data);
         return $this->khuNhaRepository->create($data);
     }
 
@@ -78,11 +75,8 @@ class KhuNhaService
      */
     public function update(int $id, array $data): KhuNha
     {
-        // Tự động tính diện tích sàn sử dụng cho đào tạo
-        $data['dien_tich_san_dao_tao'] = $this->calculateDienTichSanDaoTao(
-            $data['tong_dien_tich_san'],
-            $data['he_so_su_dung_dao_tao']
-        );
+        // Tự động tính các diện tích
+        $data = $this->calculateDienTich($data);
         return $this->khuNhaRepository->update($id, $data);
     }
 
@@ -114,10 +108,8 @@ class KhuNhaService
                 'hieu_luc_den' => $now,
             ]);
 
-            $data['dien_tich_san_dao_tao'] = $this->calculateDienTichSanDaoTao(
-                $data['tong_dien_tich_san'],
-                $data['he_so_su_dung_dao_tao']
-            );
+            // Tự động tính các diện tích
+            $data = $this->calculateDienTich($data);
 
             $newRecord = $this->khuNhaRepository->create(array_merge($data, [
                 'ma_khu_nha'         => $current->ma_khu_nha,
@@ -138,6 +130,41 @@ class KhuNhaService
     }
 
     /**
+     * Tính toán tất cả diện tích tự động cho khu nhà.
+     * 
+     * Công thức:
+     *   - Tổng DT sàn XD = Diện tích xây dựng × Số tầng
+     *   - DT sàn đào tạo = Tổng DT sàn XD × Hệ số sử dụng cho đào tạo
+     *
+     * @param array $data Dữ liệu chứa dien_tich_xay_dung, so_tang, he_so_su_dung_dao_tao
+     * @return array Dữ liệu đã bổ sung tong_dien_tich_san và dien_tich_san_dao_tao
+     */
+    public function calculateDienTich(array $data): array
+    {
+        $dienTichXayDung = (float) ($data['dien_tich_xay_dung'] ?? 0);
+        $soTang = (int) ($data['so_tang'] ?? 1);
+        $heSoSuDung = (float) ($data['he_so_su_dung_dao_tao'] ?? 0.7);
+
+        $data['tong_dien_tich_san'] = $this->calculateTongDienTichSan($dienTichXayDung, $soTang);
+        $data['dien_tich_san_dao_tao'] = $this->calculateDienTichSanDaoTao($data['tong_dien_tich_san'], $heSoSuDung);
+
+        return $data;
+    }
+
+    /**
+     * Tính tổng diện tích sàn xây dựng
+     * Tổng DT sàn XD = Diện tích xây dựng × Số tầng
+     * 
+     * @param float $dienTichXayDung Diện tích xây dựng (m²)
+     * @param int $soTang Số tầng
+     * @return float Tổng diện tích sàn xây dựng
+     */
+    public function calculateTongDienTichSan(float $dienTichXayDung, int $soTang): float
+    {
+        return $dienTichXayDung * $soTang;
+    }
+
+    /**
      * Tính diện tích sàn sử dụng cho đào tạo
      * DT sàn đào tạo = Tổng DT sàn xây dựng × Hệ số sử dụng cho đào tạo
      * 
@@ -150,4 +177,3 @@ class KhuNhaService
         return $tongDienTichSan * $heSoSuDung;
     }
 }
-
