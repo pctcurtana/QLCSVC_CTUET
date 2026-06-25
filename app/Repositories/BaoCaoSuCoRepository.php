@@ -18,7 +18,7 @@ class BaoCaoSuCoRepository implements BaoCaoSuCoRepositoryInterface
     public function paginate(array $filters = [], int $perPage = 15): LengthAwarePaginator
     {
         $query = $this->model->query()
-            ->with(['phong.khuNha.coSo', 'thietBi']);
+            ->with(['phong.khuNha.coSo', 'thietBi', 'dotKiemTraThietBi']);
 
         if (!empty($filters['phong_id'])) {
             $query->where('phong_id', $filters['phong_id']);
@@ -42,7 +42,7 @@ class BaoCaoSuCoRepository implements BaoCaoSuCoRepositoryInterface
 
     public function find(int $id): ?BaoCaoSuCo
     {
-        return $this->model->with(['phong.khuNha.coSo', 'thietBi'])->find($id);
+        return $this->model->with(['phong.khuNha.coSo', 'thietBi', 'dotKiemTraThietBi'])->find($id);
     }
 
     public function create(array $data): BaoCaoSuCo

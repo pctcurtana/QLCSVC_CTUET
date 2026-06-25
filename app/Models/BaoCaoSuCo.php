@@ -37,4 +37,16 @@ class BaoCaoSuCo extends Model
     {
         return $this->belongsTo(ThietBi::class, 'thiet_bi_id');
     }
+
+    public function dotKiemTraThietBi()
+    {
+        return $this->hasOneThrough(
+            DotKiemTraThietBi::class,
+            LichSuBaoDuong::class,
+            'thiet_bi_id',
+            'id',
+            'thiet_bi_id',
+            'dot_kiem_tra_thiet_bi_id'
+        )->latest('lich_su_bao_duongs.id');
+    }
 }

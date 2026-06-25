@@ -197235,10 +197235,34 @@ var BaoCaoSuCoIndex = function BaoCaoSuCoIndex(_ref) {
           })], ['Trạng thái', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
             color: (_TRANG_THAI_MAP$detai = TRANG_THAI_MAP[detailModal.trang_thai]) === null || _TRANG_THAI_MAP$detai === void 0 ? void 0 : _TRANG_THAI_MAP$detai.color,
             text: (_TRANG_THAI_MAP$detai2 = TRANG_THAI_MAP[detailModal.trang_thai]) === null || _TRANG_THAI_MAP$detai2 === void 0 ? void 0 : _TRANG_THAI_MAP$detai2.label
-          })], ['Thời gian', formatDate(detailModal.created_at)]].map(function (_ref6) {
-            var _ref7 = _slicedToArray(_ref6, 2),
-              label = _ref7[0],
-              value = _ref7[1];
+          })], ['Thời gian', formatDate(detailModal.created_at)], ['Đợt kiểm tra', function (_ref6, _detailModal$dot_kiem) {
+            var dot = (_ref6 = (_detailModal$dot_kiem = detailModal.dot_kiem_tra_thiet_bi) !== null && _detailModal$dot_kiem !== void 0 ? _detailModal$dot_kiem : detailModal.dotKiemTraThietBi) !== null && _ref6 !== void 0 ? _ref6 : null;
+            if (!dot) return '—';
+            var formatSimpleDate = function formatSimpleDate(dateStr) {
+              if (!dateStr) return null;
+              var d = new Date(dateStr);
+              return "".concat(String(d.getDate()).padStart(2, '0'), "/").concat(String(d.getMonth() + 1).padStart(2, '0'), "/").concat(d.getFullYear());
+            };
+            var from = formatSimpleDate(dot.ngay_bat_dau);
+            var to = formatSimpleDate(dot.ngay_ket_thuc);
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
+              direction: "vertical",
+              size: 0,
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(Text, {
+                strong: true,
+                children: dot.ten_dot || 'Đợt không tên'
+              }), from || to ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(Text, {
+                type: "secondary",
+                style: {
+                  fontSize: 11
+                },
+                children: [from !== null && from !== void 0 ? from : '—', " - ", to !== null && to !== void 0 ? to : '—']
+              }) : null]
+            });
+          }()]].map(function (_ref7) {
+            var _ref8 = _slicedToArray(_ref7, 2),
+              label = _ref8[0],
+              value = _ref8[1];
             return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
                 span: 8,

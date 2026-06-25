@@ -264,6 +264,27 @@ const BaoCaoSuCoIndex = ({ baoCaos, stats, filters }) => {
                                 ['Mức độ',     <Tag color={MUC_DO_MAP[detailModal.muc_do]?.color}>{MUC_DO_MAP[detailModal.muc_do]?.label}</Tag>],
                                 ['Trạng thái', <Badge color={TRANG_THAI_MAP[detailModal.trang_thai]?.color} text={TRANG_THAI_MAP[detailModal.trang_thai]?.label} />],
                                 ['Thời gian',  formatDate(detailModal.created_at)],
+                                ['Đợt kiểm tra', (() => {
+                                    const dot = detailModal.dot_kiem_tra_thiet_bi ?? detailModal.dotKiemTraThietBi ?? null;
+                                    if (!dot) return '—';
+                                    const formatSimpleDate = (dateStr) => {
+                                        if (!dateStr) return null;
+                                        const d = new Date(dateStr);
+                                        return `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}/${d.getFullYear()}`;
+                                    };
+                                    const from = formatSimpleDate(dot.ngay_bat_dau);
+                                    const to = formatSimpleDate(dot.ngay_ket_thuc);
+                                    return (
+                                        <Space direction="vertical" size={0}>
+                                            <Text strong>{dot.ten_dot || 'Đợt không tên'}</Text>
+                                            {(from || to) ? (
+                                                <Text type="secondary" style={{ fontSize: 11 }}>
+                                                    {from ?? '—'} - {to ?? '—'}
+                                                </Text>
+                                            ) : null}
+                                        </Space>
+                                    );
+                                })()],
                             ].map(([label, value]) => (
                                 <Row key={label}>
                                     <Col span={8}><Text type="secondary">{label}:</Text></Col>
