@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { usePage, router, Head } from '@inertiajs/react';
 import MainLayout from '../Layout/MainLayout';
+import { Grid } from 'antd';
 import {
     Form, Input, Button, Card, Typography, Space, Tag, Divider, Select,
     DatePicker, InputNumber, Alert, Row, Col, Statistic, Result,
@@ -51,10 +52,10 @@ const SuaChuaForm = ({ thietBi, soLanSuaChua, token, lichSuDangSuaChua, coPhienD
     const [submitting, setSubmitting] = useState(false);
     const [submitted, setSubmitted] = useState(false);
 
-    const phong   = thietBi?.phong;
-    const khuNha  = phong?.khu_nha  ?? phong?.khuNha;
-    const coSo    = khuNha?.co_so   ?? khuNha?.coSo;
-    const tt      = TRANG_THAI_TB_LABELS[thietBi?.trang_thai] ?? { color: 'default', label: thietBi?.trang_thai };
+    const phong = thietBi?.phong;
+    const khuNha = phong?.khu_nha ?? phong?.khuNha;
+    const coSo = khuNha?.co_so ?? khuNha?.coSo;
+    const tt = TRANG_THAI_TB_LABELS[thietBi?.trang_thai] ?? { color: 'default', label: thietBi?.trang_thai };
     const phienDangSua = extractNoiDungParts(lichSuDangSuaChua?.noi_dung);
 
     useEffect(() => {
@@ -70,7 +71,7 @@ const SuaChuaForm = ({ thietBi, soLanSuaChua, token, lichSuDangSuaChua, coPhienD
             ngay_bao_duong: values.ngay_bao_duong?.format('YYYY-MM-DD') ?? dayjs().format('YYYY-MM-DD'),
         }, { onFinish: () => setSubmitting(false) });
     };
-
+    const screens = Grid.useBreakpoint();
     if (submitted) {
         return (
             <MainLayout>
@@ -110,19 +111,33 @@ const SuaChuaForm = ({ thietBi, soLanSuaChua, token, lichSuDangSuaChua, coPhienD
                         style={{ borderRadius: 14, background: '#f0f5ff', border: '1.5px solid #adc6ff' }}
                         bodyStyle={{ padding: 16 }}
                     >
-                        <Row gutter={16} align="middle">
-                            <Col flex="auto">
+                        <Row gutter={screens.md ? 16 : 8}>
+                            <Col flex={screens.md ? "auto" : "1"}>
                                 <Space direction="vertical" size={4}>
-                                    <Space align="center">
+                                    <Space align="center" wrap>
                                         <ToolOutlined style={{ color: '#244380', fontSize: 18 }} />
-                                        <Title level={4} style={{ margin: 0 }}>{thietBi?.ten_thiet_bi}</Title>
-                                        <Tag color="blue">{thietBi?.ma_thiet_bi}</Tag>
+                                        <Title level={screens.md ? 4 : 5} style={{ margin: 0 }}>{thietBi?.ten_thiet_bi}</Title>
+                                        {screens.md && <Tag color="blue">{thietBi?.ma_thiet_bi}</Tag>}
                                     </Space>
-                                    <Space size="small">
-                                        <Tag color={tt.color}>{tt.label}</Tag>
-                                        {phong && <Text type="secondary" style={{ fontSize: 13 }}>{phong.ten_phong}</Text>}
-                                        {khuNha && <Text type="secondary" style={{ fontSize: 13 }}>— {khuNha.ten_khu_nha}</Text>}
-                                    </Space>
+                                    {screens.md ? (
+                                        <Space size="small" wrap>
+                                            <Tag color={tt.color}>{tt.label}</Tag>
+                                            {phong && <Text type="secondary" style={{ fontSize: 13 }}>{phong.ten_phong}</Text>}
+                                            {khuNha && <Text type="secondary" style={{ fontSize: 13 }}>— {khuNha.ten_khu_nha}</Text>}
+                                        </Space>
+                                    ) : (
+                                        <>
+                                            <Space size="small">
+                                                <Tag color="blue">{thietBi?.ma_thiet_bi}</Tag>
+                                                <Tag color={tt.color}>{tt.label}</Tag>
+                                            </Space>
+
+                                            <Space size="small" wrap>
+                                                {phong && <Text type="secondary" style={{ fontSize: 12 }}>{phong.ten_phong}</Text>}
+                                                {khuNha && <Text type="secondary" style={{ fontSize: 12 }}>— {khuNha.ten_khu_nha}</Text>}
+                                            </Space>
+                                        </>
+                                    )}
                                     {coSo && <Text type="secondary" style={{ fontSize: 12 }}>{coSo.ten_co_so}</Text>}
                                 </Space>
                             </Col>
@@ -131,7 +146,7 @@ const SuaChuaForm = ({ thietBi, soLanSuaChua, token, lichSuDangSuaChua, coPhienD
                                     title={<Text style={{ fontSize: 11 }}>Lần sửa chữa</Text>}
                                     value={soLanSuaChua ?? 0}
                                     prefix={<HistoryOutlined />}
-                                    valueStyle={{ color: '#244380', fontSize: 22 }}
+                                    valueStyle={{ color: '#244380', fontSize: screens.md ? 22 : 18 }}
                                     suffix="lần"
                                 />
                             </Col>

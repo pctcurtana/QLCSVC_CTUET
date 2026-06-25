@@ -293,7 +293,7 @@ const MainLayout = ({ children }) => {
                 }}
             >
                 <Header
-                    className="px-1 flex items-center justify-between sticky top-4 z-[100] h-12 transition-all duration-300 ease-in-out"
+                    className="px-0 flex items-center justify-between sticky top-4 z-[100] h-12 transition-all duration-300 ease-in-out"
                     style={{
                         margin: '16px 16px 0 16px',
                         background: scrolled

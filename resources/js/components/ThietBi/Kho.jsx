@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import MainLayout from '../Layout/MainLayout';
 import {
-    Table, Space, Input, Tag, Card, Row, Col, Select, Skeleton, Statistic, Empty, 
+    Table, Space, Input, Tag, Card, Row, Col, Select, Skeleton, Statistic, Empty,
     Button, DatePicker, Modal, Typography, Descriptions, Badge, Tooltip,
 } from 'antd';
 import {
@@ -23,10 +23,10 @@ const { Search } = Input;
 const { Text, Title } = Typography;
 
 const LOAI_TB_MAP = {
-    van_phong:  { color: 'blue',   label: 'Văn phòng' },
-    day_hoc:    { color: 'green',  label: 'Dạy học' },
+    van_phong: { color: 'blue', label: 'Văn phòng' },
+    day_hoc: { color: 'green', label: 'Dạy học' },
     thi_nghiem: { color: 'purple', label: 'Thí nghiệm' },
-    thuc_hanh:  { color: 'orange', label: 'Thực hành' },
+    thuc_hanh: { color: 'orange', label: 'Thực hành' },
 };
 
 const Kho = ({ thietBis, stats, phongs, filters }) => {
@@ -156,8 +156,8 @@ const Kho = ({ thietBis, stats, phongs, filters }) => {
                     <Space size={4}>
                         <SwapOutlined style={{ color: '#52c41a' }} />
                         <Text style={{ fontSize: 13 }}>
-                            {tb.ten_thiet_bi?.length > 25 
-                                ? tb.ten_thiet_bi.slice(0, 25) + '…' 
+                            {tb.ten_thiet_bi?.length > 25
+                                ? tb.ten_thiet_bi.slice(0, 25) + '…'
                                 : tb.ten_thiet_bi}
                         </Text>
                     </Space>
@@ -170,10 +170,10 @@ const Kho = ({ thietBis, stats, phongs, filters }) => {
             width: 100,
             align: 'center',
             render: (_, record) => (
-                <Button 
+                <Button
                     type="primary"
                     ghost
-                    size="small" 
+                    size="small"
                     icon={<EyeOutlined />}
                     onClick={() => setDetailModal(record)}
                 >
@@ -185,31 +185,31 @@ const Kho = ({ thietBis, stats, phongs, filters }) => {
 
     // KPI cards
     const kpiCards = [
-        { 
-            title: 'Tổng thiết bị cũ', 
-            value: stats?.tong ?? 0, 
-            color: '#722ed1', 
+        {
+            title: 'Tổng thiết bị cũ',
+            value: stats?.tong ?? 0,
+            color: '#722ed1',
             icon: <HistoryOutlined />,
             bg: '#f9f0ff',
         },
-        { 
-            title: 'Đã thay thế', 
-            value: stats?.da_thay_the ?? stats?.tong ?? 0, 
-            color: '#52c41a', 
+        {
+            title: 'Đã thay thế',
+            value: stats?.da_thay_the ?? stats?.tong ?? 0,
+            color: '#52c41a',
             icon: <SwapOutlined />,
             bg: '#f6ffed',
         },
-        { 
-            title: 'Tháng này', 
-            value: stats?.thang_nay ?? 0, 
-            color: '#1890ff', 
+        {
+            title: 'Tháng này',
+            value: stats?.thang_nay ?? 0,
+            color: '#1890ff',
             icon: <CalendarOutlined />,
             bg: '#e6f7ff',
         },
-        { 
-            title: 'Tổng giá trị', 
-            value: stats?.tong_gia_tri ?? 0, 
-            color: '#fa8c16', 
+        {
+            title: 'Tổng giá trị',
+            value: stats?.tong_gia_tri ?? 0,
+            color: '#fa8c16',
             icon: <LaptopOutlined />,
             bg: '#fff7e6',
             formatter: formatCurrency,
@@ -225,11 +225,11 @@ const Kho = ({ thietBis, stats, phongs, filters }) => {
                 <Row gutter={[16, 16]}>
                     {kpiCards.map((k, i) => (
                         <Col xs={24} sm={12} md={6} key={i}>
-                            <KpiCard 
-                                title={k.title} 
-                                value={k.formatter ? k.formatter(k.value) : k.value} 
-                                icon={k.icon} 
-                                color={k.color} 
+                            <KpiCard
+                                title={k.title}
+                                value={k.formatter ? k.formatter(k.value) : k.value}
+                                icon={k.icon}
+                                color={k.color}
                             />
                         </Col>
                     ))}
@@ -310,11 +310,11 @@ const Kho = ({ thietBis, stats, phongs, filters }) => {
                             scroll={{ x: 870 }}
                             size="middle"
                             tableLayout="fixed"
-                            locale={{ 
-                                emptyText: <Empty 
-                                    description="Chưa có thiết bị nào trong lịch sử" 
-                                    image={Empty.PRESENTED_IMAGE_SIMPLE} 
-                                /> 
+                            locale={{
+                                emptyText: <Empty
+                                    description="Chưa có thiết bị nào trong lịch sử"
+                                    image={Empty.PRESENTED_IMAGE_SIMPLE}
+                                />
                             }}
                             pagination={{
                                 current: thietBis.current_page,
@@ -350,6 +350,8 @@ const Kho = ({ thietBis, stats, phongs, filters }) => {
                     onCancel={() => setDetailModal(null)}
                     footer={<Button onClick={() => setDetailModal(null)}>Đóng</Button>}
                     width={750}
+                    centered
+                    style={{ top: 0 }}
                 >
                     {detailModal && (
                         <Descriptions bordered column={2} size="small">

@@ -354,6 +354,8 @@ const Index = ({ lichSuBaoDuongs, thietBis, filters, stats }) => {
                     onCancel={() => setDetailModal(null)}
                     footer={<Button onClick={() => setDetailModal(null)}>Đóng</Button>}
                     width={700}
+                    centered
+                    style={{ top: 0 }}
                 >
                     {detailModal && (
                         <Descriptions bordered column={2} size="small">
