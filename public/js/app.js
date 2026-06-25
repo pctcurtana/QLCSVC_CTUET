@@ -196483,7 +196483,8 @@ var SuaChuaForm = function SuaChuaForm(_ref) {
                 required: true,
                 message: 'Vui lòng mô tả hư hỏng'
               }, {
-                min: 5
+                min: 5,
+                message: 'Mô tả hư hỏng phải nhập ít nhất 5 ký tự!'
               }],
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(TextArea, {
                 rows: 3,
@@ -196509,7 +196510,8 @@ var SuaChuaForm = function SuaChuaForm(_ref) {
                 required: true,
                 message: 'Vui lòng nhập nội dung sửa chữa'
               }, {
-                min: 5
+                min: 5,
+                message: 'Nội dung sửa chữa phải nhập ít nhất 5 ký tự!'
               }],
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(TextArea, {
                 rows: 4,

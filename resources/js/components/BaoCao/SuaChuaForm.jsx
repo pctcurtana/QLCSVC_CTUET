@@ -185,7 +185,10 @@ const SuaChuaForm = ({ thietBi, soLanSuaChua, token, lichSuDangSuaChua, coPhienD
                             <Form.Item
                                 label={<Text strong>Mô tả hư hỏng <span style={{ color: 'red' }}>*</span></Text>}
                                 name="hu_hong_mo_ta"
-                                rules={[{ required: true, message: 'Vui lòng mô tả hư hỏng' }, { min: 5 }]}
+                                rules={[
+                                    { required: true, message: 'Vui lòng mô tả hư hỏng' },
+                                    { min: 5, message: 'Mô tả hư hỏng phải nhập ít nhất 5 ký tự!' }
+                                ]}
                             >
                                 <TextArea
                                     rows={3}
@@ -198,7 +201,10 @@ const SuaChuaForm = ({ thietBi, soLanSuaChua, token, lichSuDangSuaChua, coPhienD
                             <Form.Item
                                 label={<Text strong>Nội dung sửa chữa <span style={{ color: 'red' }}>*</span></Text>}
                                 name="noi_dung"
-                                rules={[{ required: true, message: 'Vui lòng nhập nội dung sửa chữa' }, { min: 5 }]}
+                                rules={[
+                                    { required: true, message: 'Vui lòng nhập nội dung sửa chữa' },
+                                    { min: 5, message: 'Nội dung sửa chữa phải nhập ít nhất 5 ký tự!' }
+                                ]}
                             >
                                 <TextArea
                                     rows={4}
