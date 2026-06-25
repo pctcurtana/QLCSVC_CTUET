@@ -31,7 +31,8 @@ const Index = ({ khuNhas, coSos, filters }) => {
         router.get('/khu-nha', { 
             search: value, 
             co_so_id: coSoFilter,
-            loai_khu_nha: loaiFilter 
+            loai_khu_nha: loaiFilter,
+            per_page: khuNhas.per_page,
         }, {
             preserveState: true,
             replace: true,
@@ -43,7 +44,8 @@ const Index = ({ khuNhas, coSos, filters }) => {
         router.get('/khu-nha', { 
             search: searchText, 
             co_so_id: value,
-            loai_khu_nha: loaiFilter 
+            loai_khu_nha: loaiFilter,
+            per_page: khuNhas.per_page,
         }, {
             preserveState: true,
             replace: true,
@@ -55,7 +57,8 @@ const Index = ({ khuNhas, coSos, filters }) => {
         router.get('/khu-nha', { 
             search: searchText, 
             co_so_id: coSoFilter,
-            loai_khu_nha: value 
+            loai_khu_nha: value,
+            per_page: khuNhas.per_page,
         }, {
             preserveState: true,
             replace: true,

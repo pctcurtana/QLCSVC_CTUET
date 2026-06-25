@@ -50,7 +50,8 @@ const Index = ({ lichSuBaoDuongs, thietBis, filters, stats }) => {
         router.get('/lich-su-bao-duong', {
             thiet_bi_id: value,
             loai_bao_duong: loaiFilter,
-            trang_thai: trangThaiFilter
+            trang_thai: trangThaiFilter,
+            per_page: lichSuBaoDuongs.per_page,
         }, {
             preserveState: true,
             replace: true,
@@ -62,7 +63,8 @@ const Index = ({ lichSuBaoDuongs, thietBis, filters, stats }) => {
         router.get('/lich-su-bao-duong', {
             thiet_bi_id: thietBiFilter,
             loai_bao_duong: value,
-            trang_thai: trangThaiFilter
+            trang_thai: trangThaiFilter,
+            per_page: lichSuBaoDuongs.per_page,
         }, {
             preserveState: true,
             replace: true,
@@ -74,7 +76,8 @@ const Index = ({ lichSuBaoDuongs, thietBis, filters, stats }) => {
         router.get('/lich-su-bao-duong', {
             thiet_bi_id: thietBiFilter,
             loai_bao_duong: loaiFilter,
-            trang_thai: value
+            trang_thai: value,
+            per_page: lichSuBaoDuongs.per_page,
         }, {
             preserveState: true,
             replace: true,

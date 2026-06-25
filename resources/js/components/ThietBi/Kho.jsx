@@ -50,6 +50,7 @@ const Kho = ({ thietBis, stats, phongs, filters }) => {
             phong_id: phongFilter,
             ngay_vao_kho_tu: dateRange?.[0]?.format('YYYY-MM-DD') || '',
             ngay_vao_kho_den: dateRange?.[1]?.format('YYYY-MM-DD') || '',
+            per_page: thietBis.per_page,
             ...overrides,
         }, { preserveState: true, replace: true });
     };

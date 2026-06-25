@@ -11,7 +11,7 @@ class DotKiemTraThietBiController extends Controller
 {
     public function index(Request $request)
     {
-        $filters = $request->only(['search', 'trang_thai']);
+        $filters = $request->only(['search', 'trang_thai', 'per_page']);
         $query = DotKiemTraThietBi::query()->latest('id');
 
         if (!empty($filters['search'])) {
@@ -26,7 +26,7 @@ class DotKiemTraThietBiController extends Controller
             $query->where('is_active', false);
         }
 
-        $dotKiemTras = $query->paginate(10)->withQueryString();
+        $dotKiemTras = $query->paginate((int)$request->input('per_page', 10))->withQueryString();
 
         $stats = [
             'tong' => DotKiemTraThietBi::count(),

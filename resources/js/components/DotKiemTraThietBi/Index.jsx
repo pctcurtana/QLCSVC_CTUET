@@ -62,7 +62,10 @@ const DotKiemTraThietBiIndex = ({ dotKiemTras, filters, stats }) => {
     };
 
     const doSearch = () => {
-        router.get('/dot-kiem-tra-thiet-bi', { search }, { preserveState: true, replace: true });
+        router.get('/dot-kiem-tra-thiet-bi', {
+            search,
+            per_page: dotKiemTras.per_page
+        }, { preserveState: true, replace: true });
     };
 
     const resetFilters = () => {
@@ -199,8 +202,13 @@ const DotKiemTraThietBiIndex = ({ dotKiemTras, filters, stats }) => {
                             current: dotKiemTras.current_page,
                             pageSize: dotKiemTras.per_page,
                             total: dotKiemTras.total,
+                            showSizeChanger: true,
                             showTotal: (total) => `Tổng ${total} đợt`,
-                            onChange: (page) => router.get('/dot-kiem-tra-thiet-bi', { ...filters, page }, { preserveState: true, replace: true }),
+                            onChange: (page, pageSize) => router.get('/dot-kiem-tra-thiet-bi', {
+                                ...filters,
+                                page,
+                                per_page: pageSize
+                            }, { preserveState: true, replace: true }),
                         }}
                     />
                 </Card>

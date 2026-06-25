@@ -174,8 +174,8 @@ class BaoCaoSuCoController extends Controller
 
     public function index(Request $request)
     {
-        $filters = $request->only(['search', 'phong_id', 'muc_do', 'trang_thai']);
-        $baoCaos = $this->baoCaoService->getAllPaginated($filters, 15);
+        $filters = $request->only(['search', 'phong_id', 'muc_do', 'trang_thai', 'per_page']);
+        $baoCaos = $this->baoCaoService->getAllPaginated($filters, (int)$request->input('per_page', 15));
         $stats   = $this->baoCaoService->getStats();
 
         return Inertia::render('BaoCaoSuCo/Index', [

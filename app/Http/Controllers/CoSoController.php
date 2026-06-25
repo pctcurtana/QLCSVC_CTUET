@@ -40,8 +40,8 @@ class CoSoController extends Controller
     public function index(Request $request)
     {
         try {
-            $filters = $request->only(['search', 'trang_thai']);
-            $coSos = $this->coSoService->getAllPaginated($filters, 10);
+            $filters = $request->only(['search', 'trang_thai', 'per_page']);
+            $coSos = $this->coSoService->getAllPaginated($filters, (int)$request->input('per_page', 10));
 
             return Inertia::render('CoSo/Index', [
                 'coSos' => $coSos,

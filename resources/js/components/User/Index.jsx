@@ -39,7 +39,7 @@ const UserIndex = ({ users, filters }) => {
     const adminCount = users.data.filter(u => u.role === 'admin').length;
 
     const handleSearch = () => {
-        router.get('/nguoi-dung', { search, role }, { preserveState: true });
+        router.get('/nguoi-dung', { search, role, per_page: users.per_page }, { preserveState: true });
     };
 
     const handleDelete = (id) => {
@@ -204,10 +204,14 @@ const UserIndex = ({ users, filters }) => {
                             current: users.current_page,
                             total: users.total,
                             pageSize: users.per_page,
-                            showSizeChanger: false,
+                            showSizeChanger: true,
                             showTotal: (total) => `Tổng ${total} người dùng`,
-                            onChange: (page) => {
-                                router.get('/nguoi-dung', { ...filters, page }, { preserveState: true });
+                            onChange: (page, pageSize) => {
+                                router.get('/nguoi-dung', {
+                                    ...filters,
+                                    page,
+                                    per_page: pageSize
+                                }, { preserveState: true });
                             },
                         }}
                     />

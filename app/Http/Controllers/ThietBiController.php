@@ -50,8 +50,8 @@ class ThietBiController extends Controller
     public function index(Request $request)
     {
         try {
-            $filters = $request->only(['search', 'phong_id', 'loai_thiet_bi', 'co_so_id', 'can_bao_duong']);
-            $thietBis = $this->thietBiService->getAllPaginated($filters, 10);
+            $filters = $request->only(['search', 'phong_id', 'loai_thiet_bi', 'co_so_id', 'can_bao_duong', 'per_page']);
+            $thietBis = $this->thietBiService->getAllPaginated($filters, (int)$request->input('per_page', 10));
             $phongs = $this->phongService->getActivePhongs();
             
             $coSos = \DB::table('co_sos')
@@ -185,8 +185,8 @@ class ThietBiController extends Controller
     public function kho(Request $request)
     {
         try {
-            $filters = $request->only(['search', 'phong_id', 'ngay_vao_kho_tu', 'ngay_vao_kho_den']);
-            $thietBis = $this->thietBiService->getKhoPaginated($filters, 15);
+            $filters = $request->only(['search', 'phong_id', 'ngay_vao_kho_tu', 'ngay_vao_kho_den', 'per_page']);
+            $thietBis = $this->thietBiService->getKhoPaginated($filters, (int)$request->input('per_page', 15));
             $stats    = $this->thietBiService->getKhoStats();
             $phongs   = $this->phongService->getActivePhongs();
 

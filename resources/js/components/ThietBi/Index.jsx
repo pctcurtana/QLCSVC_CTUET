@@ -33,7 +33,8 @@ const Index = ({ thietBis, phongs, coSos, filters }) => {
             search: value,
             phong_id: phongFilter,
             loai_thiet_bi: loaiFilter,
-            co_so_id: coSoFilter
+            co_so_id: coSoFilter,
+            per_page: thietBis.per_page,
         }, {
             preserveState: true,
             replace: true,
@@ -46,7 +47,8 @@ const Index = ({ thietBis, phongs, coSos, filters }) => {
             search: searchText,
             phong_id: value,
             loai_thiet_bi: loaiFilter,
-            co_so_id: coSoFilter
+            co_so_id: coSoFilter,
+            per_page: thietBis.per_page,
         }, {
             preserveState: true,
             replace: true,
@@ -59,7 +61,8 @@ const Index = ({ thietBis, phongs, coSos, filters }) => {
             search: searchText,
             phong_id: phongFilter,
             loai_thiet_bi: value,
-            co_so_id: coSoFilter
+            co_so_id: coSoFilter,
+            per_page: thietBis.per_page,
         }, {
             preserveState: true,
             replace: true,
@@ -72,7 +75,8 @@ const Index = ({ thietBis, phongs, coSos, filters }) => {
             search: searchText,
             phong_id: phongFilter,
             loai_thiet_bi: loaiFilter,
-            co_so_id: value
+            co_so_id: value,
+            per_page: thietBis.per_page,
         }, {
             preserveState: true,
             replace: true,

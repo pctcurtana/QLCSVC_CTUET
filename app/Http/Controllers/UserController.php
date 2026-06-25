@@ -31,11 +31,11 @@ class UserController extends Controller
             $query->where('role', $request->role);
         }
 
-        $users = $query->orderBy('name')->paginate(10)->withQueryString();
+        $users = $query->orderBy('name')->paginate((int)$request->input('per_page', 10))->withQueryString();
 
         return Inertia::render('User/Index', [
             'users' => $users,
-            'filters' => $request->only(['search', 'role']),
+            'filters' => $request->only(['search', 'role', 'per_page']),
         ]);
     }
 

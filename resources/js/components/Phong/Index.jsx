@@ -33,7 +33,8 @@ const Index = ({ phongs, khuNhas, danhSachTang, filters }) => {
             search: value,
             khu_nha_id: khuNhaFilter,
             loai_phong: loaiFilter,
-            tang: tangFilter
+            tang: tangFilter,
+            per_page: phongs.per_page,
         }, {
             preserveState: true,
             replace: true,
@@ -46,7 +47,8 @@ const Index = ({ phongs, khuNhas, danhSachTang, filters }) => {
             search: searchText,
             khu_nha_id: value,
             loai_phong: loaiFilter,
-            tang: tangFilter
+            tang: tangFilter,
+            per_page: phongs.per_page,
         }, {
             preserveState: true,
             replace: true,
@@ -59,7 +61,8 @@ const Index = ({ phongs, khuNhas, danhSachTang, filters }) => {
             search: searchText,
             khu_nha_id: khuNhaFilter,
             loai_phong: value,
-            tang: tangFilter
+            tang: tangFilter,
+            per_page: phongs.per_page,
         }, {
             preserveState: true,
             replace: true,
@@ -72,7 +75,8 @@ const Index = ({ phongs, khuNhas, danhSachTang, filters }) => {
             search: searchText,
             khu_nha_id: khuNhaFilter,
             loai_phong: loaiFilter,
-            tang: value
+            tang: value,
+            per_page: phongs.per_page,
         }, {
             preserveState: true,
             replace: true,

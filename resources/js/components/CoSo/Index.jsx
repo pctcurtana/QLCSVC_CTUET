@@ -27,7 +27,11 @@ const Index = ({ coSos, filters }) => {
     }, [coSos]);
 
     const handleSearch = (value) => {
-        router.get('/co-so', { search: value, trang_thai: statusFilter }, {
+        router.get('/co-so', {
+            search: value,
+            trang_thai: statusFilter,
+            per_page: coSos.per_page,
+        }, {
             preserveState: true,
             replace: true,
         });
@@ -35,7 +39,11 @@ const Index = ({ coSos, filters }) => {
 
     const handleStatusFilter = (value) => {
         setStatusFilter(value);
-        router.get('/co-so', { search: searchText, trang_thai: value }, {
+        router.get('/co-so', {
+            search: searchText,
+            trang_thai: value,
+            per_page: coSos.per_page,
+        }, {
             preserveState: true,
             replace: true,
         });

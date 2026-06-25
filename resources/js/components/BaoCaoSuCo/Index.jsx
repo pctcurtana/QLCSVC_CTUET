@@ -37,7 +37,11 @@ const BaoCaoSuCoIndex = ({ baoCaos, stats, filters }) => {
 
     const doFilter = (overrides = {}) => {
         router.get('/bao-cao-su-co', {
-            search, muc_do: mucDoFilter, trang_thai: trangThaiFilter, ...overrides,
+            search,
+            muc_do: mucDoFilter,
+            trang_thai: trangThaiFilter,
+            per_page: baoCaos.per_page,
+            ...overrides,
         }, { preserveState: true, replace: true });
     };
 
@@ -232,8 +236,13 @@ const BaoCaoSuCoIndex = ({ baoCaos, stats, filters }) => {
                             current: baoCaos.current_page,
                             pageSize: baoCaos.per_page,
                             total: baoCaos.total,
+                            showSizeChanger: true,
                             showTotal: t => `Tổng ${t} báo cáo`,
-                            onChange: page => router.get('/bao-cao-su-co', { ...filters, page }, { preserveState: true }),
+                            onChange: (page, pageSize) => router.get('/bao-cao-su-co', {
+                                ...filters,
+                                page,
+                                per_page: pageSize
+                            }, { preserveState: true }),
                         }}
                     />
                 </Card>

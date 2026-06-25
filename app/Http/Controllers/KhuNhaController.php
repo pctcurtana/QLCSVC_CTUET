@@ -47,8 +47,8 @@ class KhuNhaController extends Controller
     public function index(Request $request)
     {
         try {
-            $filters = $request->only(['search', 'co_so_id', 'loai_khu_nha']);
-            $khuNhas = $this->khuNhaService->getAllPaginated($filters, 10);
+            $filters = $request->only(['search', 'co_so_id', 'loai_khu_nha', 'per_page']);
+            $khuNhas = $this->khuNhaService->getAllPaginated($filters, (int)$request->input('per_page', 10));
             $coSos = $this->coSoService->getActiveCoSos();
 
             return Inertia::render('KhuNha/Index', [

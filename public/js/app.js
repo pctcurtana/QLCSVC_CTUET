@@ -196849,7 +196849,8 @@ var BaoCaoSuCoIndex = function BaoCaoSuCoIndex(_ref) {
     _inertiajs_react__WEBPACK_IMPORTED_MODULE_1__.router.get('/bao-cao-su-co', _objectSpread({
       search: search,
       muc_do: mucDoFilter,
-      trang_thai: trangThaiFilter
+      trang_thai: trangThaiFilter,
+      per_page: baoCaos.per_page
     }, overrides), {
       preserveState: true,
       replace: true
@@ -197196,12 +197197,14 @@ var BaoCaoSuCoIndex = function BaoCaoSuCoIndex(_ref) {
             current: baoCaos.current_page,
             pageSize: baoCaos.per_page,
             total: baoCaos.total,
+            showSizeChanger: true,
             showTotal: function showTotal(t) {
               return "T\u1ED5ng ".concat(t, " b\xE1o c\xE1o");
             },
-            onChange: function onChange(page) {
+            onChange: function onChange(page, pageSize) {
               return _inertiajs_react__WEBPACK_IMPORTED_MODULE_1__.router.get('/bao-cao-su-co', _objectSpread(_objectSpread({}, filters), {}, {
-                page: page
+                page: page,
+                per_page: pageSize
               }), {
                 preserveState: true
               });
@@ -198123,7 +198126,8 @@ var Index = function Index(_ref) {
   var handleSearch = function handleSearch(value) {
     _inertiajs_react__WEBPACK_IMPORTED_MODULE_19__.router.get('/co-so', {
       search: value,
-      trang_thai: statusFilter
+      trang_thai: statusFilter,
+      per_page: coSos.per_page
     }, {
       preserveState: true,
       replace: true
@@ -198133,7 +198137,8 @@ var Index = function Index(_ref) {
     setStatusFilter(value);
     _inertiajs_react__WEBPACK_IMPORTED_MODULE_19__.router.get('/co-so', {
       search: searchText,
-      trang_thai: value
+      trang_thai: value,
+      per_page: coSos.per_page
     }, {
       preserveState: true,
       replace: true
@@ -199604,7 +199609,8 @@ var DotKiemTraThietBiIndex = function DotKiemTraThietBiIndex(_ref) {
   };
   var doSearch = function doSearch() {
     _inertiajs_react__WEBPACK_IMPORTED_MODULE_2__.router.get('/dot-kiem-tra-thiet-bi', {
-      search: search
+      search: search,
+      per_page: dotKiemTras.per_page
     }, {
       preserveState: true,
       replace: true
@@ -199785,12 +199791,14 @@ var DotKiemTraThietBiIndex = function DotKiemTraThietBiIndex(_ref) {
             current: dotKiemTras.current_page,
             pageSize: dotKiemTras.per_page,
             total: dotKiemTras.total,
+            showSizeChanger: true,
             showTotal: function showTotal(total) {
               return "T\u1ED5ng ".concat(total, " \u0111\u1EE3t");
             },
-            onChange: function onChange(page) {
+            onChange: function onChange(page, pageSize) {
               return _inertiajs_react__WEBPACK_IMPORTED_MODULE_2__.router.get('/dot-kiem-tra-thiet-bi', _objectSpread(_objectSpread({}, filters), {}, {
-                page: page
+                page: page,
+                per_page: pageSize
               }), {
                 preserveState: true,
                 replace: true
@@ -200913,7 +200921,8 @@ var Index = function Index(_ref) {
     _inertiajs_react__WEBPACK_IMPORTED_MODULE_19__.router.get('/khu-nha', {
       search: value,
       co_so_id: coSoFilter,
-      loai_khu_nha: loaiFilter
+      loai_khu_nha: loaiFilter,
+      per_page: khuNhas.per_page
     }, {
       preserveState: true,
       replace: true
@@ -200924,7 +200933,8 @@ var Index = function Index(_ref) {
     _inertiajs_react__WEBPACK_IMPORTED_MODULE_19__.router.get('/khu-nha', {
       search: searchText,
       co_so_id: value,
-      loai_khu_nha: loaiFilter
+      loai_khu_nha: loaiFilter,
+      per_page: khuNhas.per_page
     }, {
       preserveState: true,
       replace: true
@@ -200935,7 +200945,8 @@ var Index = function Index(_ref) {
     _inertiajs_react__WEBPACK_IMPORTED_MODULE_19__.router.get('/khu-nha', {
       search: searchText,
       co_so_id: coSoFilter,
-      loai_khu_nha: value
+      loai_khu_nha: value,
+      per_page: khuNhas.per_page
     }, {
       preserveState: true,
       replace: true
@@ -202372,7 +202383,8 @@ var Index = function Index(_ref) {
     _inertiajs_react__WEBPACK_IMPORTED_MODULE_23__.router.get('/lich-su-bao-duong', {
       thiet_bi_id: value,
       loai_bao_duong: loaiFilter,
-      trang_thai: trangThaiFilter
+      trang_thai: trangThaiFilter,
+      per_page: lichSuBaoDuongs.per_page
     }, {
       preserveState: true,
       replace: true
@@ -202383,7 +202395,8 @@ var Index = function Index(_ref) {
     _inertiajs_react__WEBPACK_IMPORTED_MODULE_23__.router.get('/lich-su-bao-duong', {
       thiet_bi_id: thietBiFilter,
       loai_bao_duong: value,
-      trang_thai: trangThaiFilter
+      trang_thai: trangThaiFilter,
+      per_page: lichSuBaoDuongs.per_page
     }, {
       preserveState: true,
       replace: true
@@ -202394,7 +202407,8 @@ var Index = function Index(_ref) {
     _inertiajs_react__WEBPACK_IMPORTED_MODULE_23__.router.get('/lich-su-bao-duong', {
       thiet_bi_id: thietBiFilter,
       loai_bao_duong: loaiFilter,
-      trang_thai: value
+      trang_thai: value,
+      per_page: lichSuBaoDuongs.per_page
     }, {
       preserveState: true,
       replace: true
@@ -204670,7 +204684,8 @@ var Index = function Index(_ref) {
       search: value,
       khu_nha_id: khuNhaFilter,
       loai_phong: loaiFilter,
-      tang: tangFilter
+      tang: tangFilter,
+      per_page: phongs.per_page
     }, {
       preserveState: true,
       replace: true
@@ -204682,7 +204697,8 @@ var Index = function Index(_ref) {
       search: searchText,
       khu_nha_id: value,
       loai_phong: loaiFilter,
-      tang: tangFilter
+      tang: tangFilter,
+      per_page: phongs.per_page
     }, {
       preserveState: true,
       replace: true
@@ -204694,7 +204710,8 @@ var Index = function Index(_ref) {
       search: searchText,
       khu_nha_id: khuNhaFilter,
       loai_phong: value,
-      tang: tangFilter
+      tang: tangFilter,
+      per_page: phongs.per_page
     }, {
       preserveState: true,
       replace: true
@@ -204706,7 +204723,8 @@ var Index = function Index(_ref) {
       search: searchText,
       khu_nha_id: khuNhaFilter,
       loai_phong: loaiFilter,
-      tang: value
+      tang: value,
+      per_page: phongs.per_page
     }, {
       preserveState: true,
       replace: true
@@ -207910,7 +207928,8 @@ var Index = function Index(_ref) {
       search: value,
       phong_id: phongFilter,
       loai_thiet_bi: loaiFilter,
-      co_so_id: coSoFilter
+      co_so_id: coSoFilter,
+      per_page: thietBis.per_page
     }, {
       preserveState: true,
       replace: true
@@ -207922,7 +207941,8 @@ var Index = function Index(_ref) {
       search: searchText,
       phong_id: value,
       loai_thiet_bi: loaiFilter,
-      co_so_id: coSoFilter
+      co_so_id: coSoFilter,
+      per_page: thietBis.per_page
     }, {
       preserveState: true,
       replace: true
@@ -207934,7 +207954,8 @@ var Index = function Index(_ref) {
       search: searchText,
       phong_id: phongFilter,
       loai_thiet_bi: value,
-      co_so_id: coSoFilter
+      co_so_id: coSoFilter,
+      per_page: thietBis.per_page
     }, {
       preserveState: true,
       replace: true
@@ -207946,7 +207967,8 @@ var Index = function Index(_ref) {
       search: searchText,
       phong_id: phongFilter,
       loai_thiet_bi: loaiFilter,
-      co_so_id: value
+      co_so_id: value,
+      per_page: thietBis.per_page
     }, {
       preserveState: true,
       replace: true
@@ -209081,7 +209103,8 @@ var Kho = function Kho(_ref) {
       search: searchText,
       phong_id: phongFilter,
       ngay_vao_kho_tu: (dateRange === null || dateRange === void 0 || (_dateRange$ = dateRange[0]) === null || _dateRange$ === void 0 ? void 0 : _dateRange$.format('YYYY-MM-DD')) || '',
-      ngay_vao_kho_den: (dateRange === null || dateRange === void 0 || (_dateRange$2 = dateRange[1]) === null || _dateRange$2 === void 0 ? void 0 : _dateRange$2.format('YYYY-MM-DD')) || ''
+      ngay_vao_kho_den: (dateRange === null || dateRange === void 0 || (_dateRange$2 = dateRange[1]) === null || _dateRange$2 === void 0 ? void 0 : _dateRange$2.format('YYYY-MM-DD')) || '',
+      per_page: thietBis.per_page
     }, overrides), {
       preserveState: true,
       replace: true
@@ -211981,7 +212004,8 @@ var UserIndex = function UserIndex(_ref) {
   var handleSearch = function handleSearch() {
     _inertiajs_react__WEBPACK_IMPORTED_MODULE_1__.router.get('/nguoi-dung', {
       search: search,
-      role: role
+      role: role,
+      per_page: users.per_page
     }, {
       preserveState: true
     });
@@ -212185,13 +212209,14 @@ var UserIndex = function UserIndex(_ref) {
             current: users.current_page,
             total: users.total,
             pageSize: users.per_page,
-            showSizeChanger: false,
+            showSizeChanger: true,
             showTotal: function showTotal(total) {
               return "T\u1ED5ng ".concat(total, " ng\u01B0\u1EDDi d\xF9ng");
             },
-            onChange: function onChange(page) {
+            onChange: function onChange(page, pageSize) {
               _inertiajs_react__WEBPACK_IMPORTED_MODULE_1__.router.get('/nguoi-dung', _objectSpread(_objectSpread({}, filters), {}, {
-                page: page
+                page: page,
+                per_page: pageSize
               }), {
                 preserveState: true
               });
