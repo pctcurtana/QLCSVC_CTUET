@@ -381,6 +381,9 @@ const Kho = ({ thietBis, stats, phongs, filters }) => {
                             <Descriptions.Item label="Serial Number" span={1}>
                                 {detailModal.serial_number ? <Tag color="cyan">{detailModal.serial_number}</Tag> : '—'}
                             </Descriptions.Item>
+                            <Descriptions.Item label="Năm sản xuất" span={1}>
+                                {detailModal.nam_san_xuat || '—'}
+                            </Descriptions.Item>
                             <Descriptions.Item label="Năm mua" span={1}>
                                 {detailModal.nam_mua || '—'}
                             </Descriptions.Item>

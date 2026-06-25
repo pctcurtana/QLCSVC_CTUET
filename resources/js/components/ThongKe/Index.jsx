@@ -668,6 +668,7 @@ const TabThietBi = ({ data, danhSachCoSo, danhSachKhuNha, danhSachPhong }) => {
         { title: 'Model', dataIndex: 'model', ellipsis: true },
         { title: 'Phòng', dataIndex: 'ten_phong', ellipsis: true },
         { title: 'Toà nhà', dataIndex: 'ten_khu_nha', ellipsis: true },
+        { title: 'Năm SX', dataIndex: 'nam_san_xuat', align: 'center' },
         { title: 'Năm mua', dataIndex: 'nam_mua', align: 'center' },
         { title: 'Giá trị', dataIndex: 'gia_tri', align: 'right', render: v => formatCurrency(v) },
         {

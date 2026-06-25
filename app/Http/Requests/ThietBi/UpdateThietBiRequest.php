@@ -45,6 +45,7 @@ class UpdateThietBiRequest extends FormRequest
             'hang_san_xuat' => 'nullable|string',
             'model' => 'nullable|string',
             'nam_mua' => 'nullable|integer|min:1900|max:' . (date('Y') + 10),
+            'nam_san_xuat' => 'nullable|integer|min:1900|max:' . date('Y'),
             'ngay_mua' => 'required|date',
             'chu_ky_bao_duong' => 'nullable|integer|min:1',
             'ngay_bao_duong_cuoi' => 'nullable|date',
@@ -73,6 +74,7 @@ class UpdateThietBiRequest extends FormRequest
             'hang_san_xuat' => 'Hãng sản xuất',
             'model' => 'Model',
             'nam_mua' => 'Năm mua',
+            'nam_san_xuat' => 'Năm sản xuất',
             'ngay_mua' => 'Ngày mua',
             'chu_ky_bao_duong' => 'Chu kỳ bảo dưỡng',
             'ngay_bao_duong_cuoi' => 'Ngày bảo dưỡng cuối',
@@ -100,6 +102,9 @@ class UpdateThietBiRequest extends FormRequest
             'serial_number.unique' => 'Số serial đã tồn tại trong hệ thống.',
             'ngay_mua.required' => 'Ngày mua là bắt buộc để theo dõi chu kỳ bảo dưỡng.',
             'chu_ky_bao_duong.min' => 'Chu kỳ bảo dưỡng phải lớn hơn hoặc bằng 1 tháng.',
+            'nam_san_xuat.integer' => 'Năm sản xuất phải là số nguyên.',
+            'nam_san_xuat.min' => 'Năm sản xuất phải từ năm 1900.',
+            'nam_san_xuat.max' => 'Năm sản xuất không được vượt quá năm hiện tại (' . date('Y') . ').',
         ];
     }
 }

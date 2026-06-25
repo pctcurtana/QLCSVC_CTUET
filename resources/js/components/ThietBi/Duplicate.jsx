@@ -19,6 +19,7 @@ const Duplicate = ({ thietBi, phongs }) => {
         loai_thiet_bi: thietBi.loai_thiet_bi,
         hang_san_xuat: thietBi.hang_san_xuat,
         model: thietBi.model,
+        nam_san_xuat: thietBi.nam_san_xuat,
         nam_mua: thietBi.nam_mua,
         ngay_mua: thietBi.ngay_mua ? dayjs(thietBi.ngay_mua) : dayjs(),
         chu_ky_bao_duong: thietBi.chu_ky_bao_duong || 6,
@@ -194,7 +195,24 @@ const Duplicate = ({ thietBi, phongs }) => {
                     </Row>
 
                     <Row gutter={16}>
-                        <Col xs={24} md={8}>
+                        <Col xs={24} md={6}>
+                            <Form.Item
+                                label="Năm sản xuất"
+                                name="nam_san_xuat"
+                                rules={[
+                                    { type: 'number', min: 1900, message: 'Năm sản xuất phải từ 1900!' },
+                                    { type: 'number', max: new Date().getFullYear(), message: `Năm sản xuất không được vượt quá ${new Date().getFullYear()}!` },
+                                ]}
+                            >
+                                <InputNumber
+                                    style={{ width: '100%' }}
+                                    size="large"
+                                    placeholder="Nhập năm SX"
+                                />
+                            </Form.Item>
+                        </Col>
+
+                        <Col xs={24} md={6}>
                             <Form.Item
                                 label="Năm mua"
                                 name="nam_mua"

@@ -215,6 +215,13 @@ const Index = ({ thietBis, phongs, coSos, filters }) => {
             render: (text) => <Tag color="blue">{text}</Tag>,
         },
         {
+            title: 'Năm SX',
+            dataIndex: 'nam_san_xuat',
+            key: 'nam_san_xuat',
+            width: 80,
+            align: 'center',
+        },
+        {
             title: 'Năm mua',
             dataIndex: 'nam_mua',
             key: 'nam_mua',

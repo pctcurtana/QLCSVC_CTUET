@@ -20,6 +20,7 @@ class ThietBi extends Model
         'loai_thiet_bi',
         'hang_san_xuat',
         'model',
+        'nam_san_xuat',
         'nam_mua',
         'ngay_mua',
         'ngay_bao_duong_cuoi',
@@ -42,6 +43,7 @@ class ThietBi extends Model
     ];
 
     protected $casts = [
+        'nam_san_xuat' => 'integer',
         'nam_mua' => 'integer',
         'ngay_mua' => 'date',
         'ngay_bao_duong_cuoi' => 'date',

@@ -149,6 +149,23 @@ const Create = ({ phongs }) => {
                     <Row gutter={16}>
                         <Col xs={24} md={6}>
                             <Form.Item
+                                label="Năm sản xuất"
+                                name="nam_san_xuat"
+                                rules={[
+                                    { type: 'number', min: 1900, message: 'Năm sản xuất phải từ 1900!' },
+                                    { type: 'number', max: new Date().getFullYear(), message: `Năm sản xuất không được vượt quá ${new Date().getFullYear()}!` },
+                                ]}
+                            >
+                                <InputNumber
+                                    style={{ width: '100%' }}
+                                    size="large"
+                                    placeholder="Nhập năm SX"
+                                />
+                            </Form.Item>
+                        </Col>
+
+                        <Col xs={24} md={6}>
+                            <Form.Item
                                 label="Năm mua"
                                 name="nam_mua"
                             >

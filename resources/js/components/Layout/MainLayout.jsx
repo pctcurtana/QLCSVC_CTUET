@@ -209,6 +209,18 @@ const MainLayout = ({ children }) => {
             onClick: handleLogout,
         },
     ];
+    // topbar transparent khi fixed
+    const [scrolled, setScrolled] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setScrolled(window.scrollY > 20);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     const getSelectedKey = () => {
         // Tìm key phù hợp nhất với URL hiện tại
@@ -254,7 +266,7 @@ const MainLayout = ({ children }) => {
                         <img src="/favicon.png" alt="Logo" className="w-8 h-8 object-contain" />
                     ) : (
                         <div className="flex items-center gap-2.5">
-                            <img src="/favicon.png" alt="Logo" className="w-8 h-8 object-contain" />
+                            <img src="/favicon.png" alt="Logo" className="w-12 h-12 object-contain" />
                             <span className="logo-text-expanded">QLCSVC</span>
                         </div>
                     )}
@@ -281,15 +293,21 @@ const MainLayout = ({ children }) => {
                 }}
             >
                 <Header
-                    className="px-7 flex items-center justify-between sticky top-4 z-[100] h-16 transition-all duration-300 ease-in-out"
+                    className="px-1 flex items-center justify-between sticky top-4 z-[100] h-12 transition-all duration-300 ease-in-out"
                     style={{
                         margin: '16px 16px 0 16px',
-                        background: 'rgba(255, 255, 255, 0.45)',
-                        backdropFilter: 'blur(20px)',
-                        WebkitBackdropFilter: 'blur(20px)',
-                        border: '1px solid rgba(255, 255, 255, 0.25)',
+                        background: scrolled
+                            ? 'rgba(255, 255, 255, 0.45)'
+                            : 'transparent',
+                        backdropFilter: scrolled ? 'blur(20px)' : 'none',
+                        WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'none',
+                        border: scrolled
+                            ? '1px solid rgba(255,255,255,0.25)'
+                            : '1px solid transparent',
                         borderRadius: '16px',
-                        boxShadow: '0 8px 32px rgba(31, 38, 135, 0.04)',
+                        boxShadow: scrolled
+                            ? '0 8px 32px rgba(31,38,135,0.04)'
+                            : 'none',
                     }}
                 >
                     <div
@@ -301,7 +319,7 @@ const MainLayout = ({ children }) => {
                     <Space size="large" className="m-0">
                         <Dropdown menu={{ items: userMenuItems }} placement="bottomRight" trigger={['click']}>
                             <Space
-                                className="cursor-pointer p-[6px_12px] rounded-lg transition-all duration-[180ms] ease-in-out hover:bg-[#244380]/[0.08]"
+                                className="cursor-pointer px-2 rounded-lg transition-all duration-[180ms] ease-in-out hover:bg-[#244380]/[0.08]"
                             >
                                 <Avatar
                                     className={user?.role === 'admin' ? 'bg-[#f5222d] cursor-pointer' : 'bg-[#1890ff] cursor-pointer'}

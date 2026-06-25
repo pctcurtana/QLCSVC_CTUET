@@ -64,6 +64,7 @@ const Edit = ({ thietBi, phongs, baseUrl }) => {
             loai_thiet_bi:      (v) => String(v ?? ''),
             hang_san_xuat:      (v) => String(v ?? '').trim(),
             model:              (v) => String(v ?? '').trim(),
+            nam_san_xuat:       (v) => v ? Number(v) : null,
             nam_mua:            (v) => v ? Number(v) : null,
             ngay_mua:           (v) => v ? (dayjs.isDayjs(v) ? v.format('YYYY-MM-DD') : String(v)) : null,
             gia_tri:            (v) => parseFloat(v) || 0,
@@ -104,6 +105,7 @@ const Edit = ({ thietBi, phongs, baseUrl }) => {
                 loai_thiet_bi:      (v) => String(v ?? ''),
                 hang_san_xuat:      (v) => String(v ?? '').trim(),
                 model:              (v) => String(v ?? '').trim(),
+                nam_san_xuat:       (v) => v ? Number(v) : null,
                 nam_mua:            (v) => v ? Number(v) : null,
                 ngay_mua:           (v) => v ? (dayjs.isDayjs(v) ? v.format('YYYY-MM-DD') : String(v)) : null,
                 gia_tri:            (v) => parseFloat(v) || 0,
@@ -275,6 +277,16 @@ const Edit = ({ thietBi, phongs, baseUrl }) => {
             </Row>
 
             <Row gutter={16}>
+                <Col xs={24} md={6}>
+                    <Form.Item label="Năm sản xuất" name="nam_san_xuat"
+                        rules={[
+                            { type: 'number', min: 1900, message: 'Năm sản xuất phải từ 1900!' },
+                            { type: 'number', max: new Date().getFullYear(), message: `Năm sản xuất không được vượt quá ${new Date().getFullYear()}!` },
+                        ]}
+                    >
+                        <InputNumber style={{ width: '100%' }} size="large" placeholder="Năm SX" />
+                    </Form.Item>
+                </Col>
                 <Col xs={24} md={6}>
                     <Form.Item label="Năm mua" name="nam_mua">
                         <InputNumber style={{ width: '100%' }} size="large" min={1900} max={new Date().getFullYear() + 10} placeholder="Năm mua" />

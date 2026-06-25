@@ -12,7 +12,7 @@ use Carbon\Carbon;
  * Cột Excel bắt buộc:
  *   ma_thiet_bi, ma_phong, ten_thiet_bi, loai_thiet_bi, trang_thai
  * Cột tùy chọn:
- *   serial_number, hang_san_xuat, model, nam_mua, ngay_mua,
+ *   serial_number, hang_san_xuat, model, nam_san_xuat, nam_mua, ngay_mua,
  *   ngay_bao_duong_cuoi, chu_ky_bao_duong, gia_tri,
  *   thong_so_ky_thuat, mo_ta
  *
@@ -60,6 +60,7 @@ class ThietBiImport extends BaseImport
             'hang_san_xuat'      => 'nullable|string|max:100',
             'model'              => 'nullable|string|max:100',
             'nam_mua'            => 'nullable|integer|min:1900|max:' . date('Y'),
+            'nam_san_xuat'       => 'nullable|integer|min:1900|max:' . date('Y'),
             'ngay_mua'           => 'required|date_format:Y-m-d',
             'ngay_bao_duong_cuoi' => 'nullable|date_format:Y-m-d',
             'chu_ky_bao_duong'   => 'nullable|integer|min:1',
@@ -82,6 +83,9 @@ class ThietBiImport extends BaseImport
             'ngay_mua.required'     => 'Ngày mua không được để trống.',
             'gia_tri.required'      => 'Giá trị không được để trống.',
             'nam_mua.integer'       => 'Năm mua phải là số nguyên.',
+            'nam_san_xuat.integer'  => 'Năm sản xuất phải là số nguyên.',
+            'nam_san_xuat.min'      => 'Năm sản xuất phải từ năm 1900.',
+            'nam_san_xuat.max'      => 'Năm sản xuất không được vượt quá năm hiện tại (' . date('Y') . ').',
             'ngay_mua.date_format'  => 'Ngày mua phải đúng định dạng Y-m-d (ví dụ: 2024-01-15).',
             'ngay_bao_duong_cuoi.date_format' => 'Ngày bảo dưỡng cuối phải đúng định dạng Y-m-d.',
             'chu_ky_bao_duong.integer' => 'Chu kỳ bảo dưỡng phải là số nguyên (đơn vị: tháng).',
@@ -103,6 +107,7 @@ class ThietBiImport extends BaseImport
             'hang_san_xuat'       => 'Hãng sản xuất',
             'model'               => 'Model',
             'nam_mua'             => 'Năm mua',
+            'nam_san_xuat'        => 'Năm sản xuất',
             'ngay_mua'            => 'Ngày mua',
             'ngay_bao_duong_cuoi' => 'Ngày bảo dưỡng cuối',
             'chu_ky_bao_duong'    => 'Chu kỳ bảo dưỡng',
@@ -146,6 +151,7 @@ class ThietBiImport extends BaseImport
             'hang_san_xuat'           => $this->str($row['hang_san_xuat'] ?? null),
             'model'                   => $this->str($row['model'] ?? null),
             'nam_mua'                 => isset($row['nam_mua']) && $row['nam_mua'] !== '' ? (int) $row['nam_mua'] : null,
+            'nam_san_xuat'            => isset($row['nam_san_xuat']) && $row['nam_san_xuat'] !== '' ? (int) $row['nam_san_xuat'] : null,
             'ngay_mua'                => $ngayMua,
             'ngay_bao_duong_cuoi'     => $ngayBaoDuongCuoi,
             'chu_ky_bao_duong'        => $chuKyBaoDuong,

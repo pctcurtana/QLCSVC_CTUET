@@ -201559,6 +201559,20 @@ var MainLayout = function MainLayout(_ref) {
     danger: true,
     onClick: handleLogout
   }];
+  // topbar transparent khi fixed
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState8 = _slicedToArray(_useState7, 2),
+    scrolled = _useState8[0],
+    setScrolled = _useState8[1];
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var handleScroll = function handleScroll() {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return function () {
+      return window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
   var getSelectedKey = function getSelectedKey() {
     // Tìm key phù hợp nhất với URL hiện tại
     var path = url.split('?')[0]; // Bỏ query string
@@ -201605,7 +201619,7 @@ var MainLayout = function MainLayout(_ref) {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)("img", {
             src: "/favicon.png",
             alt: "Logo",
-            className: "w-8 h-8 object-contain"
+            className: "w-12 h-12 object-contain"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)("span", {
             className: "logo-text-expanded",
             children: "QLCSVC"
@@ -201631,15 +201645,15 @@ var MainLayout = function MainLayout(_ref) {
         backgroundColor: 'transparent'
       },
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)(Header, {
-        className: "px-7 flex items-center justify-between sticky top-4 z-[100] h-16 transition-all duration-300 ease-in-out",
+        className: "px-1 flex items-center justify-between sticky top-4 z-[100] h-12 transition-all duration-300 ease-in-out",
         style: {
           margin: '16px 16px 0 16px',
-          background: 'rgba(255, 255, 255, 0.45)',
-          backdropFilter: 'blur(20px)',
-          WebkitBackdropFilter: 'blur(20px)',
-          border: '1px solid rgba(255, 255, 255, 0.25)',
+          background: scrolled ? 'rgba(255, 255, 255, 0.45)' : 'transparent',
+          backdropFilter: scrolled ? 'blur(20px)' : 'none',
+          WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'none',
+          border: scrolled ? '1px solid rgba(255,255,255,0.25)' : '1px solid transparent',
           borderRadius: '16px',
-          boxShadow: '0 8px 32px rgba(31, 38, 135, 0.04)'
+          boxShadow: scrolled ? '0 8px 32px rgba(31,38,135,0.04)' : 'none'
         },
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)("div", {
           className: "text-lg cursor-pointer text-[#244380] transition-all duration-[180ms] ease-in-out p-[8px_12px] rounded-lg flex items-center justify-center w-10 h-10 hover:bg-[#244380]/[0.08] hover:scale-105",
@@ -201657,7 +201671,7 @@ var MainLayout = function MainLayout(_ref) {
             placement: "bottomRight",
             trigger: ['click'],
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
-              className: "cursor-pointer p-[6px_12px] rounded-lg transition-all duration-[180ms] ease-in-out hover:bg-[#244380]/[0.08]",
+              className: "cursor-pointer px-2 rounded-lg transition-all duration-[180ms] ease-in-out hover:bg-[#244380]/[0.08]",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(antd__WEBPACK_IMPORTED_MODULE_2__["default"], {
                 className: (user === null || user === void 0 ? void 0 : user.role) === 'admin' ? 'bg-[#f5222d] cursor-pointer' : 'bg-[#1890ff] cursor-pointer',
                 icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_28__["default"], {})
@@ -206322,6 +206336,29 @@ var Create = function Create(_ref) {
             xs: 24,
             md: 6,
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Item, {
+              label: "N\u0103m s\u1EA3n xu\u1EA5t",
+              name: "nam_san_xuat",
+              rules: [{
+                type: 'number',
+                min: 1900,
+                message: 'Năm sản xuất phải từ 1900!'
+              }, {
+                type: 'number',
+                max: new Date().getFullYear(),
+                message: "N\u0103m s\u1EA3n xu\u1EA5t kh\xF4ng \u0111\u01B0\u1EE3c v\u01B0\u1EE3t qu\xE1 ".concat(new Date().getFullYear(), "!")
+              }],
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"], {
+                style: {
+                  width: '100%'
+                },
+                size: "large",
+                placeholder: "Nh\u1EADp n\u0103m SX"
+              })
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
+            xs: 24,
+            md: 6,
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Item, {
               label: "N\u0103m mua",
               name: "nam_mua",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"], {
@@ -206567,6 +206604,7 @@ var Duplicate = function Duplicate(_ref) {
     loai_thiet_bi: thietBi.loai_thiet_bi,
     hang_san_xuat: thietBi.hang_san_xuat,
     model: thietBi.model,
+    nam_san_xuat: thietBi.nam_san_xuat,
     nam_mua: thietBi.nam_mua,
     ngay_mua: thietBi.ngay_mua ? dayjs__WEBPACK_IMPORTED_MODULE_20___default()(thietBi.ngay_mua) : dayjs__WEBPACK_IMPORTED_MODULE_20___default()(),
     chu_ky_bao_duong: thietBi.chu_ky_bao_duong || 6,
@@ -206780,7 +206818,30 @@ var Duplicate = function Duplicate(_ref) {
           gutter: 16,
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
             xs: 24,
-            md: 8,
+            md: 6,
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__["default"].Item, {
+              label: "N\u0103m s\u1EA3n xu\u1EA5t",
+              name: "nam_san_xuat",
+              rules: [{
+                type: 'number',
+                min: 1900,
+                message: 'Năm sản xuất phải từ 1900!'
+              }, {
+                type: 'number',
+                max: new Date().getFullYear(),
+                message: "N\u0103m s\u1EA3n xu\u1EA5t kh\xF4ng \u0111\u01B0\u1EE3c v\u01B0\u1EE3t qu\xE1 ".concat(new Date().getFullYear(), "!")
+              }],
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+                style: {
+                  width: '100%'
+                },
+                size: "large",
+                placeholder: "Nh\u1EADp n\u0103m SX"
+              })
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
+            xs: 24,
+            md: 6,
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__["default"].Item, {
               label: "N\u0103m mua",
               name: "nam_mua",
@@ -207049,6 +207110,9 @@ var Edit = function Edit(_ref) {
       model: function model(v) {
         return String(v !== null && v !== void 0 ? v : '').trim();
       },
+      nam_san_xuat: function nam_san_xuat(v) {
+        return v ? Number(v) : null;
+      },
       nam_mua: function nam_mua(v) {
         return v ? Number(v) : null;
       },
@@ -207118,6 +207182,9 @@ var Edit = function Edit(_ref) {
         },
         model: function model(v) {
           return String(v !== null && v !== void 0 ? v : '').trim();
+        },
+        nam_san_xuat: function nam_san_xuat(v) {
+          return v ? Number(v) : null;
         },
         nam_mua: function nam_mua(v) {
           return v ? Number(v) : null;
@@ -207380,6 +207447,29 @@ var Edit = function Edit(_ref) {
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
       gutter: 16,
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        xs: 24,
+        md: 6,
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Item, {
+          label: "N\u0103m s\u1EA3n xu\u1EA5t",
+          name: "nam_san_xuat",
+          rules: [{
+            type: 'number',
+            min: 1900,
+            message: 'Năm sản xuất phải từ 1900!'
+          }, {
+            type: 'number',
+            max: new Date().getFullYear(),
+            message: "N\u0103m s\u1EA3n xu\u1EA5t kh\xF4ng \u0111\u01B0\u1EE3c v\u01B0\u1EE3t qu\xE1 ".concat(new Date().getFullYear(), "!")
+          }],
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"], {
+            style: {
+              width: '100%'
+            },
+            size: "large",
+            placeholder: "N\u0103m SX"
+          })
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
         xs: 24,
         md: 6,
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Item, {
@@ -208001,6 +208091,12 @@ var Index = function Index(_ref) {
       });
     }
   }, {
+    title: 'Năm SX',
+    dataIndex: 'nam_san_xuat',
+    key: 'nam_san_xuat',
+    width: 80,
+    align: 'center'
+  }, {
     title: 'Năm mua',
     dataIndex: 'nam_mua',
     key: 'nam_mua',
@@ -208498,6 +208594,12 @@ var IndexByPhong = function IndexByPhong(_ref) {
         children: text
       });
     }
+  }, {
+    title: 'Năm SX',
+    dataIndex: 'nam_san_xuat',
+    key: 'nam_san_xuat',
+    width: 80,
+    align: 'center'
   }, {
     title: 'Năm mua',
     dataIndex: 'nam_mua',
@@ -209396,6 +209498,10 @@ var Kho = function Kho(_ref) {
               color: "cyan",
               children: detailModal.serial_number
             }) : '—'
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"].Item, {
+            label: "N\u0103m s\u1EA3n xu\u1EA5t",
+            span: 1,
+            children: detailModal.nam_san_xuat || '—'
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"].Item, {
             label: "N\u0103m mua",
             span: 1,
@@ -210902,6 +211008,10 @@ var TabThietBi = function TabThietBi(_ref14) {
     title: 'Toà nhà',
     dataIndex: 'ten_khu_nha',
     ellipsis: true
+  }, {
+    title: 'Năm SX',
+    dataIndex: 'nam_san_xuat',
+    align: 'center'
   }, {
     title: 'Năm mua',
     dataIndex: 'nam_mua',

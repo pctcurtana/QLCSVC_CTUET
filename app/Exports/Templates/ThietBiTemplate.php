@@ -36,6 +36,7 @@ class ThietBiTemplate implements FromArray, WithTitle, ShouldAutoSize, WithEvent
                 'loai_thiet_bi',
                 'hang_san_xuat',
                 'model',
+                'nam_san_xuat',
                 'nam_mua',
                 'ngay_mua',
                 'ngay_bao_duong_cuoi',
@@ -54,6 +55,7 @@ class ThietBiTemplate implements FromArray, WithTitle, ShouldAutoSize, WithEvent
                 'BẮT BUỘC | 1 trong các giá trị (thuc_hanh, day_hoc, van_phong, thi_nghiem)',
                 'Tùy chọn | Hãng sản xuất',
                 'Tùy chọn | Model thiết bị',
+                'Tùy chọn | Năm sản xuất (VD: 2020)',
                 'Tùy chọn | Năm mua (VD: 2020)',
                 'BẮT BUỘC | Ngày mua (YYYY-MM-DD) phải là text format',
                 'Tùy chọn | Ngày bảo dưỡng cuối (YYYY-MM-DD) phải là text format',
@@ -72,6 +74,7 @@ class ThietBiTemplate implements FromArray, WithTitle, ShouldAutoSize, WithEvent
                 'Máy tính',
                 'Dell',
                 'OptiPlex 5000',
+                2023,
                 2024,
                 '2024-03-15',
                 '2024-09-15',
@@ -89,6 +92,7 @@ class ThietBiTemplate implements FromArray, WithTitle, ShouldAutoSize, WithEvent
                 'Máy chiếu',
                 'Epson',
                 'EB-X51',
+                2022,
                 2023,
                 '2023-06-01',
                 '',
@@ -106,7 +110,7 @@ class ThietBiTemplate implements FromArray, WithTitle, ShouldAutoSize, WithEvent
         return [
             AfterSheet::class => function (AfterSheet $event) {
                 $sheet = $event->sheet->getDelegate();
-                $range = 'A1:O1';
+                $range = 'A1:P1';
 
                 $sheet->getStyle($range)->applyFromArray([
                     'font' => ['bold' => true, 'color' => ['rgb' => 'FFFFFF']],
@@ -115,13 +119,13 @@ class ThietBiTemplate implements FromArray, WithTitle, ShouldAutoSize, WithEvent
                     'borders' => ['allBorders' => ['borderStyle' => Border::BORDER_THIN]],
                 ]);
 
-                $sheet->getStyle('A2:O2')->applyFromArray([
+                $sheet->getStyle('A2:P2')->applyFromArray([
                     'font' => ['italic' => true, 'color' => ['rgb' => '595959']],
                     'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['rgb' => 'FFFBE6']],
                     'borders' => ['allBorders' => ['borderStyle' => Border::BORDER_THIN]],
                 ]);
 
-                $sheet->getStyle('A3:O4')->applyFromArray([
+                $sheet->getStyle('A3:P4')->applyFromArray([
                     'borders' => ['allBorders' => ['borderStyle' => Border::BORDER_THIN]],
                 ]);
 

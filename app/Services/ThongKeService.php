@@ -304,7 +304,7 @@ class ThongKeService
             ->selectRaw("
                 tb.id, tb.ma_thiet_bi, tb.ten_thiet_bi, tb.loai_thiet_bi,
                 tb.hang_san_xuat, tb.model, tb.serial_number,
-                tb.nam_mua, tb.gia_tri, tb.trang_thai,
+                tb.nam_san_xuat, tb.nam_mua, tb.gia_tri, tb.trang_thai,
                 tb.ngay_bao_duong_tiep_theo, tb.phong_id, p.khu_nha_id, kn.co_so_id,
                 (CASE WHEN tb.ngay_bao_duong_tiep_theo IS NOT NULL AND tb.ngay_bao_duong_tiep_theo <= CURDATE() THEN 1 ELSE 0 END) as qua_han_bao_duong,
                 p.ten_phong, kn.ten_khu_nha, cs.ten_co_so
