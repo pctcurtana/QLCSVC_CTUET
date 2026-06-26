@@ -172,7 +172,7 @@ const PhongForm = ({ phong, token }) => {
                                     options={[
                                         {
                                             value: null,
-                                            label: "Cơ sở vật chất khác",
+                                            label: "Khác (ghi rõ trong mô tả)",
                                         },
                                         ...(phong?.thiet_bis || phong?.thietBis || []).map(tb => ({
                                             value: tb.id,

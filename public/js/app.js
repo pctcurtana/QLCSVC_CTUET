@@ -195989,7 +195989,7 @@ var PhongForm = function PhongForm(_ref) {
                 style: styles.input,
                 options: [{
                   value: null,
-                  label: "Cơ sở vật chất khác"
+                  label: "Khác (ghi rõ trong mô tả)"
                 }].concat(_toConsumableArray(((phong === null || phong === void 0 ? void 0 : phong.thiet_bis) || (phong === null || phong === void 0 ? void 0 : phong.thietBis) || []).map(function (tb) {
                   return {
                     value: tb.id,
