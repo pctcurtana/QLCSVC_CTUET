@@ -104,7 +104,7 @@ const BaoCaoSuCoIndex = ({ baoCaos, stats, filters, dots }) => {
             title: 'Thiết bị',
             render: (_, r) => r.thiet_bi
                 ? <Tag color="blue">{r.thiet_bi.ten_thiet_bi}</Tag>
-                : <Text type="secondary" style={{ fontSize: 12 }}>—</Text>,
+                : <Text type="secondary" style={{ fontSize: 12 }}><Tag color="red">Cơ sở vật chất khác</Tag></Text>,
         },
         {
             title: 'Mức độ', dataIndex: 'muc_do', width: 110, align: 'center',
@@ -290,7 +290,7 @@ const BaoCaoSuCoIndex = ({ baoCaos, stats, filters, dots }) => {
                                 ['Người báo', detailModal.ten_nguoi_bao],
                                 ['SĐT', detailModal.so_dien_thoai || '—'],
                                 ['Phòng', detailModal.phong?.ten_phong],
-                                ['Thiết bị', detailModal.thiet_bi?.ten_thiet_bi || '—'],
+                                ['Thiết bị', detailModal.thiet_bi?.ten_thiet_bi || 'Cơ sở vật chất khác'],
                                 ['Mức độ', <Tag color={MUC_DO_MAP[detailModal.muc_do]?.color}>{MUC_DO_MAP[detailModal.muc_do]?.label}</Tag>],
                                 ['Trạng thái', <Badge color={TRANG_THAI_MAP[detailModal.trang_thai]?.color} text={TRANG_THAI_MAP[detailModal.trang_thai]?.label} />],
                                 ['Thời gian', formatDate(detailModal.created_at)],

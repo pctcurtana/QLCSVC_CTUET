@@ -59,7 +59,7 @@ class BaoCaoSuCoExport implements FromArray, WithTitle, ShouldAutoSize, WithEven
 
             // Dùng đúng tên camelCase của relationship trong model
             $thietBi   = $item->thietBi;
-            $tenTaiSan = ($thietBi && $thietBi->ten_thiet_bi) ? $thietBi->ten_thiet_bi : '—';
+            $tenTaiSan = ($thietBi && $thietBi->ten_thiet_bi) ? $thietBi->ten_thiet_bi : 'Cơ sở vật chất khác';
 
             // Hiện trạng tài sản, thiết bị = mô tả sự cố
             $hienTrang = $item->mo_ta_su_co ? $item->mo_ta_su_co : '—';

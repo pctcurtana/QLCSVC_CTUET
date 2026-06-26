@@ -195987,12 +195987,15 @@ var PhongForm = function PhongForm(_ref) {
                 showSearch: true,
                 optionFilterProp: "label",
                 style: styles.input,
-                options: _toConsumableArray(((phong === null || phong === void 0 ? void 0 : phong.thiet_bis) || (phong === null || phong === void 0 ? void 0 : phong.thietBis) || []).map(function (tb) {
+                options: [{
+                  value: null,
+                  label: "Cơ sở vật chất khác"
+                }].concat(_toConsumableArray(((phong === null || phong === void 0 ? void 0 : phong.thiet_bis) || (phong === null || phong === void 0 ? void 0 : phong.thietBis) || []).map(function (tb) {
                   return {
                     value: tb.id,
                     label: "".concat(tb.ten_thiet_bi, " (").concat(tb.ma_thiet_bi, ")")
                   };
-                }))
+                })))
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"].Item, {
               label: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)(Text, {
@@ -197012,7 +197015,10 @@ var BaoCaoSuCoIndex = function BaoCaoSuCoIndex(_ref) {
         style: {
           fontSize: 12
         },
-        children: "\u2014"
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_16__["default"], {
+          color: "red",
+          children: "C\u01A1 s\u1EDF v\u1EADt ch\u1EA5t kh\xE1c"
+        })
       });
     }
   }, {
@@ -197314,7 +197320,7 @@ var BaoCaoSuCoIndex = function BaoCaoSuCoIndex(_ref) {
           style: {
             width: '100%'
           },
-          children: [[['Người báo', detailModal.ten_nguoi_bao], ['SĐT', detailModal.so_dien_thoai || '—'], ['Phòng', (_detailModal$phong = detailModal.phong) === null || _detailModal$phong === void 0 ? void 0 : _detailModal$phong.ten_phong], ['Thiết bị', ((_detailModal$thiet_bi = detailModal.thiet_bi) === null || _detailModal$thiet_bi === void 0 ? void 0 : _detailModal$thiet_bi.ten_thiet_bi) || '—'], ['Mức độ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_16__["default"], {
+          children: [[['Người báo', detailModal.ten_nguoi_bao], ['SĐT', detailModal.so_dien_thoai || '—'], ['Phòng', (_detailModal$phong = detailModal.phong) === null || _detailModal$phong === void 0 ? void 0 : _detailModal$phong.ten_phong], ['Thiết bị', ((_detailModal$thiet_bi = detailModal.thiet_bi) === null || _detailModal$thiet_bi === void 0 ? void 0 : _detailModal$thiet_bi.ten_thiet_bi) || 'Cơ sở vật chất khác'], ['Mức độ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_16__["default"], {
             color: (_MUC_DO_MAP$detailMod = MUC_DO_MAP[detailModal.muc_do]) === null || _MUC_DO_MAP$detailMod === void 0 ? void 0 : _MUC_DO_MAP$detailMod.color,
             children: (_MUC_DO_MAP$detailMod2 = MUC_DO_MAP[detailModal.muc_do]) === null || _MUC_DO_MAP$detailMod2 === void 0 ? void 0 : _MUC_DO_MAP$detailMod2.label
           })], ['Trạng thái', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {

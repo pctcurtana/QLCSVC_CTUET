@@ -170,6 +170,10 @@ const PhongForm = ({ phong, token }) => {
                                     optionFilterProp="label"
                                     style={styles.input}
                                     options={[
+                                        {
+                                            value: null,
+                                            label: "Cơ sở vật chất khác",
+                                        },
                                         ...(phong?.thiet_bis || phong?.thietBis || []).map(tb => ({
                                             value: tb.id,
                                             label: `${tb.ten_thiet_bi} (${tb.ma_thiet_bi})`,
