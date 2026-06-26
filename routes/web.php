@@ -184,6 +184,9 @@ Route::get('/thiet-bi/{thietBi}/lich-su-bao-duong', [LichSuBaoDuongController::c
     Route::middleware('permission:bao-cao-su-co,can_delete')->group(function () {
         Route::delete('/bao-cao-su-co/{id}', [BaoCaoSuCoController::class, 'destroy'])->name('bao-cao-su-co.destroy');
     });
+    Route::middleware('permission:bao-cao-su-co,can_export')->group(function () {
+        Route::get('/bao-cao-su-co/export', [BaoCaoSuCoController::class, 'export'])->name('bao-cao-su-co.export');
+    });
 
     // Admin: Quản lý Mã QR
     Route::middleware('permission:quan-ly-qr,can_view')->group(function () {

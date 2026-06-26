@@ -182,7 +182,7 @@ const XuatBaoCaoIndex = ({ dotBaoCaos, previewData, selectedId }) => {
     ];
 
     const khuonVienColumns = [
-        {title: 'STT', dataIndex: 'thu_tu', key: 'thu_tu', width: 50, align: 'center', render: (v, record) => record.is_tong ? '' : v },
+        { title: 'STT', dataIndex: 'thu_tu', key: 'thu_tu', width: 50, align: 'center', render: (v, record) => record.is_tong ? '' : v },
         {
             title: 'Khuôn viên', dataIndex: 'ten_khuon_vien', key: 'ten_khuon_vien', width: 250,
             render: (text, record) => record.is_tong ? <Text strong>{text}</Text> : text,
@@ -198,7 +198,7 @@ const XuatBaoCaoIndex = ({ dotBaoCaos, previewData, selectedId }) => {
             title: 'DT quy đổi (m²)', dataIndex: 'dien_tich_quy_doi', key: 'dien_tich_quy_doi', width: 130, align: 'right',
             render: (v, record) => record.is_tong ? <Text strong>{fmtDec(v)}</Text> : fmtDec(v),
         },
-        { title: 'Địa chỉ', dataIndex: 'dia_chi', key: 'dia_chi', render: (v) => v},
+        { title: 'Địa chỉ', dataIndex: 'dia_chi', key: 'dia_chi', render: (v) => v },
     ];
 
     const congTrinhColumns = [
@@ -218,7 +218,7 @@ const XuatBaoCaoIndex = ({ dotBaoCaos, previewData, selectedId }) => {
             title: 'DT đào tạo', dataIndex: 'dien_tich_san_dao_tao', key: 'dien_tich_san_dao_tao', width: 120, align: 'right',
             render: (v, record) => record.is_tong ? <Text strong>{fmtDec(v)}</Text> : fmtDec(v),
         },
-        { title: 'Địa chỉ', dataIndex: 'dia_chi', key: 'dia_chi', width: 250, render: (v) => v},
+        { title: 'Địa chỉ', dataIndex: 'dia_chi', key: 'dia_chi', width: 250, render: (v) => v },
     ];
 
     const haTangColumns = [
@@ -297,7 +297,16 @@ const XuatBaoCaoIndex = ({ dotBaoCaos, previewData, selectedId }) => {
                         extra={
                             perm.can_export ? (
                                 <Dropdown menu={{ items: exportItems, onClick: ({ key }) => handleExport(key) }} placement="bottomRight">
-                                    <Button type="primary" icon={<DownloadOutlined />}>
+                                    <Button
+                                        size="large"
+                                        style={{
+                                            background: '#217346',
+                                            borderColor: '#217346',
+                                            color: '#fff',
+                                            fontWeight: 600,
+                                        }}
+                                        icon={<FileExcelOutlined />}
+                                    >
                                         Xuất Excel
                                     </Button>
                                 </Dropdown>

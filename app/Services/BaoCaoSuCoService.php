@@ -6,6 +6,7 @@ use App\Contracts\Repositories\BaoCaoSuCoRepositoryInterface;
 use App\Models\BaoCaoSuCo;
 use App\Models\Phong;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 class BaoCaoSuCoService
 {
@@ -19,6 +20,11 @@ class BaoCaoSuCoService
     public function getAllPaginated(array $filters = [], int $perPage = 15): LengthAwarePaginator
     {
         return $this->repository->paginate($filters, $perPage);
+    }
+
+    public function getAll(array $filters = []): Collection
+    {
+        return $this->repository->all($filters);
     }
 
     public function getById(int $id): BaoCaoSuCo

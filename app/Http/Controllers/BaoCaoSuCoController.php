@@ -8,8 +8,10 @@ use App\Http\Requests\BaoCaoSuCo\StoreBaoCaoSuCoRequest;
 use App\Models\BaoCaoSuCo;
 use App\Models\DotKiemTraThietBi;
 use App\Models\ThietBi;
+use App\Exports\BaoCaoSuCoExport;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Maatwebsite\Excel\Facades\Excel;
 
 class BaoCaoSuCoController extends Controller
 {
@@ -174,14 +176,17 @@ class BaoCaoSuCoController extends Controller
 
     public function index(Request $request)
     {
-        $filters = $request->only(['search', 'phong_id', 'muc_do', 'trang_thai', 'per_page']);
+        $filters = $request->only(['search', 'phong_id', 'muc_do', 'trang_thai', 'dot_id', 'per_page']);
         $baoCaos = $this->baoCaoService->getAllPaginated($filters, (int)$request->input('per_page', 15));
         $stats   = $this->baoCaoService->getStats();
+        $dots    = DotKiemTraThietBi::orderByDesc('id')
+            ->get(['id', 'ten_dot', 'ngay_bat_dau', 'ngay_ket_thuc']);
 
         return Inertia::render('BaoCaoSuCo/Index', [
             'baoCaos' => $baoCaos,
             'stats'   => $stats,
             'filters' => $filters,
+            'dots'    => $dots,
         ]);
     }
 
@@ -189,5 +194,17 @@ class BaoCaoSuCoController extends Controller
     {
         $this->baoCaoService->delete($id);
         return back()->with('success', 'Đã xóa báo cáo!');
+    }
+
+    // ─── Export Excel ─────────────────────────────────────────────────────────
+
+    public function export(Request $request)
+    {
+        $filters  = $request->only(['search', 'phong_id', 'muc_do', 'trang_thai', 'dot_id']);
+        $data     = $this->baoCaoService->getAll($filters);
+
+        $filename = 'BaoCaoSuCo_' . date('Ymd_His') . '.xlsx';
+
+        return Excel::download(new BaoCaoSuCoExport($data), $filename);
     }
 }

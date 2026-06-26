@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Contracts\Repositories\BaoCaoSuCoRepositoryInterface;
 use App\Models\BaoCaoSuCo;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 class BaoCaoSuCoRepository implements BaoCaoSuCoRepositoryInterface
 {
@@ -37,7 +38,49 @@ class BaoCaoSuCoRepository implements BaoCaoSuCoRepositoryInterface
             });
         }
 
+        if (!empty($filters['dot_id'])) {
+            // Lọc qua bảng lich_su_bao_duongs (hasOneThrough)
+            $query->whereHas('thietBi', function ($q) use ($filters) {
+                $q->whereHas('lichSuBaoDuongs', function ($q2) use ($filters) {
+                    $q2->where('dot_kiem_tra_thiet_bi_id', $filters['dot_id']);
+                });
+            });
+        }
+
         return $query->latest()->paginate($perPage);
+    }
+
+    public function all(array $filters = []): Collection
+    {
+        $query = $this->model->query()
+            ->with(['phong.khuNha', 'thietBi', 'dotKiemTraThietBi']);
+
+        if (!empty($filters['phong_id'])) {
+            $query->where('phong_id', $filters['phong_id']);
+        }
+        if (!empty($filters['muc_do'])) {
+            $query->where('muc_do', $filters['muc_do']);
+        }
+        if (!empty($filters['trang_thai'])) {
+            $query->where('trang_thai', $filters['trang_thai']);
+        }
+        if (!empty($filters['search'])) {
+            $query->where(function ($q) use ($filters) {
+                $q->where('ten_nguoi_bao', 'like', '%' . $filters['search'] . '%')
+                  ->orWhere('mo_ta_su_co', 'like', '%' . $filters['search'] . '%')
+                  ->orWhere('so_dien_thoai', 'like', '%' . $filters['search'] . '%');
+            });
+        }
+
+        if (!empty($filters['dot_id'])) {
+            $query->whereHas('thietBi', function ($q) use ($filters) {
+                $q->whereHas('lichSuBaoDuongs', function ($q2) use ($filters) {
+                    $q2->where('dot_kiem_tra_thiet_bi_id', $filters['dot_id']);
+                });
+            });
+        }
+
+        return $query->latest()->get();
     }
 
     public function find(int $id): ?BaoCaoSuCo

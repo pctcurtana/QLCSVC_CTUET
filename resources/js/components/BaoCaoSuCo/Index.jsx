@@ -11,34 +11,35 @@ import {
     AlertOutlined, CheckCircleOutlined, ClockCircleOutlined,
     DeleteOutlined, ExclamationCircleOutlined,
     SearchOutlined, ReloadOutlined, EyeOutlined, UserOutlined,
+    FileExcelOutlined,
 } from '@ant-design/icons';
 
 const { Title, Text } = Typography;
 
 const MUC_DO_MAP = {
-    thap:       { color: 'green',  label: 'Thấp' },
+    thap: { color: 'green', label: 'Thấp' },
     trung_binh: { color: 'orange', label: 'Trung bình' },
-    cao:        { color: 'red',    label: 'Cao' },
-    khan_cap:   { color: 'purple', label: 'Khẩn cấp' },
+    cao: { color: 'red', label: 'Cao' },
+    khan_cap: { color: 'purple', label: 'Khẩn cấp' },
 };
 
 const TRANG_THAI_MAP = {
-    yeu_cau_sua_chua:    { color: 'orange', label: 'Yêu cầu sửa chữa', icon: <ClockCircleOutlined /> },
-    dang_sua_chua:       { color: 'blue',   label: 'Đang sửa chữa', icon: <ClockCircleOutlined /> },
-    hoan_thanh_sua_chua: { color: 'green',  label: 'Hoàn thành sửa chữa', icon: <CheckCircleOutlined /> },
+    yeu_cau_sua_chua: { color: 'orange', label: 'Yêu cầu sửa chữa', icon: <ClockCircleOutlined /> },
+    dang_sua_chua: { color: 'blue', label: 'Đang sửa chữa', icon: <ClockCircleOutlined /> },
+    hoan_thanh_sua_chua: { color: 'green', label: 'Hoàn thành sửa chữa', icon: <CheckCircleOutlined /> },
 };
 
-const BaoCaoSuCoIndex = ({ baoCaos, stats, filters }) => {
+const BaoCaoSuCoIndex = ({ baoCaos, stats, filters, dots }) => {
     const perm = usePermission('bao-cao-su-co');
     const [search, setSearch] = useState(filters?.search || '');
-    const [mucDoFilter, setMucDoFilter] = useState(filters?.muc_do || '');
+    const [dotFilter, setDotFilter] = useState(filters?.dot_id || '');
     const [trangThaiFilter, setTrangThaiFilter] = useState(filters?.trang_thai || '');
     const [detailModal, setDetailModal] = useState(null);
 
     const doFilter = (overrides = {}) => {
         router.get('/bao-cao-su-co', {
             search,
-            muc_do: mucDoFilter,
+            dot_id: dotFilter,
             trang_thai: trangThaiFilter,
             per_page: baoCaos.per_page,
             ...overrides,
@@ -46,8 +47,17 @@ const BaoCaoSuCoIndex = ({ baoCaos, stats, filters }) => {
     };
 
     const handleReset = () => {
-        setSearch(''); setMucDoFilter(''); setTrangThaiFilter('');
+        setSearch(''); setDotFilter(''); setTrangThaiFilter('');
         router.get('/bao-cao-su-co');
+    };
+
+    const handleExport = () => {
+        const params = new URLSearchParams();
+        if (search) params.append('search', search);
+        if (dotFilter) params.append('dot_id', dotFilter);
+        if (trangThaiFilter) params.append('trang_thai', trangThaiFilter);
+        const qs = params.toString();
+        window.location.href = `/bao-cao-su-co/export${qs ? '?' + qs : ''}`;
     };
 
     const handleDelete = (id) => {
@@ -71,7 +81,7 @@ const BaoCaoSuCoIndex = ({ baoCaos, stats, filters }) => {
         {
             title: 'Phòng',
             render: (_, r) => {
-                const phong  = r.phong;
+                const phong = r.phong;
                 const khuNha = phong?.khu_nha ?? phong?.khuNha;
                 return (
                     <Space direction="vertical" size={2}>
@@ -145,10 +155,10 @@ const BaoCaoSuCoIndex = ({ baoCaos, stats, filters }) => {
     ];
 
     const kpiCards = [
-        { title: 'Tổng báo cáo',          value: stats?.tong ?? 0,               color: '#244380', icon: <AlertOutlined /> },
-        { title: 'Yêu cầu sửa chữa',      value: stats?.yeu_cau ?? 0,            color: '#fa8c16', icon: <ClockCircleOutlined /> },
-        { title: 'Đang sửa chữa',         value: stats?.dang_sua ?? 0,           color: '#1890ff', icon: <ClockCircleOutlined /> },
-        { title: 'Hoàn thành sửa chữa',   value: stats?.hoan_thanh ?? 0,         color: '#52c41a', icon: <CheckCircleOutlined /> },
+        { title: 'Tổng báo cáo', value: stats?.tong ?? 0, color: '#244380', icon: <AlertOutlined /> },
+        { title: 'Yêu cầu sửa chữa', value: stats?.yeu_cau ?? 0, color: '#fa8c16', icon: <ClockCircleOutlined /> },
+        { title: 'Đang sửa chữa', value: stats?.dang_sua ?? 0, color: '#1890ff', icon: <ClockCircleOutlined /> },
+        { title: 'Hoàn thành sửa chữa', value: stats?.hoan_thanh ?? 0, color: '#52c41a', icon: <CheckCircleOutlined /> },
     ];
 
     return (
@@ -160,11 +170,11 @@ const BaoCaoSuCoIndex = ({ baoCaos, stats, filters }) => {
                 <Row gutter={[16, 16]}>
                     {kpiCards.map((k, i) => (
                         <Col xs={24} sm={12} md={6} key={i}>
-                            <KpiCard 
-                                title={k.title} 
-                                value={k.value} 
-                                icon={k.icon} 
-                                color={k.color} 
+                            <KpiCard
+                                title={k.title}
+                                value={k.value}
+                                icon={k.icon}
+                                color={k.color}
                             />
                         </Col>
                     ))}
@@ -173,7 +183,7 @@ const BaoCaoSuCoIndex = ({ baoCaos, stats, filters }) => {
                 {/* Filters */}
                 <Card>
                     <Row gutter={[16, 12]}>
-                        <Col xs={24} sm={10}>
+                        <Col xs={12} sm={5}>
                             <Input
                                 placeholder="Tìm theo tên, SĐT, mô tả..."
                                 prefix={<SearchOutlined />}
@@ -186,13 +196,16 @@ const BaoCaoSuCoIndex = ({ baoCaos, stats, filters }) => {
                         </Col>
                         <Col xs={12} sm={5}>
                             <Select
-                                placeholder="Mức độ"
+                                placeholder="Đợt kiểm tra"
                                 size="large"
                                 style={{ width: '100%' }}
                                 allowClear
-                                value={mucDoFilter || undefined}
-                                onChange={v => { setMucDoFilter(v ?? ''); doFilter({ muc_do: v ?? '' }); }}
-                                options={Object.entries(MUC_DO_MAP).map(([k, v]) => ({ value: k, label: v.label }))}
+                                value={dotFilter ? Number(dotFilter) : undefined}
+                                onChange={v => { setDotFilter(v ?? ''); doFilter({ dot_id: v ?? '' }); }}
+                                options={(dots || []).map(d => ({
+                                    value: d.id,
+                                    label: d.ten_dot,
+                                }))}
                             />
                         </Col>
                         <Col xs={12} sm={5}>
@@ -212,6 +225,23 @@ const BaoCaoSuCoIndex = ({ baoCaos, stats, filters }) => {
                         <Col>
                             <Button icon={<ReloadOutlined />} size="large" onClick={handleReset}>Làm mới</Button>
                         </Col>
+                        {perm.can_export && (
+                            <Col>
+                                <Button
+                                    icon={<FileExcelOutlined />}
+                                    size="large"
+                                    onClick={handleExport}
+                                    style={{
+                                        background: '#217346',
+                                        borderColor: '#217346',
+                                        color: '#fff',
+                                        fontWeight: 600,
+                                    }}
+                                >
+                                    Xuất Excel
+                                </Button>
+                            </Col>
+                        )}
                     </Row>
                 </Card>
 
@@ -257,13 +287,13 @@ const BaoCaoSuCoIndex = ({ baoCaos, stats, filters }) => {
                     {detailModal && (
                         <Space direction="vertical" size="small" style={{ width: '100%' }}>
                             {[
-                                ['Người báo',  detailModal.ten_nguoi_bao],
-                                ['SĐT',        detailModal.so_dien_thoai || '—'],
-                                ['Phòng',      detailModal.phong?.ten_phong],
-                                ['Thiết bị',   detailModal.thiet_bi?.ten_thiet_bi || '—'],
-                                ['Mức độ',     <Tag color={MUC_DO_MAP[detailModal.muc_do]?.color}>{MUC_DO_MAP[detailModal.muc_do]?.label}</Tag>],
+                                ['Người báo', detailModal.ten_nguoi_bao],
+                                ['SĐT', detailModal.so_dien_thoai || '—'],
+                                ['Phòng', detailModal.phong?.ten_phong],
+                                ['Thiết bị', detailModal.thiet_bi?.ten_thiet_bi || '—'],
+                                ['Mức độ', <Tag color={MUC_DO_MAP[detailModal.muc_do]?.color}>{MUC_DO_MAP[detailModal.muc_do]?.label}</Tag>],
                                 ['Trạng thái', <Badge color={TRANG_THAI_MAP[detailModal.trang_thai]?.color} text={TRANG_THAI_MAP[detailModal.trang_thai]?.label} />],
-                                ['Thời gian',  formatDate(detailModal.created_at)],
+                                ['Thời gian', formatDate(detailModal.created_at)],
                                 ['Đợt kiểm tra', (() => {
                                     const dot = detailModal.dot_kiem_tra_thiet_bi ?? detailModal.dotKiemTraThietBi ?? null;
                                     if (!dot) return '—';

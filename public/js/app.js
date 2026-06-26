@@ -196826,10 +196826,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/ClockCircleOutlined.js");
 /* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/DeleteOutlined.js");
 /* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/EyeOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/ReloadOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/SearchOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/UserOutlined.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/FileExcelOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/ReloadOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/SearchOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/UserOutlined.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
@@ -196874,33 +196875,34 @@ var TRANG_THAI_MAP = {
   yeu_cau_sua_chua: {
     color: 'orange',
     label: 'Yêu cầu sửa chữa',
-    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_21__["default"], {})
+    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_21__["default"], {})
   },
   dang_sua_chua: {
     color: 'blue',
     label: 'Đang sửa chữa',
-    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_21__["default"], {})
+    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_21__["default"], {})
   },
   hoan_thanh_sua_chua: {
     color: 'green',
     label: 'Hoàn thành sửa chữa',
-    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_20__["default"], {})
+    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_20__["default"], {})
   }
 };
 var BaoCaoSuCoIndex = function BaoCaoSuCoIndex(_ref) {
   var _stats$tong, _stats$yeu_cau, _stats$dang_sua, _stats$hoan_thanh, _detailModal$phong, _detailModal$thiet_bi, _MUC_DO_MAP$detailMod, _MUC_DO_MAP$detailMod2, _TRANG_THAI_MAP$detai, _TRANG_THAI_MAP$detai2;
   var baoCaos = _ref.baoCaos,
     stats = _ref.stats,
-    filters = _ref.filters;
+    filters = _ref.filters,
+    dots = _ref.dots;
   var perm = (0,_hooks_usePermission__WEBPACK_IMPORTED_MODULE_3__["default"])('bao-cao-su-co');
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)((filters === null || filters === void 0 ? void 0 : filters.search) || ''),
     _useState2 = _slicedToArray(_useState, 2),
     search = _useState2[0],
     setSearch = _useState2[1];
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)((filters === null || filters === void 0 ? void 0 : filters.muc_do) || ''),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)((filters === null || filters === void 0 ? void 0 : filters.dot_id) || ''),
     _useState4 = _slicedToArray(_useState3, 2),
-    mucDoFilter = _useState4[0],
-    setMucDoFilter = _useState4[1];
+    dotFilter = _useState4[0],
+    setDotFilter = _useState4[1];
   var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)((filters === null || filters === void 0 ? void 0 : filters.trang_thai) || ''),
     _useState6 = _slicedToArray(_useState5, 2),
     trangThaiFilter = _useState6[0],
@@ -196913,7 +196915,7 @@ var BaoCaoSuCoIndex = function BaoCaoSuCoIndex(_ref) {
     var overrides = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     _inertiajs_react__WEBPACK_IMPORTED_MODULE_1__.router.get('/bao-cao-su-co', _objectSpread({
       search: search,
-      muc_do: mucDoFilter,
+      dot_id: dotFilter,
       trang_thai: trangThaiFilter,
       per_page: baoCaos.per_page
     }, overrides), {
@@ -196923,9 +196925,17 @@ var BaoCaoSuCoIndex = function BaoCaoSuCoIndex(_ref) {
   };
   var handleReset = function handleReset() {
     setSearch('');
-    setMucDoFilter('');
+    setDotFilter('');
     setTrangThaiFilter('');
     _inertiajs_react__WEBPACK_IMPORTED_MODULE_1__.router.get('/bao-cao-su-co');
+  };
+  var handleExport = function handleExport() {
+    var params = new URLSearchParams();
+    if (search) params.append('search', search);
+    if (dotFilter) params.append('dot_id', dotFilter);
+    if (trangThaiFilter) params.append('trang_thai', trangThaiFilter);
+    var qs = params.toString();
+    window.location.href = "/bao-cao-su-co/export".concat(qs ? '?' + qs : '');
   };
   var handleDelete = function handleDelete(id) {
     _inertiajs_react__WEBPACK_IMPORTED_MODULE_1__.router["delete"]("/bao-cao-su-co/".concat(id));
@@ -196956,16 +196966,16 @@ var BaoCaoSuCoIndex = function BaoCaoSuCoIndex(_ref) {
       var _phong$khu_nha;
       var phong = r.phong;
       var khuNha = (_phong$khu_nha = phong === null || phong === void 0 ? void 0 : phong.khu_nha) !== null && _phong$khu_nha !== void 0 ? _phong$khu_nha : phong === null || phong === void 0 ? void 0 : phong.khuNha;
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
         direction: "vertical",
         size: 2,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(Text, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(Text, {
           strong: true,
           style: {
             fontSize: 13
           },
           children: phong === null || phong === void 0 ? void 0 : phong.ten_phong
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(Text, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(Text, {
           type: "secondary",
           style: {
             fontSize: 11
@@ -196977,12 +196987,12 @@ var BaoCaoSuCoIndex = function BaoCaoSuCoIndex(_ref) {
   }, {
     title: 'Người báo',
     render: function render(_, r) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
         direction: "vertical",
         size: 2,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(Text, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(Text, {
           children: r.ten_nguoi_bao
-        }), r.so_dien_thoai && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(Text, {
+        }), r.so_dien_thoai && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(Text, {
           type: "secondary",
           style: {
             fontSize: 12
@@ -196994,10 +197004,10 @@ var BaoCaoSuCoIndex = function BaoCaoSuCoIndex(_ref) {
   }, {
     title: 'Thiết bị',
     render: function render(_, r) {
-      return r.thiet_bi ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_16__["default"], {
+      return r.thiet_bi ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_16__["default"], {
         color: "blue",
         children: r.thiet_bi.ten_thiet_bi
-      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(Text, {
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(Text, {
         type: "secondary",
         style: {
           fontSize: 12
@@ -197016,7 +197026,7 @@ var BaoCaoSuCoIndex = function BaoCaoSuCoIndex(_ref) {
         color: 'default',
         label: v
       };
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_16__["default"], {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_16__["default"], {
         color: m.color,
         children: m.label
       });
@@ -197031,33 +197041,33 @@ var BaoCaoSuCoIndex = function BaoCaoSuCoIndex(_ref) {
         color: 'default',
         label: v
       };
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
         direction: "vertical",
         size: 2,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
           color: m.color,
-          text: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(Text, {
+          text: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(Text, {
             strong: true,
             style: {
               fontSize: 12
             },
             children: m.label
           })
-        }), ['dang_sua_chua', 'hoan_thanh_sua_chua'].includes(v) && r.nguoi_hoan_thanh && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
+        }), ['dang_sua_chua', 'hoan_thanh_sua_chua'].includes(v) && r.nguoi_hoan_thanh && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
           size: 4,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_26__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_27__["default"], {
             style: {
               color: '#888',
               fontSize: 11
             }
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(Text, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(Text, {
             type: "secondary",
             style: {
               fontSize: 11
             },
             children: r.nguoi_hoan_thanh
           })]
-        }), v === 'hoan_thanh_sua_chua' && r.ngay_hoan_thanh && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(Text, {
+        }), v === 'hoan_thanh_sua_chua' && r.ngay_hoan_thanh && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(Text, {
           type: "secondary",
           style: {
             fontSize: 11
@@ -197073,17 +197083,17 @@ var BaoCaoSuCoIndex = function BaoCaoSuCoIndex(_ref) {
     align: 'center',
     fixed: 'right',
     render: function render(_, r) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_17__["default"], {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_17__["default"], {
           title: "Xem chi ti\u1EBFt",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
             size: "small",
-            icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_23__["default"], {}),
+            icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_23__["default"], {}),
             onClick: function onClick() {
               return setDetailModal(r);
             }
           })
-        }), perm.can_delete && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        }), perm.can_delete && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
           title: "X\xF3a b\xE1o c\xE1o n\xE0y?",
           okText: "X\xF3a",
           cancelText: "H\u1EE7y",
@@ -197091,10 +197101,10 @@ var BaoCaoSuCoIndex = function BaoCaoSuCoIndex(_ref) {
           onConfirm: function onConfirm() {
             return handleDelete(r.id);
           },
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
             size: "small",
             danger: true,
-            icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_22__["default"], {})
+            icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_22__["default"], {})
           })
         })]
       });
@@ -197104,40 +197114,40 @@ var BaoCaoSuCoIndex = function BaoCaoSuCoIndex(_ref) {
     title: 'Tổng báo cáo',
     value: (_stats$tong = stats === null || stats === void 0 ? void 0 : stats.tong) !== null && _stats$tong !== void 0 ? _stats$tong : 0,
     color: '#244380',
-    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_19__["default"], {})
+    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_19__["default"], {})
   }, {
     title: 'Yêu cầu sửa chữa',
     value: (_stats$yeu_cau = stats === null || stats === void 0 ? void 0 : stats.yeu_cau) !== null && _stats$yeu_cau !== void 0 ? _stats$yeu_cau : 0,
     color: '#fa8c16',
-    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_21__["default"], {})
+    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_21__["default"], {})
   }, {
     title: 'Đang sửa chữa',
     value: (_stats$dang_sua = stats === null || stats === void 0 ? void 0 : stats.dang_sua) !== null && _stats$dang_sua !== void 0 ? _stats$dang_sua : 0,
     color: '#1890ff',
-    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_21__["default"], {})
+    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_21__["default"], {})
   }, {
     title: 'Hoàn thành sửa chữa',
     value: (_stats$hoan_thanh = stats === null || stats === void 0 ? void 0 : stats.hoan_thanh) !== null && _stats$hoan_thanh !== void 0 ? _stats$hoan_thanh : 0,
     color: '#52c41a',
-    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_20__["default"], {})
+    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_20__["default"], {})
   }];
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(_Layout_MainLayout__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_inertiajs_react__WEBPACK_IMPORTED_MODULE_1__.Head, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(_Layout_MainLayout__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_inertiajs_react__WEBPACK_IMPORTED_MODULE_1__.Head, {
       title: "B\xE1o c\xE1o S\u1EF1 c\u1ED1"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
       direction: "vertical",
       size: "large",
       style: {
         width: '100%'
       },
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
         gutter: [16, 16],
         children: kpiCards.map(function (k, i) {
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
             xs: 24,
             sm: 12,
             md: 6,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_Common_KpiCard__WEBPACK_IMPORTED_MODULE_4__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_Common_KpiCard__WEBPACK_IMPORTED_MODULE_4__["default"], {
               title: k.title,
               value: k.value,
               icon: k.icon,
@@ -197145,15 +197155,15 @@ var BaoCaoSuCoIndex = function BaoCaoSuCoIndex(_ref) {
             })
           }, i);
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
           gutter: [16, 12],
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
-            xs: 24,
-            sm: 10,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            xs: 12,
+            sm: 5,
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__["default"], {
               placeholder: "T\xECm theo t\xEAn, S\u0110T, m\xF4 t\u1EA3...",
-              prefix: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_25__["default"], {}),
+              prefix: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_26__["default"], {}),
               size: "large",
               value: search,
               onChange: function onChange(e) {
@@ -197164,37 +197174,34 @@ var BaoCaoSuCoIndex = function BaoCaoSuCoIndex(_ref) {
               },
               allowClear: true
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
             xs: 12,
             sm: 5,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
-              placeholder: "M\u1EE9c \u0111\u1ED9",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
+              placeholder: "\u0110\u1EE3t ki\u1EC3m tra",
               size: "large",
               style: {
                 width: '100%'
               },
               allowClear: true,
-              value: mucDoFilter || undefined,
+              value: dotFilter ? Number(dotFilter) : undefined,
               onChange: function onChange(v) {
-                setMucDoFilter(v !== null && v !== void 0 ? v : '');
+                setDotFilter(v !== null && v !== void 0 ? v : '');
                 doFilter({
-                  muc_do: v !== null && v !== void 0 ? v : ''
+                  dot_id: v !== null && v !== void 0 ? v : ''
                 });
               },
-              options: Object.entries(MUC_DO_MAP).map(function (_ref2) {
-                var _ref3 = _slicedToArray(_ref2, 2),
-                  k = _ref3[0],
-                  v = _ref3[1];
+              options: (dots || []).map(function (d) {
                 return {
-                  value: k,
-                  label: v.label
+                  value: d.id,
+                  label: d.ten_dot
                 };
               })
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
             xs: 12,
             sm: 5,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
               placeholder: "Tr\u1EA1ng th\xE1i",
               size: "large",
               style: {
@@ -197208,19 +197215,19 @@ var BaoCaoSuCoIndex = function BaoCaoSuCoIndex(_ref) {
                   trang_thai: v !== null && v !== void 0 ? v : ''
                 });
               },
-              options: Object.entries(TRANG_THAI_MAP).map(function (_ref4) {
-                var _ref5 = _slicedToArray(_ref4, 2),
-                  k = _ref5[0],
-                  v = _ref5[1];
+              options: Object.entries(TRANG_THAI_MAP).map(function (_ref2) {
+                var _ref3 = _slicedToArray(_ref2, 2),
+                  k = _ref3[0],
+                  v = _ref3[1];
                 return {
                   value: k,
                   label: v.label
                 };
               })
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
-              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_25__["default"], {}),
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
+              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_26__["default"], {}),
               size: "large",
               type: "primary",
               onClick: function onClick() {
@@ -197228,18 +197235,31 @@ var BaoCaoSuCoIndex = function BaoCaoSuCoIndex(_ref) {
               },
               children: "L\u1ECDc"
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
-              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_24__["default"], {}),
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
+              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_25__["default"], {}),
               size: "large",
               onClick: handleReset,
               children: "L\xE0m m\u1EDBi"
             })
+          }), perm.can_export && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
+              icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_24__["default"], {}),
+              size: "large",
+              onClick: handleExport,
+              style: {
+                background: '#217346',
+                borderColor: '#217346',
+                color: '#fff',
+                fontWeight: 600
+              },
+              children: "Xu\u1EA5t Excel"
+            })
           })]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
-        title: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_19__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(Title, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        title: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_19__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(Title, {
             level: 4,
             style: {
               margin: 0
@@ -197247,7 +197267,7 @@ var BaoCaoSuCoIndex = function BaoCaoSuCoIndex(_ref) {
             children: "Danh s\xE1ch B\xE1o c\xE1o S\u1EF1 c\u1ED1"
           })]
         }),
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_15__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_15__["default"], {
           dataSource: baoCaos.data,
           columns: columns,
           rowKey: "id",
@@ -197276,32 +197296,32 @@ var BaoCaoSuCoIndex = function BaoCaoSuCoIndex(_ref) {
             }
           }
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"], {
         title: "Chi ti\u1EBFt B\xE1o c\xE1o",
         open: !!detailModal,
         onCancel: function onCancel() {
           return setDetailModal(null);
         },
-        footer: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        footer: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
           onClick: function onClick() {
             return setDetailModal(null);
           },
           children: "\u0110\xF3ng"
         }),
-        children: detailModal && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
+        children: detailModal && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
           direction: "vertical",
           size: "small",
           style: {
             width: '100%'
           },
-          children: [[['Người báo', detailModal.ten_nguoi_bao], ['SĐT', detailModal.so_dien_thoai || '—'], ['Phòng', (_detailModal$phong = detailModal.phong) === null || _detailModal$phong === void 0 ? void 0 : _detailModal$phong.ten_phong], ['Thiết bị', ((_detailModal$thiet_bi = detailModal.thiet_bi) === null || _detailModal$thiet_bi === void 0 ? void 0 : _detailModal$thiet_bi.ten_thiet_bi) || '—'], ['Mức độ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_16__["default"], {
+          children: [[['Người báo', detailModal.ten_nguoi_bao], ['SĐT', detailModal.so_dien_thoai || '—'], ['Phòng', (_detailModal$phong = detailModal.phong) === null || _detailModal$phong === void 0 ? void 0 : _detailModal$phong.ten_phong], ['Thiết bị', ((_detailModal$thiet_bi = detailModal.thiet_bi) === null || _detailModal$thiet_bi === void 0 ? void 0 : _detailModal$thiet_bi.ten_thiet_bi) || '—'], ['Mức độ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_16__["default"], {
             color: (_MUC_DO_MAP$detailMod = MUC_DO_MAP[detailModal.muc_do]) === null || _MUC_DO_MAP$detailMod === void 0 ? void 0 : _MUC_DO_MAP$detailMod.color,
             children: (_MUC_DO_MAP$detailMod2 = MUC_DO_MAP[detailModal.muc_do]) === null || _MUC_DO_MAP$detailMod2 === void 0 ? void 0 : _MUC_DO_MAP$detailMod2.label
-          })], ['Trạng thái', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          })], ['Trạng thái', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
             color: (_TRANG_THAI_MAP$detai = TRANG_THAI_MAP[detailModal.trang_thai]) === null || _TRANG_THAI_MAP$detai === void 0 ? void 0 : _TRANG_THAI_MAP$detai.color,
             text: (_TRANG_THAI_MAP$detai2 = TRANG_THAI_MAP[detailModal.trang_thai]) === null || _TRANG_THAI_MAP$detai2 === void 0 ? void 0 : _TRANG_THAI_MAP$detai2.label
-          })], ['Thời gian', formatDate(detailModal.created_at)], ['Đợt kiểm tra', function (_ref6, _detailModal$dot_kiem) {
-            var dot = (_ref6 = (_detailModal$dot_kiem = detailModal.dot_kiem_tra_thiet_bi) !== null && _detailModal$dot_kiem !== void 0 ? _detailModal$dot_kiem : detailModal.dotKiemTraThietBi) !== null && _ref6 !== void 0 ? _ref6 : null;
+          })], ['Thời gian', formatDate(detailModal.created_at)], ['Đợt kiểm tra', function (_ref4, _detailModal$dot_kiem) {
+            var dot = (_ref4 = (_detailModal$dot_kiem = detailModal.dot_kiem_tra_thiet_bi) !== null && _detailModal$dot_kiem !== void 0 ? _detailModal$dot_kiem : detailModal.dotKiemTraThietBi) !== null && _ref4 !== void 0 ? _ref4 : null;
             if (!dot) return '—';
             var formatSimpleDate = function formatSimpleDate(dateStr) {
               if (!dateStr) return null;
@@ -197310,13 +197330,13 @@ var BaoCaoSuCoIndex = function BaoCaoSuCoIndex(_ref) {
             };
             var from = formatSimpleDate(dot.ngay_bat_dau);
             var to = formatSimpleDate(dot.ngay_ket_thuc);
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
               direction: "vertical",
               size: 0,
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(Text, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(Text, {
                 strong: true,
                 children: dot.ten_dot || 'Đợt không tên'
-              }), from || to ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(Text, {
+              }), from || to ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(Text, {
                 type: "secondary",
                 style: {
                   fontSize: 11
@@ -197324,57 +197344,57 @@ var BaoCaoSuCoIndex = function BaoCaoSuCoIndex(_ref) {
                 children: [from !== null && from !== void 0 ? from : '—', " - ", to !== null && to !== void 0 ? to : '—']
               }) : null]
             });
-          }()]].map(function (_ref7) {
-            var _ref8 = _slicedToArray(_ref7, 2),
-              label = _ref8[0],
-              value = _ref8[1];
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          }()]].map(function (_ref5) {
+            var _ref6 = _slicedToArray(_ref5, 2),
+              label = _ref6[0],
+              value = _ref6[1];
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
                 span: 8,
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(Text, {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(Text, {
                   type: "secondary",
                   children: [label, ":"]
                 })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
                 span: 16,
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(Text, {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(Text, {
                   children: value
                 })
               })]
             }, label);
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
               span: 8,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(Text, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(Text, {
                 type: "secondary",
                 children: "M\xF4 t\u1EA3:"
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
               span: 16,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
                 size: "small",
                 style: {
                   background: '#fafafa',
                   borderRadius: 8
                 },
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(Text, {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(Text, {
                   children: detailModal.mo_ta_su_co
                 })
               })
             })]
-          }), ['dang_sua_chua', 'hoan_thanh_sua_chua'].includes(detailModal.trang_thai) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          }), ['dang_sua_chua', 'hoan_thanh_sua_chua'].includes(detailModal.trang_thai) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
               span: 8,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(Text, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(Text, {
                 type: "secondary",
                 children: "Ng\u01B0\u1EDDi s\u1EEDa:"
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
               span: 16,
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(Text, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(Text, {
                 children: detailModal.nguoi_hoan_thanh || '—'
-              }), detailModal.ngay_hoan_thanh && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)("div", {
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)(Text, {
+              }), detailModal.ngay_hoan_thanh && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)("div", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(Text, {
                   type: "secondary",
                   style: {
                     fontSize: 12
@@ -197386,7 +197406,7 @@ var BaoCaoSuCoIndex = function BaoCaoSuCoIndex(_ref) {
           })]
         })
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_27__.jsx)("style", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)("style", {
       children: ".table-row-urgent > td { background-color: #fff1f0 !important; }"
     })]
   });
@@ -212362,17 +212382,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/CheckCircleOutlined.js");
 /* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/ClockCircleOutlined.js");
 /* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/DeleteOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/DownloadOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/EyeOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/FileExcelOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/FileTextOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/GlobalOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/HomeOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/PlusOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/SyncOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/ToolOutlined.js");
-/* harmony import */ var _hooks_usePermission__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ../../hooks/usePermission */ "./resources/js/hooks/usePermission.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/EyeOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/FileExcelOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/FileTextOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/GlobalOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/HomeOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/PlusOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/SyncOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/ToolOutlined.js");
+/* harmony import */ var _hooks_usePermission__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ../../hooks/usePermission */ "./resources/js/hooks/usePermission.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
@@ -212404,7 +212423,7 @@ var XuatBaoCaoIndex = function XuatBaoCaoIndex(_ref) {
     _useState4 = _slicedToArray(_useState3, 2),
     loading = _useState4[0],
     setLoading = _useState4[1];
-  var perm = (0,_hooks_usePermission__WEBPACK_IMPORTED_MODULE_31__["default"])('xuat-bao-cao');
+  var perm = (0,_hooks_usePermission__WEBPACK_IMPORTED_MODULE_30__["default"])('xuat-bao-cao');
   var fmt = function fmt(v) {
     return new Intl.NumberFormat('vi-VN').format(v || 0);
   };
@@ -212477,16 +212496,16 @@ var XuatBaoCaoIndex = function XuatBaoCaoIndex(_ref) {
     dataIndex: 'ten_dot',
     key: 'ten_dot',
     render: function render(text, record) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
         direction: "vertical",
         size: 0,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(Text, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(Text, {
           strong: true,
           style: {
             fontSize: 14
           },
           children: text
-        }), record.nam_hoc && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsxs)(Text, {
+        }), record.nam_hoc && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsxs)(Text, {
           type: "secondary",
           style: {
             fontSize: 12
@@ -212502,7 +212521,7 @@ var XuatBaoCaoIndex = function XuatBaoCaoIndex(_ref) {
     width: 120,
     align: 'center',
     render: function render(text) {
-      return text || /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(Text, {
+      return text || /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(Text, {
         type: "secondary",
         children: "\u2014"
       });
@@ -212514,12 +212533,12 @@ var XuatBaoCaoIndex = function XuatBaoCaoIndex(_ref) {
     width: 120,
     align: 'center',
     render: function render(status) {
-      return status === 'completed' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_16__["default"], {
-        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_19__["default"], {}),
+      return status === 'completed' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(antd__WEBPACK_IMPORTED_MODULE_16__["default"], {
+        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_19__["default"], {}),
         color: "success",
         children: "Ho\xE0n th\xE0nh"
-      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_16__["default"], {
-        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_20__["default"], {}),
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(antd__WEBPACK_IMPORTED_MODULE_16__["default"], {
+        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_20__["default"], {}),
         color: "default",
         children: "Nh\xE1p"
       });
@@ -212530,9 +212549,9 @@ var XuatBaoCaoIndex = function XuatBaoCaoIndex(_ref) {
     width: 250,
     align: 'center',
     render: function render(_, record) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
         size: "small",
-        children: [perm.can_create && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        children: [perm.can_create && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
           title: "T\u1ED5ng h\u1EE3p b\xE1o c\xE1o?",
           description: "D\u1EEF li\u1EC7u s\u1EBD \u0111\u01B0\u1EE3c c\u1EADp nh\u1EADt t\u1EEB h\u1EC7 th\u1ED1ng.",
           onConfirm: function onConfirm() {
@@ -212540,22 +212559,22 @@ var XuatBaoCaoIndex = function XuatBaoCaoIndex(_ref) {
           },
           okText: "T\u1ED5ng h\u1EE3p",
           cancelText: "H\u1EE7y",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
             size: "small",
-            icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_29__["default"], {}),
+            icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_28__["default"], {}),
             type: "primary",
             ghost: true,
             children: "T\u1ED5ng h\u1EE3p"
           })
-        }), record.trang_thai === 'completed' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        }), record.trang_thai === 'completed' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
           size: "small",
-          icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_23__["default"], {}),
+          icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_22__["default"], {}),
           type: selectedId === record.id ? 'primary' : 'default',
           onClick: function onClick() {
             return selectedId === record.id ? handleClosePreview() : handlePreview(record.id);
           },
           children: selectedId === record.id ? 'Đóng' : 'Xem'
-        }), perm.can_delete && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        }), perm.can_delete && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
           title: "X\xF3a \u0111\u1EE3t b\xE1o c\xE1o?",
           onConfirm: function onConfirm() {
             return handleDelete(record.id);
@@ -212565,10 +212584,10 @@ var XuatBaoCaoIndex = function XuatBaoCaoIndex(_ref) {
           okButtonProps: {
             danger: true
           },
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
             size: "small",
             danger: true,
-            icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_21__["default"], {})
+            icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_21__["default"], {})
           })
         })]
       });
@@ -212587,7 +212606,7 @@ var XuatBaoCaoIndex = function XuatBaoCaoIndex(_ref) {
     dataIndex: 'loai_phong',
     key: 'loai_phong',
     render: function render(text, record) {
-      return record.is_tong ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(Text, {
+      return record.is_tong ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(Text, {
         strong: true,
         children: text
       }) : text;
@@ -212599,7 +212618,7 @@ var XuatBaoCaoIndex = function XuatBaoCaoIndex(_ref) {
     width: 100,
     align: 'right',
     render: function render(v, record) {
-      return record.is_tong ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(Text, {
+      return record.is_tong ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(Text, {
         strong: true,
         children: fmt(v)
       }) : fmt(v);
@@ -212611,7 +212630,7 @@ var XuatBaoCaoIndex = function XuatBaoCaoIndex(_ref) {
     width: 130,
     align: 'right',
     render: function render(v, record) {
-      return record.is_tong ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(Text, {
+      return record.is_tong ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(Text, {
         strong: true,
         children: fmtDec(v)
       }) : fmtDec(v);
@@ -212678,7 +212697,7 @@ var XuatBaoCaoIndex = function XuatBaoCaoIndex(_ref) {
     key: 'ten_khuon_vien',
     width: 250,
     render: function render(text, record) {
-      return record.is_tong ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(Text, {
+      return record.is_tong ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(Text, {
         strong: true,
         children: text
       }) : text;
@@ -212701,7 +212720,7 @@ var XuatBaoCaoIndex = function XuatBaoCaoIndex(_ref) {
     width: 120,
     align: 'right',
     render: function render(v, record) {
-      return record.is_tong ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(Text, {
+      return record.is_tong ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(Text, {
         strong: true,
         children: fmtDec(v)
       }) : fmtDec(v);
@@ -212719,7 +212738,7 @@ var XuatBaoCaoIndex = function XuatBaoCaoIndex(_ref) {
     width: 130,
     align: 'right',
     render: function render(v, record) {
-      return record.is_tong ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(Text, {
+      return record.is_tong ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(Text, {
         strong: true,
         children: fmtDec(v)
       }) : fmtDec(v);
@@ -212746,7 +212765,7 @@ var XuatBaoCaoIndex = function XuatBaoCaoIndex(_ref) {
     dataIndex: 'ten_cong_trinh',
     key: 'ten_cong_trinh',
     render: function render(text, record) {
-      return record.is_tong ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(Text, {
+      return record.is_tong ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(Text, {
         strong: true,
         children: text
       }) : text;
@@ -212763,7 +212782,7 @@ var XuatBaoCaoIndex = function XuatBaoCaoIndex(_ref) {
     width: 120,
     align: 'right',
     render: function render(v, record) {
-      return record.is_tong ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(Text, {
+      return record.is_tong ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(Text, {
         strong: true,
         children: fmtDec(v)
       }) : fmtDec(v);
@@ -212781,7 +212800,7 @@ var XuatBaoCaoIndex = function XuatBaoCaoIndex(_ref) {
     width: 120,
     align: 'right',
     render: function render(v, record) {
-      return record.is_tong ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(Text, {
+      return record.is_tong ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(Text, {
         strong: true,
         children: fmtDec(v)
       }) : fmtDec(v);
@@ -212825,14 +212844,14 @@ var XuatBaoCaoIndex = function XuatBaoCaoIndex(_ref) {
   }];
   var tabItems = previewData ? [{
     key: '1',
-    label: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsxs)("span", {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_27__["default"], {
+    label: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsxs)("span", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_26__["default"], {
         style: {
           marginRight: 6
         }
       }), "Ph\u1EE5c v\u1EE5 tuy\u1EC3n sinh"]
     }),
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
       columns: loaiPhongColumns,
       dataSource: previewData.bcLoaiPhongs,
       rowKey: "id",
@@ -212845,14 +212864,14 @@ var XuatBaoCaoIndex = function XuatBaoCaoIndex(_ref) {
     })
   }, {
     key: '2',
-    label: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsxs)("span", {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_19__["default"], {
+    label: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsxs)("span", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_19__["default"], {
         style: {
           marginRight: 6
         }
       }), "Ti\xEAu chu\u1EA9n c\u01A1 s\u1EDF v\u1EADt ch\u1EA5t"]
     }),
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
       columns: tieuChuanColumns,
       dataSource: previewData.bcTieuChuanCsvcs,
       rowKey: "id",
@@ -212862,14 +212881,14 @@ var XuatBaoCaoIndex = function XuatBaoCaoIndex(_ref) {
     })
   }, {
     key: '3',
-    label: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsxs)("span", {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_18__["default"], {
+    label: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsxs)("span", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_18__["default"], {
         style: {
           marginRight: 6
         }
       }), "Khu\xF4n vi\xEAn tr\u1EE5 s\u1EDF v\xE0 c\xE1c ph\xE2n hi\u1EC7u"]
     }),
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
       columns: khuonVienColumns,
       dataSource: previewData.bcKhuonViens,
       rowKey: "id",
@@ -212882,14 +212901,14 @@ var XuatBaoCaoIndex = function XuatBaoCaoIndex(_ref) {
     })
   }, {
     key: '4',
-    label: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsxs)("span", {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_30__["default"], {
+    label: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsxs)("span", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_29__["default"], {
         style: {
           marginRight: 6
         }
       }), "C\xF4ng tr\xECnh \u0111\xE0o t\u1EA1o"]
     }),
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
       columns: congTrinhColumns,
       dataSource: previewData.bcCongTrinhDaoTaos,
       rowKey: "id",
@@ -212902,14 +212921,14 @@ var XuatBaoCaoIndex = function XuatBaoCaoIndex(_ref) {
     })
   }, {
     key: '5',
-    label: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsxs)("span", {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_26__["default"], {
+    label: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsxs)("span", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_25__["default"], {
         style: {
           marginRight: 6
         }
       }), "H\u1EA1 t\u1EA7ng c\xF4ng ngh\u1EC7 th\xF4ng tin"]
     }),
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
       columns: haTangColumns,
       dataSource: previewData.bcHaTangCntts,
       rowKey: "id",
@@ -212918,33 +212937,33 @@ var XuatBaoCaoIndex = function XuatBaoCaoIndex(_ref) {
       bordered: true
     })
   }] : [];
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsxs)(_Layout_MainLayout__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsxs)(_Layout_MainLayout__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
       direction: "vertical",
       size: "large",
       style: {
         width: '100%'
       },
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
         justify: "space-between",
         align: "middle",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsxs)(Title, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsxs)(Title, {
             level: 2,
             style: {
               margin: 0
             },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_25__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_24__["default"], {
               style: {
                 marginRight: 12,
                 color: '#1890ff'
               }
             }), "Xu\u1EA5t b\xE1o c\xE1o theo m\u1EABu c\u1EE7a B\u1ED9 GD&\u0110T"]
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
-          children: perm.can_create && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          children: perm.can_create && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
             type: "primary",
-            icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_28__["default"], {}),
+            icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_27__["default"], {}),
             size: "large",
             onClick: function onClick() {
               return setIsModalOpen(true);
@@ -212952,37 +212971,37 @@ var XuatBaoCaoIndex = function XuatBaoCaoIndex(_ref) {
             children: "T\u1EA1o \u0111\u1EE3t m\u1EDBi"
           })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
         style: {
           borderRadius: 12
         },
         bodyStyle: {
           padding: 0
         },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
           columns: columns,
           dataSource: dotBaoCaos,
           rowKey: "id",
           pagination: false,
           size: "middle",
           locale: {
-            emptyText: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
+            emptyText: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
               image: antd__WEBPACK_IMPORTED_MODULE_7__["default"].PRESENTED_IMAGE_SIMPLE,
               description: "Ch\u01B0a c\xF3 \u0111\u1EE3t b\xE1o c\xE1o n\xE0o"
             })
           }
         })
-      }), previewData && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        title: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_24__["default"], {
+      }), previewData && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        title: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_23__["default"], {
             style: {
               color: '#52c41a'
             }
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsxs)("span", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsxs)("span", {
             children: ["Preview: ", previewData.ten_dot]
           })]
         }),
-        extra: perm.can_export ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        extra: perm.can_export ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
           menu: {
             items: exportItems,
             onClick: function onClick(_ref2) {
@@ -212991,59 +213010,65 @@ var XuatBaoCaoIndex = function XuatBaoCaoIndex(_ref) {
             }
           },
           placement: "bottomRight",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
-            type: "primary",
-            icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_22__["default"], {}),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(antd__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            size: "large",
+            style: {
+              background: '#217346',
+              borderColor: '#217346',
+              color: '#fff',
+              fontWeight: 600
+            },
+            icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_23__["default"], {}),
             children: "Xu\u1EA5t Excel"
           })
         }) : null,
         style: {
           borderRadius: 12
         },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_15__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(antd__WEBPACK_IMPORTED_MODULE_15__["default"], {
           items: tabItems
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
         style: {
           borderRadius: 12,
           background: '#f6ffed',
           border: '1px solid #b7eb8f'
         },
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsxs)(Title, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsxs)(Title, {
           level: 5,
           style: {
             margin: 0,
             marginBottom: 8
           },
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_24__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_23__["default"], {
             style: {
               color: '#52c41a',
               marginRight: 8
             }
           }), "H\u01B0\u1EDBng d\u1EABn"]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsxs)("ol", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsxs)("ol", {
           style: {
             margin: 0,
             paddingLeft: 20,
             color: '#555'
           },
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsxs)("li", {
-            children: ["T\u1EA1o \u0111\u1EE3t b\xE1o c\xE1o m\u1EDBi \u2192 Nh\u1EA5n ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(Text, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsxs)("li", {
+            children: ["T\u1EA1o \u0111\u1EE3t b\xE1o c\xE1o m\u1EDBi \u2192 Nh\u1EA5n ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(Text, {
               code: true,
               children: "T\u1ED5ng h\u1EE3p"
             }), " \u0111\u1EC3 tr\xEDch xu\u1EA5t d\u1EEF li\u1EC7u"]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsxs)("li", {
-            children: ["Nh\u1EA5n ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(Text, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsxs)("li", {
+            children: ["Nh\u1EA5n ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(Text, {
               code: true,
               children: "Xem"
-            }), " \u0111\u1EC3 preview bi\u1EC3u m\u1EABu \u2192 ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(Text, {
+            }), " \u0111\u1EC3 preview bi\u1EC3u m\u1EABu \u2192 ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(Text, {
               code: true,
               children: "Xu\u1EA5t Excel"
             }), " \u0111\u1EC3 t\u1EA3i file"]
           })]
         })]
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"], {
       title: "T\u1EA1o \u0111\u1EE3t b\xE1o c\xE1o m\u1EDBi",
       open: isModalOpen,
       onCancel: function onCancel() {
@@ -213054,38 +213079,38 @@ var XuatBaoCaoIndex = function XuatBaoCaoIndex(_ref) {
       confirmLoading: loading,
       okText: "T\u1EA1o",
       cancelText: "H\u1EE7y",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
         form: form,
         layout: "vertical",
         style: {
           marginTop: 16
         },
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Item, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Item, {
           name: "ten_dot",
           label: "T\xEAn \u0111\u1EE3t b\xE1o c\xE1o",
           rules: [{
             required: true,
             message: 'Vui lòng nhập tên đợt'
           }],
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__["default"], {
             placeholder: "VD: B\xE1o c\xE1o CSVC H\u1ECDc k\u1EF3 1 n\u0103m 2024-2025"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Item, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Item, {
           name: "nam_hoc",
           label: "N\u0103m h\u1ECDc",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__["default"], {
             placeholder: "VD: 2024-2025"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Item, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Item, {
           name: "mo_ta",
           label: "M\xF4 t\u1EA3",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(TextArea, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)(TextArea, {
             rows: 2,
             placeholder: "Ghi ch\xFA..."
           })
         })]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)("style", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_31__.jsx)("style", {
       children: "\n                .total-row { background-color: #fafafa; font-weight: 600; }\n                .total-row:hover > td { background-color: #f0f0f0 !important; }\n            "
     })]
   });
