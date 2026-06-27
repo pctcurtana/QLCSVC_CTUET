@@ -55,7 +55,7 @@ const Login = () => {
             <div className="min-h-screen md:h-screen flex flex-col md:flex-row w-full overflow-hidden text-[#0f172a] select-none relative">
 
                 {/* Background decorative grid from app.css */}
-                <div className="absolute inset-0 login-grid-bg opacity-80 z-0 pointer-events-none" />
+                <div className="absolute inset-0 login-grid-bg opacity-90 z-0 pointer-events-none" />
 
                 {/* LEFT SIDE: Minimalist Tech Showcase */}
                 <div className="hidden md:flex md:w-[45%] lg:w-[50%] flex-col justify-between p-16 relative z-10">
@@ -110,7 +110,7 @@ const Login = () => {
                 </div>
 
                 {/* RIGHT SIDE: Harmonious Frosted Glass Form */}
-                <div className="w-full md:w-[55%] lg:w-[50%] flex flex-col justify-between p-8 sm:p-16 relative z-10 border-l border-slate-200/40 bg-white/10 backdrop-blur-2xl">
+                <div className="w-full md:w-[55%] lg:w-[50%] flex flex-col justify-between p-8 sm:p-16 relative z-10 border-l border-slate-200/40 bg-white/5">
 
 
                     {/* Top Branding (Mobile only) */}
@@ -137,8 +137,8 @@ const Login = () => {
                                 position: 'relative',
                                 overflow: 'hidden',
                                 background: 'rgba(255,255,255,0.06)',
-                                backdropFilter: 'blur(50px) saturate(180%)',
-                                WebkitBackdropFilter: 'blur(50px) saturate(180%)',
+                                backdropFilter: 'blur(24px)',
+                                WebkitBackdropFilter: 'blur(24px)',
                                 border: '1px solid rgba(255,255,255,0.18)',
                                 borderRadius: 28,
                                 boxShadow: `
@@ -242,7 +242,7 @@ const Login = () => {
                     </div>
 
                     {/* Bottom copyright info */}
-                    <div className="text-center md:text-left text-[10px] text-slate-400 font-sans mt-4">
+                    <div className="text-center text-[10px] text-slate-400 font-sans mt-4">
                         © {new Date().getFullYear()} Trường Đại Học Kỹ Thuật - Công Nghệ Cần Thơ. All rights reserved.
                     </div>
                 </div>

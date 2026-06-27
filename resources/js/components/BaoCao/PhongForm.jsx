@@ -54,7 +54,9 @@ const PhongForm = ({ phong, token }) => {
                 <Head title="Báo cáo đã được ghi nhận" />
                 <div style={styles.wrapper}>
                     <div style={styles.container}>
-                        <img src="/images/logoctuet.png" alt="Logo" style={styles.logo} />
+                        <div style={{ display: 'flex', justifyContent: 'center' }}>
+                            <img src="/images/logoctuet.png" alt="Logo" style={styles.logo} />
+                        </div>
                         <Result
                             icon={<CheckCircleOutlined style={{ color: '#52c41a', fontSize: 72 }} />}
                             title="Báo cáo đã được ghi nhận!"

@@ -195484,7 +195484,7 @@ var Login = function Login() {
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
       className: "min-h-screen md:h-screen flex flex-col md:flex-row w-full overflow-hidden text-[#0f172a] select-none relative",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
-        className: "absolute inset-0 login-grid-bg opacity-80 z-0 pointer-events-none"
+        className: "absolute inset-0 login-grid-bg opacity-90 z-0 pointer-events-none"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
         className: "hidden md:flex md:w-[45%] lg:w-[50%] flex-col justify-between p-16 relative z-10",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
@@ -195534,7 +195534,7 @@ var Login = function Login() {
           children: "quanlycsvc.ctuet.edu.vn"
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
-        className: "w-full md:w-[55%] lg:w-[50%] flex flex-col justify-between p-8 sm:p-16 relative z-10 border-l border-slate-200/40 bg-white/10 backdrop-blur-2xl",
+        className: "w-full md:w-[55%] lg:w-[50%] flex flex-col justify-between p-8 sm:p-16 relative z-10 border-l border-slate-200/40 bg-white/5",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
           className: "flex md:hidden items-center justify-center gap-3 mt-4",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("img", {
@@ -195557,8 +195557,8 @@ var Login = function Login() {
               position: 'relative',
               overflow: 'hidden',
               background: 'rgba(255,255,255,0.06)',
-              backdropFilter: 'blur(50px) saturate(180%)',
-              WebkitBackdropFilter: 'blur(50px) saturate(180%)',
+              backdropFilter: 'blur(24px)',
+              WebkitBackdropFilter: 'blur(24px)',
               border: '1px solid rgba(255,255,255,0.18)',
               borderRadius: 28,
               boxShadow: "\n                                    0 8px 32px rgba(15, 23, 42, 0.05),\n                                    inset 0 1px 0 rgba(255, 255, 255, 0.25)\n                                ",
@@ -195680,7 +195680,7 @@ var Login = function Login() {
             })]
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
-          className: "text-center md:text-left text-[10px] text-slate-400 font-sans mt-4",
+          className: "text-center text-[10px] text-slate-400 font-sans mt-4",
           children: ["\xA9 ", new Date().getFullYear(), " Tr\u01B0\u1EDDng \u0110\u1EA1i H\u1ECDc K\u1EF9 Thu\u1EADt - C\xF4ng Ngh\u1EC7 C\u1EA7n Th\u01A1. All rights reserved."]
         })]
       })]
@@ -195815,10 +195815,16 @@ var PhongForm = function PhongForm(_ref) {
         style: styles.wrapper,
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)("div", {
           style: styles.container,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("img", {
-            src: "/images/logoctuet.png",
-            alt: "Logo",
-            style: styles.logo
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("div", {
+            style: {
+              display: 'flex',
+              justifyContent: 'center'
+            },
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("img", {
+              src: "/images/logoctuet.png",
+              alt: "Logo",
+              style: styles.logo
+            })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__["default"], {
             icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_15__["default"], {
               style: {
