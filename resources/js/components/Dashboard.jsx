@@ -396,7 +396,7 @@ const Dashboard = ({ statistics, thongKeLoaiPhong, thongKeLoaiThietBi, thongKeCo
 
                                     />
                                     <YAxis
-                                        width={35}
+                                        width={40}
                                         axisLine={false}
                                         tickLine={false}
                                         tick={{ fill: "#94a3b8", fontSize: 11, fontWeight: 500 }}
@@ -548,7 +548,7 @@ const Dashboard = ({ statistics, thongKeLoaiPhong, thongKeLoaiThietBi, thongKeCo
                                     <XAxis type="number" allowDecimals={false} axisLine={false} tickLine={false}
                                         tick={{ fill: "#94a3b8", fontSize: 11, fontWeight: 500, }}
                                     />
-                                    <YAxis type="category" dataKey="name" width={70} axisLine={false} tickLine={false}
+                                    <YAxis type="category" dataKey="name" width={80} axisLine={false} tickLine={false}
                                         tick={({ x, y, payload, index }) => (
                                             <text
                                                 x={x} y={y} dy={4} textAnchor="end"
