@@ -1,11 +1,11 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import MainLayout from './Layout/MainLayout';
-import { Card, Row, Col, Typography, Space } from 'antd';
+import { Card, Row, Col, Typography, Space, Button, message } from 'antd';
 import {
     BankOutlined, HomeOutlined, AppstoreOutlined, ToolOutlined,
-    DollarOutlined, AreaChartOutlined,
+    DollarOutlined, AreaChartOutlined, ReloadOutlined,
 } from '@ant-design/icons';
+import useThongKeChannel from '../hooks/useThongKeChannel';
 import {
     PieChart, Pie, Cell, RadialBar, RadialBarChart, Legend,
     BarChart, Bar, XAxis, YAxis, CartesianGrid,
@@ -332,36 +332,110 @@ const DonutChart = ({ data }) => {
 };
 
 // ─── Main ─────────────────────────────────────────────────────────────────
-const Dashboard = ({ statistics, thongKeLoaiPhong, thongKeLoaiThietBi, thongKeCoSo, thongKeTrangThaiPhong }) => {
-    const loaiPhongData = thongKeLoaiPhong.map((d) => ({
+const Dashboard = ({ statistics: initStats, thongKeLoaiPhong: initLoaiPhong, thongKeLoaiThietBi: initLoaiThietBi, thongKeCoSo: initCoSo, thongKeTrangThaiPhong: initTrangThai }) => {
+    // State quản lý dữ liệu — khởi tạo từ Inertia props
+    const [stats, setStats] = useState(initStats || {});
+    const [rawLoaiPhong, setRawLoaiPhong] = useState(initLoaiPhong || []);
+    const [rawLoaiThietBi, setRawLoaiThietBi] = useState(initLoaiThietBi || []);
+    const [rawCoSo, setRawCoSo] = useState(initCoSo || []);
+    const [rawTrangThai, setRawTrangThai] = useState(initTrangThai || []);
+    const [recalculating, setRecalculating] = useState(false);
+
+    // Lắng nghe realtime updates từ Pusher
+    const handleRealtimeUpdate = useCallback(async ({ updatedKeys }) => {
+        const dashboardKeys = [
+            'dashboard.overview',
+            'dashboard.loai_phong',
+            'dashboard.loai_thiet_bi',
+            'dashboard.co_so',
+            'dashboard.trang_thai_phong',
+        ];
+
+        const hasDashboardUpdate = Array.isArray(updatedKeys) && updatedKeys.some((k) => dashboardKeys.includes(k));
+        if (!hasDashboardUpdate) return;
+
+        try {
+            const res = await window.axios.get('/thong-ke/snapshots', {
+                params: { keys: dashboardKeys.join(',') }
+            });
+            if (res.data && res.data.success) {
+                const snapshots = res.data.snapshots || {};
+                if (snapshots['dashboard.overview']) setStats(snapshots['dashboard.overview']);
+                if (snapshots['dashboard.loai_phong']) setRawLoaiPhong(snapshots['dashboard.loai_phong']);
+                if (snapshots['dashboard.loai_thiet_bi']) setRawLoaiThietBi(snapshots['dashboard.loai_thiet_bi']);
+                if (snapshots['dashboard.co_so']) setRawCoSo(snapshots['dashboard.co_so']);
+                if (snapshots['dashboard.trang_thai_phong']) setRawTrangThai(snapshots['dashboard.trang_thai_phong']);
+            }
+        } catch (e) {
+            console.error('Lỗi khi tải snapshot mới cho Dashboard:', e);
+        }
+    }, []);
+
+    useThongKeChannel(handleRealtimeUpdate);
+
+    // Nút tính lại thống kê
+    const handleRecalculate = async () => {
+        setRecalculating(true);
+        try {
+            const res = await window.axios.post('/thong-ke/recalculate');
+            if (res.data.success) {
+                message.success('Đã tính lại thống kê thành công');
+            }
+        } catch (err) {
+            message.error('Lỗi khi tính lại thống kê');
+        } finally {
+            setRecalculating(false);
+        }
+    };
+
+    // Transform data cho charts
+    const loaiPhongData = (rawLoaiPhong || []).map((d) => ({
         name: loaiPhongLabel(d.loai_phong),
         soLuong: d.so_luong,
     }));
-    const loaiThietBiData = thongKeLoaiThietBi
+    const loaiThietBiData = (rawLoaiThietBi || [])
         .map(d => ({ name: loaiThietBiLabel(d.loai_thiet_bi), soLuong: d.so_luong }))
         .sort((a, b) => (b.soLuong || 0) - (a.soLuong || 0));
-    const coSoData = thongKeCoSo.map(d => ({ name: d.ten_co_so, soKhuNha: d.so_khu_nha }));
-    const trangThaiPhongData = thongKeTrangThaiPhong.map(d => ({ name: trangThaiLabel(d.trang_thai), value: d.so_luong }));
+    const coSoData = (rawCoSo || []).map(d => ({ name: d.ten_co_so, soKhuNha: d.so_khu_nha }));
+    const trangThaiPhongData = (rawTrangThai || []).map(d => ({ name: trangThaiLabel(d.trang_thai), value: d.so_luong }));
     const [activeBar, setActiveBar] = useState(null);
     const [activeDeviceBar, setActiveDeviceBar] = useState(null);
 
     const kpis = [
-        { title: 'Tổng số cơ sở', value: fmt(statistics.tong_co_so), icon: <BankOutlined />, color: '#4096ff' },
-        { title: 'Tổng số toà nhà', value: fmt(statistics.tong_khu_nha), icon: <HomeOutlined />, color: '#52c41a' },
-        { title: 'Tổng số phòng', value: fmt(statistics.tong_phong), icon: <AppstoreOutlined />, color: '#13c2c2' },
-        { title: 'Tổng số thiết bị', value: fmt(statistics.tong_thiet_bi), icon: <ToolOutlined />, color: '#fa8c16' },
-        { title: 'Tổng giá trị thiết bị', value: fmtCr(statistics.tong_gia_tri_thiet_bi), icon: <DollarOutlined />, color: '#7c3aed' },
-        { title: 'Diện tích đất (m²)', value: fmt(statistics.dien_tich_dat), icon: <AreaChartOutlined />, color: '#13c2c2' },
+        { title: 'Tổng số cơ sở', value: fmt(stats.tong_co_so), icon: <BankOutlined />, color: '#4096ff' },
+        { title: 'Tổng số toà nhà', value: fmt(stats.tong_khu_nha), icon: <HomeOutlined />, color: '#52c41a' },
+        { title: 'Tổng số phòng', value: fmt(stats.tong_phong), icon: <AppstoreOutlined />, color: '#13c2c2' },
+        { title: 'Tổng số thiết bị', value: fmt(stats.tong_thiet_bi), icon: <ToolOutlined />, color: '#fa8c16' },
+        { title: 'Tổng giá trị thiết bị', value: fmtCr(stats.tong_gia_tri_thiet_bi), icon: <DollarOutlined />, color: '#7c3aed' },
+        { title: 'Diện tích đất (m²)', value: fmt(stats.dien_tich_dat), icon: <AreaChartOutlined />, color: '#13c2c2' },
     ];
 
     return (
         <MainLayout>
             <Space direction="vertical" size="large" style={{ width: '100%' }}>
 
-                <Title level={2} style={{ margin: 0 }}>
-                    <AreaChartOutlined style={{ marginRight: 10, color: '#4096ff' }} />
-                    Tổng quan cơ sở vật chất
-                </Title>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Title level={2} style={{ margin: 0 }}>
+                        <AreaChartOutlined style={{ marginRight: 10, color: '#4096ff' }} />
+                        Tổng quan cơ sở vật chất
+                    </Title>
+                    <Button
+                        icon={<ReloadOutlined spin={recalculating} />}
+                        loading={recalculating}
+                        onClick={handleRecalculate}
+                        type="default"
+                        size="small"
+                        style={{
+                            borderRadius: 10,
+                            fontSize: 12,
+                            fontWeight: 600,
+                            border: '1px solid rgba(36,67,128,0.15)',
+                            color: '#244380',
+                        }}
+                    >
+                        Tính lại thống kê
+                    </Button>
+                </div>
                 {/* ── KPI ── */}
                 <Row gutter={[16, 16]}>
                     {kpis.map((k, i) => (

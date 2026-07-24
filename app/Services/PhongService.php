@@ -9,6 +9,7 @@ use App\Models\ThietBi;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
+use App\Services\ThongKeSnapshotService;
 
 class PhongService
 {
@@ -65,7 +66,9 @@ class PhongService
      */
     public function create(array $data): Phong
     {
-        return $this->phongRepository->create($data);
+        $result = $this->phongRepository->create($data);
+        app(ThongKeSnapshotService::class)->onEntityChanged('phong');
+        return $result;
     }
 
     /**
@@ -73,7 +76,9 @@ class PhongService
      */
     public function update(int $id, array $data): Phong
     {
-        return $this->phongRepository->update($id, $data);
+        $result = $this->phongRepository->update($id, $data);
+        app(ThongKeSnapshotService::class)->onEntityChanged('phong');
+        return $result;
     }
 
     /**
@@ -81,7 +86,9 @@ class PhongService
      */
     public function delete(int $id): bool
     {
-        return $this->phongRepository->delete($id);
+        $result = $this->phongRepository->delete($id);
+        app(ThongKeSnapshotService::class)->onEntityChanged('phong');
+        return $result;
     }
 
     /**
@@ -117,6 +124,8 @@ class PhongService
             ThietBi::where('phong_id', $current->id)
                 ->where('trang_thai_du_lieu', 'hien_hanh')
                 ->update(['phong_id' => $newRecord->id]);
+
+            app(ThongKeSnapshotService::class)->onEntityChanged('phong');
 
             return $newRecord;
         });

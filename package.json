@@ -22,6 +22,8 @@
         "@inertiajs/react": "^1.0.0",
         "antd": "^5.27.4",
         "dayjs": "^1.11.18",
+        "laravel-echo": "^2.4.0",
+        "pusher-js": "^8.5.0",
         "qrcode.react": "^4.2.0",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",

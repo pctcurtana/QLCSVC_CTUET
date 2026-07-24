@@ -125,6 +125,14 @@ const ImportResult = ({ result }) => {
                                 </span>
                             </>
                         )}
+                        {(result.execution_time !== undefined && result.execution_time !== null) && (
+                            <>
+                                <span>|</span>
+                                <span>
+                                    Thời gian xử lý: <strong>{result.execution_time}</strong> giây
+                                </span>
+                            </>
+                        )}
                     </Space>
                 }
             />

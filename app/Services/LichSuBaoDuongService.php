@@ -10,6 +10,7 @@ use App\Models\ThietBi;
 use Carbon\Carbon;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
+use App\Services\ThongKeSnapshotService;
 
 class LichSuBaoDuongService
 {
@@ -74,6 +75,8 @@ class LichSuBaoDuongService
             $this->updateThietBiMaintenanceInfo($data['thiet_bi_id'], $data['ngay_bao_duong']);
         }
 
+        app(ThongKeSnapshotService::class)->onEntityChanged('lich_su_bao_duong');
+
         return $lichSu;
     }
 
@@ -92,6 +95,8 @@ class LichSuBaoDuongService
             $this->updateThietBiMaintenanceInfo($data['thiet_bi_id'], $data['ngay_bao_duong']);
         }
 
+        app(ThongKeSnapshotService::class)->onEntityChanged('lich_su_bao_duong');
+
         return $updatedLichSu;
     }
 
@@ -100,7 +105,9 @@ class LichSuBaoDuongService
      */
     public function delete(int $id): bool
     {
-        return $this->lichSuBaoDuongRepository->delete($id);
+        $result = $this->lichSuBaoDuongRepository->delete($id);
+        app(ThongKeSnapshotService::class)->onEntityChanged('lich_su_bao_duong');
+        return $result;
     }
 
     /**

@@ -2,35 +2,49 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\DashboardService;
+use App\Services\ThongKeSnapshotService;
 use Inertia\Inertia;
 
 class DashboardController extends Controller
 {
     /**
-     * @var DashboardService
+     * @var ThongKeSnapshotService
      */
-    protected $dashboardService;
+    protected $snapshotService;
 
     /**
      * DashboardController constructor.
      *
-     * @param DashboardService $dashboardService
+     * @param ThongKeSnapshotService $snapshotService
      */
-    public function __construct(DashboardService $dashboardService)
+    public function __construct(ThongKeSnapshotService $snapshotService)
     {
-        $this->dashboardService = $dashboardService;
+        $this->snapshotService = $snapshotService;
     }
 
     /**
      * Display the dashboard.
+     *
+     * Đọc dữ liệu từ snapshot. Nếu snapshot chưa từng khởi tạo,
+     * service sẽ tự tính trực tiếp và lưu.
+     * Nếu status = failed → trả value cũ (không query lại).
      */
     public function index()
     {
         try {
-            $dashboardData = $this->dashboardService->getDashboardData();
+            $statistics = $this->snapshotService->getSnapshot('dashboard.overview');
+            $thongKeLoaiPhong = $this->snapshotService->getSnapshot('dashboard.loai_phong');
+            $thongKeLoaiThietBi = $this->snapshotService->getSnapshot('dashboard.loai_thiet_bi');
+            $thongKeCoSo = $this->snapshotService->getSnapshot('dashboard.co_so');
+            $thongKeTrangThaiPhong = $this->snapshotService->getSnapshot('dashboard.trang_thai_phong');
 
-            return Inertia::render('Dashboard', $dashboardData);
+            return Inertia::render('Dashboard', [
+                'statistics'          => $statistics ?? [],
+                'thongKeLoaiPhong'    => $thongKeLoaiPhong ?? [],
+                'thongKeLoaiThietBi'  => $thongKeLoaiThietBi ?? [],
+                'thongKeCoSo'         => $thongKeCoSo ?? [],
+                'thongKeTrangThaiPhong' => $thongKeTrangThaiPhong ?? [],
+            ]);
         } catch (\Throwable $e) {
             return redirect()->back()->with('error', 'Lỗi khi tải dashboard: ' . $e->getMessage());
         }

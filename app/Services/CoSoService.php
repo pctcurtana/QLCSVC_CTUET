@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\Cache;
 use App\Contracts\Repositories\CoSoRepositoryInterface;
 use App\Contracts\Services\CoSoServiceInterface;
 use App\Models\CoSo;
@@ -9,6 +10,7 @@ use App\Models\KhuNha;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
+use App\Services\ThongKeSnapshotService;
 
 class CoSoService
 {
@@ -16,6 +18,9 @@ class CoSoService
      * @var CoSoRepositoryInterface
      */
     protected $coSoRepository;
+
+    private const ACTIVE_CO_SO_CACHE_KEY = 'active.co_so';
+    private const CACHE_TIME = 300;
 
     /**
      * CoSoService constructor.
@@ -40,7 +45,13 @@ class CoSoService
      */
     public function getActiveCoSos(): Collection
     {
-        return $this->coSoRepository->getActive(['id', 'ten_co_so']);
+        return Cache::remember(
+            self::ACTIVE_CO_SO_CACHE_KEY,
+            self::CACHE_TIME,
+            function() {
+                return $this->coSoRepository->getActive(['id', 'ten_co_so']);
+            }
+        );
     }
 
     /**
@@ -65,7 +76,9 @@ class CoSoService
             $data['dien_tich_dat'],
             $data['vi_tri_khuon_vien']
         );
-        return $this->coSoRepository->create($data);
+        $result = $this->coSoRepository->create($data);
+        app(ThongKeSnapshotService::class)->onEntityChanged('co_so');
+        return $result;
     }
 
     /**
@@ -79,7 +92,9 @@ class CoSoService
             $data['dien_tich_dat'],
             $data['vi_tri_khuon_vien']
         );
-        return $this->coSoRepository->update($id, $data);
+        $result = $this->coSoRepository->update($id, $data);
+        app(ThongKeSnapshotService::class)->onEntityChanged('co_so');
+        return $result;
     }
 
     /**
@@ -88,7 +103,9 @@ class CoSoService
     public function delete(int $id): bool
     {
         $this->getById($id);
-        return $this->coSoRepository->delete($id);
+        $result = $this->coSoRepository->delete($id);
+        app(ThongKeSnapshotService::class)->onEntityChanged('co_so');
+        return $result;
     }
 
     /**
@@ -133,6 +150,9 @@ class CoSoService
             KhuNha::where('co_so_id', $current->id)
                 ->where('trang_thai_du_lieu', 'hien_hanh')
                 ->update(['co_so_id' => $newRecord->id]);
+
+            // Hook sau khi transaction commit thành công
+            app(ThongKeSnapshotService::class)->onEntityChanged('co_so');
 
             return $newRecord;
         });

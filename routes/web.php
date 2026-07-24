@@ -168,8 +168,10 @@ Route::get('/thiet-bi/{thietBi}/lich-su-bao-duong', [LichSuBaoDuongController::c
     });
 
     // ==================== Thống kê chi tiết ====================
+    Route::get('/thong-ke/snapshots', [ThongKeController::class, 'getSnapshots'])->name('thong-ke.snapshots');
     Route::middleware('permission:thong-ke,can_view')->group(function () {
         Route::get('/thong-ke', [ThongKeController::class, 'index'])->name('thong-ke.index');
+        Route::post('/thong-ke/recalculate', [ThongKeController::class, 'recalculate'])->name('thong-ke.recalculate');
     });
 
     // ==================== Phản ứng nhanh QR ====================

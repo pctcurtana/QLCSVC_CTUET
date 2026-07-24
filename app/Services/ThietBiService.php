@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
+use App\Services\ThongKeSnapshotService;
 
 class ThietBiService
 {
@@ -74,7 +75,9 @@ class ThietBiService
         if ($nextMaintenanceDate) {
             $data['ngay_bao_duong_tiep_theo'] = $nextMaintenanceDate;
         }
-        return $this->thietBiRepository->create($data);
+        $result = $this->thietBiRepository->create($data);
+        app(ThongKeSnapshotService::class)->onEntityChanged('thiet_bi');
+        return $result;
     }
 
     /**
@@ -94,7 +97,9 @@ class ThietBiService
             $data['ngay_bao_duong_tiep_theo'] = $nextMaintenanceDate;
         }
 
-        return $this->thietBiRepository->update($id, $data);
+        $result = $this->thietBiRepository->update($id, $data);
+        app(ThongKeSnapshotService::class)->onEntityChanged('thiet_bi');
+        return $result;
     }
 
     /**
@@ -102,7 +107,9 @@ class ThietBiService
      */
     public function delete(int $id): bool
     {
-        return $this->thietBiRepository->delete($id);
+        $result = $this->thietBiRepository->delete($id);
+        app(ThongKeSnapshotService::class)->onEntityChanged('thiet_bi');
+        return $result;
     }
 
     /**
@@ -143,6 +150,8 @@ class ThietBiService
                 'phien_ban'          => $phienBanMoi,
                 'ban_ghi_goc_id'     => $gocId,
             ]));
+
+            app(ThongKeSnapshotService::class)->onEntityChanged('thiet_bi');
 
             return $newRecord;
         });

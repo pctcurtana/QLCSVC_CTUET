@@ -32,6 +32,9 @@ abstract class BaseImport implements ToCollection, WithHeadingRow, SkipsEmptyRow
     /** Danh sách lỗi chi tiết theo dòng */
     protected array $errors = [];
 
+    /** Thời gian xử lý thực tế (tính bằng giây) */
+    protected ?float $executionTime = null;
+
     /**
      * Maps preloaded để tra cứu FK không cần query lại DB.
      * Ví dụ: ['co_so_map' => Collection<ma_co_so => id>]
@@ -288,16 +291,30 @@ abstract class BaseImport implements ToCollection, WithHeadingRow, SkipsEmptyRow
     // =========================================================
 
     /**
+     * Set thời gian xử lý import (tính bằng giây).
+     */
+    public function setExecutionTime(float $seconds): void
+    {
+        $this->executionTime = round($seconds, 2);
+    }
+
+    /**
      * Trả về tổng kết quả import.
      */
     public function getResult(): array
     {
-        return [
-            'total'        => $this->totalRows,
-            'created'      => $this->createdRows,
-            'updated'      => $this->updatedRows,
-            'errors'       => count($this->errors),
-            'error_details' => $this->errors,
+        $result = [
+            'total'         => $this->totalRows,
+            'created'       => $this->createdRows,
+            'updated'       => $this->updatedRows,
+            'errors'        => count($this->errors),
+            'error_details'  => $this->errors,
         ];
+
+        if ($this->executionTime !== null) {
+            $result['execution_time'] = $this->executionTime;
+        }
+
+        return $result;
     }
 }

@@ -8,6 +8,7 @@ use App\Imports\PhongImport;
 use App\Imports\ThietBiImport;
 use Illuminate\Http\UploadedFile;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Services\ThongKeSnapshotService;
 
 /**
  * Service điều phối toàn bộ quá trình Import Excel.
@@ -28,9 +29,16 @@ class ImportService
      */
     public function importCoSo(UploadedFile $file): array
     {
+        $startTime = microtime(true);
         $import = new CoSoImport();
         Excel::import($import, $file);
-        return $import->getResult();
+        $import->setExecutionTime(microtime(true) - $startTime);
+        $result = $import->getResult();
+
+        // Cập nhật snapshot 1 lần duy nhất sau khi toàn bộ import hoàn tất
+        app(ThongKeSnapshotService::class)->onEntityChanged('co_so');
+
+        return $result;
     }
 
     /**
@@ -41,9 +49,15 @@ class ImportService
      */
     public function importKhuNha(UploadedFile $file): array
     {
+        $startTime = microtime(true);
         $import = new KhuNhaImport();
         Excel::import($import, $file);
-        return $import->getResult();
+        $import->setExecutionTime(microtime(true) - $startTime);
+        $result = $import->getResult();
+
+        app(ThongKeSnapshotService::class)->onEntityChanged('khu_nha');
+
+        return $result;
     }
 
     /**
@@ -54,9 +68,15 @@ class ImportService
      */
     public function importPhong(UploadedFile $file): array
     {
+        $startTime = microtime(true);
         $import = new PhongImport();
         Excel::import($import, $file);
-        return $import->getResult();
+        $import->setExecutionTime(microtime(true) - $startTime);
+        $result = $import->getResult();
+
+        app(ThongKeSnapshotService::class)->onEntityChanged('phong');
+
+        return $result;
     }
 
     /**
@@ -67,8 +87,14 @@ class ImportService
      */
     public function importThietBi(UploadedFile $file): array
     {
+        $startTime = microtime(true);
         $import = new ThietBiImport();
         Excel::import($import, $file);
-        return $import->getResult();
+        $import->setExecutionTime(microtime(true) - $startTime);
+        $result = $import->getResult();
+
+        app(ThongKeSnapshotService::class)->onEntityChanged('thiet_bi');
+
+        return $result;
     }
 }

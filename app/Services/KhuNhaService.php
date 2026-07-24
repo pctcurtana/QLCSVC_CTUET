@@ -9,6 +9,7 @@ use App\Models\Phong;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
+use App\Services\ThongKeSnapshotService;
 
 class KhuNhaService
 {
@@ -67,7 +68,9 @@ class KhuNhaService
     {
         // Tự động tính các diện tích
         $data = $this->calculateDienTich($data);
-        return $this->khuNhaRepository->create($data);
+        $result = $this->khuNhaRepository->create($data);
+        app(ThongKeSnapshotService::class)->onEntityChanged('khu_nha');
+        return $result;
     }
 
     /**
@@ -77,7 +80,9 @@ class KhuNhaService
     {
         // Tự động tính các diện tích
         $data = $this->calculateDienTich($data);
-        return $this->khuNhaRepository->update($id, $data);
+        $result = $this->khuNhaRepository->update($id, $data);
+        app(ThongKeSnapshotService::class)->onEntityChanged('khu_nha');
+        return $result;
     }
 
     /**
@@ -85,7 +90,9 @@ class KhuNhaService
      */
     public function delete(int $id): bool
     {
-        return $this->khuNhaRepository->delete($id);
+        $result = $this->khuNhaRepository->delete($id);
+        app(ThongKeSnapshotService::class)->onEntityChanged('khu_nha');
+        return $result;
     }
 
     /**
@@ -124,6 +131,8 @@ class KhuNhaService
             Phong::where('khu_nha_id', $current->id)
                 ->where('trang_thai_du_lieu', 'hien_hanh')
                 ->update(['khu_nha_id' => $newRecord->id]);
+
+            app(ThongKeSnapshotService::class)->onEntityChanged('khu_nha');
 
             return $newRecord;
         });

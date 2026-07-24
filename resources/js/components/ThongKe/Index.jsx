@@ -1,11 +1,11 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import MainLayout from '../Layout/MainLayout';
 import {
-    Card, Row, Col, Statistic, Typography, Space, Table, Tag, Segmented, Tooltip, Select,
+    Card, Row, Col, Statistic, Typography, Space, Table, Tag, Segmented, Tooltip, Select, Button, message,
 } from 'antd';
 import {
     BankOutlined, HomeOutlined, AppstoreOutlined, ToolOutlined,
-    DollarOutlined, AreaChartOutlined, WarningOutlined,
+    DollarOutlined, AreaChartOutlined, WarningOutlined, ReloadOutlined,
 } from '@ant-design/icons';
 import {
     BarChart, Bar, PieChart, Pie, Cell,
@@ -13,6 +13,7 @@ import {
     Legend, ResponsiveContainer, LineChart, Line, Area, AreaChart,
 } from 'recharts';
 import KpiCard from '../Common/KpiCard';
+import useThongKeChannel from '../../hooks/useThongKeChannel';
 
 const { Title, Text } = Typography;
 
@@ -818,8 +819,60 @@ const TabThietBi = ({ data, danhSachCoSo, danhSachKhuNha, danhSachPhong }) => {
 // ─────────────────────────────────────────────────────
 // MAIN PAGE
 // ─────────────────────────────────────────────────────
-const ThongKeIndex = ({ thongKeCoSo, thongKeKhuNha, thongKePhong, thongKeThietBi, danhSachCoSo, danhSachKhuNha, danhSachPhong }) => {
+const ThongKeIndex = ({ thongKeCoSo: initCoSo, thongKeKhuNha: initKhuNha, thongKePhong: initPhong, thongKeThietBi: initThietBi, danhSachCoSo, danhSachKhuNha, danhSachPhong }) => {
     const [tab, setTab] = useState('co-so');
+    const [recalculating, setRecalculating] = useState(false);
+
+    // State quản lý dữ liệu thống kê — khởi tạo từ Inertia props
+    const [dataCoSo, setDataCoSo] = useState(initCoSo || {});
+    const [dataKhuNha, setDataKhuNha] = useState(initKhuNha || {});
+    const [dataPhong, setDataPhong] = useState(initPhong || {});
+    const [dataThietBi, setDataThietBi] = useState(initThietBi || {});
+
+    // Lắng nghe realtime updates từ Pusher
+    const handleRealtimeUpdate = useCallback(async ({ updatedKeys }) => {
+        const thongKeKeys = [
+            'thongke.co_so',
+            'thongke.khu_nha',
+            'thongke.phong',
+            'thongke.thiet_bi',
+        ];
+
+        const hasThongKeUpdate = Array.isArray(updatedKeys) && updatedKeys.some((k) => thongKeKeys.includes(k));
+        if (!hasThongKeUpdate) return;
+
+        try {
+            const res = await window.axios.get('/thong-ke/snapshots', {
+                params: { keys: thongKeKeys.join(',') }
+            });
+            if (res.data && res.data.success) {
+                const snapshots = res.data.snapshots || {};
+                if (snapshots['thongke.co_so']) setDataCoSo(snapshots['thongke.co_so']);
+                if (snapshots['thongke.khu_nha']) setDataKhuNha(snapshots['thongke.khu_nha']);
+                if (snapshots['thongke.phong']) setDataPhong(snapshots['thongke.phong']);
+                if (snapshots['thongke.thiet_bi']) setDataThietBi(snapshots['thongke.thiet_bi']);
+            }
+        } catch (e) {
+            console.error('Lỗi khi tải snapshot mới cho Thống kê:', e);
+        }
+    }, []);
+
+    useThongKeChannel(handleRealtimeUpdate);
+
+    // Nút tính lại thống kê
+    const handleRecalculate = async () => {
+        setRecalculating(true);
+        try {
+            const res = await window.axios.post('/thong-ke/recalculate');
+            if (res.data.success) {
+                message.success('Đã tính lại thống kê thành công');
+            }
+        } catch (err) {
+            message.error('Lỗi khi tính lại thống kê');
+        } finally {
+            setRecalculating(false);
+        }
+    };
 
     const options = [
         { label: <Space><BankOutlined />Cơ sở</Space>,      value: 'co-so'    },
@@ -832,17 +885,35 @@ const ThongKeIndex = ({ thongKeCoSo, thongKeKhuNha, thongKePhong, thongKeThietBi
         <MainLayout>
             <Space direction="vertical" size="large" style={{ width: '100%' }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
-                    <Title level={2} style={{ margin: 0 }}>
-                        <AreaChartOutlined style={{ marginRight: 8, color: P.blue }} />
-                        Thống kê chi tiết
-                    </Title>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+                        <Title level={2} style={{ margin: 0 }}>
+                            <AreaChartOutlined style={{ marginRight: 8, color: P.blue }} />
+                            Thống kê chi tiết
+                        </Title>
+                        <Button
+                            icon={<ReloadOutlined spin={recalculating} />}
+                            loading={recalculating}
+                            onClick={handleRecalculate}
+                            type="default"
+                            size="small"
+                            style={{
+                                borderRadius: 10,
+                                fontSize: 12,
+                                fontWeight: 600,
+                                border: '1px solid rgba(36,67,128,0.15)',
+                                color: '#244380',
+                            }}
+                        >
+                            Tính lại thống kê
+                        </Button>
+                    </div>
                     <Segmented options={options} value={tab} onChange={setTab} size="large" />
                 </div>
 
-                {tab === 'co-so'    && <TabCoSo    data={thongKeCoSo}    />}
-                {tab === 'khu-nha'  && <TabKhuNha  data={thongKeKhuNha} danhSachCoSo={danhSachCoSo} />}
-                {tab === 'phong'    && <TabPhong   data={thongKePhong}  danhSachCoSo={danhSachCoSo} danhSachKhuNha={danhSachKhuNha} />}
-                {tab === 'thiet-bi' && <TabThietBi data={thongKeThietBi} danhSachCoSo={danhSachCoSo} danhSachKhuNha={danhSachKhuNha} danhSachPhong={danhSachPhong} />}
+                {tab === 'co-so'    && <TabCoSo    data={dataCoSo}    />}
+                {tab === 'khu-nha'  && <TabKhuNha  data={dataKhuNha} danhSachCoSo={danhSachCoSo} />}
+                {tab === 'phong'    && <TabPhong   data={dataPhong}  danhSachCoSo={danhSachCoSo} danhSachKhuNha={danhSachKhuNha} />}
+                {tab === 'thiet-bi' && <TabThietBi data={dataThietBi} danhSachCoSo={danhSachCoSo} danhSachKhuNha={danhSachKhuNha} danhSachPhong={danhSachPhong} />}
             </Space>
         </MainLayout>
     );
