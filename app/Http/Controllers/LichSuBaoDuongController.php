@@ -42,9 +42,8 @@ class LichSuBaoDuongController extends Controller
     public function index(Request $request)
     {
         try {
-            $filters = $request->only(['thiet_bi_id', 'loai_bao_duong', 'trang_thai', 'per_page']);
+            $filters = $request->only(['search', 'thiet_bi_id', 'loai_bao_duong', 'trang_thai', 'per_page']);
             $lichSuBaoDuongs = $this->lichSuBaoDuongService->getAllPaginated($filters, (int)$request->input('per_page', 10));
-            $thietBis = $this->thietBiService->getActiveThietBis();
 
             // Thống kê cho KPI cards
             $stats = [
@@ -59,7 +58,6 @@ class LichSuBaoDuongController extends Controller
 
             return Inertia::render('LichSuBaoDuong/Index', [
                 'lichSuBaoDuongs' => $lichSuBaoDuongs,
-                'thietBis' => $thietBis,
                 'filters' => $filters,
                 'stats' => $stats,
             ]);

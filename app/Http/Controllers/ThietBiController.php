@@ -10,6 +10,8 @@ use App\Http\Requests\ThietBi\UpdateThietBiRequest;
 use App\Http\Requests\ThietBi\VersionUpdateThietBiRequest;
 use App\Http\Requests\ImportRequest;
 use App\Exports\Templates\ThietBiTemplate;
+use App\Models\Import;
+use App\Jobs\ProcessExcelImport;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Maatwebsite\Excel\Facades\Excel;
@@ -64,7 +66,7 @@ class ThietBiController extends Controller
                 'thietBis' => $thietBis,
                 'phongs' => $phongs,
                 'coSos' => $coSos,
-                'filters' => $filters
+                'filters' => $filters,
             ]);
         } catch (\Throwable $e) {
             return redirect()->back()->with('error', 'Lỗi khi tải danh sách thiết bị: ' . $e->getMessage());
@@ -225,8 +227,26 @@ class ThietBiController extends Controller
     public function import(ImportRequest $request)
     {
         try {
-            $result = $this->importService->importThietBi($request->file('file'));
-            return redirect()->route('thiet-bi.index')->with('import_result', $result);
+            Import::cleanupStaleImports();
+
+            $hasActive = Import::whereIn('status', ['pending', 'processing'])->exists();
+            if ($hasActive) {
+                return redirect()->back()->with('error', 'Hệ thống đang xử lý một lượt import khác. Vui lòng chờ cho đến khi hoàn tất.');
+            }
+
+            $originalName = $request->file('file')->getClientOriginalName();
+            $filePath = $request->file('file')->store('imports/tmp', 'local');
+            $import = Import::create([
+                'user_id'           => auth()->id(),
+                'module'            => 'thiet_bi',
+                'file_path'         => $filePath,
+                'original_filename' => $originalName,
+                'status'            => 'pending',
+            ]);
+
+            ProcessExcelImport::dispatch($import->id, 'thiet_bi')->onQueue('imports');
+
+            return redirect()->back()->with('success', 'Đang thực hiện import trong nền');
         } catch (\Throwable $e) {
             return redirect()->back()->with('error', 'Lỗi khi import: ' . $e->getMessage());
         }

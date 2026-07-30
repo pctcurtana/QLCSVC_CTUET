@@ -6,6 +6,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Concerns\ToCollection;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 
@@ -18,7 +19,7 @@ use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
  *  - Upsert trực tiếp (không tạo version mới)
  *  - Chỉ thao tác với bản ghi trang_thai_du_lieu = 'hien_hanh'
  */
-abstract class BaseImport implements ToCollection, WithHeadingRow, SkipsEmptyRows
+abstract class BaseImport implements ToCollection, WithHeadingRow, SkipsEmptyRows, WithChunkReading
 {
     /** Tổng số dòng đã xử lý (bỏ qua header) */
     protected int $totalRows = 0;
@@ -29,11 +30,27 @@ abstract class BaseImport implements ToCollection, WithHeadingRow, SkipsEmptyRow
     /** Số dòng cập nhật */
     protected int $updatedRows = 0;
 
-    /** Danh sách lỗi chi tiết theo dòng */
+    /** Tổng số lỗi (đếm đầy đủ qua tất cả chunk) */
+    protected int $errorCount = 0;
+
+    /** Danh sách lỗi chi tiết theo dòng (tối đa MAX_ERROR_DETAILS để tránh tăng RAM) */
     protected array $errors = [];
+
+    /** Số lượng error_details tối đa được giữ lại */
+    protected const MAX_ERROR_DETAILS = 200;
 
     /** Thời gian xử lý thực tế (tính bằng giây) */
     protected ?float $executionTime = null;
+
+    /** Flag đảm bảo prepareReferenceMaps() chỉ chạy 1 lần dù có nhiều chunk */
+    protected bool $referenceMapsLoaded = false;
+
+    /**
+     * Offset của chunk hiện tại (dòng bắt đầu trong file Excel).
+     * Maatwebsite tự gọi setChunkOffset() trước mỗi chunk.
+     * Dùng để tính đúng row number trong báo lỗi.
+     */
+    protected int $chunkOffset = 0;
 
     /**
      * Maps preloaded để tra cứu FK không cần query lại DB.
@@ -96,16 +113,44 @@ abstract class BaseImport implements ToCollection, WithHeadingRow, SkipsEmptyRow
     // =========================================================
 
     /**
+     * Kích thước mỗi chunk khi đọc file Excel.
+     * WithChunkReading sẽ đọc file theo từng chunk thay vì load toàn bộ vào RAM.
+     * Giá trị 1000 dòng/chunk phù hợp cho file lên tới 100.000+ dòng.
+     */
+    public function chunkSize(): int
+    {
+        return 1000;
+    }
+
+    /**
+     * Được Maatwebsite ReadChunk tự gọi trước mỗi chunk.
+     * Lưu lại vị trí dòng bắt đầu để tính đúng row number cho báo lỗi.
+     */
+    public function setChunkOffset(int $offset): void
+    {
+        $this->chunkOffset = $offset;
+    }
+
+    /**
      * Entry point của Maatwebsite Excel.
-     * Preload maps → xử lý từng dòng trong transaction riêng.
+     * Được gọi 1 lần cho mỗi chunk (không phải toàn bộ file).
+     * Preload maps chỉ 1 lần → xử lý từng dòng trong transaction riêng.
+     * Các biến đếm (totalRows, createdRows, updatedRows, errorCount) tự cộng dồn
+     * vì WithChunkReading (không ShouldQueue) chạy synchronous trên cùng 1 instance.
      */
     public function collection(Collection $rows): void
     {
-        // Preload toàn bộ FK maps 1 lần
-        $this->prepareReferenceMaps();
+        // Chunk đầu tiên: preload FK maps + tắt query log để tiết kiệm RAM
+        if (!$this->referenceMapsLoaded) {
+            $this->prepareReferenceMaps();
+            $this->referenceMapsLoaded = true;
+            DB::disableQueryLog();
+        }
 
         foreach ($rows as $index => $row) {
-            $rowNumber = $index + 2; // +2 vì dòng 1 là header
+            // chunkOffset là dòng Excel bắt đầu (đã trừ header row),
+            // $index là vị trí 0-based trong chunk hiện tại.
+            $rowNumber = $this->chunkOffset + $index;
             $rowArray  = $row->toArray();
 
             // Bỏ qua dòng trống hoàn toàn
@@ -126,13 +171,16 @@ abstract class BaseImport implements ToCollection, WithHeadingRow, SkipsEmptyRow
                     $this->processRow($rowNumber, $rowArray);
                 });
             } catch (\Throwable $e) {
-                $this->errors[] = [
+                $this->addError([
                     'row'     => $rowNumber,
                     'field'   => null,
                     'message' => 'Lỗi hệ thống: ' . $e->getMessage(),
-                ];
+                ]);
             }
         }
+
+        // Giải phóng RAM sau mỗi chunk: dọn Eloquent model instances đã hết scope
+        gc_collect_cycles();
     }
 
     /**
@@ -143,7 +191,7 @@ abstract class BaseImport implements ToCollection, WithHeadingRow, SkipsEmptyRow
         // 1. Validate
         $validationErrors = $this->validateRow($rowNumber, $row);
         if (!empty($validationErrors)) {
-            // Lỗi đã được ghi vào $this->errors bên trong validateRow()
+            // Lỗi đã được ghi bên trong validateRow()
             return;
         }
 
@@ -151,11 +199,11 @@ abstract class BaseImport implements ToCollection, WithHeadingRow, SkipsEmptyRow
         try {
             $data = $this->mapData($row);
         } catch (\Throwable $e) {
-            $this->errors[] = [
+            $this->addError([
                 'row'     => $rowNumber,
                 'field'   => null,
                 'message' => 'Lỗi mapping dữ liệu: ' . $e->getMessage(),
-            ];
+            ]);
             return;
         }
 
@@ -206,7 +254,9 @@ abstract class BaseImport implements ToCollection, WithHeadingRow, SkipsEmptyRow
                     ];
                 }
             }
-            $this->errors = array_merge($this->errors, $rowErrors);
+            foreach ($rowErrors as $err) {
+                $this->addError($err);
+            }
             return $rowErrors;
         }
 
@@ -287,6 +337,23 @@ abstract class BaseImport implements ToCollection, WithHeadingRow, SkipsEmptyRow
     }
 
     // =========================================================
+    // Error Tracking (giới hạn RAM)
+    // =========================================================
+
+    /**
+     * Thêm 1 lỗi vào danh sách.
+     * - errorCount luôn tăng (đếm đầy đủ).
+     * - error_details chỉ giữ tối đa MAX_ERROR_DETAILS mục để tránh tăng RAM.
+     */
+    protected function addError(array $error): void
+    {
+        $this->errorCount++;
+        if (count($this->errors) < static::MAX_ERROR_DETAILS) {
+            $this->errors[] = $error;
+        }
+    }
+
+    // =========================================================
     // Kết quả Import
     // =========================================================
 
@@ -307,7 +374,7 @@ abstract class BaseImport implements ToCollection, WithHeadingRow, SkipsEmptyRow
             'total'         => $this->totalRows,
             'created'       => $this->createdRows,
             'updated'       => $this->updatedRows,
-            'errors'        => count($this->errors),
+            'errors'        => $this->errorCount,
             'error_details'  => $this->errors,
         ];
 

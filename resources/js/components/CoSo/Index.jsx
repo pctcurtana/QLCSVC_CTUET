@@ -10,14 +10,12 @@ import {
 } from '@ant-design/icons';
 import { Link, router, usePage } from '@inertiajs/react';
 import usePermission from '../../hooks/usePermission';
-import { ImportButton, ImportResult } from '../Common/ImportButton';
+import { ImportButton } from '../Common/ImportButton';
 
 const { Search } = Input;
 
 const Index = ({ coSos, filters }) => {
     const perm = usePermission('co-so');
-    const { props } = usePage();
-    const importResult = props.flash?.import_result ?? null;
     const [searchText, setSearchText] = useState(filters.search || '');
     const [statusFilter, setStatusFilter] = useState(filters.trang_thai || '');
     const [loading, setLoading] = useState(true);
@@ -204,9 +202,6 @@ const Index = ({ coSos, filters }) => {
                             </Col>
                         )}
                     </Row>
-                    {importResult && (
-                        <ImportResult result={importResult} />
-                    )}
                 </Card>
 
                 <Card>

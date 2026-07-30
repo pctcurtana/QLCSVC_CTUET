@@ -10,14 +10,12 @@ import {
 } from '@ant-design/icons';
 import { Link, router, usePage } from '@inertiajs/react';
 import usePermission from '../../hooks/usePermission';
-import { ImportButton, ImportResult } from '../Common/ImportButton';
+import { ImportButton } from '../Common/ImportButton';
 
 const { Search } = Input;
 
 const Index = ({ phongs, khuNhas, danhSachTang, filters }) => {
     const perm = usePermission('phong');
-    const { props } = usePage();
-    const importResult = props.flash?.import_result ?? null;
     const [searchText, setSearchText] = useState(filters.search || '');
     const [khuNhaFilter, setKhuNhaFilter] = useState(filters.khu_nha_id || '');
     const [loaiFilter, setLoaiFilter] = useState(filters.loai_phong || '');
@@ -298,9 +296,6 @@ const Index = ({ phongs, khuNhas, danhSachTang, filters }) => {
                             </Col>
                         )}
                     </Row>
-                    {importResult && (
-                        <ImportResult result={importResult} />
-                    )}
                 </Card>
 
                 <Card>

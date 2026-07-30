@@ -170,6 +170,8 @@ Route::get('/thiet-bi/{thietBi}/lich-su-bao-duong', [LichSuBaoDuongController::c
     // ==================== Thống kê chi tiết ====================
     Route::get('/thong-ke/snapshots', [ThongKeController::class, 'getSnapshots'])->name('thong-ke.snapshots');
     Route::middleware('permission:thong-ke,can_view')->group(function () {
+        Route::get('/thong-ke/chi-tiet-phong', [ThongKeController::class, 'chiTietPhong'])->name('thong-ke.chi-tiet-phong');
+        Route::get('/thong-ke/chi-tiet-thiet-bi', [ThongKeController::class, 'chiTietThietBi'])->name('thong-ke.chi-tiet-thiet-bi');
         Route::get('/thong-ke', [ThongKeController::class, 'index'])->name('thong-ke.index');
         Route::post('/thong-ke/recalculate', [ThongKeController::class, 'recalculate'])->name('thong-ke.recalculate');
     });
@@ -237,4 +239,10 @@ Route::get('/thiet-bi/{thietBi}/lich-su-bao-duong', [LichSuBaoDuongController::c
     Route::middleware('permission:xuat-bao-cao,can_delete')->group(function () {
         Route::delete('/xuat-bao-cao/{dotBaoCao}', [XuatBaoCaoController::class, 'destroy'])->name('xuat-bao-cao.destroy');
     });
+
+    // ==================== Import Kết quả & Chi tiết ====================
+    Route::get('/imports/status', [\App\Http\Controllers\ImportController::class, 'status'])->name('imports.status');
+    Route::get('/imports', [\App\Http\Controllers\ImportController::class, 'index'])->name('imports.index');
+    Route::get('/imports/latest', [\App\Http\Controllers\ImportController::class, 'latest'])->name('imports.latest');
+    Route::get('/imports/{import}', [\App\Http\Controllers\ImportController::class, 'show'])->name('imports.show');
 });

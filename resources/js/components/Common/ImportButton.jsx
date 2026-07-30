@@ -1,10 +1,20 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Button, Space, Alert, Table, Tag, Tooltip } from 'antd';
-import { UploadOutlined, DownloadOutlined } from '@ant-design/icons';
-import { router, usePage } from '@inertiajs/react';
+import { UploadOutlined, DownloadOutlined, HistoryOutlined } from '@ant-design/icons';
+import { router } from '@inertiajs/react';
+import axios from 'axios';
+import ImportHistoryModal from './ImportHistoryModal';
+
+const moduleMap = {
+    'Cơ sở': 'co_so',
+    'Khu nhà': 'khu_nha',
+    'Toà nhà': 'khu_nha',
+    'Phòng': 'phong',
+    'Thiết bị': 'thiet_bi',
+};
 
 /**
- * ImportButton - Nút import đơn giản dùng chung cho tất cả các module.
+ * ImportButton - Nút import dùng chung cho tất cả các module.
  *
  * Props:
  *   importUrl     : URL để POST file Excel (VD: '/co-so/import')
@@ -14,10 +24,34 @@ import { router, usePage } from '@inertiajs/react';
 const ImportButton = ({ importUrl, templateUrl, label }) => {
     const fileInputRef = useRef(null);
     const [uploading, setUploading] = useState(false);
+    const [historyVisible, setHistoryVisible] = useState(false);
+    const [hasActiveImport, setHasActiveImport] = useState(false);
+
+    const checkActiveImportStatus = async () => {
+        try {
+            const res = await axios.get('/imports/status');
+            setHasActiveImport(!!res.data?.has_active);
+        } catch (e) {
+            // Ignore error
+        }
+    };
+
+    useEffect(() => {
+        checkActiveImportStatus();
+
+        const handleStatusChange = () => {
+            checkActiveImportStatus();
+        };
+
+        window.addEventListener('import-status-changed', handleStatusChange);
+        return () => {
+            window.removeEventListener('import-status-changed', handleStatusChange);
+        };
+    }, []);
 
     const handleFileChange = (e) => {
         const file = e.target.files?.[0];
-        if (!file) return;
+        if (!file || uploading || hasActiveImport) return;
 
         setUploading(true);
         const formData = new FormData();
@@ -25,13 +59,30 @@ const ImportButton = ({ importUrl, templateUrl, label }) => {
 
         router.post(importUrl, formData, {
             forceFormData: true,
+            onSuccess: () => {
+                setHasActiveImport(true);
+            },
             onFinish: () => {
                 setUploading(false);
-                // reset input để có thể chọn lại cùng file
-                e.target.value = '';
+                if (fileInputRef.current) {
+                    fileInputRef.current.value = '';
+                }
+            },
+            onError: () => {
+                setUploading(false);
+                if (fileInputRef.current) {
+                    fileInputRef.current.value = '';
+                }
+                checkActiveImportStatus();
             },
         });
     };
+
+    const handleSelectImportFromHistory = (importId) => {
+        window.dispatchEvent(new CustomEvent('open-import-detail-modal', { detail: { importId } }));
+    };
+
+    const isButtonDisabled = uploading || hasActiveImport;
 
     return (
         <Space>
@@ -44,6 +95,17 @@ const ImportButton = ({ importUrl, templateUrl, label }) => {
                 </a>
             </Tooltip>
 
+            {/* Nút Xem lịch sử import */}
+            <Tooltip title={`Xem lịch sử các lần import ${label}`}>
+                <Button
+                    icon={<HistoryOutlined />}
+                    size="large"
+                    onClick={() => setHistoryVisible(true)}
+                >
+                    Lịch sử
+                </Button>
+            </Tooltip>
+
             {/* Nút Import - ẩn file input thực, click button kích hoạt */}
             <input
                 ref={fileInputRef}
@@ -52,15 +114,26 @@ const ImportButton = ({ importUrl, templateUrl, label }) => {
                 style={{ display: 'none' }}
                 onChange={handleFileChange}
                 id={`import-file-${label}`}
+                disabled={isButtonDisabled}
             />
-            <Button
-                icon={<UploadOutlined />}
-                size="large"
-                loading={uploading}
-                onClick={() => fileInputRef.current?.click()}
-            >
-                Nhập từ Excel
-            </Button>
+            <Tooltip title={hasActiveImport ? 'Hệ thống đang xử lý file import. Vui lòng chờ hoàn tất.' : ''}>
+                <Button
+                    icon={<UploadOutlined />}
+                    size="large"
+                    loading={uploading || hasActiveImport}
+                    disabled={isButtonDisabled}
+                    onClick={() => !isButtonDisabled && fileInputRef.current?.click()}
+                >
+                    {hasActiveImport ? 'Đang import...' : 'Nhập từ Excel'}
+                </Button>
+            </Tooltip>
+
+            <ImportHistoryModal
+                open={historyVisible}
+                onClose={() => setHistoryVisible(false)}
+                onSelectImport={handleSelectImportFromHistory}
+                moduleFilter={moduleMap[label] || null}
+            />
         </Space>
     );
 };
@@ -105,7 +178,7 @@ const ImportResult = ({ result }) => {
                 type={hasErrors && result.created + result.updated === 0 ? 'error' : hasErrors ? 'warning' : 'success'}
                 showIcon
                 message={
-                    <Space>
+                    <Space wrap style={{ gap: 8 }}>
                         <span>
                             Tổng: <strong>{result.total}</strong> dòng
                         </span>
@@ -137,7 +210,7 @@ const ImportResult = ({ result }) => {
                 }
             />
 
-            {hasErrors && (
+            {hasErrors && Array.isArray(result.error_details) && result.error_details.length > 0 && (
                 <Table
                     style={{ marginTop: 8 }}
                     size="small"

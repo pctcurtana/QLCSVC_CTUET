@@ -23,6 +23,8 @@ import {
     FileExcelOutlined,
 } from '@ant-design/icons';
 
+import ImportNotificationListener from '../Common/ImportNotificationListener';
+
 const { Header, Sider, Content } = Layout;
 const { confirm } = Modal;
 
@@ -247,6 +249,7 @@ const MainLayout = ({ children }) => {
 
     return (
         <Layout style={{ minHeight: '100vh', backgroundColor: 'transparent' }}>
+            <ImportNotificationListener />
             <Sider
                 width={210}
                 collapsedWidth={50}

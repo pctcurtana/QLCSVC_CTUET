@@ -430,33 +430,48 @@ class ThongKeSnapshotService
             ->selectRaw("trang_thai, COUNT(*) as so_luong")
             ->groupBy('trang_thai')->get();
 
+        $soKhuNhaMap = DB::table('khu_nhas')
+            ->where('trang_thai_du_lieu', 'hien_hanh')
+            ->selectRaw('co_so_id, COUNT(*) as cnt')
+            ->groupBy('co_so_id')
+            ->pluck('cnt', 'co_so_id');
+
+        $soPhongMap = DB::table('phongs as p')
+            ->join('khu_nhas as kn', 'kn.id', '=', 'p.khu_nha_id')
+            ->where('p.trang_thai_du_lieu', 'hien_hanh')
+            ->where('kn.trang_thai_du_lieu', 'hien_hanh')
+            ->selectRaw('kn.co_so_id, COUNT(p.id) as cnt')
+            ->groupBy('kn.co_so_id')
+            ->pluck('cnt', 'kn.co_so_id');
+
+        $thietBiStatsMap = DB::table('thiet_bis as tb')
+            ->join('phongs as p', 'p.id', '=', 'tb.phong_id')
+            ->join('khu_nhas as kn', 'kn.id', '=', 'p.khu_nha_id')
+            ->where('tb.trang_thai_du_lieu', 'hien_hanh')
+            ->where('p.trang_thai_du_lieu', 'hien_hanh')
+            ->where('kn.trang_thai_du_lieu', 'hien_hanh')
+            ->selectRaw('kn.co_so_id, COUNT(tb.id) as cnt, SUM(tb.gia_tri) as sum_val')
+            ->groupBy('kn.co_so_id')
+            ->get()
+            ->keyBy('co_so_id');
+
         $chiTiet = DB::table('co_sos as cs')
             ->whereRaw("cs.$base")
-            ->leftJoin('khu_nhas as kn', function ($j) {
-                $j->on('kn.co_so_id', '=', 'cs.id')
-                  ->where('kn.trang_thai_du_lieu', 'hien_hanh');
-            })
-            ->leftJoin('phongs as p', function ($j) {
-                $j->on('p.khu_nha_id', '=', 'kn.id')
-                  ->where('p.trang_thai_du_lieu', 'hien_hanh');
-            })
-            ->leftJoin('thiet_bis as tb', function ($j) {
-                $j->on('tb.phong_id', '=', 'p.id')
-                  ->where('tb.trang_thai_du_lieu', 'hien_hanh');
-            })
             ->selectRaw("
                 cs.id, cs.ma_co_so, cs.ten_co_so, cs.dia_chi, cs.trang_thai,
                 cs.dien_tich_dat, cs.vi_tri_khuon_vien,
-                (cs.dien_tich_dat * cs.vi_tri_khuon_vien) as dien_tich_quy_doi,
-                COUNT(DISTINCT kn.id) as so_khu_nha,
-                COUNT(DISTINCT p.id) as so_phong,
-                COUNT(DISTINCT tb.id) as so_thiet_bi,
-                COALESCE(SUM(DISTINCT tb.gia_tri), 0) as tong_gia_tri_thiet_bi
+                (cs.dien_tich_dat * cs.vi_tri_khuon_vien) as dien_tich_quy_doi
             ")
-            ->groupBy('cs.id','cs.ma_co_so','cs.ten_co_so','cs.dia_chi','cs.trang_thai',
-                      'cs.dien_tich_dat','cs.vi_tri_khuon_vien')
             ->orderBy('cs.ten_co_so')
-            ->get();
+            ->get()
+            ->map(function ($r) use ($soKhuNhaMap, $soPhongMap, $thietBiStatsMap) {
+                $r->so_khu_nha = (int) ($soKhuNhaMap[$r->id] ?? 0);
+                $r->so_phong = (int) ($soPhongMap[$r->id] ?? 0);
+                $tbStats = $thietBiStatsMap[$r->id] ?? null;
+                $r->so_thiet_bi = (int) ($tbStats->cnt ?? 0);
+                $r->tong_gia_tri_thiet_bi = (float) ($tbStats->sum_val ?? 0);
+                return $r;
+            });
 
         $bieu_do_dien_tich = $chiTiet->map(fn($r) => [
             'name'           => $r->ten_co_so,
@@ -510,31 +525,37 @@ class ThongKeSnapshotService
             ->selectRaw("trang_thai, COUNT(*) as so_luong")
             ->groupBy('trang_thai')->get();
 
+        $soPhongMap = DB::table('phongs')
+            ->where('trang_thai_du_lieu', 'hien_hanh')
+            ->selectRaw('khu_nha_id, COUNT(*) as cnt')
+            ->groupBy('khu_nha_id')
+            ->pluck('cnt', 'khu_nha_id');
+
+        $soThietBiMap = DB::table('thiet_bis as tb')
+            ->join('phongs as p', 'p.id', '=', 'tb.phong_id')
+            ->where('tb.trang_thai_du_lieu', 'hien_hanh')
+            ->where('p.trang_thai_du_lieu', 'hien_hanh')
+            ->selectRaw('p.khu_nha_id, COUNT(tb.id) as cnt')
+            ->groupBy('p.khu_nha_id')
+            ->pluck('cnt', 'p.khu_nha_id');
+
         $chiTiet = DB::table('khu_nhas as kn')
             ->whereRaw("kn.$base")
             ->leftJoin('co_sos as cs', 'cs.id', '=', 'kn.co_so_id')
-            ->leftJoin('phongs as p', function ($j) {
-                $j->on('p.khu_nha_id', '=', 'kn.id')
-                  ->where('p.trang_thai_du_lieu', 'hien_hanh');
-            })
-            ->leftJoin('thiet_bis as tb', function ($j) {
-                $j->on('tb.phong_id', '=', 'p.id')
-                  ->where('tb.trang_thai_du_lieu', 'hien_hanh');
-            })
             ->selectRaw("
                 kn.id, kn.ma_khu_nha, kn.ten_khu_nha, kn.loai_khu_nha,
                 kn.so_tang, kn.tong_dien_tich_san, kn.he_so_su_dung_dao_tao,
                 kn.trang_thai, kn.nam_xay_dung, kn.co_so_id,
                 (kn.tong_dien_tich_san * kn.he_so_su_dung_dao_tao) as dt_dao_tao,
-                cs.ten_co_so,
-                COUNT(DISTINCT p.id) as so_phong,
-                COUNT(DISTINCT tb.id) as so_thiet_bi
+                cs.ten_co_so
             ")
-            ->groupBy('kn.id','kn.ma_khu_nha','kn.ten_khu_nha','kn.loai_khu_nha',
-                      'kn.so_tang','kn.tong_dien_tich_san','kn.he_so_su_dung_dao_tao',
-                      'kn.trang_thai','kn.nam_xay_dung','kn.co_so_id','cs.ten_co_so')
             ->orderBy('cs.ten_co_so')->orderBy('kn.ten_khu_nha')
-            ->get();
+            ->get()
+            ->map(function ($r) use ($soPhongMap, $soThietBiMap) {
+                $r->so_phong = (int) ($soPhongMap[$r->id] ?? 0);
+                $r->so_thiet_bi = (int) ($soThietBiMap[$r->id] ?? 0);
+                return $r;
+            });
 
         $loaiLabels = [
             'phong_hoc'        => 'Phòng học',
@@ -600,26 +621,6 @@ class ThongKeSnapshotService
             ->selectRaw("tang, COUNT(*) as so_luong, SUM(dien_tich) as tong_dt")
             ->groupBy('tang')->orderBy('tang')->get();
 
-        $chiTiet = DB::table('phongs as p')
-            ->whereRaw("p.$base")
-            ->leftJoin('khu_nhas as kn', 'kn.id', '=', 'p.khu_nha_id')
-            ->leftJoin('co_sos as cs', 'cs.id', '=', 'kn.co_so_id')
-            ->leftJoin('thiet_bis as tb', function ($j) {
-                $j->on('tb.phong_id', '=', 'p.id')
-                  ->where('tb.trang_thai_du_lieu', 'hien_hanh');
-            })
-            ->selectRaw("
-                p.id, p.ma_phong, p.ten_phong, p.loai_phong, p.tang,
-                p.dien_tich, p.suc_chua, p.trang_thai, p.khu_nha_id, kn.co_so_id,
-                kn.ten_khu_nha, cs.ten_co_so,
-                COUNT(DISTINCT tb.id) as so_thiet_bi,
-                COALESCE(SUM(tb.gia_tri), 0) as tong_gia_tri_thiet_bi
-            ")
-            ->groupBy('p.id','p.ma_phong','p.ten_phong','p.loai_phong','p.tang',
-                      'p.dien_tich','p.suc_chua','p.trang_thai','p.khu_nha_id','kn.co_so_id','kn.ten_khu_nha','cs.ten_co_so')
-            ->orderBy('cs.ten_co_so')->orderBy('kn.ten_khu_nha')->orderBy('p.tang')->orderBy('p.ten_phong')
-            ->get();
-
         $loaiLabels = [
             'phong_hoc'         => 'Phòng học',
             'phong_thi_nghiem'  => 'Phòng TN',
@@ -654,7 +655,6 @@ class ThongKeSnapshotService
 
         return [
             'tong_quan'          => $tongQuan,
-            'chi_tiet'           => $chiTiet,
             'bieu_do_loai'       => $bieu_do_loai,
             'bieu_do_trang_thai' => $bieu_do_trang_thai,
             'bieu_do_tang'       => $bieu_do_tang,
@@ -667,6 +667,9 @@ class ThongKeSnapshotService
      */
     protected function computeThongKeThietBi(): array
     {
+        Log::info('COMPUTE THIET BI - NEW CODE', [
+            'memory_mb' => round(memory_get_usage(true) / 1024 / 1024, 2),
+        ]);
         $base = "trang_thai_du_lieu = 'hien_hanh'";
 
         $tongQuan = DB::table('thiet_bis')->whereRaw($base)->selectRaw("
@@ -697,22 +700,6 @@ class ThongKeSnapshotService
             ->whereNotNull('hang_san_xuat')->where('hang_san_xuat', '!=', '')
             ->selectRaw("hang_san_xuat, COUNT(*) as so_luong, SUM(gia_tri) as tong_gia_tri")
             ->groupBy('hang_san_xuat')->orderByDesc('so_luong')->limit(10)->get();
-
-        $chiTiet = DB::table('thiet_bis as tb')
-            ->whereRaw("tb.$base")
-            ->leftJoin('phongs as p', 'p.id', '=', 'tb.phong_id')
-            ->leftJoin('khu_nhas as kn', 'kn.id', '=', 'p.khu_nha_id')
-            ->leftJoin('co_sos as cs', 'cs.id', '=', 'kn.co_so_id')
-            ->selectRaw("
-                tb.id, tb.ma_thiet_bi, tb.ten_thiet_bi, tb.loai_thiet_bi,
-                tb.hang_san_xuat, tb.model, tb.serial_number,
-                tb.nam_san_xuat, tb.nam_mua, tb.gia_tri, tb.trang_thai,
-                tb.ngay_bao_duong_tiep_theo, tb.phong_id, p.khu_nha_id, kn.co_so_id,
-                (CASE WHEN tb.ngay_bao_duong_tiep_theo IS NOT NULL AND tb.ngay_bao_duong_tiep_theo <= CURDATE() THEN 1 ELSE 0 END) as qua_han_bao_duong,
-                p.ten_phong, kn.ten_khu_nha, cs.ten_co_so
-            ")
-            ->orderBy('cs.ten_co_so')->orderBy('kn.ten_khu_nha')->orderBy('p.ten_phong')->orderBy('tb.ten_thiet_bi')
-            ->get();
 
         $loaiLabels = [
             'van_phong'  => 'Văn phòng',
@@ -751,7 +738,6 @@ class ThongKeSnapshotService
 
         return [
             'tong_quan'          => $tongQuan,
-            'chi_tiet'           => $chiTiet,
             'bieu_do_loai'       => $bieu_do_loai,
             'bieu_do_trang_thai' => $bieu_do_trang_thai,
             'bieu_do_nam_mua'    => $bieu_do_nam_mua,

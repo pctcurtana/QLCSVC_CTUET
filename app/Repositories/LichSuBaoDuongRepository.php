@@ -32,6 +32,20 @@ class LichSuBaoDuongRepository implements LichSuBaoDuongRepositoryInterface
         $query = $this->model->query()
             ->with(['thietBi.phong.khuNha.coSo', 'dotKiemTraThietBi']);
 
+        // Filter by search
+        if (isset($filters['search']) && !empty($filters['search'])) {
+            $search = $filters['search'];
+            $query->where(function ($q) use ($search) {
+                $q->whereHas('thietBi', function ($tbQ) use ($search) {
+                    $tbQ->where('ma_thiet_bi', 'like', "%{$search}%")
+                        ->orWhere('ten_thiet_bi', 'like', "%{$search}%")
+                        ->orWhere('serial_number', 'like', "%{$search}%");
+                })
+                ->orWhere('noi_dung', 'like', "%{$search}%")
+                ->orWhere('nguoi_thuc_hien', 'like', "%{$search}%");
+            });
+        }
+
         // Filter by thiet_bi_id
         if (isset($filters['thiet_bi_id']) && !empty($filters['thiet_bi_id'])) {
             $query->where('thiet_bi_id', $filters['thiet_bi_id']);

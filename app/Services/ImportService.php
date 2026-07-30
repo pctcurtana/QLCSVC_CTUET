@@ -13,7 +13,7 @@ use App\Services\ThongKeSnapshotService;
 /**
  * Service điều phối toàn bộ quá trình Import Excel.
  *
- * Mỗi method nhận UploadedFile, khởi tạo Import class tương ứng,
+ * Mỗi method nhận UploadedFile hoặc đường dẫn string, khởi tạo Import class tương ứng,
  * gọi Maatwebsite Excel để đọc + xử lý file, sau đó trả về kết quả.
  *
  * Lưu ý: Transaction được quản lý per-row trong BaseImport,
@@ -24,10 +24,10 @@ class ImportService
     /**
      * Import Cơ sở từ file Excel.
      *
-     * @param  UploadedFile $file
+     * @param  UploadedFile|string $file
      * @return array{total: int, created: int, updated: int, errors: int, error_details: array}
      */
-    public function importCoSo(UploadedFile $file): array
+    public function importCoSo($file): array
     {
         $startTime = microtime(true);
         $import = new CoSoImport();
@@ -44,10 +44,10 @@ class ImportService
     /**
      * Import Khu nhà từ file Excel.
      *
-     * @param  UploadedFile $file
+     * @param  UploadedFile|string $file
      * @return array{total: int, created: int, updated: int, errors: int, error_details: array}
      */
-    public function importKhuNha(UploadedFile $file): array
+    public function importKhuNha($file): array
     {
         $startTime = microtime(true);
         $import = new KhuNhaImport();
@@ -63,10 +63,10 @@ class ImportService
     /**
      * Import Phòng từ file Excel.
      *
-     * @param  UploadedFile $file
+     * @param  UploadedFile|string $file
      * @return array{total: int, created: int, updated: int, errors: int, error_details: array}
      */
-    public function importPhong(UploadedFile $file): array
+    public function importPhong($file): array
     {
         $startTime = microtime(true);
         $import = new PhongImport();
@@ -82,10 +82,10 @@ class ImportService
     /**
      * Import Thiết bị từ file Excel.
      *
-     * @param  UploadedFile $file
+     * @param  UploadedFile|string $file
      * @return array{total: int, created: int, updated: int, errors: int, error_details: array}
      */
-    public function importThietBi(UploadedFile $file): array
+    public function importThietBi($file): array
     {
         $startTime = microtime(true);
         $import = new ThietBiImport();

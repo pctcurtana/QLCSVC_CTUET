@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import MainLayout from '../Layout/MainLayout';
 import {
     Table, Button, Space, Card, Row, Col, message, Select, Tag, Skeleton,
-    Modal, Typography, Statistic, Badge, Tooltip, Descriptions
+    Modal, Typography, Statistic, Badge, Tooltip, Descriptions, Input
 } from 'antd';
 import {
     PlusOutlined,
@@ -13,6 +13,7 @@ import {
     SyncOutlined,
     DollarOutlined,
     HistoryOutlined,
+    SearchOutlined,
 } from '@ant-design/icons';
 import { Link, router, Head } from '@inertiajs/react';
 import dayjs from 'dayjs';
@@ -33,9 +34,9 @@ const TRANG_THAI_MAP = {
     'chua_thuc_hien': { color: 'orange', label: 'Chưa thực hiện', icon: <HistoryOutlined /> },
 };
 
-const Index = ({ lichSuBaoDuongs, thietBis, filters, stats }) => {
+const Index = ({ lichSuBaoDuongs, filters, stats }) => {
     const perm = usePermission('lich-su-bao-duong');
-    const [thietBiFilter, setThietBiFilter] = useState(filters.thiet_bi_id || '');
+    const [search, setSearch] = useState(filters.search || '');
     const [loaiFilter, setLoaiFilter] = useState(filters.loai_bao_duong || '');
     const [trangThaiFilter, setTrangThaiFilter] = useState(filters.trang_thai || '');
     const [loading, setLoading] = useState(true);
@@ -45,10 +46,10 @@ const Index = ({ lichSuBaoDuongs, thietBis, filters, stats }) => {
         setLoading(false);
     }, [lichSuBaoDuongs]);
 
-    const handleThietBiFilter = (value) => {
-        setThietBiFilter(value);
+    const handleSearch = (value) => {
+        setSearch(value);
         router.get('/lich-su-bao-duong', {
-            thiet_bi_id: value,
+            search: value,
             loai_bao_duong: loaiFilter,
             trang_thai: trangThaiFilter,
             per_page: lichSuBaoDuongs.per_page,
@@ -61,7 +62,7 @@ const Index = ({ lichSuBaoDuongs, thietBis, filters, stats }) => {
     const handleLoaiFilter = (value) => {
         setLoaiFilter(value);
         router.get('/lich-su-bao-duong', {
-            thiet_bi_id: thietBiFilter,
+            search,
             loai_bao_duong: value,
             trang_thai: trangThaiFilter,
             per_page: lichSuBaoDuongs.per_page,
@@ -74,7 +75,7 @@ const Index = ({ lichSuBaoDuongs, thietBis, filters, stats }) => {
     const handleTrangThaiFilter = (value) => {
         setTrangThaiFilter(value);
         router.get('/lich-su-bao-duong', {
-            thiet_bi_id: thietBiFilter,
+            search,
             loai_bao_duong: loaiFilter,
             trang_thai: value,
             per_page: lichSuBaoDuongs.per_page,
@@ -85,7 +86,7 @@ const Index = ({ lichSuBaoDuongs, thietBis, filters, stats }) => {
     };
 
     const handleReset = () => {
-        setThietBiFilter('');
+        setSearch('');
         setLoaiFilter('');
         setTrangThaiFilter('');
         router.get('/lich-su-bao-duong');
@@ -261,20 +262,16 @@ const Index = ({ lichSuBaoDuongs, thietBis, filters, stats }) => {
                 {/* Filters */}
                 <Card>
                     <Row gutter={[16, 16]}>
-                        <Col xs={24} sm={12} md={6}>
-                            <Select
-                                placeholder="Lọc theo thiết bị"
-                                size="large"
-                                style={{ width: '100%' }}
+                        <Col xs={24} sm={12} md={7}>
+                            <Input.Search
+                                placeholder="Tìm kiếm mã TB, tên TB, serial..."
                                 allowClear
-                                showSearch
-                                optionFilterProp="label"
-                                value={thietBiFilter || undefined}
-                                onChange={handleThietBiFilter}
-                                options={thietBis.map(tb => ({
-                                    value: tb.id,
-                                    label: `${tb.ma_thiet_bi} - ${tb.ten_thiet_bi}`
-                                }))}
+                                enterButton={<SearchOutlined />}
+                                size="large"
+                                value={search}
+                                onChange={(e) => setSearch(e.target.value)}
+                                onSearch={handleSearch}
+                                style={{ width: '100%' }}
                             />
                         </Col>
                         <Col xs={24} sm={12} md={5}>
@@ -329,7 +326,7 @@ const Index = ({ lichSuBaoDuongs, thietBis, filters, stats }) => {
                                     router.get('/lich-su-bao-duong', {
                                         page,
                                         per_page: pageSize,
-                                        thiet_bi_id: thietBiFilter,
+                                        search,
                                         loai_bao_duong: loaiFilter,
                                         trang_thai: trangThaiFilter,
                                     }, {

@@ -9,10 +9,11 @@ use App\Http\Requests\CoSo\UpdateCoSoRequest;
 use App\Http\Requests\CoSo\VersionUpdateCoSoRequest;
 use App\Http\Requests\ImportRequest;
 use App\Exports\Templates\CoSoTemplate;
+use App\Models\Import;
+use App\Jobs\ProcessExcelImport;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Maatwebsite\Excel\Facades\Excel;
-
 
 class CoSoController extends Controller
 {
@@ -46,7 +47,7 @@ class CoSoController extends Controller
 
             return Inertia::render('CoSo/Index', [
                 'coSos' => $coSos,
-                'filters' => $filters
+                'filters' => $filters,
             ]);
         } catch (\Throwable $e) {
             return redirect()->back()->with('error', 'Lỗi khi tải danh sách cơ sở: ' . $e->getMessage());
@@ -135,8 +136,26 @@ class CoSoController extends Controller
     public function import(ImportRequest $request)
     {
         try {
-            $result = $this->importService->importCoSo($request->file('file'));
-            return redirect()->route('co-so.index')->with('import_result', $result);
+            Import::cleanupStaleImports();
+
+            $hasActive = Import::whereIn('status', ['pending', 'processing'])->exists();
+            if ($hasActive) {
+                return redirect()->back()->with('error', 'Hệ thống đang xử lý một lượt import khác. Vui lòng chờ cho đến khi hoàn tất.');
+            }
+
+            $originalName = $request->file('file')->getClientOriginalName();
+            $filePath = $request->file('file')->store('imports/tmp', 'local');
+            $import = Import::create([
+                'user_id'           => auth()->id(),
+                'module'            => 'co_so',
+                'file_path'         => $filePath,
+                'original_filename' => $originalName,
+                'status'            => 'pending',
+            ]);
+
+            ProcessExcelImport::dispatch($import->id, 'co_so')->onQueue('imports');
+
+            return redirect()->back()->with('success', 'Đang thực hiện import trong nền');
         } catch (\Throwable $e) {
             return redirect()->back()->with('error', 'Lỗi khi import: ' . $e->getMessage());
         }

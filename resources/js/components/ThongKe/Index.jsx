@@ -1,7 +1,7 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useEffect, useRef } from 'react';
 import MainLayout from '../Layout/MainLayout';
 import {
-    Card, Row, Col, Statistic, Typography, Space, Table, Tag, Segmented, Tooltip, Select, Button, message,
+    Card, Row, Col, Statistic, Typography, Space, Table, Tag, Segmented, Tooltip, Select, Button, message, Spin,
 } from 'antd';
 import {
     BankOutlined, HomeOutlined, AppstoreOutlined, ToolOutlined,
@@ -17,6 +17,7 @@ import useThongKeChannel from '../../hooks/useThongKeChannel';
 
 const { Title, Text } = Typography;
 
+
 // ─── Palette đồng bộ toàn trang ──────────────────────────────────────────────
 const P = {
     blue:   '#4096ff',
@@ -31,8 +32,23 @@ const P = {
 const PIE_COLORS = [P.blue, P.green, P.teal, P.purple, P.orange, P.red, P.pink, P.yellow];
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
-const formatCurrency = (v) =>
-    new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(v || 0);
+const formatCurrencyFull = (v) =>
+    new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND', maximumFractionDigits: 0 }).format(v || 0);
+
+const formatCurrency = (v) => {
+    const val = Number(v) || 0;
+    if (val === 0) return '0 đ';
+    const absVal = Math.abs(val);
+    if (absVal >= 1_000_000_000) {
+        const res = (val / 1_000_000_000).toLocaleString('vi-VN', { maximumFractionDigits: 2 });
+        return `${res} tỷ`;
+    }
+    if (absVal >= 1_000_000) {
+        const res = (val / 1_000_000).toLocaleString('vi-VN', { maximumFractionDigits: 2 });
+        return `${res} triệu`;
+    }
+    return formatCurrencyFull(val);
+};
 
 const formatNumber = (v) => new Intl.NumberFormat('vi-VN').format(v || 0);
 
@@ -188,23 +204,22 @@ const TabCoSo = ({ data }) => {
             </Row>
 
             <Row gutter={[16, 16]}>
-                <Col xs={24} lg={14}>
-                    <Card title="Diện tích đất & quy đổi theo cơ sở (m²)" bordered={false}
+                <Col xs={24} lg={12}>
+                    <Card title="Diện tích đất theo cơ sở (m²)" bordered={false}
                         style={{ borderRadius: 10, boxShadow: '0 1px 6px rgba(0,0,0,.06)' }}>
                         <StyledBarChart
                             data={bieu_do_dien_tich}
-                            margin={{ bottom: 40, left: 8 }}
                             bars={[
-                                { dataKey: 'dienTichDat',    name: 'DT đất',      fill: P.blue,  barSize: 24 },
-                                { dataKey: 'dienTichQuyDoi', name: 'DT quy đổi', fill: P.teal,  barSize: 24 },
+                                { dataKey: 'dienTichDat',    name: 'DT đất',       fill: P.blue,  barSize: 28 },
+                                { dataKey: 'dienTichQuyDoi', name: 'DT quy đổi',   fill: P.green, barSize: 28 },
                             ]}
                         >
-                            <XAxis dataKey="name" angle={-12} textAnchor="end" interval={0} tick={axisStyle} />
-                            <YAxis tickFormatter={v => `${Math.round(v / 1000)}k`} tick={axisStyle} />
+                            <XAxis dataKey="name" tick={axisStyle} />
+                            <YAxis tick={axisStyle} />
                         </StyledBarChart>
                     </Card>
                 </Col>
-                <Col xs={24} lg={10}>
+                <Col xs={24} lg={12}>
                     <Card title="Trạng thái cơ sở" bordered={false}
                         style={{ borderRadius: 10, boxShadow: '0 1px 6px rgba(0,0,0,.06)' }}>
                         <DonutChart data={bieu_do_trang_thai} />
@@ -212,18 +227,20 @@ const TabCoSo = ({ data }) => {
                 </Col>
             </Row>
 
-            <Card title="Số toà nhà · Phòng · Thiết bị theo cơ sở" bordered={false}
-                style={{ borderRadius: 10, boxShadow: '0 1px 6px rgba(0,0,0,.06)' }}>
+            <Card title="Số lượng khu nhà, phòng, thiết bị theo cơ sở" bordered={false}
+                style={{ borderRadius: 10, boxShadow: '0 1px 6px rgba(0,0,0,.06)' }}
+            >
                 <StyledBarChart
                     data={bieu_do_so_luong}
-                    margin={{ bottom: 40, left: 0 }}
+                    height={300}
+                    margin={{ bottom: 50, left: 8 }}
                     bars={[
-                        { dataKey: 'soKhuNha',  name: 'Toà nhà',  fill: P.blue,   barSize: 18 },
-                        { dataKey: 'soPhong',   name: 'Phòng',    fill: P.green,  barSize: 18 },
-                        { dataKey: 'soThietBi', name: 'Thiết bị', fill: P.orange, barSize: 18 },
+                        { dataKey: 'soKhuNha',  name: 'Toà nhà',  fill: P.blue,   barSize: 16 },
+                        { dataKey: 'soPhong',   name: 'Phòng',    fill: P.green,  barSize: 16 },
+                        { dataKey: 'soThietBi', name: 'Thiết bị', fill: P.purple, barSize: 16 },
                     ]}
                 >
-                    <XAxis dataKey="name" angle={-12} textAnchor="end" interval={0} tick={axisStyle} />
+                    <XAxis dataKey="name" angle={-12} textAnchor="end" interval={0} tick={{ ...axisStyle, fontSize: 11 }} />
                     <YAxis tick={axisStyle} />
                 </StyledBarChart>
             </Card>
@@ -385,12 +402,18 @@ const TabKhuNha = ({ data, danhSachCoSo }) => {
 };
 
 // ─────────────────────────────────────────────────────
-// TAB: PHÒNG
+// TAB: PHÒNG (phân trang backend)
 // ─────────────────────────────────────────────────────
-const TabPhong = ({ data, danhSachCoSo, danhSachKhuNha }) => {
+const TabPhong = ({ data, danhSachCoSo, danhSachKhuNha, refreshSignal }) => {
     const [filterCoSo, setFilterCoSo] = useState(null);
     const [filterKhuNha, setFilterKhuNha] = useState(null);
-    const { chi_tiet } = data;
+
+    // Phân trang backend
+    const [tableData, setTableData] = useState({ data: [], current_page: 1, per_page: 10, total: 0 });
+    const [tableLoading, setTableLoading] = useState(false);
+
+    // KPI + biểu đồ vẫn đọc từ snapshot
+    const { tong_quan: tq, bieu_do_loai, bieu_do_trang_thai, bieu_do_tang } = data;
 
     // Danh sách khu nhà theo cơ sở đã chọn
     const khuNhaOptions = useMemo(() => {
@@ -398,72 +421,55 @@ const TabPhong = ({ data, danhSachCoSo, danhSachKhuNha }) => {
         return (danhSachKhuNha || []).filter(kn => kn.co_so_id === filterCoSo);
     }, [filterCoSo, danhSachKhuNha]);
 
-    // Reset khu nhà khi đổi cơ sở
+    // Fetch chi tiết phân trang
+    const fetchChiTiet = useCallback(async (page = 1, perPage = 10, filters = {}) => {
+        setTableLoading(true);
+        try {
+            const params = {
+                page,
+                per_page: perPage,
+                ...filters,
+            };
+            // Loại bỏ params rỗng
+            Object.keys(params).forEach(k => { if (!params[k]) delete params[k]; });
+
+            const res = await window.axios.get('/thong-ke/chi-tiet-phong', { params });
+            setTableData(res.data);
+        } catch (e) {
+            console.error('Lỗi khi tải chi tiết phòng:', e);
+        } finally {
+            setTableLoading(false);
+        }
+    }, []);
+
+    // Lấy filters hiện tại
+    const currentFilters = useCallback(() => ({
+        co_so_id: filterCoSo || '',
+        khu_nha_id: filterKhuNha || '',
+    }), [filterCoSo, filterKhuNha]);
+
+    // Fetch khi mount
+    useEffect(() => {
+        fetchChiTiet(1, 10, currentFilters());
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+    // Refetch khi Pusher signal
+    useEffect(() => {
+        if (refreshSignal > 0) {
+            fetchChiTiet(tableData.current_page, tableData.per_page, currentFilters());
+        }
+    }, [refreshSignal]); // eslint-disable-line react-hooks/exhaustive-deps
+
+    // Handlers — reset page về 1 khi filter thay đổi
     const handleCoSoChange = (val) => {
         setFilterCoSo(val);
         setFilterKhuNha(null);
+        fetchChiTiet(1, tableData.per_page, { co_so_id: val || '', khu_nha_id: '' });
     };
-
-    // Lọc dữ liệu
-    const filteredData = useMemo(() => {
-        let list = chi_tiet;
-        if (filterCoSo) {
-            list = list.filter(r => r.co_so_id === filterCoSo);
-        }
-        if (filterKhuNha) {
-            list = list.filter(r => r.khu_nha_id === filterKhuNha);
-        }
-
-        // Tính toán tổng quan
-        const tong_quan = {
-            tong_phong: list.length,
-            tong_dien_tich: list.reduce((s, r) => s + (parseFloat(r.dien_tich) || 0), 0),
-            tong_suc_chua: list.reduce((s, r) => s + (parseInt(r.suc_chua) || 0), 0),
-            phong_bao_tri: list.filter(r => r.trang_thai === 'maintenance').length,
-        };
-
-        // Biểu đồ theo loại
-        const loaiMap = {};
-        list.forEach(r => {
-            const k = r.loai_phong || 'khac';
-            if (!loaiMap[k]) loaiMap[k] = { soLuong: 0, tongDT: 0, sucChua: 0 };
-            loaiMap[k].soLuong++;
-            loaiMap[k].tongDT += parseFloat(r.dien_tich) || 0;
-            loaiMap[k].sucChua += parseInt(r.suc_chua) || 0;
-        });
-        const loaiLabels = {
-            phong_hoc: 'Phòng học', phong_thi_nghiem: 'Phòng thí nghiệm', phong_thuc_hanh: 'Phòng thực hành',
-            phong_lam_viec: 'Phòng làm việc', phong_chuc_nang: 'Phòng chức năng',
-        };
-        const bieu_do_loai = Object.entries(loaiMap).map(([k, v]) => ({
-            name: loaiLabels[k] || k, soLuong: v.soLuong, tongDT: v.tongDT, sucChua: v.sucChua,
-        }));
-
-        // Biểu đồ trạng thái
-        const ttMap = {};
-        list.forEach(r => {
-            const k = r.trang_thai || 'khac';
-            ttMap[k] = (ttMap[k] || 0) + 1;
-        });
-        const ttLabels = { active: 'Hoạt động', maintenance: 'Bảo trì', inactive: 'Không HĐ' };
-        const bieu_do_trang_thai = Object.entries(ttMap).map(([k, v]) => ({
-            name: ttLabels[k] || k, value: v,
-        }));
-
-        // Biểu đồ theo tầng
-        const tangMap = {};
-        list.forEach(r => {
-            const t = r.tang ?? 0;
-            tangMap[t] = (tangMap[t] || 0) + 1;
-        });
-        const bieu_do_tang = Object.entries(tangMap)
-            .sort((a, b) => parseInt(a[0]) - parseInt(b[0]))
-            .map(([k, v]) => ({ name: `Tầng ${k}`, soPhong: v }));
-
-        return { tong_quan, chi_tiet: list, bieu_do_loai, bieu_do_trang_thai, bieu_do_tang };
-    }, [chi_tiet, filterCoSo, filterKhuNha]);
-
-    const { tong_quan: tq, bieu_do_loai, bieu_do_trang_thai, bieu_do_tang } = filteredData;
+    const handleKhuNhaChange = (val) => {
+        setFilterKhuNha(val);
+        fetchChiTiet(1, tableData.per_page, { co_so_id: filterCoSo || '', khu_nha_id: val || '' });
+    };
 
     const columns = [
         { title: 'Mã', dataIndex: 'ma_phong', width: 90, fixed: 'left' },
@@ -497,7 +503,7 @@ const TabPhong = ({ data, danhSachCoSo, danhSachKhuNha }) => {
                         allowClear
                         style={{ width: 220 }}
                         value={filterKhuNha}
-                        onChange={setFilterKhuNha}
+                        onChange={handleKhuNhaChange}
                         options={khuNhaOptions.map(kn => ({ value: kn.id, label: kn.ten_khu_nha }))}
                         disabled={!filterCoSo && khuNhaOptions.length === 0}
                     />
@@ -553,23 +559,45 @@ const TabPhong = ({ data, danhSachCoSo, danhSachKhuNha }) => {
                 </StyledBarChart>
             </Card>
 
-            <Card title={`Chi tiết (${filteredData.chi_tiet?.length || 0} phòng)`} bordered={false}
+            <Card title={`Chi tiết (${formatNumber(tableData.total)} phòng)`} bordered={false}
                 style={{ borderRadius: 10, boxShadow: '0 1px 6px rgba(0,0,0,.06)' }}>
-                <Table dataSource={filteredData.chi_tiet} columns={columns} rowKey="id"
-                    pagination={{ pageSize: 10 }} scroll={{ x: 1000 }} size="small" />
+                <Table
+                    dataSource={tableData.data}
+                    columns={columns}
+                    rowKey="id"
+                    loading={tableLoading}
+                    scroll={{ x: 1000 }}
+                    size="small"
+                    pagination={{
+                        current: tableData.current_page,
+                        pageSize: tableData.per_page,
+                        total: tableData.total,
+                        showSizeChanger: true,
+                        showTotal: (total) => `Tổng số ${formatNumber(total)} phòng`,
+                        onChange: (page, pageSize) => {
+                            fetchChiTiet(page, pageSize, currentFilters());
+                        },
+                    }}
+                />
             </Card>
         </Space>
     );
 };
 
 // ─────────────────────────────────────────────────────
-// TAB: THIẾT BỊ
+// TAB: THIẾT BỊ (phân trang backend)
 // ─────────────────────────────────────────────────────
-const TabThietBi = ({ data, danhSachCoSo, danhSachKhuNha, danhSachPhong }) => {
+const TabThietBi = ({ data, danhSachCoSo, danhSachKhuNha, danhSachPhong, refreshSignal }) => {
     const [filterCoSo, setFilterCoSo] = useState(null);
     const [filterKhuNha, setFilterKhuNha] = useState(null);
     const [filterPhong, setFilterPhong] = useState(null);
-    const { chi_tiet } = data;
+
+    // Phân trang backend
+    const [tableData, setTableData] = useState({ data: [], current_page: 1, per_page: 10, total: 0 });
+    const [tableLoading, setTableLoading] = useState(false);
+
+    // KPI + biểu đồ vẫn đọc từ snapshot
+    const { tong_quan: tq, bieu_do_loai, bieu_do_trang_thai, bieu_do_nam_mua, bieu_do_hang } = data;
 
     // Danh sách khu nhà theo cơ sở
     const khuNhaOptions = useMemo(() => {
@@ -583,83 +611,61 @@ const TabThietBi = ({ data, danhSachCoSo, danhSachKhuNha, danhSachPhong }) => {
         return (danhSachPhong || []).filter(p => p.khu_nha_id === filterKhuNha);
     }, [filterKhuNha, danhSachPhong]);
 
-    // Reset cascading
+    // Fetch chi tiết phân trang
+    const fetchChiTiet = useCallback(async (page = 1, perPage = 10, filters = {}) => {
+        setTableLoading(true);
+        try {
+            const params = {
+                page,
+                per_page: perPage,
+                ...filters,
+            };
+            Object.keys(params).forEach(k => { if (!params[k]) delete params[k]; });
+
+            const res = await window.axios.get('/thong-ke/chi-tiet-thiet-bi', { params });
+            setTableData(res.data);
+        } catch (e) {
+            console.error('Lỗi khi tải chi tiết thiết bị:', e);
+        } finally {
+            setTableLoading(false);
+        }
+    }, []);
+
+    // Lấy filters hiện tại
+    const currentFilters = useCallback(() => ({
+        co_so_id: filterCoSo || '',
+        khu_nha_id: filterKhuNha || '',
+        phong_id: filterPhong || '',
+    }), [filterCoSo, filterKhuNha, filterPhong]);
+
+    // Fetch khi mount
+    useEffect(() => {
+        fetchChiTiet(1, 10, currentFilters());
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+    // Refetch khi Pusher signal
+    useEffect(() => {
+        if (refreshSignal > 0) {
+            fetchChiTiet(tableData.current_page, tableData.per_page, currentFilters());
+        }
+    }, [refreshSignal]); // eslint-disable-line react-hooks/exhaustive-deps
+
+    // Handlers — reset page về 1 khi filter thay đổi
     const handleCoSoChange = (val) => {
         setFilterCoSo(val);
         setFilterKhuNha(null);
         setFilterPhong(null);
+        fetchChiTiet(1, tableData.per_page, { co_so_id: val || '' });
     };
     const handleKhuNhaChange = (val) => {
         setFilterKhuNha(val);
         setFilterPhong(null);
+        fetchChiTiet(1, tableData.per_page, { co_so_id: filterCoSo || '', khu_nha_id: val || '' });
     };
-
-    // Lọc dữ liệu
-    const filteredData = useMemo(() => {
-        let list = chi_tiet;
-        if (filterCoSo) list = list.filter(r => r.co_so_id === filterCoSo);
-        if (filterKhuNha) list = list.filter(r => r.khu_nha_id === filterKhuNha);
-        if (filterPhong) list = list.filter(r => r.phong_id === filterPhong);
-
-        // Tổng quan
-        const tong_quan = {
-            tong_thiet_bi: list.length,
-            tong_gia_tri: list.reduce((s, r) => s + (parseFloat(r.gia_tri) || 0), 0),
-            can_bao_duong: list.filter(r => r.qua_han_bao_duong).length,
-            dang_hoat_dong: list.filter(r => r.trang_thai === 'tot').length,
-        };
-
-        // Biểu đồ theo loại
-        const loaiMap = {};
-        list.forEach(r => {
-            const k = r.loai_thiet_bi || 'khac';
-            if (!loaiMap[k]) loaiMap[k] = { soLuong: 0, tongGiaTri: 0 };
-            loaiMap[k].soLuong++;
-            loaiMap[k].tongGiaTri += parseFloat(r.gia_tri) || 0;
-        });
-        const loaiLabels = { van_phong: 'Văn phòng', day_hoc: 'Dạy học', thi_nghiem: 'Thí nghiệm', thuc_hanh: 'Thực hành' };
-        const bieu_do_loai = Object.entries(loaiMap).map(([k, v]) => ({
-            name: loaiLabels[k] || k, soLuong: v.soLuong, tongGiaTri: v.tongGiaTri,
-        }));
-
-        // Biểu đồ trạng thái
-        const ttMap = {};
-        list.forEach(r => {
-            const k = r.trang_thai || 'khac';
-            ttMap[k] = (ttMap[k] || 0) + 1;
-        });
-        const ttLabels = { tot: 'Tốt', can_sua_chua: 'Cần sửa chữa', hu_hong: 'Hư hỏng' };
-        const bieu_do_trang_thai = Object.entries(ttMap).map(([k, v]) => ({
-            name: ttLabels[k] || k, value: v,
-        }));
-
-        // Biểu đồ theo năm mua
-        const namMap = {};
-        list.forEach(r => {
-            if (!r.nam_mua) return;
-            if (!namMap[r.nam_mua]) namMap[r.nam_mua] = { soLuong: 0, tongGiaTri: 0 };
-            namMap[r.nam_mua].soLuong++;
-            namMap[r.nam_mua].tongGiaTri += parseFloat(r.gia_tri) || 0;
-        });
-        const bieu_do_nam_mua = Object.entries(namMap)
-            .sort((a, b) => parseInt(a[0]) - parseInt(b[0]))
-            .map(([k, v]) => ({ name: k, soLuong: v.soLuong, tongGiaTri: v.tongGiaTri }));
-
-        // Biểu đồ theo hãng
-        const hangMap = {};
-        list.forEach(r => {
-            if (!r.hang_san_xuat) return;
-            hangMap[r.hang_san_xuat] = (hangMap[r.hang_san_xuat] || 0) + 1;
-        });
-        const bieu_do_hang = Object.entries(hangMap)
-            .sort((a, b) => b[1] - a[1])
-            .slice(0, 10)
-            .map(([k, v]) => ({ name: k, soLuong: v }));
-
-        return { tong_quan, chi_tiet: list, bieu_do_loai, bieu_do_trang_thai, bieu_do_nam_mua, bieu_do_hang };
-    }, [chi_tiet, filterCoSo, filterKhuNha, filterPhong]);
-
-    const { tong_quan: tq, bieu_do_loai, bieu_do_trang_thai, bieu_do_nam_mua, bieu_do_hang } = filteredData;
+    const handlePhongChange = (val) => {
+        setFilterPhong(val);
+        fetchChiTiet(1, tableData.per_page, { co_so_id: filterCoSo || '', khu_nha_id: filterKhuNha || '', phong_id: val || '' });
+    };
 
     const columns = [
         { title: 'Mã TB', dataIndex: 'ma_thiet_bi', width: 100, fixed: 'left' },
@@ -706,7 +712,7 @@ const TabThietBi = ({ data, danhSachCoSo, danhSachKhuNha, danhSachPhong }) => {
                         allowClear
                         style={{ width: 200 }}
                         value={filterPhong}
-                        onChange={setFilterPhong}
+                        onChange={handlePhongChange}
                         options={phongOptions.map(p => ({ value: p.id, label: p.ten_phong }))}
                     />
                 </Space>
@@ -715,12 +721,12 @@ const TabThietBi = ({ data, danhSachCoSo, danhSachKhuNha, danhSachPhong }) => {
             <Row gutter={[16, 16]}>
                 {[
                     { title: 'Tổng thiết bị', value: tq?.tong_thiet_bi,              icon: <ToolOutlined />,    color: P.blue },
-                    { title: 'Tổng giá trị',  value: formatCurrency(tq?.tong_gia_tri), icon: <DollarOutlined />, color: P.purple },
+                    { title: 'Tổng giá trị',  value: formatCurrency(tq?.tong_gia_tri), tooltip: formatCurrencyFull(tq?.tong_gia_tri), icon: <DollarOutlined />, color: P.purple },
                     { title: 'Cần bảo dưỡng', value: tq?.can_bao_duong,              icon: <WarningOutlined />, color: P.red },
                     { title: 'Đang hoạt động', value: tq?.dang_hoat_dong,             icon: <ToolOutlined />,    color: P.green },
                 ].map((item, i) => (
                     <Col xs={24} sm={12} lg={6} key={i}>
-                        <KpiCard title={item.title} value={item.value} icon={item.icon} color={item.color} />
+                        <KpiCard title={item.title} value={item.value} tooltip={item.tooltip} icon={item.icon} color={item.color} />
                     </Col>
                 ))}
             </Row>
@@ -803,11 +809,26 @@ const TabThietBi = ({ data, danhSachCoSo, danhSachKhuNha, danhSachPhong }) => {
                 </Col>
             </Row>
 
-            <Card title={`Chi tiết (${filteredData.chi_tiet?.length || 0} thiết bị)`} bordered={false}
+            <Card title={`Chi tiết (${formatNumber(tableData.total)} thiết bị)`} bordered={false}
                 style={{ borderRadius: 10, boxShadow: '0 1px 6px rgba(0,0,0,.06)' }}>
-                <Table dataSource={filteredData.chi_tiet} columns={columns} rowKey="id"
-                    pagination={{ pageSize: 10 }} scroll={{ x: 1200 }} size="small"
+                <Table
+                    dataSource={tableData.data}
+                    columns={columns}
+                    rowKey="id"
+                    loading={tableLoading}
+                    scroll={{ x: 1200 }}
+                    size="small"
                     rowClassName={(r) => r.qua_han_bao_duong ? 'ant-table-row-warning' : ''}
+                    pagination={{
+                        current: tableData.current_page,
+                        pageSize: tableData.per_page,
+                        total: tableData.total,
+                        showSizeChanger: true,
+                        showTotal: (total) => `Tổng số ${formatNumber(total)} thiết bị`,
+                        onChange: (page, pageSize) => {
+                            fetchChiTiet(page, pageSize, currentFilters());
+                        },
+                    }}
                 />
             </Card>
 
@@ -828,6 +849,12 @@ const ThongKeIndex = ({ thongKeCoSo: initCoSo, thongKeKhuNha: initKhuNha, thongK
     const [dataKhuNha, setDataKhuNha] = useState(initKhuNha || {});
     const [dataPhong, setDataPhong] = useState(initPhong || {});
     const [dataThietBi, setDataThietBi] = useState(initThietBi || {});
+
+    // Signal để trigger refetch bảng chi tiết phân trang (chỉ tab đang active)
+    const [refreshPhong, setRefreshPhong] = useState(0);
+    const [refreshThietBi, setRefreshThietBi] = useState(0);
+    const tabRef = useRef(tab);
+    useEffect(() => { tabRef.current = tab; }, [tab]);
 
     // Lắng nghe realtime updates từ Pusher
     const handleRealtimeUpdate = useCallback(async ({ updatedKeys }) => {
@@ -854,6 +881,15 @@ const ThongKeIndex = ({ thongKeCoSo: initCoSo, thongKeKhuNha: initKhuNha, thongK
             }
         } catch (e) {
             console.error('Lỗi khi tải snapshot mới cho Thống kê:', e);
+        }
+
+        // Refetch bảng chi tiết phân trang — chỉ tab đang active
+        const activeTab = tabRef.current;
+        if (activeTab === 'phong' && updatedKeys.includes('thongke.phong')) {
+            setRefreshPhong(prev => prev + 1);
+        }
+        if (activeTab === 'thiet-bi' && updatedKeys.includes('thongke.thiet_bi')) {
+            setRefreshThietBi(prev => prev + 1);
         }
     }, []);
 
@@ -912,8 +948,8 @@ const ThongKeIndex = ({ thongKeCoSo: initCoSo, thongKeKhuNha: initKhuNha, thongK
 
                 {tab === 'co-so'    && <TabCoSo    data={dataCoSo}    />}
                 {tab === 'khu-nha'  && <TabKhuNha  data={dataKhuNha} danhSachCoSo={danhSachCoSo} />}
-                {tab === 'phong'    && <TabPhong   data={dataPhong}  danhSachCoSo={danhSachCoSo} danhSachKhuNha={danhSachKhuNha} />}
-                {tab === 'thiet-bi' && <TabThietBi data={dataThietBi} danhSachCoSo={danhSachCoSo} danhSachKhuNha={danhSachKhuNha} danhSachPhong={danhSachPhong} />}
+                {tab === 'phong'    && <TabPhong   data={dataPhong}  danhSachCoSo={danhSachCoSo} danhSachKhuNha={danhSachKhuNha} refreshSignal={refreshPhong} />}
+                {tab === 'thiet-bi' && <TabThietBi data={dataThietBi} danhSachCoSo={danhSachCoSo} danhSachKhuNha={danhSachKhuNha} danhSachPhong={danhSachPhong} refreshSignal={refreshThietBi} />}
             </Space>
         </MainLayout>
     );

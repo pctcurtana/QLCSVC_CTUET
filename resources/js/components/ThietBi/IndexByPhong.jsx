@@ -108,11 +108,27 @@ const IndexByPhong = ({ groupedThietBis, phongs, filters }) => {
         router.get('/thiet-bi-theo-phong');
     };
 
-    const formatCurrency = (value) => {
+    const formatCurrencyFull = (value) => {
         return new Intl.NumberFormat('vi-VN', {
             style: 'currency',
-            currency: 'VND'
-        }).format(value);
+            currency: 'VND',
+            maximumFractionDigits: 0
+        }).format(value || 0);
+    };
+
+    const formatCurrency = (value) => {
+        const val = Number(value) || 0;
+        if (val === 0) return '0 đ';
+        const absVal = Math.abs(val);
+        if (absVal >= 1_000_000_000) {
+            const res = (val / 1_000_000_000).toLocaleString('vi-VN', { maximumFractionDigits: 2 });
+            return `${res} tỷ`;
+        }
+        if (absVal >= 1_000_000) {
+            const res = (val / 1_000_000).toLocaleString('vi-VN', { maximumFractionDigits: 2 });
+            return `${res} triệu`;
+        }
+        return formatCurrencyFull(val);
     };
 
     const getLoaiThietBiLabel = (loai) => {
@@ -390,6 +406,7 @@ const IndexByPhong = ({ groupedThietBis, phongs, filters }) => {
                         <KpiCard
                             title="Tổng giá trị"
                             value={formatCurrency(totalStats.tongGiaTri)}
+                            tooltip={formatCurrencyFull(totalStats.tongGiaTri)}
                             icon={<DollarOutlined />}
                             color="#cf1322"
                         />

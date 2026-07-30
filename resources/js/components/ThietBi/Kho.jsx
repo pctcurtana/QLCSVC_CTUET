@@ -79,9 +79,24 @@ const Kho = ({ thietBis, stats, phongs, filters }) => {
         router.get('/kho');
     };
 
-    const formatCurrency = (value) => {
+    const formatCurrencyFull = (value) => {
         if (!value) return '—';
-        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value);
+        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND', maximumFractionDigits: 0 }).format(value);
+    };
+
+    const formatCurrency = (value) => {
+        const val = Number(value) || 0;
+        if (val === 0) return '0 đ';
+        const absVal = Math.abs(val);
+        if (absVal >= 1_000_000_000) {
+            const res = (val / 1_000_000_000).toLocaleString('vi-VN', { maximumFractionDigits: 2 });
+            return `${res} tỷ`;
+        }
+        if (absVal >= 1_000_000) {
+            const res = (val / 1_000_000).toLocaleString('vi-VN', { maximumFractionDigits: 2 });
+            return `${res} triệu`;
+        }
+        return formatCurrencyFull(val);
     };
 
     const formatDate = (dateStr) => {
@@ -213,6 +228,7 @@ const Kho = ({ thietBis, stats, phongs, filters }) => {
             icon: <LaptopOutlined />,
             bg: '#fff7e6',
             formatter: formatCurrency,
+            tooltip: formatCurrencyFull(stats?.tong_gia_tri ?? 0),
         },
     ];
 
@@ -228,6 +244,7 @@ const Kho = ({ thietBis, stats, phongs, filters }) => {
                             <KpiCard
                                 title={k.title}
                                 value={k.formatter ? k.formatter(k.value) : k.value}
+                                tooltip={k.tooltip}
                                 icon={k.icon}
                                 color={k.color}
                             />

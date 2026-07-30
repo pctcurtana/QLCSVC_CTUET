@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\ThongKeSnapshotService;
+use App\Services\ThongKeService;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -10,10 +11,12 @@ use Illuminate\Support\Facades\DB;
 class ThongKeController extends Controller
 {
     protected $snapshotService;
+    protected $thongKeService;
 
-    public function __construct(ThongKeSnapshotService $snapshotService)
+    public function __construct(ThongKeSnapshotService $snapshotService, ThongKeService $thongKeService)
     {
         $this->snapshotService = $snapshotService;
+        $this->thongKeService  = $thongKeService;
     }
 
     public function index()
@@ -107,6 +110,48 @@ class ThongKeController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Lỗi khi tính lại thống kê: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    /**
+     * Phân trang chi tiết Phòng cho trang Thống kê.
+     * GET /thong-ke/chi-tiet-phong
+     */
+    public function chiTietPhong(Request $request)
+    {
+        try {
+            $filters = $request->only(['search', 'co_so_id', 'khu_nha_id']);
+            $perPage = (int) $request->input('per_page', 10);
+
+            $data = $this->thongKeService->paginateChiTietPhong($filters, $perPage);
+
+            return response()->json($data);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Lỗi khi lấy chi tiết phòng: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    /**
+     * Phân trang chi tiết Thiết bị cho trang Thống kê.
+     * GET /thong-ke/chi-tiet-thiet-bi
+     */
+    public function chiTietThietBi(Request $request)
+    {
+        try {
+            $filters = $request->only(['search', 'co_so_id', 'khu_nha_id', 'phong_id']);
+            $perPage = (int) $request->input('per_page', 10);
+
+            $data = $this->thongKeService->paginateChiTietThietBi($filters, $perPage);
+
+            return response()->json($data);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Lỗi khi lấy chi tiết thiết bị: ' . $e->getMessage(),
             ], 500);
         }
     }

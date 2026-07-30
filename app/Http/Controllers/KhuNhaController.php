@@ -10,10 +10,11 @@ use App\Http\Requests\KhuNha\UpdateKhuNhaRequest;
 use App\Http\Requests\KhuNha\VersionUpdateKhuNhaRequest;
 use App\Http\Requests\ImportRequest;
 use App\Exports\Templates\KhuNhaTemplate;
+use App\Models\Import;
+use App\Jobs\ProcessExcelImport;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Maatwebsite\Excel\Facades\Excel;
-
 
 class KhuNhaController extends Controller
 {
@@ -55,7 +56,7 @@ class KhuNhaController extends Controller
             return Inertia::render('KhuNha/Index', [
                 'khuNhas' => $khuNhas,
                 'coSos' => $coSos,
-                'filters' => $filters
+                'filters' => $filters,
             ]);
         } catch (\Throwable $e) {
             return redirect()->back()->with('error', 'Lỗi khi tải danh sách toà nhà: ' . $e->getMessage());
@@ -154,8 +155,26 @@ class KhuNhaController extends Controller
     public function import(ImportRequest $request)
     {
         try {
-            $result = $this->importService->importKhuNha($request->file('file'));
-            return redirect()->route('khu-nha.index')->with('import_result', $result);
+            Import::cleanupStaleImports();
+
+            $hasActive = Import::whereIn('status', ['pending', 'processing'])->exists();
+            if ($hasActive) {
+                return redirect()->back()->with('error', 'Hệ thống đang xử lý một lượt import khác. Vui lòng chờ cho đến khi hoàn tất.');
+            }
+
+            $originalName = $request->file('file')->getClientOriginalName();
+            $filePath = $request->file('file')->store('imports/tmp', 'local');
+            $import = Import::create([
+                'user_id'           => auth()->id(),
+                'module'            => 'khu_nha',
+                'file_path'         => $filePath,
+                'original_filename' => $originalName,
+                'status'            => 'pending',
+            ]);
+
+            ProcessExcelImport::dispatch($import->id, 'khu_nha')->onQueue('imports');
+
+            return redirect()->back()->with('success', 'Đã đưa file vào hàng đợi');
         } catch (\Throwable $e) {
             return redirect()->back()->with('error', 'Lỗi khi import: ' . $e->getMessage());
         }

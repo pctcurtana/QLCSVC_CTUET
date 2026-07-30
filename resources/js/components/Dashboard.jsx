@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import MainLayout from './Layout/MainLayout';
-import { Card, Row, Col, Typography, Space, Button, message } from 'antd';
+import { Card, Row, Col, Typography, Space, Button, message, Tooltip as AntTooltip } from 'antd';
 import {
     BankOutlined, HomeOutlined, AppstoreOutlined, ToolOutlined,
     DollarOutlined, AreaChartOutlined, ReloadOutlined,
 } from '@ant-design/icons';
 import useThongKeChannel from '../hooks/useThongKeChannel';
+import KpiCard from './Common/KpiCard';
 import {
     PieChart, Pie, Cell, RadialBar, RadialBarChart, Legend,
     BarChart, Bar, XAxis, YAxis, CartesianGrid,
@@ -93,84 +94,25 @@ const useCountUp = (target, duration = 1200) => {
 
 // ─── Helpers ──────────────────────────────────────────────────────────────
 const fmt = (v) => new Intl.NumberFormat('vi-VN').format(v || 0);
-const fmtCr = (v) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND', maximumFractionDigits: 0 }).format(v || 0);
+const fmtCrFull = (v) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND', maximumFractionDigits: 0 }).format(v || 0);
+const fmtCr = (v) => {
+    const val = Number(v) || 0;
+    if (val === 0) return '0 đ';
+    const absVal = Math.abs(val);
+    if (absVal >= 1_000_000_000) {
+        const res = (val / 1_000_000_000).toLocaleString('vi-VN', { maximumFractionDigits: 2 });
+        return `${res} tỷ`;
+    }
+    if (absVal >= 1_000_000) {
+        const res = (val / 1_000_000).toLocaleString('vi-VN', { maximumFractionDigits: 2 });
+        return `${res} triệu`;
+    }
+    return fmtCrFull(val);
+};
 const loaiPhongLabel = (l) => ({ phong_hoc: 'Phòng học', phong_thi_nghiem: 'Thí nghiệm', phong_thuc_hanh: 'Thực hành', phong_lam_viec: 'Làm việc', phong_chuc_nang: 'Chức năng' }[l] || l);
 const loaiThietBiLabel = (l) => ({ van_phong: 'Văn phòng', day_hoc: 'Dạy học', thi_nghiem: 'Thí nghiệm', thuc_hanh: 'Thực hành' }[l] || l);
 const trangThaiLabel = (t) => ({ active: 'Hoạt động', maintenance: 'Bảo trì', inactive: 'Không HĐ' }[t] || t);
 
-// ─── KPI Card ─────────────────────────────────────────────────────────────
-const KpiCard = ({ title, value, icon, color }) => {
-    return (
-        <Card
-            bordered={false}
-            className="
-                relative
-                overflow-hidden
-                h-full
-                rounded-[18px]
-                border
-                border-white/35
-                bg-white/55
-                backdrop-blur-xl
-                shadow-[0_6px_20px_rgba(15,23,42,.04)]
-            "
-            styles={{
-                body: {
-                    padding: 16,
-                },
-            }}
-        >
-            {/* Glow */}
-            <div
-                className=" absolute -top-6 -right-6 h-20 w-20 rounded-full blur-3xl"
-                style={{
-                    background: `${color}15`,
-                }}
-            />
-
-            {/* Header */}
-            <div className="mb-3 flex items-center justify-between">
-                <div className="text-[10px] font-bold uppercase tracking-[0.12em] text-slate-500">
-                    {title}
-                </div>
-
-                <div
-                    className="flex h-9 w-9 items-center justify-center rounded-xl"
-                    style={{
-                        background: `${color}15`,
-                        color,
-                    }}
-                >
-                    {icon}
-                </div>
-            </div>
-
-            {/* Value */}
-            <div
-                className="mb-2 text-[24px] font-extrabold leading-none tracking-[-0.05em] text-[#0f172a]"
-                style={{
-                    fontFamily: "'Plus Jakarta Sans', sans-serif",
-                }}
-            >
-                {value}
-            </div>
-
-            {/* Footer */}
-            <div className="flex items-center gap-1.5">
-                <div
-                    className="h-1.5 w-1.5 rounded-full"
-                    style={{
-                        background: color,
-                    }}
-                />
-
-                <span className="text-[10px] font-semibold uppercase tracking-[0.05em] text-slate-400">
-                    Dữ liệu mới nhất
-                </span>
-            </div>
-        </Card>
-    );
-};
 
 // ─── Chart Card ───────────────────────────────────────────────────────────
 const ChartCard = ({ title, children }) => (
@@ -406,7 +348,7 @@ const Dashboard = ({ statistics: initStats, thongKeLoaiPhong: initLoaiPhong, tho
         { title: 'Tổng số toà nhà', value: fmt(stats.tong_khu_nha), icon: <HomeOutlined />, color: '#52c41a' },
         { title: 'Tổng số phòng', value: fmt(stats.tong_phong), icon: <AppstoreOutlined />, color: '#13c2c2' },
         { title: 'Tổng số thiết bị', value: fmt(stats.tong_thiet_bi), icon: <ToolOutlined />, color: '#fa8c16' },
-        { title: 'Tổng giá trị thiết bị', value: fmtCr(stats.tong_gia_tri_thiet_bi), icon: <DollarOutlined />, color: '#7c3aed' },
+        { title: 'Tổng giá trị thiết bị', value: fmtCr(stats.tong_gia_tri_thiet_bi), tooltip: fmtCrFull(stats.tong_gia_tri_thiet_bi), icon: <DollarOutlined />, color: '#7c3aed' },
         { title: 'Diện tích đất (m²)', value: fmt(stats.dien_tich_dat), icon: <AreaChartOutlined />, color: '#13c2c2' },
     ];
 

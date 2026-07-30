@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 
 class ThongKeService
@@ -355,5 +356,119 @@ class ThongKeService
             'bieu_do_nam_mua'    => $bieu_do_nam_mua,
             'bieu_do_hang'       => $bieu_do_hang,
         ];
+    }
+
+    // ─────────────────────────────────────────────
+    // PHÂN TRANG CHI TIẾT (cho bảng ThongKe)
+    // ─────────────────────────────────────────────
+
+    /**
+     * Phân trang chi tiết Phòng cho trang Thống kê.
+     * Query giống computeThongKePhong() nhưng dùng paginate().
+     *
+     * @param array $filters  Keys: search, co_so_id, khu_nha_id
+     * @param int   $perPage
+     * @return LengthAwarePaginator
+     */
+    public function paginateChiTietPhong(array $filters = [], int $perPage = 10): LengthAwarePaginator
+    {
+        $base = "trang_thai_du_lieu = 'hien_hanh'";
+
+        $query = DB::table('phongs as p')
+            ->whereRaw("p.$base")
+            ->leftJoin('khu_nhas as kn', 'kn.id', '=', 'p.khu_nha_id')
+            ->leftJoin('co_sos as cs', 'cs.id', '=', 'kn.co_so_id')
+            ->leftJoin('thiet_bis as tb', function ($j) {
+                $j->on('tb.phong_id', '=', 'p.id')
+                  ->where('tb.trang_thai_du_lieu', 'hien_hanh');
+            })
+            ->selectRaw("
+                p.id, p.ma_phong, p.ten_phong, p.loai_phong, p.tang,
+                p.dien_tich, p.suc_chua, p.trang_thai, p.khu_nha_id, kn.co_so_id,
+                kn.ten_khu_nha, cs.ten_co_so,
+                COUNT(DISTINCT tb.id) as so_thiet_bi,
+                COALESCE(SUM(tb.gia_tri), 0) as tong_gia_tri_thiet_bi
+            ")
+            ->groupBy('p.id','p.ma_phong','p.ten_phong','p.loai_phong','p.tang',
+                      'p.dien_tich','p.suc_chua','p.trang_thai','p.khu_nha_id','kn.co_so_id','kn.ten_khu_nha','cs.ten_co_so');
+
+        // Filters
+        if (!empty($filters['co_so_id'])) {
+            $query->where('kn.co_so_id', $filters['co_so_id']);
+        }
+        if (!empty($filters['khu_nha_id'])) {
+            $query->where('p.khu_nha_id', $filters['khu_nha_id']);
+        }
+        if (!empty($filters['search'])) {
+            $search = $filters['search'];
+            $query->where(function ($q) use ($search) {
+                $q->where('p.ma_phong', 'like', "%{$search}%")
+                  ->orWhere('p.ten_phong', 'like', "%{$search}%")
+                  ->orWhere('kn.ten_khu_nha', 'like', "%{$search}%")
+                  ->orWhere('cs.ten_co_so', 'like', "%{$search}%");
+            });
+        }
+
+        return $query
+            ->orderBy('cs.ten_co_so')
+            ->orderBy('kn.ten_khu_nha')
+            ->orderBy('p.tang')
+            ->orderBy('p.ten_phong')
+            ->paginate($perPage);
+    }
+
+    /**
+     * Phân trang chi tiết Thiết bị cho trang Thống kê.
+     * Query giống computeThongKeThietBi() nhưng dùng paginate().
+     *
+     * @param array $filters  Keys: search, co_so_id, khu_nha_id, phong_id
+     * @param int   $perPage
+     * @return LengthAwarePaginator
+     */
+    public function paginateChiTietThietBi(array $filters = [], int $perPage = 10): LengthAwarePaginator
+    {
+        $base = "trang_thai_du_lieu = 'hien_hanh'";
+
+        $query = DB::table('thiet_bis as tb')
+            ->whereRaw("tb.$base")
+            ->leftJoin('phongs as p', 'p.id', '=', 'tb.phong_id')
+            ->leftJoin('khu_nhas as kn', 'kn.id', '=', 'p.khu_nha_id')
+            ->leftJoin('co_sos as cs', 'cs.id', '=', 'kn.co_so_id')
+            ->selectRaw("
+                tb.id, tb.ma_thiet_bi, tb.ten_thiet_bi, tb.loai_thiet_bi,
+                tb.hang_san_xuat, tb.model, tb.serial_number,
+                tb.nam_san_xuat, tb.nam_mua, tb.gia_tri, tb.trang_thai,
+                tb.ngay_bao_duong_tiep_theo, tb.phong_id, p.khu_nha_id, kn.co_so_id,
+                (CASE WHEN tb.ngay_bao_duong_tiep_theo IS NOT NULL AND tb.ngay_bao_duong_tiep_theo <= CURDATE() THEN 1 ELSE 0 END) as qua_han_bao_duong,
+                p.ten_phong, kn.ten_khu_nha, cs.ten_co_so
+            ");
+
+        // Filters
+        if (!empty($filters['co_so_id'])) {
+            $query->where('kn.co_so_id', $filters['co_so_id']);
+        }
+        if (!empty($filters['khu_nha_id'])) {
+            $query->where('p.khu_nha_id', $filters['khu_nha_id']);
+        }
+        if (!empty($filters['phong_id'])) {
+            $query->where('tb.phong_id', $filters['phong_id']);
+        }
+        if (!empty($filters['search'])) {
+            $search = $filters['search'];
+            $query->where(function ($q) use ($search) {
+                $q->where('tb.ma_thiet_bi', 'like', "%{$search}%")
+                  ->orWhere('tb.ten_thiet_bi', 'like', "%{$search}%")
+                  ->orWhere('tb.hang_san_xuat', 'like', "%{$search}%")
+                  ->orWhere('tb.serial_number', 'like', "%{$search}%")
+                  ->orWhere('p.ten_phong', 'like', "%{$search}%");
+            });
+        }
+
+        return $query
+            ->orderBy('cs.ten_co_so')
+            ->orderBy('kn.ten_khu_nha')
+            ->orderBy('p.ten_phong')
+            ->orderBy('tb.ten_thiet_bi')
+            ->paginate($perPage);
     }
 }
