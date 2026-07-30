@@ -408,12 +408,16 @@ const TabPhong = ({ data, danhSachCoSo, danhSachKhuNha, refreshSignal }) => {
     const [filterCoSo, setFilterCoSo] = useState(null);
     const [filterKhuNha, setFilterKhuNha] = useState(null);
 
-    // Phân trang backend
+    // Phân trang backend & Thống kê theo bộ lọc
     const [tableData, setTableData] = useState({ data: [], current_page: 1, per_page: 10, total: 0 });
     const [tableLoading, setTableLoading] = useState(false);
+    const [filteredStats, setFilteredStats] = useState(null);
 
-    // KPI + biểu đồ vẫn đọc từ snapshot
-    const { tong_quan: tq, bieu_do_loai, bieu_do_trang_thai, bieu_do_tang } = data;
+    // KPI + biểu đồ: dùng dữ liệu lọc nếu có, nếu không thì dùng snapshot gốc
+    const tq = filteredStats ? filteredStats.tq : data.tong_quan;
+    const bieu_do_loai = filteredStats ? filteredStats.bieu_do_loai : data.bieu_do_loai;
+    const bieu_do_trang_thai = filteredStats ? filteredStats.bieu_do_trang_thai : data.bieu_do_trang_thai;
+    const bieu_do_tang = filteredStats ? filteredStats.bieu_do_tang : data.bieu_do_tang;
 
     // Danh sách khu nhà theo cơ sở đã chọn
     const khuNhaOptions = useMemo(() => {
@@ -434,7 +438,17 @@ const TabPhong = ({ data, danhSachCoSo, danhSachKhuNha, refreshSignal }) => {
             Object.keys(params).forEach(k => { if (!params[k]) delete params[k]; });
 
             const res = await window.axios.get('/thong-ke/chi-tiet-phong', { params });
-            setTableData(res.data);
+            if (res.data && res.data.paginator) {
+                setTableData(res.data.paginator);
+                setFilteredStats({
+                    tq: res.data.tong_quan,
+                    bieu_do_loai: res.data.bieu_do_loai,
+                    bieu_do_trang_thai: res.data.bieu_do_trang_thai,
+                    bieu_do_tang: res.data.bieu_do_tang,
+                });
+            } else {
+                setTableData(res.data);
+            }
         } catch (e) {
             console.error('Lỗi khi tải chi tiết phòng:', e);
         } finally {
@@ -592,12 +606,17 @@ const TabThietBi = ({ data, danhSachCoSo, danhSachKhuNha, danhSachPhong, refresh
     const [filterKhuNha, setFilterKhuNha] = useState(null);
     const [filterPhong, setFilterPhong] = useState(null);
 
-    // Phân trang backend
+    // Phân trang backend & Thống kê theo bộ lọc
     const [tableData, setTableData] = useState({ data: [], current_page: 1, per_page: 10, total: 0 });
     const [tableLoading, setTableLoading] = useState(false);
+    const [filteredStats, setFilteredStats] = useState(null);
 
-    // KPI + biểu đồ vẫn đọc từ snapshot
-    const { tong_quan: tq, bieu_do_loai, bieu_do_trang_thai, bieu_do_nam_mua, bieu_do_hang } = data;
+    // KPI + biểu đồ: dùng dữ liệu lọc nếu có, nếu không thì dùng snapshot gốc
+    const tq = filteredStats ? filteredStats.tq : data.tong_quan;
+    const bieu_do_loai = filteredStats ? filteredStats.bieu_do_loai : data.bieu_do_loai;
+    const bieu_do_trang_thai = filteredStats ? filteredStats.bieu_do_trang_thai : data.bieu_do_trang_thai;
+    const bieu_do_nam_mua = filteredStats ? filteredStats.bieu_do_nam_mua : data.bieu_do_nam_mua;
+    const bieu_do_hang = filteredStats ? filteredStats.bieu_do_hang : data.bieu_do_hang;
 
     // Danh sách khu nhà theo cơ sở
     const khuNhaOptions = useMemo(() => {
@@ -623,7 +642,18 @@ const TabThietBi = ({ data, danhSachCoSo, danhSachKhuNha, danhSachPhong, refresh
             Object.keys(params).forEach(k => { if (!params[k]) delete params[k]; });
 
             const res = await window.axios.get('/thong-ke/chi-tiet-thiet-bi', { params });
-            setTableData(res.data);
+            if (res.data && res.data.paginator) {
+                setTableData(res.data.paginator);
+                setFilteredStats({
+                    tq: res.data.tong_quan,
+                    bieu_do_loai: res.data.bieu_do_loai,
+                    bieu_do_trang_thai: res.data.bieu_do_trang_thai,
+                    bieu_do_nam_mua: res.data.bieu_do_nam_mua,
+                    bieu_do_hang: res.data.bieu_do_hang,
+                });
+            } else {
+                setTableData(res.data);
+            }
         } catch (e) {
             console.error('Lỗi khi tải chi tiết thiết bị:', e);
         } finally {

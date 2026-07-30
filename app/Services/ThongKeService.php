@@ -363,21 +363,82 @@ class ThongKeService
     // ─────────────────────────────────────────────
 
     /**
-     * Phân trang chi tiết Phòng cho trang Thống kê.
-     * Query giống computeThongKePhong() nhưng dùng paginate().
+     * Phân trang chi tiết Phòng cho trang Thống kê + thống kê tổng quan theo bộ lọc.
      *
      * @param array $filters  Keys: search, co_so_id, khu_nha_id
      * @param int   $perPage
-     * @return LengthAwarePaginator
+     * @return array
      */
-    public function paginateChiTietPhong(array $filters = [], int $perPage = 10): LengthAwarePaginator
+    public function paginateChiTietPhong(array $filters = [], int $perPage = 10): array
     {
         $base = "trang_thai_du_lieu = 'hien_hanh'";
 
-        $query = DB::table('phongs as p')
+        $baseQuery = DB::table('phongs as p')
             ->whereRaw("p.$base")
             ->leftJoin('khu_nhas as kn', 'kn.id', '=', 'p.khu_nha_id')
-            ->leftJoin('co_sos as cs', 'cs.id', '=', 'kn.co_so_id')
+            ->leftJoin('co_sos as cs', 'cs.id', '=', 'kn.co_so_id');
+
+        if (!empty($filters['co_so_id'])) {
+            $baseQuery->where('kn.co_so_id', $filters['co_so_id']);
+        }
+        if (!empty($filters['khu_nha_id'])) {
+            $baseQuery->where('p.khu_nha_id', $filters['khu_nha_id']);
+        }
+
+        // Summary KPI
+        $tongQuan = (clone $baseQuery)->selectRaw("
+            COUNT(*) as tong_phong,
+            COALESCE(SUM(p.dien_tich), 0) as tong_dien_tich,
+            COALESCE(SUM(p.suc_chua), 0) as tong_suc_chua,
+            SUM(CASE WHEN p.trang_thai = 'maintenance' THEN 1 ELSE 0 END) as phong_bao_tri
+        ")->first();
+
+        // Biểu đồ loại
+        $theoLoai = (clone $baseQuery)
+            ->selectRaw("p.loai_phong, COUNT(*) as so_luong, COALESCE(SUM(p.suc_chua), 0) as tong_suc_chua")
+            ->groupBy('p.loai_phong')->orderByDesc('so_luong')->get();
+
+        $loaiLabels = [
+            'phong_hoc'         => 'Phòng học',
+            'phong_thi_nghiem'  => 'Phòng TN',
+            'phong_thuc_hanh'   => 'Phòng TH',
+            'phong_lam_viec'    => 'Phòng LV',
+            'phong_chuc_nang'   => 'Phòng CN',
+        ];
+        $bieuDoLoai = $theoLoai->map(fn($r) => [
+            'name'    => $loaiLabels[$r->loai_phong] ?? $r->loai_phong,
+            'soLuong' => (int) $r->so_luong,
+            'sucChua' => (int) $r->tong_suc_chua,
+        ]);
+
+        // Biểu đồ trạng thái
+        $theoTrangThai = (clone $baseQuery)
+            ->selectRaw("p.trang_thai, COUNT(*) as so_luong")
+            ->groupBy('p.trang_thai')->get();
+
+        $trangThaiLabels = [
+            'active'      => 'Hoạt động',
+            'maintenance' => 'Bảo trì',
+            'inactive'    => 'Không HĐ',
+        ];
+        $bieuDoTrangThai = $theoTrangThai->map(fn($r) => [
+            'name'  => $trangThaiLabels[$r->trang_thai] ?? $r->trang_thai,
+            'value' => (int) $r->so_luong,
+        ]);
+
+        // Biểu đồ tầng
+        $theoTang = (clone $baseQuery)
+            ->selectRaw("p.tang, COUNT(*) as so_luong, COALESCE(SUM(p.dien_tich), 0) as tong_dt")
+            ->groupBy('p.tang')->orderBy('p.tang')->get();
+
+        $bieuDoTang = $theoTang->map(fn($r) => [
+            'name'    => 'Tầng ' . $r->tang,
+            'soPhong' => (int) $r->so_luong,
+            'tongDT'  => (float) $r->tong_dt,
+        ]);
+
+        // Paginator table query
+        $query = (clone $baseQuery)
             ->leftJoin('thiet_bis as tb', function ($j) {
                 $j->on('tb.phong_id', '=', 'p.id')
                   ->where('tb.trang_thai_du_lieu', 'hien_hanh');
@@ -392,13 +453,6 @@ class ThongKeService
             ->groupBy('p.id','p.ma_phong','p.ten_phong','p.loai_phong','p.tang',
                       'p.dien_tich','p.suc_chua','p.trang_thai','p.khu_nha_id','kn.co_so_id','kn.ten_khu_nha','cs.ten_co_so');
 
-        // Filters
-        if (!empty($filters['co_so_id'])) {
-            $query->where('kn.co_so_id', $filters['co_so_id']);
-        }
-        if (!empty($filters['khu_nha_id'])) {
-            $query->where('p.khu_nha_id', $filters['khu_nha_id']);
-        }
         if (!empty($filters['search'])) {
             $search = $filters['search'];
             $query->where(function ($q) use ($search) {
@@ -409,31 +463,116 @@ class ThongKeService
             });
         }
 
-        return $query
+        $paginator = $query
             ->orderBy('cs.ten_co_so')
             ->orderBy('kn.ten_khu_nha')
             ->orderBy('p.tang')
             ->orderBy('p.ten_phong')
             ->paginate($perPage);
+
+        return [
+            'paginator'          => $paginator,
+            'tong_quan'          => $tongQuan,
+            'bieu_do_loai'       => $bieuDoLoai,
+            'bieu_do_trang_thai' => $bieuDoTrangThai,
+            'bieu_do_tang'       => $bieuDoTang,
+        ];
     }
 
     /**
-     * Phân trang chi tiết Thiết bị cho trang Thống kê.
-     * Query giống computeThongKeThietBi() nhưng dùng paginate().
+     * Phân trang chi tiết Thiết bị cho trang Thống kê + thống kê tổng quan theo bộ lọc.
      *
      * @param array $filters  Keys: search, co_so_id, khu_nha_id, phong_id
      * @param int   $perPage
-     * @return LengthAwarePaginator
+     * @return array
      */
-    public function paginateChiTietThietBi(array $filters = [], int $perPage = 10): LengthAwarePaginator
+    public function paginateChiTietThietBi(array $filters = [], int $perPage = 10): array
     {
         $base = "trang_thai_du_lieu = 'hien_hanh'";
 
-        $query = DB::table('thiet_bis as tb')
+        $baseQuery = DB::table('thiet_bis as tb')
             ->whereRaw("tb.$base")
             ->leftJoin('phongs as p', 'p.id', '=', 'tb.phong_id')
             ->leftJoin('khu_nhas as kn', 'kn.id', '=', 'p.khu_nha_id')
-            ->leftJoin('co_sos as cs', 'cs.id', '=', 'kn.co_so_id')
+            ->leftJoin('co_sos as cs', 'cs.id', '=', 'kn.co_so_id');
+
+        if (!empty($filters['co_so_id'])) {
+            $baseQuery->where('kn.co_so_id', $filters['co_so_id']);
+        }
+        if (!empty($filters['khu_nha_id'])) {
+            $baseQuery->where('p.khu_nha_id', $filters['khu_nha_id']);
+        }
+        if (!empty($filters['phong_id'])) {
+            $baseQuery->where('tb.phong_id', $filters['phong_id']);
+        }
+
+        // Summary KPI
+        $tongQuan = (clone $baseQuery)->selectRaw("
+            COUNT(*) as tong_thiet_bi,
+            COALESCE(SUM(tb.gia_tri), 0) as tong_gia_tri,
+            SUM(CASE WHEN tb.trang_thai = 'tot' THEN 1 ELSE 0 END) as dang_hoat_dong,
+            SUM(CASE WHEN tb.trang_thai = 'can_sua_chua' THEN 1 ELSE 0 END) as can_sua_chua,
+            SUM(CASE WHEN tb.trang_thai = 'hu_hong' THEN 1 ELSE 0 END) as hu_hong,
+            SUM(CASE WHEN tb.ngay_bao_duong_tiep_theo IS NOT NULL AND tb.ngay_bao_duong_tiep_theo <= CURDATE() THEN 1 ELSE 0 END) as can_bao_duong
+        ")->first();
+
+        // Biểu đồ loại
+        $theoLoai = (clone $baseQuery)
+            ->selectRaw("tb.loai_thiet_bi, COUNT(*) as so_luong, COALESCE(SUM(tb.gia_tri), 0) as tong_gia_tri")
+            ->groupBy('tb.loai_thiet_bi')->orderByDesc('so_luong')->get();
+
+        $loaiLabels = [
+            'van_phong'  => 'Văn phòng',
+            'day_hoc'    => 'Dạy học',
+            'thi_nghiem' => 'Thí nghiệm',
+            'thuc_hanh'  => 'Thực hành',
+        ];
+        $bieuDoLoai = $theoLoai->map(fn($r) => [
+            'name'       => $loaiLabels[$r->loai_thiet_bi] ?? $r->loai_thiet_bi,
+            'soLuong'    => (int) $r->so_luong,
+            'tongGiaTri' => (float) $r->tong_gia_tri,
+        ]);
+
+        // Biểu đồ trạng thái
+        $theoTrangThai = (clone $baseQuery)
+            ->selectRaw("tb.trang_thai, COUNT(*) as so_luong")
+            ->groupBy('tb.trang_thai')->get();
+
+        $trangThaiLabels = [
+            'tot'          => 'Tốt',
+            'can_sua_chua' => 'Cần sửa chữa',
+            'hu_hong'      => 'Hư hỏng',
+        ];
+        $bieuDoTrangThai = $theoTrangThai->map(fn($r) => [
+            'name'  => $trangThaiLabels[$r->trang_thai] ?? $r->trang_thai,
+            'value' => (int) $r->so_luong,
+        ]);
+
+        // Biểu đồ năm mua
+        $theoNamMua = (clone $baseQuery)
+            ->whereNotNull('tb.nam_mua')
+            ->selectRaw("tb.nam_mua, COUNT(*) as so_luong, COALESCE(SUM(tb.gia_tri), 0) as tong_gia_tri")
+            ->groupBy('tb.nam_mua')->orderBy('tb.nam_mua')->get();
+
+        $bieuDoNamMua = $theoNamMua->map(fn($r) => [
+            'name'       => (string) $r->nam_mua,
+            'soLuong'    => (int) $r->so_luong,
+            'tongGiaTri' => (float) $r->tong_gia_tri,
+        ]);
+
+        // Biểu đồ hãng
+        $theoHang = (clone $baseQuery)
+            ->whereNotNull('tb.hang_san_xuat')->where('tb.hang_san_xuat', '!=', '')
+            ->selectRaw("tb.hang_san_xuat, COUNT(*) as so_luong")
+            ->groupBy('tb.hang_san_xuat')->orderByDesc('so_luong')->limit(10)->get();
+
+        $bieuDoHang = $theoHang->map(fn($r) => [
+            'name'    => $r->hang_san_xuat,
+            'soLuong' => (int) $r->so_luong,
+        ]);
+
+        // Paginator table query
+        $query = (clone $baseQuery)
             ->selectRaw("
                 tb.id, tb.ma_thiet_bi, tb.ten_thiet_bi, tb.loai_thiet_bi,
                 tb.hang_san_xuat, tb.model, tb.serial_number,
@@ -443,16 +582,6 @@ class ThongKeService
                 p.ten_phong, kn.ten_khu_nha, cs.ten_co_so
             ");
 
-        // Filters
-        if (!empty($filters['co_so_id'])) {
-            $query->where('kn.co_so_id', $filters['co_so_id']);
-        }
-        if (!empty($filters['khu_nha_id'])) {
-            $query->where('p.khu_nha_id', $filters['khu_nha_id']);
-        }
-        if (!empty($filters['phong_id'])) {
-            $query->where('tb.phong_id', $filters['phong_id']);
-        }
         if (!empty($filters['search'])) {
             $search = $filters['search'];
             $query->where(function ($q) use ($search) {
@@ -464,11 +593,20 @@ class ThongKeService
             });
         }
 
-        return $query
+        $paginator = $query
             ->orderBy('cs.ten_co_so')
             ->orderBy('kn.ten_khu_nha')
             ->orderBy('p.ten_phong')
             ->orderBy('tb.ten_thiet_bi')
             ->paginate($perPage);
+
+        return [
+            'paginator'          => $paginator,
+            'tong_quan'          => $tongQuan,
+            'bieu_do_loai'       => $bieuDoLoai,
+            'bieu_do_trang_thai' => $bieuDoTrangThai,
+            'bieu_do_nam_mua'    => $bieuDoNamMua,
+            'bieu_do_hang'       => $bieuDoHang,
+        ];
     }
 }

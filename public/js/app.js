@@ -234747,7 +234747,7 @@ var TabPhong = function TabPhong(_ref9) {
     filterKhuNha = _useState6[0],
     setFilterKhuNha = _useState6[1];
 
-  // Phân trang backend
+  // Phân trang backend & Thống kê theo bộ lọc
   var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
       data: [],
       current_page: 1,
@@ -234761,12 +234761,16 @@ var TabPhong = function TabPhong(_ref9) {
     _useState0 = _slicedToArray(_useState9, 2),
     tableLoading = _useState0[0],
     setTableLoading = _useState0[1];
+  var _useState1 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState10 = _slicedToArray(_useState1, 2),
+    filteredStats = _useState10[0],
+    setFilteredStats = _useState10[1];
 
-  // KPI + biểu đồ vẫn đọc từ snapshot
-  var tq = data.tong_quan,
-    bieu_do_loai = data.bieu_do_loai,
-    bieu_do_trang_thai = data.bieu_do_trang_thai,
-    bieu_do_tang = data.bieu_do_tang;
+  // KPI + biểu đồ: dùng dữ liệu lọc nếu có, nếu không thì dùng snapshot gốc
+  var tq = filteredStats ? filteredStats.tq : data.tong_quan;
+  var bieu_do_loai = filteredStats ? filteredStats.bieu_do_loai : data.bieu_do_loai;
+  var bieu_do_trang_thai = filteredStats ? filteredStats.bieu_do_trang_thai : data.bieu_do_trang_thai;
+  var bieu_do_tang = filteredStats ? filteredStats.bieu_do_tang : data.bieu_do_tang;
 
   // Danh sách khu nhà theo cơ sở đã chọn
   var khuNhaOptions = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
@@ -234806,7 +234810,17 @@ var TabPhong = function TabPhong(_ref9) {
           });
         case 2:
           res = _context.v;
-          setTableData(res.data);
+          if (res.data && res.data.paginator) {
+            setTableData(res.data.paginator);
+            setFilteredStats({
+              tq: res.data.tong_quan,
+              bieu_do_loai: res.data.bieu_do_loai,
+              bieu_do_trang_thai: res.data.bieu_do_trang_thai,
+              bieu_do_tang: res.data.bieu_do_tang
+            });
+          } else {
+            setTableData(res.data);
+          }
           _context.n = 4;
           break;
         case 3:
@@ -235102,40 +235116,44 @@ var TabThietBi = function TabThietBi(_ref1) {
     danhSachKhuNha = _ref1.danhSachKhuNha,
     danhSachPhong = _ref1.danhSachPhong,
     refreshSignal = _ref1.refreshSignal;
-  var _useState1 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
-    _useState10 = _slicedToArray(_useState1, 2),
-    filterCoSo = _useState10[0],
-    setFilterCoSo = _useState10[1];
   var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
     _useState12 = _slicedToArray(_useState11, 2),
-    filterKhuNha = _useState12[0],
-    setFilterKhuNha = _useState12[1];
+    filterCoSo = _useState12[0],
+    setFilterCoSo = _useState12[1];
   var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
     _useState14 = _slicedToArray(_useState13, 2),
-    filterPhong = _useState14[0],
-    setFilterPhong = _useState14[1];
+    filterKhuNha = _useState14[0],
+    setFilterKhuNha = _useState14[1];
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState16 = _slicedToArray(_useState15, 2),
+    filterPhong = _useState16[0],
+    setFilterPhong = _useState16[1];
 
-  // Phân trang backend
-  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+  // Phân trang backend & Thống kê theo bộ lọc
+  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
       data: [],
       current_page: 1,
       per_page: 10,
       total: 0
     }),
-    _useState16 = _slicedToArray(_useState15, 2),
-    tableData = _useState16[0],
-    setTableData = _useState16[1];
-  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState18 = _slicedToArray(_useState17, 2),
-    tableLoading = _useState18[0],
-    setTableLoading = _useState18[1];
+    tableData = _useState18[0],
+    setTableData = _useState18[1];
+  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState20 = _slicedToArray(_useState19, 2),
+    tableLoading = _useState20[0],
+    setTableLoading = _useState20[1];
+  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState22 = _slicedToArray(_useState21, 2),
+    filteredStats = _useState22[0],
+    setFilteredStats = _useState22[1];
 
-  // KPI + biểu đồ vẫn đọc từ snapshot
-  var tq = data.tong_quan,
-    bieu_do_loai = data.bieu_do_loai,
-    bieu_do_trang_thai = data.bieu_do_trang_thai,
-    bieu_do_nam_mua = data.bieu_do_nam_mua,
-    bieu_do_hang = data.bieu_do_hang;
+  // KPI + biểu đồ: dùng dữ liệu lọc nếu có, nếu không thì dùng snapshot gốc
+  var tq = filteredStats ? filteredStats.tq : data.tong_quan;
+  var bieu_do_loai = filteredStats ? filteredStats.bieu_do_loai : data.bieu_do_loai;
+  var bieu_do_trang_thai = filteredStats ? filteredStats.bieu_do_trang_thai : data.bieu_do_trang_thai;
+  var bieu_do_nam_mua = filteredStats ? filteredStats.bieu_do_nam_mua : data.bieu_do_nam_mua;
+  var bieu_do_hang = filteredStats ? filteredStats.bieu_do_hang : data.bieu_do_hang;
 
   // Danh sách khu nhà theo cơ sở
   var khuNhaOptions = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
@@ -235183,7 +235201,18 @@ var TabThietBi = function TabThietBi(_ref1) {
           });
         case 2:
           res = _context2.v;
-          setTableData(res.data);
+          if (res.data && res.data.paginator) {
+            setTableData(res.data.paginator);
+            setFilteredStats({
+              tq: res.data.tong_quan,
+              bieu_do_loai: res.data.bieu_do_loai,
+              bieu_do_trang_thai: res.data.bieu_do_trang_thai,
+              bieu_do_nam_mua: res.data.bieu_do_nam_mua,
+              bieu_do_hang: res.data.bieu_do_hang
+            });
+          } else {
+            setTableData(res.data);
+          }
           _context2.n = 4;
           break;
         case 3:
@@ -235687,42 +235716,42 @@ var ThongKeIndex = function ThongKeIndex(_ref11) {
     danhSachCoSo = _ref11.danhSachCoSo,
     danhSachKhuNha = _ref11.danhSachKhuNha,
     danhSachPhong = _ref11.danhSachPhong;
-  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('co-so'),
-    _useState20 = _slicedToArray(_useState19, 2),
-    tab = _useState20[0],
-    setTab = _useState20[1];
-  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
-    _useState22 = _slicedToArray(_useState21, 2),
-    recalculating = _useState22[0],
-    setRecalculating = _useState22[1];
+  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('co-so'),
+    _useState24 = _slicedToArray(_useState23, 2),
+    tab = _useState24[0],
+    setTab = _useState24[1];
+  var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState26 = _slicedToArray(_useState25, 2),
+    recalculating = _useState26[0],
+    setRecalculating = _useState26[1];
 
   // State quản lý dữ liệu thống kê — khởi tạo từ Inertia props
-  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(initCoSo || {}),
-    _useState24 = _slicedToArray(_useState23, 2),
-    dataCoSo = _useState24[0],
-    setDataCoSo = _useState24[1];
-  var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(initKhuNha || {}),
-    _useState26 = _slicedToArray(_useState25, 2),
-    dataKhuNha = _useState26[0],
-    setDataKhuNha = _useState26[1];
-  var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(initPhong || {}),
+  var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(initCoSo || {}),
     _useState28 = _slicedToArray(_useState27, 2),
-    dataPhong = _useState28[0],
-    setDataPhong = _useState28[1];
-  var _useState29 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(initThietBi || {}),
+    dataCoSo = _useState28[0],
+    setDataCoSo = _useState28[1];
+  var _useState29 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(initKhuNha || {}),
     _useState30 = _slicedToArray(_useState29, 2),
-    dataThietBi = _useState30[0],
-    setDataThietBi = _useState30[1];
+    dataKhuNha = _useState30[0],
+    setDataKhuNha = _useState30[1];
+  var _useState31 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(initPhong || {}),
+    _useState32 = _slicedToArray(_useState31, 2),
+    dataPhong = _useState32[0],
+    setDataPhong = _useState32[1];
+  var _useState33 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(initThietBi || {}),
+    _useState34 = _slicedToArray(_useState33, 2),
+    dataThietBi = _useState34[0],
+    setDataThietBi = _useState34[1];
 
   // Signal để trigger refetch bảng chi tiết phân trang (chỉ tab đang active)
-  var _useState31 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
-    _useState32 = _slicedToArray(_useState31, 2),
-    refreshPhong = _useState32[0],
-    setRefreshPhong = _useState32[1];
-  var _useState33 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
-    _useState34 = _slicedToArray(_useState33, 2),
-    refreshThietBi = _useState34[0],
-    setRefreshThietBi = _useState34[1];
+  var _useState35 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+    _useState36 = _slicedToArray(_useState35, 2),
+    refreshPhong = _useState36[0],
+    setRefreshPhong = _useState36[1];
+  var _useState37 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+    _useState38 = _slicedToArray(_useState37, 2),
+    refreshThietBi = _useState38[0],
+    setRefreshThietBi = _useState38[1];
   var tabRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(tab);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     tabRef.current = tab;
