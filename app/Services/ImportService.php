@@ -35,7 +35,8 @@ class ImportService
         $import->setExecutionTime(microtime(true) - $startTime);
         $result = $import->getResult();
 
-        // Cập nhật snapshot 1 lần duy nhất sau khi toàn bộ import hoàn tất
+        // Xóa cache Select và cập nhật snapshot 1 lần duy nhất sau khi toàn bộ import hoàn tất
+        app(CoSoService::class)->clearSelectCache();
         app(ThongKeSnapshotService::class)->onEntityChanged('co_so');
 
         return $result;
@@ -55,6 +56,7 @@ class ImportService
         $import->setExecutionTime(microtime(true) - $startTime);
         $result = $import->getResult();
 
+        app(KhuNhaService::class)->clearSelectCache();
         app(ThongKeSnapshotService::class)->onEntityChanged('khu_nha');
 
         return $result;
@@ -74,6 +76,7 @@ class ImportService
         $import->setExecutionTime(microtime(true) - $startTime);
         $result = $import->getResult();
 
+        app(PhongService::class)->clearSelectCache();
         app(ThongKeSnapshotService::class)->onEntityChanged('phong');
 
         return $result;

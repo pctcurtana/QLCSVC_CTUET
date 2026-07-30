@@ -124,14 +124,14 @@ class KhuNhaRepository implements KhuNhaRepositoryInterface
     /**
      * {@inheritDoc}
      */
-    public function getByCoSo(int $coSoId): Collection
+    public function getByCoSo(int $coSoId, array $columns = ['id', 'ten_khu_nha', 'ma_khu_nha', 'co_so_id']): Collection
     {
         return $this->model
             ->where('co_so_id', $coSoId)
             ->where('trang_thai', 'active')
             ->where('trang_thai_du_lieu', 'hien_hanh')
             ->orderBy('ten_khu_nha', 'asc')
-            ->get();
+            ->get($columns);
     }
 }
 

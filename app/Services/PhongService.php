@@ -9,6 +9,8 @@ use App\Models\ThietBi;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 use App\Services\ThongKeSnapshotService;
 
 class PhongService
@@ -17,6 +19,8 @@ class PhongService
      * @var PhongRepositoryInterface
      */
     protected $phongRepository;
+
+    public const SELECT_CACHE_TTL = 1800; // 30 phút
 
     /**
      * PhongService constructor.
@@ -41,7 +45,63 @@ class PhongService
      */
     public function getActivePhongs(): Collection
     {
-        return $this->phongRepository->getActive(['id', 'ten_phong', 'khu_nha_id']);
+        try {
+            return Cache::remember('select:phong:all', self::SELECT_CACHE_TTL, function () {
+                return $this->phongRepository->getActive(['id', 'ten_phong', 'ma_phong', 'khu_nha_id']);
+            });
+        } catch (\Throwable $e) {
+            Log::warning("Redis cache error in getActivePhongs: " . $e->getMessage());
+            return $this->phongRepository->getActive(['id', 'ten_phong', 'ma_phong', 'khu_nha_id']);
+        }
+    }
+
+    /**
+     * Lấy danh sách phòng theo khu nhà cho Select (Có cache Redis)
+     */
+    public function getByKhuNha(int $khuNhaId): Collection
+    {
+        $cacheKey = "select:phong:{$khuNhaId}";
+        try {
+            return Cache::remember($cacheKey, self::SELECT_CACHE_TTL, function () use ($khuNhaId) {
+                return $this->phongRepository->getByKhuNha($khuNhaId, ['id', 'ten_phong', 'ma_phong', 'khu_nha_id']);
+            });
+        } catch (\Throwable $e) {
+            Log::warning("Redis cache error in getByKhuNha [{$khuNhaId}]: " . $e->getMessage());
+            return $this->phongRepository->getByKhuNha($khuNhaId, ['id', 'ten_phong', 'ma_phong', 'khu_nha_id']);
+        }
+    }
+
+    /**
+     * Xóa cache Select Phòng.
+     */
+    public function clearSelectCache(?int $khuNhaId = null): void
+    {
+        try {
+            Cache::forget('select:phong:all');
+            if ($khuNhaId) {
+                Cache::forget("select:phong:{$khuNhaId}");
+            }
+            $this->clearCachePattern('select:phong:');
+        } catch (\Throwable $e) {
+            Log::warning("Clear select cache phong failed: " . $e->getMessage());
+        }
+    }
+
+    protected function clearCachePattern(string $pattern): void
+    {
+        try {
+            if (config('cache.default') === 'redis') {
+                $redis = Cache::getRedis();
+                $keys = $redis->keys('*' . $pattern . '*');
+                if (!empty($keys)) {
+                    foreach ($keys as $key) {
+                        $redis->del($key);
+                    }
+                }
+            }
+        } catch (\Throwable $e) {
+            Log::warning("Clear cache pattern [{$pattern}] failed: " . $e->getMessage());
+        }
     }
 
     /**
@@ -67,6 +127,7 @@ class PhongService
     public function create(array $data): Phong
     {
         $result = $this->phongRepository->create($data);
+        $this->clearSelectCache($result->khu_nha_id ?? null);
         app(ThongKeSnapshotService::class)->onEntityChanged('phong');
         return $result;
     }
@@ -76,7 +137,16 @@ class PhongService
      */
     public function update(int $id, array $data): Phong
     {
+        $current = $this->getById($id);
+        $oldKhuNhaId = $current->khu_nha_id ?? null;
+
         $result = $this->phongRepository->update($id, $data);
+
+        $this->clearSelectCache($oldKhuNhaId);
+        if ($result->khu_nha_id && $result->khu_nha_id !== $oldKhuNhaId) {
+            $this->clearSelectCache($result->khu_nha_id);
+        }
+
         app(ThongKeSnapshotService::class)->onEntityChanged('phong');
         return $result;
     }
@@ -86,7 +156,10 @@ class PhongService
      */
     public function delete(int $id): bool
     {
+        $phong = $this->phongRepository->find($id);
+        $khuNhaId = $phong->khu_nha_id ?? null;
         $result = $this->phongRepository->delete($id);
+        $this->clearSelectCache($khuNhaId);
         app(ThongKeSnapshotService::class)->onEntityChanged('phong');
         return $result;
     }
@@ -124,6 +197,9 @@ class PhongService
             ThietBi::where('phong_id', $current->id)
                 ->where('trang_thai_du_lieu', 'hien_hanh')
                 ->update(['phong_id' => $newRecord->id]);
+
+            $this->clearSelectCache($current->khu_nha_id ?? null);
+            $this->clearSelectCache($newRecord->khu_nha_id ?? null);
 
             app(ThongKeSnapshotService::class)->onEntityChanged('phong');
 

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 use App\Contracts\Repositories\CoSoRepositoryInterface;
 use App\Contracts\Services\CoSoServiceInterface;
 use App\Models\CoSo;
@@ -19,8 +20,8 @@ class CoSoService
      */
     protected $coSoRepository;
 
-    private const ACTIVE_CO_SO_CACHE_KEY = 'active.co_so';
-    private const CACHE_TIME = 300;
+    public const SELECT_CACHE_KEY = 'select:co_so';
+    public const SELECT_CACHE_TTL = 1800; // 30 phút
 
     /**
      * CoSoService constructor.
@@ -45,13 +46,51 @@ class CoSoService
      */
     public function getActiveCoSos(): Collection
     {
-        return Cache::remember(
-            self::ACTIVE_CO_SO_CACHE_KEY,
-            self::CACHE_TIME,
-            function() {
-                return $this->coSoRepository->getActive(['id', 'ten_co_so']);
+        try {
+            return Cache::remember(
+                self::SELECT_CACHE_KEY,
+                self::SELECT_CACHE_TTL,
+                function () {
+                    return $this->coSoRepository->getActive(['id', 'ten_co_so', 'ma_co_so']);
+                }
+            );
+        } catch (\Throwable $e) {
+            Log::warning("Redis cache error in getActiveCoSos: " . $e->getMessage());
+            return $this->coSoRepository->getActive(['id', 'ten_co_so', 'ma_co_so']);
+        }
+    }
+
+    /**
+     * Xóa cache Select Cơ sở và các cache Khu nhà phụ thuộc.
+     */
+    public function clearSelectCache(?int $coSoId = null): void
+    {
+        try {
+            Cache::forget(self::SELECT_CACHE_KEY);
+            if ($coSoId) {
+                Cache::forget("select:khu_nha:{$coSoId}");
             }
-        );
+            $this->clearCachePattern('select:khu_nha:');
+        } catch (\Throwable $e) {
+            Log::warning("Clear select cache co_so failed: " . $e->getMessage());
+        }
+    }
+
+    protected function clearCachePattern(string $pattern): void
+    {
+        try {
+            if (config('cache.default') === 'redis') {
+                $redis = Cache::getRedis();
+                $keys = $redis->keys('*' . $pattern . '*');
+                if (!empty($keys)) {
+                    foreach ($keys as $key) {
+                        $redis->del($key);
+                    }
+                }
+            }
+        } catch (\Throwable $e) {
+            Log::warning("Clear cache pattern [{$pattern}] failed: " . $e->getMessage());
+        }
     }
 
     /**
@@ -77,6 +116,7 @@ class CoSoService
             $data['vi_tri_khuon_vien']
         );
         $result = $this->coSoRepository->create($data);
+        $this->clearSelectCache();
         app(ThongKeSnapshotService::class)->onEntityChanged('co_so');
         return $result;
     }
@@ -93,6 +133,7 @@ class CoSoService
             $data['vi_tri_khuon_vien']
         );
         $result = $this->coSoRepository->update($id, $data);
+        $this->clearSelectCache($id);
         app(ThongKeSnapshotService::class)->onEntityChanged('co_so');
         return $result;
     }
@@ -104,6 +145,7 @@ class CoSoService
     {
         $this->getById($id);
         $result = $this->coSoRepository->delete($id);
+        $this->clearSelectCache($id);
         app(ThongKeSnapshotService::class)->onEntityChanged('co_so');
         return $result;
     }
@@ -150,6 +192,10 @@ class CoSoService
             KhuNha::where('co_so_id', $current->id)
                 ->where('trang_thai_du_lieu', 'hien_hanh')
                 ->update(['co_so_id' => $newRecord->id]);
+
+            // Clear cache select
+            $this->clearSelectCache($id);
+            $this->clearSelectCache($newRecord->id);
 
             // Hook sau khi transaction commit thành công
             app(ThongKeSnapshotService::class)->onEntityChanged('co_so');

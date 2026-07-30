@@ -79,7 +79,7 @@ interface PhongRepositoryInterface
      * @param int $khuNhaId
      * @return Collection
      */
-    public function getByKhuNha(int $khuNhaId): Collection;
+    public function getByKhuNha(int $khuNhaId, array $columns = ['id', 'ten_phong', 'ma_phong', 'khu_nha_id']): Collection;
 
     /**
      * Lấy thống kê theo loại phòng

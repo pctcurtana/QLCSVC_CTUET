@@ -7,6 +7,7 @@ use App\Models\ThongKeSnapshot;
 use App\Models\CoSo;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Cache;
 
 /**
  * Service trung tâm quản lý snapshot thống kê.
@@ -128,6 +129,13 @@ class ThongKeSnapshotService
                 ]
             );
 
+            // Cập nhật cache snapshot tương ứng trước khi broadcast Pusher
+            try {
+                Cache::put("thong_ke_snapshot:{$key}", $value, 300);
+            } catch (\Throwable $e) {
+                Log::warning("Redis cache put error for snapshot [{$key}]: {$e->getMessage()}");
+            }
+
             return true;
         } catch (\Throwable $e) {
             Log::error("ThongKeSnapshotService: Failed to compute [{$key}]: {$e->getMessage()}", [
@@ -215,10 +223,27 @@ class ThongKeSnapshotService
     /**
      * Đọc snapshot 1 key.
      *
-     * - Nếu snapshot tồn tại (kể cả status=failed): trả value + status hiện tại.
-     * - Nếu snapshot chưa từng khởi tạo: tính trực tiếp, lưu, trả kết quả.
+     * - Cache key: thong_ke_snapshot:{key}, TTL 300s.
+     * - Nếu Redis lỗi, tự động fallback đọc từ DB.
      */
     public function getSnapshot(string $key): ?array
+    {
+        $cacheKey = "thong_ke_snapshot:{$key}";
+
+        try {
+            return Cache::remember($cacheKey, 300, function () use ($key) {
+                return $this->getSnapshotFromDb($key);
+            });
+        } catch (\Throwable $e) {
+            Log::warning("Redis cache read error for snapshot [{$key}]: {$e->getMessage()}");
+            return $this->getSnapshotFromDb($key);
+        }
+    }
+
+    /**
+     * Trực tiếp đọc hoặc tính toán snapshot từ DB.
+     */
+    protected function getSnapshotFromDb(string $key): ?array
     {
         $snapshot = ThongKeSnapshot::where('key', $key)->first();
 
@@ -242,7 +267,7 @@ class ThongKeSnapshotService
             ]);
             return $value;
         } catch (\Throwable $e) {
-            Log::error("ThongKeSnapshotService::getSnapshot [{$key}] fallback failed: {$e->getMessage()}");
+            Log::error("ThongKeSnapshotService::getSnapshotFromDb [{$key}] fallback failed: {$e->getMessage()}");
             return null;
         }
     }

@@ -9,6 +9,8 @@ use App\Models\Phong;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 use App\Services\ThongKeSnapshotService;
 
 class KhuNhaService
@@ -17,6 +19,8 @@ class KhuNhaService
      * @var KhuNhaRepositoryInterface
      */
     protected $khuNhaRepository;
+
+    public const SELECT_CACHE_TTL = 1800; // 30 phút
 
     /**
      * KhuNhaService constructor.
@@ -41,7 +45,67 @@ class KhuNhaService
      */
     public function getActiveKhuNhas(): Collection
     {
-        return $this->khuNhaRepository->getActive(['id', 'ten_khu_nha', 'co_so_id']);
+        try {
+            return Cache::remember('select:khu_nha:all', self::SELECT_CACHE_TTL, function () {
+                return $this->khuNhaRepository->getActive(['id', 'ten_khu_nha', 'ma_khu_nha', 'co_so_id']);
+            });
+        } catch (\Throwable $e) {
+            Log::warning("Redis cache error in getActiveKhuNhas: " . $e->getMessage());
+            return $this->khuNhaRepository->getActive(['id', 'ten_khu_nha', 'ma_khu_nha', 'co_so_id']);
+        }
+    }
+
+    /**
+     * Lấy danh sách khu nhà theo cơ sở cho Select (Có cache Redis)
+     */
+    public function getByCoSo(int $coSoId): Collection
+    {
+        $cacheKey = "select:khu_nha:{$coSoId}";
+        try {
+            return Cache::remember($cacheKey, self::SELECT_CACHE_TTL, function () use ($coSoId) {
+                return $this->khuNhaRepository->getByCoSo($coSoId, ['id', 'ten_khu_nha', 'ma_khu_nha', 'co_so_id']);
+            });
+        } catch (\Throwable $e) {
+            Log::warning("Redis cache error in getByCoSo [{$coSoId}]: " . $e->getMessage());
+            return $this->khuNhaRepository->getByCoSo($coSoId, ['id', 'ten_khu_nha', 'ma_khu_nha', 'co_so_id']);
+        }
+    }
+
+    /**
+     * Xóa cache Select Khu nhà và các cache Phòng phụ thuộc.
+     */
+    public function clearSelectCache(?int $coSoId = null, ?int $khuNhaId = null): void
+    {
+        try {
+            Cache::forget('select:khu_nha:all');
+            if ($coSoId) {
+                Cache::forget("select:khu_nha:{$coSoId}");
+            }
+            if ($khuNhaId) {
+                Cache::forget("select:phong:{$khuNhaId}");
+            }
+            $this->clearCachePattern('select:khu_nha:');
+            $this->clearCachePattern('select:phong:');
+        } catch (\Throwable $e) {
+            Log::warning("Clear select cache khu_nha failed: " . $e->getMessage());
+        }
+    }
+
+    protected function clearCachePattern(string $pattern): void
+    {
+        try {
+            if (config('cache.default') === 'redis') {
+                $redis = Cache::getRedis();
+                $keys = $redis->keys('*' . $pattern . '*');
+                if (!empty($keys)) {
+                    foreach ($keys as $key) {
+                        $redis->del($key);
+                    }
+                }
+            }
+        } catch (\Throwable $e) {
+            Log::warning("Clear cache pattern [{$pattern}] failed: " . $e->getMessage());
+        }
     }
 
     /**
@@ -69,6 +133,7 @@ class KhuNhaService
         // Tự động tính các diện tích
         $data = $this->calculateDienTich($data);
         $result = $this->khuNhaRepository->create($data);
+        $this->clearSelectCache($result->co_so_id ?? null);
         app(ThongKeSnapshotService::class)->onEntityChanged('khu_nha');
         return $result;
     }
@@ -78,9 +143,18 @@ class KhuNhaService
      */
     public function update(int $id, array $data): KhuNha
     {
+        $current = $this->getById($id);
+        $oldCoSoId = $current->co_so_id ?? null;
+
         // Tự động tính các diện tích
         $data = $this->calculateDienTich($data);
         $result = $this->khuNhaRepository->update($id, $data);
+
+        $this->clearSelectCache($oldCoSoId, $id);
+        if ($result->co_so_id && $result->co_so_id !== $oldCoSoId) {
+            $this->clearSelectCache($result->co_so_id, $id);
+        }
+
         app(ThongKeSnapshotService::class)->onEntityChanged('khu_nha');
         return $result;
     }
@@ -90,7 +164,10 @@ class KhuNhaService
      */
     public function delete(int $id): bool
     {
+        $khuNha = $this->khuNhaRepository->find($id);
+        $coSoId = $khuNha->co_so_id ?? null;
         $result = $this->khuNhaRepository->delete($id);
+        $this->clearSelectCache($coSoId, $id);
         app(ThongKeSnapshotService::class)->onEntityChanged('khu_nha');
         return $result;
     }
@@ -131,6 +208,9 @@ class KhuNhaService
             Phong::where('khu_nha_id', $current->id)
                 ->where('trang_thai_du_lieu', 'hien_hanh')
                 ->update(['khu_nha_id' => $newRecord->id]);
+
+            $this->clearSelectCache($current->co_so_id ?? null, $current->id);
+            $this->clearSelectCache($newRecord->co_so_id ?? null, $newRecord->id);
 
             app(ThongKeSnapshotService::class)->onEntityChanged('khu_nha');
 

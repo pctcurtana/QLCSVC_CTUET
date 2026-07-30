@@ -79,6 +79,6 @@ interface KhuNhaRepositoryInterface
      * @param int $coSoId
      * @return Collection
      */
-    public function getByCoSo(int $coSoId): Collection;
+    public function getByCoSo(int $coSoId, array $columns = ['id', 'ten_khu_nha', 'ma_khu_nha', 'co_so_id']): Collection;
 }
 

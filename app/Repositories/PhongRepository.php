@@ -123,14 +123,14 @@ class PhongRepository implements PhongRepositoryInterface
     /**
      * {@inheritDoc}
      */
-    public function getByKhuNha(int $khuNhaId): Collection
+    public function getByKhuNha(int $khuNhaId, array $columns = ['id', 'ten_phong', 'ma_phong', 'khu_nha_id']): Collection
     {
         return $this->model
             ->where('khu_nha_id', $khuNhaId)
             ->where('trang_thai', 'active')
             ->where('trang_thai_du_lieu', 'hien_hanh')
             ->orderBy('ma_phong', 'asc')
-            ->get();
+            ->get($columns);
     }
 
     /**
