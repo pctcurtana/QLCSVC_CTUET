@@ -69,7 +69,6 @@ class ProcessExcelImport implements ShouldQueue
     {
         $import = Import::find($this->importId);
         if (!$import) {
-            Log::warning("ProcessExcelImport: Import record [{$this->importId}] not found.");
             return;
         }
 
@@ -129,9 +128,6 @@ class ProcessExcelImport implements ShouldQueue
             ));
 
         } catch (Throwable $e) {
-            Log::error("ProcessExcelImport failed for import [{$this->importId}]: {$e->getMessage()}", [
-                'exception' => $e,
-            ]);
 
             $import->update([
                 'status'        => 'failed',
@@ -163,7 +159,6 @@ class ProcessExcelImport implements ShouldQueue
      */
     public function failed(Throwable $exception)
     {
-        Log::error("ProcessExcelImport job unhandled failure [{$this->importId}]: {$exception->getMessage()}");
 
         try {
             $import = Import::find($this->importId);
