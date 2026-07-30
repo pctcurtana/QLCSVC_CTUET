@@ -222750,7 +222750,8 @@ var KpiCard = function KpiCard(_ref) {
     _ref$footerText = _ref.footerText,
     footerText = _ref$footerText === void 0 ? 'Dữ liệu mới nhất' : _ref$footerText,
     tooltip = _ref.tooltip;
-  var parsed = parseCountUpValue(value);
+  var displayValue = value === null || value === undefined || value === '' ? 0 : value;
+  var parsed = parseCountUpValue(displayValue);
   var valueContent = parsed ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_countup__WEBPACK_IMPORTED_MODULE_3__["default"], {
     end: parsed.end,
     duration: 1.5,
@@ -222761,7 +222762,7 @@ var KpiCard = function KpiCard(_ref) {
     suffix: parsed.suffix,
     enableReinitialize: true,
     preserveValue: true
-  }) : value;
+  }) : displayValue;
   var valueNode = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
     className: "mb-2 text-[24px] font-extrabold leading-none tracking-[-0.05em] text-[#0f172a]",
     style: {

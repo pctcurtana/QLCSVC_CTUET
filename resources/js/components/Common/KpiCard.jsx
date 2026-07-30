@@ -91,7 +91,8 @@ const parseCountUpValue = (val) => {
 };
 
 const KpiCard = ({ title, value, icon, color, footerText = 'Dữ liệu mới nhất', tooltip }) => {
-    const parsed = parseCountUpValue(value);
+    const displayValue = (value === null || value === undefined || value === '') ? 0 : value;
+    const parsed = parseCountUpValue(displayValue);
 
     const valueContent = parsed ? (
         <CountUp
@@ -106,7 +107,7 @@ const KpiCard = ({ title, value, icon, color, footerText = 'Dữ liệu mới nh
             preserveValue={true}
         />
     ) : (
-        value
+        displayValue
     );
 
     const valueNode = (

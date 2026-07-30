@@ -390,7 +390,7 @@ class ThongKeService
             COUNT(*) as tong_phong,
             COALESCE(SUM(p.dien_tich), 0) as tong_dien_tich,
             COALESCE(SUM(p.suc_chua), 0) as tong_suc_chua,
-            SUM(CASE WHEN p.trang_thai = 'maintenance' THEN 1 ELSE 0 END) as phong_bao_tri
+            COALESCE(SUM(CASE WHEN p.trang_thai = 'maintenance' THEN 1 ELSE 0 END), 0) as phong_bao_tri
         ")->first();
 
         // Biểu đồ loại
@@ -510,10 +510,10 @@ class ThongKeService
         $tongQuan = (clone $baseQuery)->selectRaw("
             COUNT(*) as tong_thiet_bi,
             COALESCE(SUM(tb.gia_tri), 0) as tong_gia_tri,
-            SUM(CASE WHEN tb.trang_thai = 'tot' THEN 1 ELSE 0 END) as dang_hoat_dong,
-            SUM(CASE WHEN tb.trang_thai = 'can_sua_chua' THEN 1 ELSE 0 END) as can_sua_chua,
-            SUM(CASE WHEN tb.trang_thai = 'hu_hong' THEN 1 ELSE 0 END) as hu_hong,
-            SUM(CASE WHEN tb.ngay_bao_duong_tiep_theo IS NOT NULL AND tb.ngay_bao_duong_tiep_theo <= CURDATE() THEN 1 ELSE 0 END) as can_bao_duong
+            COALESCE(SUM(CASE WHEN tb.trang_thai = 'tot' THEN 1 ELSE 0 END), 0) as dang_hoat_dong,
+            COALESCE(SUM(CASE WHEN tb.trang_thai = 'can_sua_chua' THEN 1 ELSE 0 END), 0) as can_sua_chua,
+            COALESCE(SUM(CASE WHEN tb.trang_thai = 'hu_hong' THEN 1 ELSE 0 END), 0) as hu_hong,
+            COALESCE(SUM(CASE WHEN tb.ngay_bao_duong_tiep_theo IS NOT NULL AND tb.ngay_bao_duong_tiep_theo <= CURDATE() THEN 1 ELSE 0 END), 0) as can_bao_duong
         ")->first();
 
         // Biểu đồ loại
