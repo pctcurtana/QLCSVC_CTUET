@@ -69,6 +69,27 @@ class ProcessExcelImport implements ShouldQueue
     {
         $import = Import::find($this->importId);
         if (!$import) {
+            Log::warning("ProcessExcelImport: Import #{$this->importId} không tồn tại, bỏ qua.");
+            return;
+        }
+
+        // Nếu import đã hoàn tất hoặc đã thất bại trước đó (do retry), không xử lý lại
+        if (in_array($import->status, ['completed', 'failed'])) {
+            Log::info("ProcessExcelImport: Import #{$this->importId} đã ở trạng thái '{$import->status}', bỏ qua retry.");
+            return;
+        }
+
+        // Kiểm tra file tạm còn tồn tại không (quan trọng khi retry)
+        if (!Storage::disk('local')->exists($import->file_path)) {
+            $import->update([
+                'status'        => 'failed',
+                'error_message' => 'File tạm đã bị xóa, không thể xử lý lại. Vui lòng import lại.',
+            ]);
+            $this->safeBroadcast(new ImportProcessed(
+                $import->id, $import->user_id, $import->module,
+                'failed', 0, 0, 0, 0, null,
+                'File tạm đã bị xóa, không thể xử lý lại.'
+            ));
             return;
         }
 

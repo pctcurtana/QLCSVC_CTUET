@@ -74,6 +74,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // Khi worker chạy, tự động kiểm tra & khôi phục import bị kẹt
+        if ($this->app->runningInConsole()) {
+            \Illuminate\Support\Facades\Queue::looping(function () {
+                static $lastCheck = 0;
+                if (time() - $lastCheck >= 60) {
+                    $lastCheck = time();
+                    \App\Models\Import::cleanupStaleImports();
+                }
+            });
+        }
     }
 }
