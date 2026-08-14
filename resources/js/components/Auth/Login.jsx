@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useForm, usePage, Head } from '@inertiajs/react';
+import { LoginBtn } from '../Common/LoginBtn';
 import {
     Form,
     Input,
@@ -189,7 +190,7 @@ const Login = () => {
                                         placeholder="user@ctuet.edu.vn"
                                         value={data.email}
                                         onChange={(e) => setData('email', e.target.value)}
-                                        style={{ height: 44, fontSize: 14 }}
+                                        style={{ height: 44, fontSize: 16 }}
                                     />
                                 </Form.Item>
 
@@ -204,7 +205,7 @@ const Login = () => {
                                         placeholder="••••••••"
                                         value={data.password}
                                         onChange={(e) => setData('password', e.target.value)}
-                                        style={{ height: 44, fontSize: 14 }}
+                                        style={{ height: 44, fontSize: 16 }}
                                     />
                                 </Form.Item>
 
@@ -220,22 +221,13 @@ const Login = () => {
                                 </Form.Item>
 
                                 <Form.Item style={{ marginBottom: 0 }}>
-                                    <Button
-                                        type="primary"
+                                    <LoginBtn
                                         htmlType="submit"
                                         loading={processing || loading}
-                                        block
-                                        icon={<LoginOutlined />}
-                                        style={{
-                                            height: 46,
-                                            fontSize: 14,
-                                            background: '#244380',
-                                            border: 'none',
-                                            borderRadius: 8
-                                        }}
+
                                     >
-                                        Tiếp tục
-                                    </Button>
+                                        Đăng nhập
+                                    </LoginBtn>
                                 </Form.Item>
                             </Form>
                         </div>
