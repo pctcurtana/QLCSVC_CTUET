@@ -19,7 +19,6 @@ import dayjs from 'dayjs';
 import KpiCard from '../Common/KpiCard';
 
 const { RangePicker } = DatePicker;
-const { Search } = Input;
 const { Text, Title } = Typography;
 
 const LOAI_TB_MAP = {
@@ -271,14 +270,17 @@ const Kho = ({ thietBis, stats, phongs, filters }) => {
                 <Card>
                     <Row gutter={[16, 16]}>
                         <Col xs={24} sm={12} md={7}>
-                            <Search
+                            <Input
                                 placeholder="Tìm theo mã, tên, serial..."
                                 allowClear
-                                enterButton={<SearchOutlined />}
+                                prefix={<SearchOutlined style={{ color: '#bfbfbf' }} />}
                                 size="large"
                                 value={searchText}
-                                onChange={(e) => setSearchText(e.target.value)}
-                                onSearch={handleSearch}
+                                onChange={(e) => {
+                                    setSearchText(e.target.value);
+                                    if (!e.target.value) handleSearch('');
+                                }}
+                                onPressEnter={(e) => handleSearch(e.target.value)}
                             />
                         </Col>
                         <Col xs={24} sm={12} md={5}>

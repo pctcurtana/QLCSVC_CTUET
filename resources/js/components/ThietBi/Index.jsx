@@ -12,7 +12,6 @@ import { Link, router, usePage } from '@inertiajs/react';
 import usePermission from '../../hooks/usePermission';
 import { ImportButton } from '../Common/ImportButton';
 
-const { Search } = Input;
 
 const Index = ({ thietBis, phongs, coSos, filters }) => {
     const perm = usePermission('thiet-bi');
@@ -320,14 +319,17 @@ const Index = ({ thietBis, phongs, coSos, filters }) => {
                 <Card>
                     <Row gutter={[16, 16]}>
                         <Col xs={24} sm={12} md={6}>
-                            <Search
+                            <Input
                                 placeholder="Tìm kiếm theo mã, tên, hãng..."
                                 allowClear
-                                enterButton={<SearchOutlined />}
+                                prefix={<SearchOutlined style={{ color: '#bfbfbf' }} />}
                                 size="large"
                                 value={searchText}
-                                onChange={(e) => setSearchText(e.target.value)}
-                                onSearch={handleSearch}
+                                onChange={(e) => {
+                                    setSearchText(e.target.value);
+                                    if (!e.target.value) handleSearch('');
+                                }}
+                                onPressEnter={(e) => handleSearch(e.target.value)}
                             />
                         </Col>
                         <Col xs={24} sm={12} md={4}>

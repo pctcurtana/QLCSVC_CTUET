@@ -14,7 +14,6 @@ import {
 } from '@ant-design/icons';
 
 const { Title, Text } = Typography;
-const { Search } = Input;
 const { confirm } = Modal;
 
 const LOAI_TB_LABELS = {
@@ -297,10 +296,10 @@ const TabPhong = ({ phongs, baseUrl, perm, coSos, khuNhas }) => {
         <Space direction="vertical" size="large" style={{ width: '100%' }}>
             <Row gutter={[16, 12]}>
                 <Col xs={24} sm={12} md={6}>
-                    <Search
+                    <Input
                         placeholder="Tìm phòng, mã..."
                         allowClear
-                        enterButton={<SearchOutlined />}
+                        prefix={<SearchOutlined style={{ color: '#bfbfbf' }} />}
                         size="large"
                         value={search}
                         onChange={e => setSearch(e.target.value)}
@@ -545,10 +544,10 @@ const TabThietBi = ({ thietBis, baseUrl, perm, coSos, khuNhas, phongsList }) => 
         <Space direction="vertical" size="large" style={{ width: '100%' }}>
             <Row gutter={[16, 12]}>
                 <Col xs={24} sm={12} md={5}>
-                    <Search
+                    <Input
                         placeholder="Tìm thiết bị, mã..."
                         allowClear
-                        enterButton={<SearchOutlined />}
+                        prefix={<SearchOutlined style={{ color: '#bfbfbf' }} />}
                         size="large"
                         value={search}
                         onChange={e => setSearch(e.target.value)}

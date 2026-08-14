@@ -221533,7 +221533,6 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
 
 
-var Search = antd__WEBPACK_IMPORTED_MODULE_5__["default"].Search;
 var Index = function Index(_ref) {
   var coSos = _ref.coSos,
     filters = _ref.filters;
@@ -221757,16 +221756,23 @@ var Index = function Index(_ref) {
             xs: 24,
             sm: 12,
             md: 8,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(Search, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
               placeholder: "T\xECm ki\u1EBFm theo m\xE3, t\xEAn, \u0111\u1ECBa ch\u1EC9...",
               allowClear: true,
-              enterButton: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_18__["default"], {}),
+              prefix: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_18__["default"], {
+                style: {
+                  color: '#bfbfbf'
+                }
+              }),
               size: "large",
               value: searchText,
               onChange: function onChange(e) {
-                return setSearchText(e.target.value);
+                setSearchText(e.target.value);
+                if (!e.target.value) handleSearch('');
               },
-              onSearch: handleSearch
+              onPressEnter: function onPressEnter(e) {
+                return handleSearch(e.target.value);
+              }
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
             xs: 24,
@@ -225161,7 +225167,6 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
 
 
-var Search = antd__WEBPACK_IMPORTED_MODULE_5__["default"].Search;
 var Index = function Index(_ref) {
   var khuNhas = _ref.khuNhas,
     coSos = _ref.coSos,
@@ -225454,16 +225459,23 @@ var Index = function Index(_ref) {
             xs: 24,
             sm: 12,
             md: 8,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(Search, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
               placeholder: "T\xECm ki\u1EBFm theo m\xE3, t\xEAn...",
               allowClear: true,
-              enterButton: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_18__["default"], {}),
+              prefix: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_18__["default"], {
+                style: {
+                  color: '#bfbfbf'
+                }
+              }),
               size: "large",
               value: searchText,
               onChange: function onChange(e) {
-                return setSearchText(e.target.value);
+                setSearchText(e.target.value);
+                if (!e.target.value) handleSearch('');
               },
-              onSearch: handleSearch
+              onPressEnter: function onPressEnter(e) {
+                return handleSearch(e.target.value);
+              }
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
             xs: 24,
@@ -226898,16 +226910,23 @@ var Index = function Index(_ref) {
             xs: 24,
             sm: 12,
             md: 7,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"].Search, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
               placeholder: "T\xECm ki\u1EBFm m\xE3 TB, t\xEAn TB, serial...",
               allowClear: true,
-              enterButton: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_22__["default"], {}),
+              prefix: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_22__["default"], {
+                style: {
+                  color: '#bfbfbf'
+                }
+              }),
               size: "large",
               value: search,
               onChange: function onChange(e) {
-                return setSearch(e.target.value);
+                setSearch(e.target.value);
+                if (!e.target.value) handleSearch('');
               },
-              onSearch: handleSearch,
+              onPressEnter: function onPressEnter(e) {
+                return handleSearch(e.target.value);
+              },
               style: {
                 width: '100%'
               }
@@ -228915,7 +228934,6 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
 
 
-var Search = antd__WEBPACK_IMPORTED_MODULE_5__["default"].Search;
 var Index = function Index(_ref) {
   var _filters$tang;
   var phongs = _ref.phongs,
@@ -229231,16 +229249,23 @@ var Index = function Index(_ref) {
             xs: 24,
             sm: 12,
             md: 6,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(Search, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
               placeholder: "T\xECm ki\u1EBFm theo m\xE3, t\xEAn...",
               allowClear: true,
-              enterButton: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_18__["default"], {}),
+              prefix: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_18__["default"], {
+                style: {
+                  color: '#bfbfbf'
+                }
+              }),
               size: "large",
               value: searchText,
               onChange: function onChange(e) {
-                return setSearchText(e.target.value);
+                setSearchText(e.target.value);
+                if (!e.target.value) handleSearch('');
               },
-              onSearch: handleSearch
+              onPressEnter: function onPressEnter(e) {
+                return handleSearch(e.target.value);
+              }
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
             xs: 24,
@@ -229427,7 +229452,6 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
 var Title = antd__WEBPACK_IMPORTED_MODULE_19__["default"].Title,
   Text = antd__WEBPACK_IMPORTED_MODULE_19__["default"].Text;
-var Search = antd__WEBPACK_IMPORTED_MODULE_9__["default"].Search;
 var confirm = antd__WEBPACK_IMPORTED_MODULE_11__["default"].confirm;
 var LOAI_TB_LABELS = {
   van_phong: 'Văn phòng',
@@ -229765,10 +229789,14 @@ var TabPhong = function TabPhong(_ref3) {
         xs: 24,
         sm: 12,
         md: 6,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(Search, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__["default"], {
           placeholder: "T\xECm ph\xF2ng, m\xE3...",
           allowClear: true,
-          enterButton: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_26__["default"], {}),
+          prefix: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_26__["default"], {
+            style: {
+              color: '#bfbfbf'
+            }
+          }),
           size: "large",
           value: search,
           onChange: function onChange(e) {
@@ -230125,10 +230153,14 @@ var TabThietBi = function TabThietBi(_ref4) {
         xs: 24,
         sm: 12,
         md: 5,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(Search, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__["default"], {
           placeholder: "T\xECm thi\u1EBFt b\u1ECB, m\xE3...",
           allowClear: true,
-          enterButton: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_26__["default"], {}),
+          prefix: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_26__["default"], {
+            style: {
+              color: '#bfbfbf'
+            }
+          }),
           size: "large",
           value: search,
           onChange: function onChange(e) {
@@ -232154,7 +232186,6 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
 
 
-var Search = antd__WEBPACK_IMPORTED_MODULE_5__["default"].Search;
 var Index = function Index(_ref) {
   var thietBis = _ref.thietBis,
     phongs = _ref.phongs,
@@ -232494,16 +232525,23 @@ var Index = function Index(_ref) {
             xs: 24,
             sm: 12,
             md: 6,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(Search, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
               placeholder: "T\xECm ki\u1EBFm theo m\xE3, t\xEAn, h\xE3ng...",
               allowClear: true,
-              enterButton: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_18__["default"], {}),
+              prefix: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_18__["default"], {
+                style: {
+                  color: '#bfbfbf'
+                }
+              }),
               size: "large",
               value: searchText,
               onChange: function onChange(e) {
-                return setSearchText(e.target.value);
+                setSearchText(e.target.value);
+                if (!e.target.value) handleSearch('');
               },
-              onSearch: handleSearch
+              onPressEnter: function onPressEnter(e) {
+                return handleSearch(e.target.value);
+              }
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
             xs: 24,
@@ -232692,7 +232730,6 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
 
 
-var Search = antd__WEBPACK_IMPORTED_MODULE_8__["default"].Search;
 var Panel = antd__WEBPACK_IMPORTED_MODULE_6__["default"].Panel;
 var IndexByPhong = function IndexByPhong(_ref) {
   var groupedThietBis = _ref.groupedThietBis,
@@ -233151,16 +233188,23 @@ var IndexByPhong = function IndexByPhong(_ref) {
             xs: 24,
             sm: 12,
             md: 8,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(Search, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
               placeholder: "T\xECm ki\u1EBFm theo m\xE3, t\xEAn, h\xE3ng...",
               allowClear: true,
-              enterButton: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_26__["default"], {}),
+              prefix: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_26__["default"], {
+                style: {
+                  color: '#bfbfbf'
+                }
+              }),
               size: "large",
               value: searchText,
               onChange: function onChange(e) {
-                return setSearchText(e.target.value);
+                setSearchText(e.target.value);
+                if (!e.target.value) handleSearch('');
               },
-              onSearch: handleSearch
+              onPressEnter: function onPressEnter(e) {
+                return handleSearch(e.target.value);
+              }
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_32__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
             xs: 24,
@@ -233325,7 +233369,6 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
 
 var RangePicker = antd__WEBPACK_IMPORTED_MODULE_6__["default"].RangePicker;
-var Search = antd__WEBPACK_IMPORTED_MODULE_9__["default"].Search;
 var Text = antd__WEBPACK_IMPORTED_MODULE_17__["default"].Text,
   Title = antd__WEBPACK_IMPORTED_MODULE_17__["default"].Title;
 var LOAI_TB_MAP = {
@@ -233649,16 +233692,23 @@ var Kho = function Kho(_ref) {
             xs: 24,
             sm: 12,
             md: 7,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(Search, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__["default"], {
               placeholder: "T\xECm theo m\xE3, t\xEAn, serial...",
               allowClear: true,
-              enterButton: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_23__["default"], {}),
+              prefix: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_23__["default"], {
+                style: {
+                  color: '#bfbfbf'
+                }
+              }),
               size: "large",
               value: searchText,
               onChange: function onChange(e) {
-                return setSearchText(e.target.value);
+                setSearchText(e.target.value);
+                if (!e.target.value) handleSearch('');
               },
-              onSearch: handleSearch
+              onPressEnter: function onPressEnter(e) {
+                return handleSearch(e.target.value);
+              }
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
             xs: 24,

@@ -263,14 +263,17 @@ const Index = ({ lichSuBaoDuongs, filters, stats }) => {
                 <Card>
                     <Row gutter={[16, 16]}>
                         <Col xs={24} sm={12} md={7}>
-                            <Input.Search
+                            <Input
                                 placeholder="Tìm kiếm mã TB, tên TB, serial..."
                                 allowClear
-                                enterButton={<SearchOutlined />}
+                                prefix={<SearchOutlined style={{ color: '#bfbfbf' }} />}
                                 size="large"
                                 value={search}
-                                onChange={(e) => setSearch(e.target.value)}
-                                onSearch={handleSearch}
+                                onChange={(e) => {
+                                    setSearch(e.target.value);
+                                    if (!e.target.value) handleSearch('');
+                                }}
+                                onPressEnter={(e) => handleSearch(e.target.value)}
                                 style={{ width: '100%' }}
                             />
                         </Col>
