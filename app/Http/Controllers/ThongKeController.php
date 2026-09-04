@@ -4,44 +4,41 @@ namespace App\Http\Controllers;
 
 use App\Services\ThongKeSnapshotService;
 use App\Services\ThongKeService;
+use App\Services\CoSoService;
+use App\Services\KhuNhaService;
+use App\Services\PhongService;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class ThongKeController extends Controller
 {
     protected $snapshotService;
     protected $thongKeService;
+    protected $coSoService;
+    protected $khuNhaService;
+    protected $phongService;
 
-    public function __construct(ThongKeSnapshotService $snapshotService, ThongKeService $thongKeService)
-    {
+    public function __construct(
+        ThongKeSnapshotService $snapshotService,
+        ThongKeService $thongKeService,
+        CoSoService $coSoService,
+        KhuNhaService $khuNhaService,
+        PhongService $phongService
+    ) {
         $this->snapshotService = $snapshotService;
         $this->thongKeService  = $thongKeService;
+        $this->coSoService     = $coSoService;
+        $this->khuNhaService   = $khuNhaService;
+        $this->phongService    = $phongService;
     }
 
     public function index()
     {
         try {
-            // Danh sách cơ sở để filter
-            $danhSachCoSo = DB::table('co_sos')
-                ->where('trang_thai_du_lieu', 'hien_hanh')
-                ->select('id', 'ten_co_so')
-                ->orderBy('ten_co_so')
-                ->get();
-
-            // Danh sách khu nhà để filter (kèm co_so_id)
-            $danhSachKhuNha = DB::table('khu_nhas')
-                ->where('trang_thai_du_lieu', 'hien_hanh')
-                ->select('id', 'ten_khu_nha', 'co_so_id')
-                ->orderBy('ten_khu_nha')
-                ->get();
-
-            // Danh sách phòng để filter (kèm khu_nha_id)
-            $danhSachPhong = DB::table('phongs')
-                ->where('trang_thai_du_lieu', 'hien_hanh')
-                ->select('id', 'ten_phong', 'khu_nha_id')
-                ->orderBy('ten_phong')
-                ->get();
+            // Danh sách cho filter dropdown — qua Service
+            $danhSachCoSo   = $this->coSoService->getActiveCoSos();
+            $danhSachKhuNha = $this->khuNhaService->getActiveKhuNhas();
+            $danhSachPhong  = $this->phongService->getActivePhongs();
 
             // Đọc từ snapshot
             $thongKeCoSo = $this->snapshotService->getSnapshot('thongke.co_so');

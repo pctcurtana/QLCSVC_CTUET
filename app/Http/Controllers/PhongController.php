@@ -10,8 +10,7 @@ use App\Http\Requests\Phong\UpdatePhongRequest;
 use App\Http\Requests\Phong\VersionUpdatePhongRequest;
 use App\Http\Requests\ImportRequest;
 use App\Exports\Templates\PhongTemplate;
-use App\Models\Import;
-use App\Jobs\ProcessExcelImport;
+
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Maatwebsite\Excel\Facades\Excel;
@@ -56,14 +55,8 @@ class PhongController extends Controller
             $phongs = $this->phongService->getAllPaginated($filters, (int)$request->input('per_page', 10));
             $khuNhas = $this->khuNhaService->getActiveKhuNhas();
             
-            // Lấy danh sách tầng unique từ database
-            $danhSachTang = \DB::table('phongs')
-                ->where('trang_thai_du_lieu', 'hien_hanh')
-                ->select('tang')
-                ->distinct()
-                ->orderBy('tang')
-                ->pluck('tang')
-                ->toArray();
+            // Lấy danh sách tầng unique
+            $danhSachTang = $this->phongService->getDistinctTang();
 
             return Inertia::render('Phong/Index', [
                 'phongs' => $phongs,
@@ -168,25 +161,7 @@ class PhongController extends Controller
     public function import(ImportRequest $request)
     {
         try {
-            Import::cleanupStaleImports();
-
-            $hasActive = Import::whereIn('status', ['pending', 'processing'])->exists();
-            if ($hasActive) {
-                return redirect()->back()->with('error', 'Hệ thống đang xử lý một lượt import khác. Vui lòng chờ cho đến khi hoàn tất.');
-            }
-
-            $originalName = $request->file('file')->getClientOriginalName();
-            $filePath = $request->file('file')->store('imports/tmp', 'local');
-            $import = Import::create([
-                'user_id'           => auth()->id(),
-                'module'            => 'phong',
-                'file_path'         => $filePath,
-                'original_filename' => $originalName,
-                'status'            => 'pending',
-            ]);
-
-            ProcessExcelImport::dispatch($import->id, 'phong')->onQueue('imports');
-
+            $this->importService->startImport('phong', $request->file('file'));
             return redirect()->back()->with('success', 'Đang thực hiện import trong nền');
         } catch (\Throwable $e) {
             return redirect()->back()->with('error', 'Lỗi khi import: ' . $e->getMessage());

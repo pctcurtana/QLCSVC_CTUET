@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\CoSoService;
 use App\Services\PhongService;
 use App\Services\ThietBiService;
 use App\Services\ImportService;
@@ -10,8 +11,6 @@ use App\Http\Requests\ThietBi\UpdateThietBiRequest;
 use App\Http\Requests\ThietBi\VersionUpdateThietBiRequest;
 use App\Http\Requests\ImportRequest;
 use App\Exports\Templates\ThietBiTemplate;
-use App\Models\Import;
-use App\Jobs\ProcessExcelImport;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Maatwebsite\Excel\Facades\Excel;
@@ -29,6 +28,11 @@ class ThietBiController extends Controller
     protected $phongService;
 
     /**
+     * @var CoSoService
+     */
+    protected $coSoService;
+
+    /**
      * @var ImportService
      */
     protected $importService;
@@ -39,10 +43,12 @@ class ThietBiController extends Controller
     public function __construct(
         ThietBiService $thietBiService,
         PhongService $phongService,
+        CoSoService $coSoService,
         ImportService $importService
     ) {
         $this->thietBiService = $thietBiService;
         $this->phongService   = $phongService;
+        $this->coSoService    = $coSoService;
         $this->importService  = $importService;
     }
 
@@ -55,12 +61,7 @@ class ThietBiController extends Controller
             $filters = $request->only(['search', 'phong_id', 'loai_thiet_bi', 'co_so_id', 'can_bao_duong', 'per_page']);
             $thietBis = $this->thietBiService->getAllPaginated($filters, (int)$request->input('per_page', 10));
             $phongs = $this->phongService->getActivePhongs();
-            
-            $coSos = \DB::table('co_sos')
-                ->where('trang_thai_du_lieu', 'hien_hanh')
-                ->select('id', 'ten_co_so')
-                ->orderBy('ten_co_so')
-                ->get();
+            $coSos = $this->coSoService->getActiveCoSos();
 
             return Inertia::render('ThietBi/Index', [
                 'thietBis' => $thietBis,
@@ -227,25 +228,7 @@ class ThietBiController extends Controller
     public function import(ImportRequest $request)
     {
         try {
-            Import::cleanupStaleImports();
-
-            $hasActive = Import::whereIn('status', ['pending', 'processing'])->exists();
-            if ($hasActive) {
-                return redirect()->back()->with('error', 'Hệ thống đang xử lý một lượt import khác. Vui lòng chờ cho đến khi hoàn tất.');
-            }
-
-            $originalName = $request->file('file')->getClientOriginalName();
-            $filePath = $request->file('file')->store('imports/tmp', 'local');
-            $import = Import::create([
-                'user_id'           => auth()->id(),
-                'module'            => 'thiet_bi',
-                'file_path'         => $filePath,
-                'original_filename' => $originalName,
-                'status'            => 'pending',
-            ]);
-
-            ProcessExcelImport::dispatch($import->id, 'thiet_bi')->onQueue('imports');
-
+            $this->importService->startImport('thiet_bi', $request->file('file'));
             return redirect()->back()->with('success', 'Đang thực hiện import trong nền');
         } catch (\Throwable $e) {
             return redirect()->back()->with('error', 'Lỗi khi import: ' . $e->getMessage());

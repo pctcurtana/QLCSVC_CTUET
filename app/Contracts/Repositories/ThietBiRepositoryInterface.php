@@ -125,5 +125,28 @@ interface ThietBiRepositoryInterface
      * @return array
      */
     public function getKhoStats(): array;
+
+    /**
+     * Lấy danh sách thiết bị cho quản lý QR (kèm phòng, khu nhà, cơ sở)
+     *
+     * @return Collection
+     */
+    public function getForQrManagement(): Collection;
+
+    /**
+     * Tạo lại QR token cho thiết bị
+     *
+     * @param int $id
+     * @return bool
+     */
+    public function regenerateQrToken(int $id): bool;
+
+    /**
+     * Lấy thiết bị theo QR token (kèm phòng, khu nhà, cơ sở)
+     *
+     * @param string $token
+     * @return ThietBi|null
+     */
+    public function getByQrToken(string $token): ?ThietBi;
 }
 

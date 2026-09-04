@@ -154,5 +154,29 @@ class LichSuBaoDuongService
 
         $this->thietBiRepository->update($thietBiId, $updateData);
     }
+
+    /**
+     * Thống kê tổng quan lịch sử bảo dưỡng cho KPI cards.
+     */
+    public function getStats(): array
+    {
+        return $this->lichSuBaoDuongRepository->getStats();
+    }
+
+    /**
+     * Đếm số lần sửa chữa của thiết bị.
+     */
+    public function countSuaChuaByThietBi(int $thietBiId): int
+    {
+        return $this->lichSuBaoDuongRepository->countByThietBiAndType($thietBiId, 'sua_chua');
+    }
+
+    /**
+     * Lấy bản ghi đang thực hiện mới nhất của thiết bị.
+     */
+    public function getDangThucHienByThietBi(int $thietBiId): ?LichSuBaoDuong
+    {
+        return $this->lichSuBaoDuongRepository->getLatestByThietBiAndStatus($thietBiId, 'dang_thuc_hien');
+    }
 }
 

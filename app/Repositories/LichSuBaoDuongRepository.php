@@ -134,5 +134,44 @@ class LichSuBaoDuongRepository implements LichSuBaoDuongRepositoryInterface
             ->orderBy('created_at', 'desc')
             ->first();
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getStats(): array
+    {
+        return [
+            'tong'             => $this->model->count(),
+            'dinh_ky'          => $this->model->where('loai_bao_duong', 'dinh_ky')->count(),
+            'sua_chua'         => $this->model->where('loai_bao_duong', 'sua_chua')->count(),
+            'thay_the'         => $this->model->where('loai_bao_duong', 'thay_the')->count(),
+            'hoan_thanh'       => $this->model->where('trang_thai', 'hoan_thanh')->count(),
+            'dang_thuc_hien'   => $this->model->where('trang_thai', 'dang_thuc_hien')->count(),
+            'tong_chi_phi'     => $this->model->sum('chi_phi') ?? 0,
+        ];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function countByThietBiAndType(int $thietBiId, string $loaiBaoDuong): int
+    {
+        return $this->model
+            ->where('thiet_bi_id', $thietBiId)
+            ->where('loai_bao_duong', $loaiBaoDuong)
+            ->count();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getLatestByThietBiAndStatus(int $thietBiId, string $trangThai): ?LichSuBaoDuong
+    {
+        return $this->model
+            ->where('thiet_bi_id', $thietBiId)
+            ->where('trang_thai', $trangThai)
+            ->latest('updated_at')
+            ->first();
+    }
 }
 

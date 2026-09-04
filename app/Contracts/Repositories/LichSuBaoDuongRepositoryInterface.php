@@ -73,5 +73,30 @@ interface LichSuBaoDuongRepositoryInterface
      * @return LichSuBaoDuong|null
      */
     public function getLatestByThietBi(int $thietBiId): ?LichSuBaoDuong;
+
+    /**
+     * Thống kê tổng quan lịch sử bảo dưỡng cho KPI cards
+     *
+     * @return array
+     */
+    public function getStats(): array;
+
+    /**
+     * Đếm số lần bảo dưỡng theo loại cho thiết bị
+     *
+     * @param int $thietBiId
+     * @param string $loaiBaoDuong
+     * @return int
+     */
+    public function countByThietBiAndType(int $thietBiId, string $loaiBaoDuong): int;
+
+    /**
+     * Lấy bản ghi mới nhất theo trạng thái cho thiết bị
+     *
+     * @param int $thietBiId
+     * @param string $trangThai
+     * @return LichSuBaoDuong|null
+     */
+    public function getLatestByThietBiAndStatus(int $thietBiId, string $trangThai): ?LichSuBaoDuong;
 }
 

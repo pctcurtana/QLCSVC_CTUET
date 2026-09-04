@@ -12,6 +12,8 @@ use App\Contracts\Repositories\ThietBiRepositoryInterface;
 use App\Contracts\Repositories\LichSuBaoDuongRepositoryInterface;
 use App\Contracts\Repositories\PermissionRepositoryInterface;
 use App\Contracts\Repositories\BaoCaoSuCoRepositoryInterface;
+use App\Contracts\Repositories\UserRepositoryInterface;
+use App\Contracts\Repositories\DotKiemTraThietBiRepositoryInterface;
 
 // Repository Implementations
 use App\Repositories\CoSoRepository;
@@ -21,6 +23,8 @@ use App\Repositories\ThietBiRepository;
 use App\Repositories\LichSuBaoDuongRepository;
 use App\Repositories\PermissionRepository;
 use App\Repositories\BaoCaoSuCoRepository;
+use App\Repositories\UserRepository;
+use App\Repositories\DotKiemTraThietBiRepository;
 
 // Services
 use App\Services\CoSoService;
@@ -34,6 +38,8 @@ use App\Services\AuthService;
 use App\Services\BaoCaoSuCoService;
 use App\Services\ImportService;
 use App\Services\ThongKeSnapshotService;
+use App\Services\UserService;
+use App\Services\DotKiemTraThietBiService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -52,6 +58,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(LichSuBaoDuongRepositoryInterface::class, LichSuBaoDuongRepository::class);
         $this->app->bind(PermissionRepositoryInterface::class, PermissionRepository::class);
         $this->app->bind(BaoCaoSuCoRepositoryInterface::class, BaoCaoSuCoRepository::class);
+        $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
+        $this->app->bind(DotKiemTraThietBiRepositoryInterface::class, DotKiemTraThietBiRepository::class);
 
         // Services: bind concrete to itself for clarity (optional, container can resolve automatically)
         $this->app->bind(CoSoService::class, CoSoService::class);
@@ -65,6 +73,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(BaoCaoSuCoService::class, BaoCaoSuCoService::class);
         $this->app->bind(ImportService::class, ImportService::class);
         $this->app->bind(ThongKeSnapshotService::class, ThongKeSnapshotService::class);
+        $this->app->bind(UserService::class, UserService::class);
+        $this->app->bind(DotKiemTraThietBiService::class, DotKiemTraThietBiService::class);
     }
 
     /**

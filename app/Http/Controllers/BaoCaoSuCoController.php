@@ -4,10 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Services\BaoCaoSuCoService;
 use App\Services\LichSuBaoDuongService;
+use App\Services\ThietBiService;
+use App\Services\DotKiemTraThietBiService;
 use App\Http\Requests\BaoCaoSuCo\StoreBaoCaoSuCoRequest;
-use App\Models\BaoCaoSuCo;
-use App\Models\DotKiemTraThietBi;
-use App\Models\ThietBi;
 use App\Exports\BaoCaoSuCoExport;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -17,13 +16,19 @@ class BaoCaoSuCoController extends Controller
 {
     protected $baoCaoService;
     protected $lichSuService;
+    protected $thietBiService;
+    protected $dotKiemTraService;
 
     public function __construct(
         BaoCaoSuCoService $baoCaoService,
-        LichSuBaoDuongService $lichSuService
+        LichSuBaoDuongService $lichSuService,
+        ThietBiService $thietBiService,
+        DotKiemTraThietBiService $dotKiemTraService
     ) {
-        $this->baoCaoService = $baoCaoService;
-        $this->lichSuService = $lichSuService;
+        $this->baoCaoService     = $baoCaoService;
+        $this->lichSuService     = $lichSuService;
+        $this->thietBiService    = $thietBiService;
+        $this->dotKiemTraService = $dotKiemTraService;
     }
 
     // ─── Public: Room QR form ─────────────────────────────────────────────────
@@ -65,48 +70,25 @@ class BaoCaoSuCoController extends Controller
 
     // ─── Auth: Device QR quick-repair form (token-based) ─────────────────────
 
-    private function getThietBiByToken(string $token): ThietBi
-    {
-        $thietBi = ThietBi::where('qr_token', $token)
-            ->where('trang_thai_du_lieu', 'hien_hanh')
-            ->firstOrFail();
-        return $thietBi->load('phong.khuNha.coSo');
-    }
-
-    private function getActiveDotKiemTra(): ?DotKiemTraThietBi
-    {
-        return DotKiemTraThietBi::query()
-            ->where('is_active', true)
-            ->latest('id')
-            ->first();
-    }
-
     public function showSuaChuaForm(string $token)
     {
-        $thietBi = $this->getThietBiByToken($token);
-        $soLanSuaChua = $thietBi->lichSuBaoDuongs()
-            ->where('loai_bao_duong', 'sua_chua')
-            ->count();
-        $lichSuDangSua = $thietBi->lichSuBaoDuongs()
-            ->where('trang_thai', 'dang_thuc_hien')
-            ->latest('updated_at')
-            ->first();
-        $baoCaoDangMo = BaoCaoSuCo::where('thiet_bi_id', $thietBi->id)
-            ->whereIn('trang_thai', ['yeu_cau_sua_chua', 'dang_sua_chua'])
-            ->latest()
-            ->first();
+        $thietBi = $this->thietBiService->getByQrToken($token);
+        $soLanSuaChua = $this->lichSuService->countSuaChuaByThietBi($thietBi->id);
+        $lichSuDangSua = $this->lichSuService->getDangThucHienByThietBi($thietBi->id);
+        $coPhienDangSua = $this->baoCaoService->hasOpenReportForThietBi($thietBi->id);
+
         return Inertia::render('BaoCao/SuaChuaForm', [
             'thietBi'           => $thietBi,
             'soLanSuaChua'      => $soLanSuaChua,
             'token'             => $token,
             'lichSuDangSuaChua' => $lichSuDangSua,
-            'coPhienDangSua'    => (bool) $baoCaoDangMo,
+            'coPhienDangSua'    => $coPhienDangSua,
         ]);
     }
 
     public function submitSuaChua(Request $request, string $token)
     {
-        $thietBi = $this->getThietBiByToken($token);
+        $thietBi = $this->thietBiService->getByQrToken($token);
 
         $validated = $request->validate([
             'hu_hong_mo_ta'  => 'required|string|min:5|max:500',
@@ -119,7 +101,7 @@ class BaoCaoSuCoController extends Controller
         ]);
         $dotKiemTraThietBiId = null;
         if ($validated['hinh_thuc_sua_chua'] === 'dinh_ky_kiem_tra') {
-            $activeDot = $this->getActiveDotKiemTra();
+            $activeDot = $this->dotKiemTraService->getActiveDot();
             if (!$activeDot) {
                 return back()->withErrors([
                     'hinh_thuc_sua_chua' => 'Hiện chưa có đợt quản lý active từ admin để ghi nhận sửa chữa định kỳ.',
@@ -132,10 +114,7 @@ class BaoCaoSuCoController extends Controller
 
         $lichSuTrangThai = $validated['trang_thai'] === 'hoan_thanh' ? 'hoan_thanh' : 'dang_thuc_hien';
         $noiDungSuaChua = "Hư hỏng: {$validated['hu_hong_mo_ta']}\n\nSửa chữa: {$validated['noi_dung']}";
-        $lichSuDangSua = $thietBi->lichSuBaoDuongs()
-            ->where('trang_thai', 'dang_thuc_hien')
-            ->latest('updated_at')
-            ->first();
+        $lichSuDangSua = $this->lichSuService->getDangThucHienByThietBi($thietBi->id);
         $chiPhi = array_key_exists('chi_phi', $validated) && $validated['chi_phi'] !== null
             ? (float) $validated['chi_phi']
             : 0;
@@ -179,8 +158,7 @@ class BaoCaoSuCoController extends Controller
         $filters = $request->only(['search', 'phong_id', 'muc_do', 'trang_thai', 'dot_id', 'per_page']);
         $baoCaos = $this->baoCaoService->getAllPaginated($filters, (int)$request->input('per_page', 15));
         $stats   = $this->baoCaoService->getStats();
-        $dots    = DotKiemTraThietBi::orderByDesc('id')
-            ->get(['id', 'ten_dot', 'ngay_bat_dau', 'ngay_ket_thuc']);
+        $dots    = $this->dotKiemTraService->getAllForDropdown();
 
         return Inertia::render('BaoCaoSuCo/Index', [
             'baoCaos' => $baoCaos,

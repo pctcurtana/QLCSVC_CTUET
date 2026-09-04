@@ -299,5 +299,56 @@ class ThietBiRepository implements ThietBiRepositoryInterface
 
         return $query->get()->groupBy('phong_id');
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getForQrManagement(): Collection
+    {
+        return $this->model
+            ->where('thiet_bis.trang_thai_du_lieu', 'hien_hanh')
+            ->leftJoin('phongs as p', 'p.id', '=', 'thiet_bis.phong_id')
+            ->leftJoin('khu_nhas as kn', 'kn.id', '=', 'p.khu_nha_id')
+            ->leftJoin('co_sos as cs', 'cs.id', '=', 'kn.co_so_id')
+            ->select(
+                'thiet_bis.id', 'thiet_bis.qr_token', 'thiet_bis.ma_thiet_bi', 'thiet_bis.ten_thiet_bi', 'thiet_bis.loai_thiet_bi',
+                'thiet_bis.phong_id', 'p.khu_nha_id', 'kn.co_so_id',
+                'p.ten_phong', 'kn.ten_khu_nha', 'cs.ten_co_so'
+            )
+            ->orderBy('cs.ten_co_so')->orderBy('kn.ten_khu_nha')->orderBy('p.ten_phong')
+            ->get();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function regenerateQrToken(int $id): bool
+    {
+        $thietBi = $this->model
+            ->where('id', $id)
+            ->where('trang_thai_du_lieu', 'hien_hanh')
+            ->firstOrFail();
+
+        return $thietBi->update([
+            'qr_token' => \Illuminate\Support\Str::uuid(),
+        ]);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getByQrToken(string $token): ?ThietBi
+    {
+        $thietBi = $this->model
+            ->where('qr_token', $token)
+            ->where('trang_thai_du_lieu', 'hien_hanh')
+            ->first();
+
+        if ($thietBi) {
+            $thietBi->load('phong.khuNha.coSo');
+        }
+
+        return $thietBi;
+    }
 }
 

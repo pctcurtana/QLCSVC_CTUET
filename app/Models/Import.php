@@ -72,8 +72,8 @@ class Import extends Model
             Log::warning("cleanupStaleImports: Import #{$import->id} quá 2 giờ, đánh dấu failed.");
         }
 
-        // 2. Import processing kẹt > 30 giây → khôi phục (re-dispatch)
-        $staleImports = self::where('status', 'processing')
+        // 2. Import pending hoặc processing kẹt > 30 giây (và <= 2 giờ) → khôi phục (re-dispatch)
+        $staleImports = self::whereIn('status', ['pending', 'processing'])
             ->where('updated_at', '<=', now()->subSeconds(30))
             ->where('updated_at', '>', now()->subSeconds(7200))
             ->get();

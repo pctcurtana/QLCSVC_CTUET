@@ -156,5 +156,48 @@ class PhongRepository implements PhongRepositoryInterface
             ->groupBy('trang_thai')
             ->get();
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getForQrManagement(): Collection
+    {
+        return $this->model
+            ->where('phongs.trang_thai_du_lieu', 'hien_hanh')
+            ->leftJoin('khu_nhas as kn', 'kn.id', '=', 'phongs.khu_nha_id')
+            ->leftJoin('co_sos as cs', 'cs.id', '=', 'kn.co_so_id')
+            ->select(
+                'phongs.id', 'phongs.ma_phong', 'phongs.ten_phong', 'phongs.qr_token',
+                'phongs.khu_nha_id', 'kn.co_so_id',
+                'kn.ten_khu_nha', 'cs.ten_co_so'
+            )
+            ->orderBy('cs.ten_co_so')->orderBy('kn.ten_khu_nha')->orderBy('phongs.ten_phong')
+            ->get();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function regenerateQrToken(int $id): bool
+    {
+        $phong = $this->model->findOrFail($id);
+        return $phong->update([
+            'qr_token' => \Illuminate\Support\Str::uuid(),
+        ]);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getDistinctTang(): array
+    {
+        return $this->model
+            ->where('trang_thai_du_lieu', 'hien_hanh')
+            ->select('tang')
+            ->distinct()
+            ->orderBy('tang')
+            ->pluck('tang')
+            ->toArray();
+    }
 }
 

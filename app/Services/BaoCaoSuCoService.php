@@ -87,4 +87,12 @@ class BaoCaoSuCoService
     {
         return $this->repository->countByTrangThai();
     }
+
+    /**
+     * Kiểm tra thiết bị có báo cáo đang mở (yêu cầu sửa chữa hoặc đang sửa) không.
+     */
+    public function hasOpenReportForThietBi(int $thietBiId): bool
+    {
+        return $this->repository->hasOpenReportForDevice($thietBiId);
+    }
 }

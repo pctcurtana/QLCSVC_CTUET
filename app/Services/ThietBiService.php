@@ -251,5 +251,37 @@ class ThietBiService
 
         return $result;
     }
+
+    /**
+     * Lấy danh sách thiết bị cho quản lý QR (kèm phòng, khu nhà, cơ sở).
+     */
+    public function getForQrManagement(): \Illuminate\Database\Eloquent\Collection
+    {
+        return $this->thietBiRepository->getForQrManagement();
+    }
+
+    /**
+     * Tạo lại QR token cho thiết bị.
+     */
+    public function regenerateQrToken(int $id): bool
+    {
+        return $this->thietBiRepository->regenerateQrToken($id);
+    }
+
+    /**
+     * Lấy thiết bị theo QR token (kèm phòng, khu nhà, cơ sở).
+     *
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     */
+    public function getByQrToken(string $token): \App\Models\ThietBi
+    {
+        $thietBi = $this->thietBiRepository->getByQrToken($token);
+
+        if (!$thietBi) {
+            throw new \Illuminate\Database\Eloquent\ModelNotFoundException('Không tìm thấy thiết bị với mã QR này.');
+        }
+
+        return $thietBi;
+    }
 }
 

@@ -94,5 +94,27 @@ interface PhongRepositoryInterface
      * @return Collection
      */
     public function getStatsByStatus(): Collection;
+
+    /**
+     * Lấy danh sách phòng cho quản lý QR (kèm khu nhà, cơ sở)
+     *
+     * @return Collection
+     */
+    public function getForQrManagement(): Collection;
+
+    /**
+     * Tạo lại QR token cho phòng
+     *
+     * @param int $id
+     * @return bool
+     */
+    public function regenerateQrToken(int $id): bool;
+
+    /**
+     * Lấy danh sách tầng unique
+     *
+     * @return array
+     */
+    public function getDistinctTang(): array;
 }
 

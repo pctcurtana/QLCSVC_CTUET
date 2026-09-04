@@ -206,5 +206,29 @@ class PhongService
             return $newRecord;
         });
     }
+
+    /**
+     * Lấy danh sách phòng cho quản lý QR (kèm khu nhà, cơ sở).
+     */
+    public function getForQrManagement(): \Illuminate\Database\Eloquent\Collection
+    {
+        return $this->phongRepository->getForQrManagement();
+    }
+
+    /**
+     * Tạo lại QR token cho phòng.
+     */
+    public function regenerateQrToken(int $id): bool
+    {
+        return $this->phongRepository->regenerateQrToken($id);
+    }
+
+    /**
+     * Lấy danh sách tầng unique.
+     */
+    public function getDistinctTang(): array
+    {
+        return $this->phongRepository->getDistinctTang();
+    }
 }
 

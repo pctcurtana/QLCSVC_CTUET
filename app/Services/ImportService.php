@@ -6,6 +6,8 @@ use App\Imports\CoSoImport;
 use App\Imports\KhuNhaImport;
 use App\Imports\PhongImport;
 use App\Imports\ThietBiImport;
+use App\Models\Import;
+use App\Jobs\ProcessExcelImport;
 use Illuminate\Http\UploadedFile;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Services\ThongKeSnapshotService;
@@ -21,6 +23,38 @@ use App\Services\ThongKeSnapshotService;
  */
 class ImportService
 {
+    /**
+     * Khởi tạo lượt import mới: cleanup stale, kiểm tra active, lưu file, tạo record, dispatch job.
+     *
+     * @param string $module Tên module (co_so, khu_nha, phong, thiet_bi)
+     * @param UploadedFile $file File Excel được upload
+     * @return Import Bản ghi import vừa tạo
+     * @throws \RuntimeException Nếu đang có import khác đang chạy
+     */
+    public function startImport(string $module, UploadedFile $file): Import
+    {
+        Import::cleanupStaleImports();
+
+        $hasActive = Import::whereIn('status', ['pending', 'processing'])->exists();
+        if ($hasActive) {
+            throw new \RuntimeException('Hệ thống đang xử lý một lượt import khác. Vui lòng chờ cho đến khi hoàn tất.');
+        }
+
+        $originalName = $file->getClientOriginalName();
+        $filePath = $file->store('imports/tmp', 'local');
+        $import = Import::create([
+            'user_id'           => auth()->id(),
+            'module'            => $module,
+            'file_path'         => $filePath,
+            'original_filename' => $originalName,
+            'status'            => 'pending',
+        ]);
+
+        ProcessExcelImport::dispatch($import->id, $module)->onQueue('imports');
+
+        return $import;
+    }
+
     /**
      * Import Cơ sở từ file Excel.
      *
@@ -101,3 +135,4 @@ class ImportService
         return $result;
     }
 }
+

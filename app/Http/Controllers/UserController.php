@@ -2,40 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Services\UserService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 class UserController extends Controller
 {
     /**
+     * @var UserService
+     */
+    protected $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
+    /**
      * Hiển thị danh sách người dùng
      */
     public function index(Request $request)
     {
-        $query = User::query();
-
-        // Tìm kiếm
-        if ($request->filled('search')) {
-            $search = $request->search;
-            $query->where(function ($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('email', 'like', "%{$search}%");
-            });
-        }
-
-        // Lọc theo role
-        if ($request->filled('role')) {
-            $query->where('role', $request->role);
-        }
-
-        $users = $query->orderBy('name')->paginate((int)$request->input('per_page', 10))->withQueryString();
+        $filters = $request->only(['search', 'role', 'per_page']);
+        $users = $this->userService->getAllPaginated($filters, (int)$request->input('per_page', 10));
 
         return Inertia::render('User/Index', [
-            'users' => $users,
-            'filters' => $request->only(['search', 'role', 'per_page']),
+            'users'   => $users,
+            'filters' => $filters,
         ]);
     }
 
@@ -53,27 +47,22 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-            'role' => 'required|in:admin,user',
+            'role'     => 'required|in:admin,user',
         ], [
-            'name.required' => 'Vui lòng nhập tên.',
-            'email.required' => 'Vui lòng nhập email.',
-            'email.email' => 'Email không đúng định dạng.',
-            'email.unique' => 'Email đã tồn tại.',
-            'password.required' => 'Vui lòng nhập mật khẩu.',
-            'password.min' => 'Mật khẩu phải có ít nhất 6 ký tự.',
+            'name.required'      => 'Vui lòng nhập tên.',
+            'email.required'     => 'Vui lòng nhập email.',
+            'email.email'        => 'Email không đúng định dạng.',
+            'email.unique'       => 'Email đã tồn tại.',
+            'password.required'  => 'Vui lòng nhập mật khẩu.',
+            'password.min'       => 'Mật khẩu phải có ít nhất 6 ký tự.',
             'password.confirmed' => 'Xác nhận mật khẩu không khớp.',
-            'role.required' => 'Vui lòng chọn vai trò.',
+            'role.required'      => 'Vui lòng chọn vai trò.',
         ]);
 
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => $request->role,
-        ]);
+        $this->userService->create($request->only(['name', 'email', 'password', 'role']));
 
         return redirect()->route('nguoi-dung.index')->with('success', 'Thêm người dùng thành công!');
     }
@@ -81,93 +70,58 @@ class UserController extends Controller
     /**
      * Hiển thị form chỉnh sửa người dùng
      */
-    public function edit(User $nguoi_dung)
+    public function edit($nguoi_dung)
     {
+        $nguoi_dung = $this->userService->getById($nguoi_dung);
         $isSelf = $nguoi_dung->id === auth()->id();
-        $adminCount = User::where('role', 'admin')->count();
-        
+
         return Inertia::render('User/Edit', [
-            'user' => $nguoi_dung,
-            'isSelf' => $isSelf,
-            'isLastAdmin' => $nguoi_dung->role === 'admin' && $adminCount <= 1,
+            'user'        => $nguoi_dung,
+            'isSelf'      => $isSelf,
+            'isLastAdmin' => $this->userService->isLastAdmin($nguoi_dung),
         ]);
     }
 
     /**
      * Cập nhật người dùng
      */
-    public function update(Request $request, User $nguoi_dung)
+    public function update(Request $request, $nguoi_dung)
     {
-        $isSelf = $nguoi_dung->id === auth()->id();
-        $adminCount = User::where('role', 'admin')->count();
-        $isLastAdmin = $nguoi_dung->role === 'admin' && $adminCount <= 1;
+        $nguoi_dung = $this->userService->getById($nguoi_dung);
 
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($nguoi_dung->id)],
+            'name'     => 'required|string|max:255',
+            'email'    => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($nguoi_dung->id)],
             'password' => 'nullable|string|min:6|confirmed',
-            'role' => 'required|in:admin,user',
+            'role'     => 'required|in:admin,user',
         ], [
-            'name.required' => 'Vui lòng nhập tên.',
-            'email.required' => 'Vui lòng nhập email.',
-            'email.email' => 'Email không đúng định dạng.',
-            'email.unique' => 'Email đã tồn tại.',
-            'password.min' => 'Mật khẩu phải có ít nhất 6 ký tự.',
+            'name.required'      => 'Vui lòng nhập tên.',
+            'email.required'     => 'Vui lòng nhập email.',
+            'email.email'        => 'Email không đúng định dạng.',
+            'email.unique'       => 'Email đã tồn tại.',
+            'password.min'       => 'Mật khẩu phải có ít nhất 6 ký tự.',
             'password.confirmed' => 'Xác nhận mật khẩu không khớp.',
-            'role.required' => 'Vui lòng chọn vai trò.',
+            'role.required'      => 'Vui lòng chọn vai trò.',
         ]);
 
-        // Không cho phép admin tự thay đổi vai trò của chính mình
-        if ($isSelf && $request->role !== $nguoi_dung->role) {
-            return back()->with('error', 'Không thể thay đổi vai trò của chính mình!');
+        try {
+            $this->userService->update($nguoi_dung->id, $request->only(['name', 'email', 'password', 'role']), auth()->id());
+            return redirect()->route('nguoi-dung.index')->with('success', 'Cập nhật người dùng thành công!');
+        } catch (\RuntimeException $e) {
+            return back()->with('error', $e->getMessage());
         }
-
-        // Không cho hạ cấp admin cuối cùng
-        if ($isLastAdmin && $request->role !== 'admin') {
-            return back()->with('error', 'Không thể hạ cấp admin cuối cùng trong hệ thống!');
-        }
-
-        $data = [
-            'name' => $request->name,
-            'email' => $request->email,
-        ];
-
-        // Chỉ cập nhật role nếu không phải chính mình
-        if (!$isSelf) {
-            $data['role'] = $request->role;
-        }
-
-        if ($request->filled('password')) {
-            $data['password'] = Hash::make($request->password);
-        }
-
-        $nguoi_dung->update($data);
-
-        return redirect()->route('nguoi-dung.index')->with('success', 'Cập nhật người dùng thành công!');
     }
 
     /**
      * Xóa người dùng
      */
-    public function destroy(User $nguoi_dung)
+    public function destroy($nguoi_dung)
     {
-        // Không cho xóa chính mình
-        if ($nguoi_dung->id === auth()->id()) {
-            return back()->with('error', 'Không thể xóa tài khoản của chính mình!');
+        try {
+            $this->userService->delete($nguoi_dung, auth()->id());
+            return redirect()->route('nguoi-dung.index')->with('success', 'Xóa người dùng thành công!');
+        } catch (\RuntimeException $e) {
+            return back()->with('error', $e->getMessage());
         }
-
-        // Không cho xóa admin cuối cùng
-        if ($nguoi_dung->role === 'admin') {
-            $adminCount = User::where('role', 'admin')->count();
-            if ($adminCount <= 1) {
-                return back()->with('error', 'Không thể xóa admin cuối cùng trong hệ thống!');
-            }
-        }
-
-        $nguoi_dung->delete();
-
-        return redirect()->route('nguoi-dung.index')->with('success', 'Xóa người dùng thành công!');
     }
 }
-
-
